@@ -1,6 +1,6 @@
 ---
-name: 기능 구현
-about: Feature Todo
+name: Feature request
+about: Standard fature request template
 title: ''
 labels: Feature 🎨
 assignees: ''
