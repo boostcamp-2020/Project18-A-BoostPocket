@@ -16,5 +16,9 @@ class ViewController: UIViewController {
     }
 
 
+    @IBAction func newTravelButtonTapped(_ sender: Any) {
+        let countryListVC = CountryListViewController.init(nibName: "CountryListViewController", bundle: nil)
+        self.present(countryListVC, animated: true, completion: nil)
+    }
 }
 
