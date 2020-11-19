@@ -1,7 +1,11 @@
 # BoostPocket ✈️
 
+<p align="middle">
+  
 ![Swift](https://img.shields.io/badge/swift-v5.1-red?logo=swift) 
 ![Xcode](https://img.shields.io/badge/xcode-v12.1-blue?logo=xcode)
+  
+</p>
 
 [![GitHub Open Issues](https://img.shields.io/github/issues-raw/boostcamp-2020/Project18-A-BoostPocket?color=green)](https://github.com/boostcamp-2020/Project18-A-BoostPocket/issues)
 [![GitHub Closed Issues](https://img.shields.io/github/issues-closed-raw/boostcamp-2020/Project18-A-BoostPocket?color=red)](https://github.com/boostcamp-2020/Project18-A-BoostPocket/issues)
@@ -31,7 +35,7 @@
 <br>
 
 ## 프로젝트 진행
-#### [기능 정의서](https://docs.google.com/spreadsheets/d/19Urencx8R7EFYPD1Mnh1Hqx5l-yV6KTE54ZrKQ7p0JY/edit#gid=0)
+#### [기능 정의서](https://docs.google.com/spreadsheets/d/19Urencx8R7EFYPD1Mnh1Hqx5l-yV6KTE54ZrKQ7p0JY/edit?usp=sharing)
 #### [기획서](https://github.com/boostcamp-2020/Project18-A-BoostPocket/wiki/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B8%B0%ED%9A%8D%EC%84%9C)
 #### [데이터 구조](https://github.com/boostcamp-2020/Project18-A-BoostPocket/wiki/ERD)
 
