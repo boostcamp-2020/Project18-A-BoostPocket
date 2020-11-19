@@ -7,9 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */; };
+		5C3DAF302566576000178EA0 /* CountryListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */; };
+		5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3325665F0200178EA0 /* CountryCell.swift */; };
+		5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3425665F0200178EA0 /* CountryCell.xib */; };
+		5C3DAF3A25666A8000178EA0 /* TravelDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */; };
+		5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */; };
 		95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7925664DBE0007810C /* AppDelegate.swift */; };
 		95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7B25664DBE0007810C /* SceneDelegate.swift */; };
-		95A42E7E25664DBE0007810C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7D25664DBE0007810C /* ViewController.swift */; };
+		95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7D25664DBE0007810C /* TravelListViewController.swift */; };
 		95A42E8125664DBE0007810C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E7F25664DBE0007810C /* Main.storyboard */; };
 		95A42E8425664DBE0007810C /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
 		95A42E8625664DC40007810C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8525664DC40007810C /* Assets.xcassets */; };
@@ -28,10 +34,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewController.swift; sourceTree = "<group>"; };
+		5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryListViewController.xib; sourceTree = "<group>"; };
+		5C3DAF3325665F0200178EA0 /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
+		5C3DAF3425665F0200178EA0 /* CountryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryCell.xib; sourceTree = "<group>"; };
+		5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TravelDetail.storyboard; sourceTree = "<group>"; };
+		5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProfileViewController.swift; sourceTree = "<group>"; };
 		95A42E7625664DBE0007810C /* BoostPocket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoostPocket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A42E7925664DBE0007810C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95A42E7B25664DBE0007810C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		95A42E7D25664DBE0007810C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		95A42E7D25664DBE0007810C /* TravelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewController.swift; sourceTree = "<group>"; };
 		95A42E8025664DBE0007810C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		95A42E8325664DBE0007810C /* BoostPocket.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BoostPocket.xcdatamodel; sourceTree = "<group>"; };
 		95A42E8525664DC40007810C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,12 +95,18 @@
 			children = (
 				95A42E7925664DBE0007810C /* AppDelegate.swift */,
 				95A42E7B25664DBE0007810C /* SceneDelegate.swift */,
-				95A42E7D25664DBE0007810C /* ViewController.swift */,
+				95A42E7D25664DBE0007810C /* TravelListViewController.swift */,
 				95A42E7F25664DBE0007810C /* Main.storyboard */,
 				95A42E8525664DC40007810C /* Assets.xcassets */,
 				95A42E8725664DC40007810C /* LaunchScreen.storyboard */,
 				95A42E8A25664DC40007810C /* Info.plist */,
 				95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */,
+				5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */,
+				5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */,
+				5C3DAF3325665F0200178EA0 /* CountryCell.swift */,
+				5C3DAF3425665F0200178EA0 /* CountryCell.xib */,
+				5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */,
+				5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */,
 			);
 			path = BoostPocket;
 			sourceTree = "<group>";
@@ -183,9 +201,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */,
 				95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */,
+				5C3DAF302566576000178EA0 /* CountryListViewController.xib in Resources */,
 				95A42E8625664DC40007810C /* Assets.xcassets in Resources */,
 				95A42E8125664DBE0007810C /* Main.storyboard in Resources */,
+				5C3DAF3A25666A8000178EA0 /* TravelDetail.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +224,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95A42E7E25664DBE0007810C /* ViewController.swift in Sources */,
+				95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */,
+				5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */,
+				5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */,
+				5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */,
 				95A42E8425664DBE0007810C /* BoostPocket.xcdatamodeld in Sources */,
 				95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */,
 				95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */,
