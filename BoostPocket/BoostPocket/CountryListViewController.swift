@@ -11,8 +11,10 @@ import UIKit
 class CountryListViewController: UIViewController {
     
     var countries: [String] = ["a", "b", "c", "d", "e"]
+    var doneButtonHandler: (() -> Void)?
     
     @IBOutlet weak var countryListTableView: UITableView!
+    @IBOutlet weak var countrySearchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +43,12 @@ class CountryListViewController: UIViewController {
     }
     
     @objc func doneButtonTapped() {
-        guard let selectedIndexPath = countryListTableView.indexPathForSelectedRow else { return }
-        print(countries[selectedIndexPath.row])
-        dismiss(animated: true, completion: nil)
+        if let selectedIndexPath = countryListTableView.indexPathForSelectedRow {
+            // countries[selectedIndexPath.row]
+        }
+        dismiss(animated: true) { [weak self] in
+            self?.doneButtonHandler?()
+        }
     }
 }
 

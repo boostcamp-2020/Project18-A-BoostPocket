@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CountryListViewController" customModule="BoostPocket" customModuleProvider="target">
             <connections>
                 <outlet property="countryListTableView" destination="9EY-A2-ECE" id="95g-8M-1c1"/>
+                <outlet property="countrySearchBar" destination="BG1-lx-Ov2" id="qly-vP-KhV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,17 +22,24 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9EY-A2-ECE">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="105" width="414" height="757"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="BG1-lx-Ov2">
+                    <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="BG1-lx-Ov2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8rd-oE-BUG"/>
+                <constraint firstItem="9EY-A2-ECE" firstAttribute="top" secondItem="BG1-lx-Ov2" secondAttribute="bottom" constant="5" id="EeH-KE-D4u"/>
+                <constraint firstItem="BG1-lx-Ov2" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Sqt-KI-HAc"/>
+                <constraint firstItem="BG1-lx-Ov2" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Z2I-EB-x0d"/>
                 <constraint firstAttribute="trailing" secondItem="9EY-A2-ECE" secondAttribute="trailing" id="eQb-CU-GFt"/>
                 <constraint firstItem="9EY-A2-ECE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="jXH-cC-tzh"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="9EY-A2-ECE" secondAttribute="bottom" id="r8h-pb-wDs"/>
-                <constraint firstItem="9EY-A2-ECE" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="wAa-xu-jXU"/>
             </constraints>
             <point key="canvasLocation" x="134.78260869565219" y="130.58035714285714"/>
         </view>
