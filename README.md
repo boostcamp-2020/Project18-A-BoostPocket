@@ -1,17 +1,31 @@
 # BoostPocket ✈️
 
+
 <p align="middle">
-  
-![Swift](https://img.shields.io/badge/swift-v5.1-red?logo=swift) 
-![Xcode](https://img.shields.io/badge/xcode-v12.1-blue?logo=xcode)
-  
+  <a>
+    <img src="https://img.shields.io/badge/swift-v5.1-red?logo=swift" />
+  </a>
+    <a>
+    <img src="https://img.shields.io/badge/xcode-v12.1-blue?logo=xcode" />
+  </a>
 </p>
 
-[![GitHub Open Issues](https://img.shields.io/github/issues-raw/boostcamp-2020/Project18-A-BoostPocket?color=green)](https://github.com/boostcamp-2020/Project18-A-BoostPocket/issues)
-[![GitHub Closed Issues](https://img.shields.io/github/issues-closed-raw/boostcamp-2020/Project18-A-BoostPocket?color=red)](https://github.com/boostcamp-2020/Project18-A-BoostPocket/issues)
-[![GitHub Open PR](https://img.shields.io/github/issues-pr-raw/boostcamp-2020/Project18-A-BoostPocket?color=green)](https://github.com/boostcamp-2020/Project18-A-BoostPocket/issues)
-[![GitHub Closed PR](https://img.shields.io/github/issues-pr-closed-raw/boostcamp-2020/Project18-A-BoostPocket?color=red)](https://github.com/boostcamp-2020/Project18-A-BoostPocket/issues)
+<p align="middle">
+  <a href="https://github.com/boostcamp-2020/Project18-A-BoostPocket/issues">
+    <img alt="issue tracking" src="https://img.shields.io/github/issues-raw/boostcamp-2020/Project18-A-BoostPocket?color=green"/>
+  </a>
+  <a href="https://github.com/boostcamp-2020/Project18-A-BoostPocket/issues">
+    <img alt="issue tracking" src="https://img.shields.io/github/issues-closed-raw/boostcamp-2020/Project18-A-BoostPocket?color=red"/>
+  </a>
+    <a href="https://github.com/boostcamp-2020/Project18-A-BoostPocket/issues">
+    <img alt="issue tracking" src="https://img.shields.io/github/issues-pr-raw/boostcamp-2020/Project18-A-BoostPocket?color=green"/>
+  </a>
+    <a href="https://github.com/boostcamp-2020/Project18-A-BoostPocket/issues">
+    <img alt="issue tracking" src="https://img.shields.io/github/issues-pr-closed-raw/boostcamp-2020/Project18-A-BoostPocket?color=red"/>
+  </a>
+</p>
 
+<br>
 
 ## 소개
 > 여행 경비 관리 앱 [트라비포켓](https://apps.apple.com/kr/app/%ED%8A%B8%EB%9D%BC%EB%B9%84%ED%8F%AC%EC%BC%93-%EC%97%AC%ED%96%89%EA%B0%80%EA%B3%84%EB%B6%80-%EC%97%AC%ED%96%89-%EA%B2%BD%EB%B9%84-%EA%B4%80%EB%A6%AC/id673659438)의 클론 프로젝트입니다.
