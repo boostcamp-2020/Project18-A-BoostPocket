@@ -51,6 +51,7 @@
 
 |🧑🏻‍💻 유시형|👩🏻‍💻 이승진|👩🏻‍💻 조송주|
 |-|-|-|
+|<img src="https://user-images.githubusercontent.com/65107199/99751943-a44a0c80-2b26-11eb-9d62-ffd30f1978b9.jpg" width="350px;">|<img src="https://user-images.githubusercontent.com/65107199/99751947-a57b3980-2b26-11eb-97d2-d68ccbb20f69.jpg" width="350px;">|<img src="https://user-images.githubusercontent.com/65107199/99751950-a6ac6680-2b26-11eb-95e5-dc209529d64d.jpg" width="350px;">|
 |[@sihyungyou](https://github.com/sihyungyou)|[@devilzcough](https://github.com/devilzcough)|[@songjucho](https://github.com/songjucho)|
 
 <br>
