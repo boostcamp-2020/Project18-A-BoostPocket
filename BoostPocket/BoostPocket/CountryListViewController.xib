@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CountryListViewController" customModule="BoostPocket" customModuleProvider="target">
+            <connections>
+                <outlet property="countryListTableView" destination="9EY-A2-ECE" id="95g-8M-1c1"/>
+                <outlet property="countrySearchBar" destination="BG1-lx-Ov2" id="qly-vP-KhV"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9EY-A2-ECE">
+                    <rect key="frame" x="0.0" y="105" width="414" height="757"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="BG1-lx-Ov2">
+                    <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="BG1-lx-Ov2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8rd-oE-BUG"/>
+                <constraint firstItem="9EY-A2-ECE" firstAttribute="top" secondItem="BG1-lx-Ov2" secondAttribute="bottom" constant="5" id="EeH-KE-D4u"/>
+                <constraint firstItem="BG1-lx-Ov2" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Sqt-KI-HAc"/>
+                <constraint firstItem="BG1-lx-Ov2" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Z2I-EB-x0d"/>
+                <constraint firstAttribute="trailing" secondItem="9EY-A2-ECE" secondAttribute="trailing" id="eQb-CU-GFt"/>
+                <constraint firstItem="9EY-A2-ECE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="jXH-cC-tzh"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="9EY-A2-ECE" secondAttribute="bottom" id="r8h-pb-wDs"/>
+            </constraints>
+            <point key="canvasLocation" x="134.78260869565219" y="130.58035714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
