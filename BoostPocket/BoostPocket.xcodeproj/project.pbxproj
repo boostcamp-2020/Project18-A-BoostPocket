@@ -23,6 +23,10 @@
 		9572F994256B54E4003049CB /* NetworkManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9572F97D256B54E4003049CB /* NetworkManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9572F99C256B552E003049CB /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F99B256B552E003049CB /* DataLoader.swift */; };
 		9572F99D256B552E003049CB /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F99B256B552E003049CB /* DataLoader.swift */; };
+		9572F9A3256B8FBA003049CB /* Travel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F99F256B8FBA003049CB /* Travel+CoreDataClass.swift */; };
+		9572F9A4256B8FBA003049CB /* Travel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A0256B8FBA003049CB /* Travel+CoreDataProperties.swift */; };
+		9572F9A5256B8FBA003049CB /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A1256B8FBA003049CB /* Country+CoreDataClass.swift */; };
+		9572F9A6256B8FBA003049CB /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A2256B8FBA003049CB /* Country+CoreDataProperties.swift */; };
 		95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7925664DBE0007810C /* AppDelegate.swift */; };
 		95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7B25664DBE0007810C /* SceneDelegate.swift */; };
 		95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7D25664DBE0007810C /* TravelListViewController.swift */; };
@@ -98,6 +102,10 @@
 		9572F98C256B54E4003049CB /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		9572F98E256B54E4003049CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9572F99B256B552E003049CB /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
+		9572F99F256B8FBA003049CB /* Travel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Travel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9572F9A0256B8FBA003049CB /* Travel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Travel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9572F9A1256B8FBA003049CB /* Country+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9572F9A2256B8FBA003049CB /* Country+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		95A42E7625664DBE0007810C /* BoostPocket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoostPocket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A42E7925664DBE0007810C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95A42E7B25664DBE0007810C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +185,17 @@
 			path = NetworkManagerTests;
 			sourceTree = "<group>";
 		};
+		9572F99E256B8F42003049CB /* CoreDataModels */ = {
+			isa = PBXGroup;
+			children = (
+				9572F99F256B8FBA003049CB /* Travel+CoreDataClass.swift */,
+				9572F9A0256B8FBA003049CB /* Travel+CoreDataProperties.swift */,
+				9572F9A1256B8FBA003049CB /* Country+CoreDataClass.swift */,
+				9572F9A2256B8FBA003049CB /* Country+CoreDataProperties.swift */,
+			);
+			path = CoreDataModels;
+			sourceTree = "<group>";
+		};
 		95A42E6D25664DBE0007810C = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +224,7 @@
 		95A42E7825664DBE0007810C /* BoostPocket */ = {
 			isa = PBXGroup;
 			children = (
+				9572F99E256B8F42003049CB /* CoreDataModels */,
 				95A42E7925664DBE0007810C /* AppDelegate.swift */,
 				95A42E7B25664DBE0007810C /* SceneDelegate.swift */,
 				95A42E7D25664DBE0007810C /* TravelListViewController.swift */,
@@ -528,9 +548,13 @@
 				5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */,
 				5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */,
 				5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */,
+				9572F9A4256B8FBA003049CB /* Travel+CoreDataProperties.swift in Sources */,
 				95A42E8425664DBE0007810C /* BoostPocket.xcdatamodeld in Sources */,
+				9572F9A6256B8FBA003049CB /* Country+CoreDataProperties.swift in Sources */,
 				95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */,
 				95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */,
+				9572F9A5256B8FBA003049CB /* Country+CoreDataClass.swift in Sources */,
+				9572F9A3256B8FBA003049CB /* Travel+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
