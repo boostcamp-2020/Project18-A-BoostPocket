@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3725D4AFE6D2AE5B6A21D483 /* Pods_BoostPocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B97464333E742D61CD6648 /* Pods_BoostPocket.framework */; };
+		470EEBDB802C6552ECB4E189 /* Pods_BoostPocketTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */; };
 		5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */; };
 		5C3DAF302566576000178EA0 /* CountryListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */; };
 		5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3325665F0200178EA0 /* CountryCell.swift */; };
 		5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3425665F0200178EA0 /* CountryCell.xib */; };
 		5C3DAF3A25666A8000178EA0 /* TravelDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */; };
 		5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */; };
+		9572F977256B5397003049CB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9572F976256B5397003049CB /* .swiftlint.yml */; };
 		95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7925664DBE0007810C /* AppDelegate.swift */; };
 		95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7B25664DBE0007810C /* SceneDelegate.swift */; };
 		95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7D25664DBE0007810C /* TravelListViewController.swift */; };
@@ -34,12 +37,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05B97464333E742D61CD6648 /* Pods_BoostPocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		460E2B0DBA1F49A0D275F156 /* Pods-BoostPocketTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocketTests.release.xcconfig"; path = "Target Support Files/Pods-BoostPocketTests/Pods-BoostPocketTests.release.xcconfig"; sourceTree = "<group>"; };
+		57F756558017352589C6CED3 /* Pods-BoostPocket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.release.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.release.xcconfig"; sourceTree = "<group>"; };
 		5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewController.swift; sourceTree = "<group>"; };
 		5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryListViewController.xib; sourceTree = "<group>"; };
 		5C3DAF3325665F0200178EA0 /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
 		5C3DAF3425665F0200178EA0 /* CountryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryCell.xib; sourceTree = "<group>"; };
 		5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TravelDetail.storyboard; sourceTree = "<group>"; };
 		5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProfileViewController.swift; sourceTree = "<group>"; };
+		81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.debug.xcconfig"; sourceTree = "<group>"; };
+		9572F976256B5397003049CB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		95A42E7625664DBE0007810C /* BoostPocket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoostPocket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A42E7925664DBE0007810C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95A42E7B25664DBE0007810C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +61,7 @@
 		95A42E8F25664DC40007810C /* BoostPocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoostPocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A42E9325664DC40007810C /* BoostPocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostPocketTests.swift; sourceTree = "<group>"; };
 		95A42E9525664DC40007810C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2D16BE855D0105455137550 /* Pods-BoostPocketTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocketTests.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocketTests/Pods-BoostPocketTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3725D4AFE6D2AE5B6A21D483 /* Pods_BoostPocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,18 +77,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				470EEBDB802C6552ECB4E189 /* Pods_BoostPocketTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		412BCF7739918A83178FE6E3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				05B97464333E742D61CD6648 /* Pods_BoostPocket.framework */,
+				81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		95A42E6D25664DBE0007810C = {
 			isa = PBXGroup;
 			children = (
+				9572F976256B5397003049CB /* .swiftlint.yml */,
 				95A42E7825664DBE0007810C /* BoostPocket */,
 				95A42E9225664DC40007810C /* BoostPocketTests */,
 				95A42E7725664DBE0007810C /* Products */,
+				975CDBB5924A01ABC7FC0012 /* Pods */,
+				412BCF7739918A83178FE6E3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -120,6 +144,17 @@
 			path = BoostPocketTests;
 			sourceTree = "<group>";
 		};
+		975CDBB5924A01ABC7FC0012 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */,
+				57F756558017352589C6CED3 /* Pods-BoostPocket.release.xcconfig */,
+				E2D16BE855D0105455137550 /* Pods-BoostPocketTests.debug.xcconfig */,
+				460E2B0DBA1F49A0D275F156 /* Pods-BoostPocketTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -127,9 +162,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 95A42E9825664DC40007810C /* Build configuration list for PBXNativeTarget "BoostPocket" */;
 			buildPhases = (
+				B55ECE59FADBC4DD39B5B4A0 /* [CP] Check Pods Manifest.lock */,
 				95A42E7225664DBE0007810C /* Sources */,
 				95A42E7325664DBE0007810C /* Frameworks */,
 				95A42E7425664DBE0007810C /* Resources */,
+				9572F975256B5326003049CB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -144,6 +181,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 95A42E9B25664DC40007810C /* Build configuration list for PBXNativeTarget "BoostPocketTests" */;
 			buildPhases = (
+				863277859F00183827011288 /* [CP] Check Pods Manifest.lock */,
 				95A42E8B25664DC40007810C /* Sources */,
 				95A42E8C25664DC40007810C /* Frameworks */,
 				95A42E8D25664DC40007810C /* Resources */,
@@ -204,6 +242,7 @@
 				5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */,
 				95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */,
 				5C3DAF302566576000178EA0 /* CountryListViewController.xib in Resources */,
+				9572F977256B5397003049CB /* .swiftlint.yml in Resources */,
 				95A42E8625664DC40007810C /* Assets.xcassets in Resources */,
 				95A42E8125664DBE0007810C /* Main.storyboard in Resources */,
 				5C3DAF3A25666A8000178EA0 /* TravelDetail.storyboard in Resources */,
@@ -218,6 +257,70 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		863277859F00183827011288 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BoostPocketTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9572F975256B5326003049CB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
+		};
+		B55ECE59FADBC4DD39B5B4A0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BoostPocket-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		95A42E7225664DBE0007810C /* Sources */ = {
@@ -388,6 +491,7 @@
 		};
 		95A42E9925664DC40007810C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -406,6 +510,7 @@
 		};
 		95A42E9A25664DC40007810C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57F756558017352589C6CED3 /* Pods-BoostPocket.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -424,6 +529,7 @@
 		};
 		95A42E9C25664DC40007810C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2D16BE855D0105455137550 /* Pods-BoostPocketTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -446,6 +552,7 @@
 		};
 		95A42E9D25664DC40007810C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 460E2B0DBA1F49A0D275F156 /* Pods-BoostPocketTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

@@ -28,6 +28,4 @@ class TravelListViewController: UIViewController {
         self.present(navigationController, animated: true, completion: nil)
     }
     
-    
 }
-
