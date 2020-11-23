@@ -167,6 +167,7 @@
 				95A42E7325664DBE0007810C /* Frameworks */,
 				95A42E7425664DBE0007810C /* Resources */,
 				9572F975256B5326003049CB /* ShellScript */,
+				AEF4ECA62A7CFEDFFDC5ACCA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -297,6 +298,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
+		};
+		AEF4ECA62A7CFEDFFDC5ACCA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BoostPocket/Pods-BoostPocket-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BoostPocket/Pods-BoostPocket-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BoostPocket/Pods-BoostPocket-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		B55ECE59FADBC4DD39B5B4A0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

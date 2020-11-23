@@ -7,6 +7,7 @@ target 'BoostPocket' do
 
   # Pods for BoostPocket
   pod 'SwiftLint'
+  pod 'FlagKit'
 
   target 'BoostPocketTests' do
     inherit! :search_paths
