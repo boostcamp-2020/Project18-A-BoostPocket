@@ -15,7 +15,6 @@ class TravelListViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
     @IBAction func newTravelButtonTapped(_ sender: Any) {
         let countryListVC = CountryListViewController.init(nibName: "CountryListViewController", bundle: nil)
         countryListVC.doneButtonHandler = {
