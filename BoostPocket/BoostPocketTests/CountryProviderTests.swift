@@ -22,7 +22,7 @@ class CountryProviderTests: XCTestCase {
         persistenceManagerStub = nil
     }
     
-    func test_fetch_countries_empty() {
+    func test_fetch_empty_country_list() {
         // given: none
         
         // when
@@ -31,4 +31,25 @@ class CountryProviderTests: XCTestCase {
         // then
         XCTAssertEqual(fetchedCountries, [])
     }
+    
+    func test_create_new_country() {
+        // given
+        let name = "test name"
+        let lastUpdated = Date()
+        let flagImage = Data()
+        let exchangeRate = 1.0
+        let currencyCode = "test currency code"
+        
+        // when
+        let createdCountry = countryProviderStub.createCountry(name: name, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+        
+        // then
+        XCTAssertNotNil(createdCountry)
+        XCTAssertEqual(createdCountry?.name, name)
+        XCTAssertEqual(createdCountry?.lastUpdated, lastUpdated)
+        XCTAssertEqual(createdCountry?.flagImage, flagImage)
+        XCTAssertEqual(createdCountry?.exchangeRate, exchangeRate)
+        XCTAssertEqual(createdCountry?.currencyCode, currencyCode)
+    }
+
 }

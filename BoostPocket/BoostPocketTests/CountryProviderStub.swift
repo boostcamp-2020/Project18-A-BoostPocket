@@ -8,6 +8,4 @@
 
 import Foundation
 
-class CountryProviderStub: CountryProvider {
-    
-}
+class CountryProviderStub: CountryProvider { }

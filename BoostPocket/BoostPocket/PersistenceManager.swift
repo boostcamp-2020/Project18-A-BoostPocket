@@ -13,7 +13,7 @@ protocol PersistenceManagable: AnyObject {
     var modelName: String { get }
     var persistentContainer: NSPersistentContainer { get }
     var context: NSManagedObjectContext { get }
-    func saveContext()
+    func saveContext() -> Bool
     func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]?
 }
 
@@ -39,16 +39,21 @@ class PersistenceManager: PersistenceManagable {
 
     // MARK: - Core Data Saving support
 
-    func saveContext() {
+    // TODO: saveContext 자체 테스트할 것
+    func saveContext() -> Bool {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
+                return true
             } catch {
                 let nserror = error as NSError
                 print(nserror.localizedDescription)
+                return false
             }
         }
+        
+        return false // 주의
     }
     
     // MARK: - Core Data Fetching support
