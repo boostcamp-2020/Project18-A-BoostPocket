@@ -10,7 +10,6 @@
 import Foundation
 import CoreData
 
-
 extension Travel {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Travel> {

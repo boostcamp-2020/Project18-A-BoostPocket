@@ -14,10 +14,11 @@ protocol PersistenceManagable: AnyObject {
     var persistentContainer: NSPersistentContainer { get }
     var context: NSManagedObjectContext { get }
     func saveContext()
+    func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]?
 }
 
 class PersistenceManager: PersistenceManagable {
-    private(set) var modelName = "datamodelTest"
+    private(set) var modelName = "BoostPocket"
 
     // MARK: - Core Data stack
     
@@ -47,6 +48,17 @@ class PersistenceManager: PersistenceManagable {
                 let nserror = error as NSError
                 print(nserror.localizedDescription)
             }
+        }
+    }
+    
+    // MARK: - Core Data Fetching support
+    
+    func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]? {
+        do {
+            let fetchedResult = try self.context.fetch(request)
+            return fetchedResult
+        } catch {
+            return nil
         }
     }
 }

@@ -7,7 +7,6 @@
 //
 
 import XCTest
-@testable import NetworkManager
 
 class NetworkManagerTests: XCTestCase {
     
