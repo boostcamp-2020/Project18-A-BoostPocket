@@ -7,16 +7,62 @@
 //
 
 import UIKit
+import NetworkManager
+import FlagKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var persistenceManager: PersistenceManagable = PersistenceManager()
+    var countryProvider: CountryProvidable?
+    
+    var dataLoader: DataLoader?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        countryProvider = CountryProvider(persistenceManager: persistenceManager)
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
+        self.dataLoader = DataLoader(session: session)
+        
+        let url = "https://api.exchangeratesapi.io/latest?base=KRW"
+        dataLoader?.requestExchangeRate(url: url, completion: { [weak self](result) in
+            switch result {
+            case .success(let data):
+                print(type(of: data))
+                
+                if let fetchedCountries = self?.countryProvider?.fetchCountries(), fetchedCountries.isEmpty {
+                    
+                    self?.setupCountries(with: data)
+                    
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
+    }
+    
+    private func setupCountries(with data: ExchangeRate) {
+        
+        let koreaLocale = NSLocale(localeIdentifier: "ko_KR")
+        let identifiers = NSLocale.availableLocaleIdentifiers
+        identifiers.forEach { identifier in
+            let locale = NSLocale(localeIdentifier: identifier)
+            if let currencyCode = locale.currencyCode,
+               let countryCode = locale.countryCode,
+               let countryName = koreaLocale.localizedString(forCountryCode: identifier),
+               let exchangeRate = data.rates[currencyCode],
+               let flagImage = Flag(countryCode: countryCode)?.originalImage.pngData() {
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+                let date: Date = dateFormatter.date(from: data.date) ?? Date()
+                print(countryProvider?.createCountry(name: countryName, lastUpdated: date, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode))
+            }
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
