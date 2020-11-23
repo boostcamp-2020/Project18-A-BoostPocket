@@ -6,7 +6,6 @@ excluded:
 disabled_rules:
 - trailing_whitespace
 - identifier_name
-- todo
 - function_parameter_count
 - line_length
 - type_name
