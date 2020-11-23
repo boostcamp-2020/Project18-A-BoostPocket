@@ -1,0 +1,17 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'BoostPocket' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for BoostPocket
+  pod 'SwiftLint'
+  pod 'FlagKit'
+
+  target 'BoostPocketTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

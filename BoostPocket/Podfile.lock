@@ -1,0 +1,20 @@
+PODS:
+  - FlagKit (2.2)
+  - SwiftLint (0.41.0)
+
+DEPENDENCIES:
+  - FlagKit
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - FlagKit
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  FlagKit: eca7dc89064b0c986302ba9acefad1bf80a435b1
+  SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
+
+PODFILE CHECKSUM: b23a7f7122528f0ad7ac529b7156ff5bfa944a34
+
+COCOAPODS: 1.9.3
