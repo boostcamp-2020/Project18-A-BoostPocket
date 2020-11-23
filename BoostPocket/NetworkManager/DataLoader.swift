@@ -9,21 +9,22 @@
 import Foundation
 
 protocol DataLoadable {
+    
     var session: URLSession { get }
     var requestURL: URL? { get }
     func requestExchangeRate(url: String, completion: @escaping (Result<ExchangeRate, NetworkError>) -> Void)
     func converToURL(url: String) -> URL?
 }
 
-class DataLoader: DataLoadable {
+public class DataLoader: DataLoadable {
     var session: URLSession
     var requestURL: URL?
     
-    init(session: URLSession) {
+    public init(session: URLSession) {
         self.session = session
     }
     
-    func requestExchangeRate(url: String, completion: @escaping (Result<ExchangeRate, NetworkError>) -> Void) {
+    public func requestExchangeRate(url: String, completion: @escaping (Result<ExchangeRate, NetworkError>) -> Void) {
         guard let requestURL = converToURL(url: url) else {
             completion(.failure(.invalidURL("유효하지 않은 주소입니다.")))
             return
@@ -46,7 +47,7 @@ class DataLoader: DataLoadable {
         }.resume()
     }
     
-    func converToURL(url: String) -> URL? {
+    public func converToURL(url: String) -> URL? {
         guard let validURL = URL(string: url) else { return nil }
         
         return validURL
@@ -76,11 +77,11 @@ public enum NetworkError: Error {
     case networkError(Error)
     case invalidURL(String)
     case decodingError(Error)
-    case imageIsNil
+    case imageIsNil(Error)
 }
 
-struct ExchangeRate: Codable {
-    let rates: [String: Float]
-    let base: String
-    let date: String
+public struct ExchangeRate: Codable {
+    public let rates: [String: Double]
+    public let base: String
+    public let date: String
 }
