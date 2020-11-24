@@ -13,7 +13,7 @@ protocol PersistenceManagable: AnyObject {
     var modelName: String { get }
     var persistentContainer: NSPersistentContainer { get }
     var context: NSManagedObjectContext { get }
-    func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]?
+    func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
     @discardableResult func saveContext() -> Bool
     @discardableResult func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool?
@@ -61,13 +61,13 @@ class PersistenceManager: PersistenceManagable {
     
     // MARK: - Core Data Fetching support
     
-    func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]? {
+    func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T] {
         // TODO: - fetchRequest Type이 Coutnry일 경우, alphabetic order로 sort
         do {
             let fetchedResult = try self.context.fetch(request)
             return fetchedResult
         } catch {
-            return nil
+            return []
         }
     }
     

@@ -14,6 +14,12 @@ class CountryProviderTests: XCTestCase {
     var persistenceManagerStub: PersistenceManagable!
     var countryProviderStub: CountryProvidable!
     
+    let countryName = "test name"
+    let lastUpdated = Date()
+    let flagImage = Data()
+    let exchangeRate = 1.5
+    let currencyCode = "test code"
+    
     override func setUpWithError() throws {
         persistenceManagerStub = PersistenceManagerStub()
         countryProviderStub = CountryProviderStub(persistenceManager: persistenceManagerStub)
@@ -21,32 +27,26 @@ class CountryProviderTests: XCTestCase {
 
     override func tearDownWithError() throws {
         persistenceManagerStub = nil
+        countryProviderStub = nil
     }
     
-    func test_fetch_empty_country_list() {
-        // given: none
+    func test_countryProvider_fetchCountries() {
+        XCTAssertEqual(countryProviderStub.fetchCountries(), [])
         
-        // when
-        let fetchedCountries = countryProviderStub.fetchCountries()
-        
-        // then
-        XCTAssertEqual(fetchedCountries, [])
+        countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+        XCTAssertNotEqual(countryProviderStub.fetchCountries(), [])
+        XCTAssertEqual(countryProviderStub.fetchCountries().first?.name, countryName)
+        XCTAssertEqual(countryProviderStub.fetchCountries().first?.lastUpdated, lastUpdated)
+        XCTAssertEqual(countryProviderStub.fetchCountries().first?.flagImage, flagImage)
+        XCTAssertEqual(countryProviderStub.fetchCountries().first?.exchangeRate, exchangeRate)
+        XCTAssertEqual(countryProviderStub.fetchCountries().first?.currencyCode, currencyCode)
     }
     
-    func test_create_new_country() {
-        // given
-        let name = "test name"
-        let lastUpdated = Date()
-        let flagImage = Data()
-        let exchangeRate = 1.0
-        let currencyCode = "test currency code"
+    func test_countryProvider_createCountry() {
+        let createdCountry = countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
         
-        // when
-        let createdCountry = countryProviderStub.createCountry(name: name, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
-        
-        // then
         XCTAssertNotNil(createdCountry)
-        XCTAssertEqual(createdCountry?.name, name)
+        XCTAssertEqual(createdCountry?.name, countryName)
         XCTAssertEqual(createdCountry?.lastUpdated, lastUpdated)
         XCTAssertEqual(createdCountry?.flagImage, flagImage)
         XCTAssertEqual(createdCountry?.exchangeRate, exchangeRate)
