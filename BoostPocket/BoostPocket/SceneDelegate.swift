@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        countryProvider = CountryProvider(persistenceManager: persistenceManager)
+        let countryProvider = CountryProvider(persistenceManager: persistenceManager)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
         self.dataLoader = DataLoader(session: session)
         
@@ -30,18 +30,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         dataLoader?.requestExchangeRate(url: url, completion: { [weak self](result) in
             switch result {
             case .success(let data):
-                print(type(of: data))
-                
                 if let fetchedCountries = self?.countryProvider?.fetchCountries(), fetchedCountries.isEmpty {
-                    
                     self?.setupCountries(with: data)
-                    
+                } else if let countries = self?.countryProvider?.fetchCountries() {
+                    countries.forEach { country in
+                        self?.persistenceManager.context.delete(country)
+                        self?.persistenceManager.saveContext()
+                    }
                 }
                 
             case .failure(let error):
                 print(error.localizedDescription)
             }
+            
+            DispatchQueue.main.async {
+                let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                guard let mainNavigationController = storyboard.instantiateViewController(identifier: "MainNavigationViewController") as? UINavigationController,
+                      let travelListVC = mainNavigationController.topViewController as? TravelListViewController else { return }
+                travelListVC.countryListViewModel = CountryListViewModel(countryProvider: countryProvider)
+                
+                self?.window?.rootViewController = travelListVC
+                self?.window?.makeKeyAndVisible()
+            }
         })
+        self.countryProvider = countryProvider
     }
     
     private func setupCountries(with data: ExchangeRate) {

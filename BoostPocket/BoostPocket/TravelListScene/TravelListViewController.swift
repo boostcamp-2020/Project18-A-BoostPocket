@@ -9,6 +9,8 @@
 import UIKit
 
 class TravelListViewController: UIViewController {
+    
+    var countryListViewModel: CountryListPresentable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +19,7 @@ class TravelListViewController: UIViewController {
 
     @IBAction func newTravelButtonTapped(_ sender: Any) {
         let countryListVC = CountryListViewController.init(nibName: "CountryListViewController", bundle: nil)
+        countryListVC.countryListViewModel = countryListViewModel
         countryListVC.doneButtonHandler = {
             // 컬렉션뷰 reload
             let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)

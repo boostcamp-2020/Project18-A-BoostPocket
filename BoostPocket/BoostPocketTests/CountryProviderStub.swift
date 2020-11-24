@@ -7,5 +7,6 @@
 //
 
 import Foundation
+@testable import BoostPocket
 
 class CountryProviderStub: CountryProvider { }

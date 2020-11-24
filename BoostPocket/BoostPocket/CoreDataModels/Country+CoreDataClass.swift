@@ -10,7 +10,13 @@
 import Foundation
 import CoreData
 
+protocol CountryProtocol {
+    var name: String? { get }
+    var flagImage: Data? { get }
+    var currencyCode: String? { get }
+}
+
 @objc(Country)
-public class Country: NSManagedObject {
+public class Country: NSManagedObject, CountryProtocol {
 
 }

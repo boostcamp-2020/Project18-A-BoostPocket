@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import BoostPocket
 
 class CountryProviderTests: XCTestCase {
     
