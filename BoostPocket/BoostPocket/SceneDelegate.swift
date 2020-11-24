@@ -28,14 +28,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let url = "https://api.exchangeratesapi.io/latest?base=KRW"
         dataLoader?.requestExchangeRate(url: url, completion: { [weak self] (result) in
+            guard let self = self, let numberOfCountries = self.persistenceManager.count(request: Country.fetchRequest()) else { return }
             switch result {
             case .success(let data):
-                if let fetchedCountries = self?.countryProvider?.fetchCountries(), fetchedCountries.isEmpty {
+                if numberOfCountries <= 0 {
                     print("setup")
-                    self?.setupCountries(with: data)
+                    self.setupCountries(with: data)
                 } else {
                     print("delete all")
-                    self?.persistenceManager.deleteAll(request: Country.fetchRequest())
+                    self.persistenceManager.deleteAll(request: Country.fetchRequest())
                 }
                 
             case .failure(let error):
@@ -48,8 +49,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                       let travelListVC = mainNavigationController.topViewController as? TravelListViewController else { return }
                 travelListVC.countryListViewModel = CountryListViewModel(countryProvider: countryProvider)
                 
-                self?.window?.rootViewController = travelListVC
-                self?.window?.makeKeyAndVisible()
+                self.window?.rootViewController = travelListVC
+                self.window?.makeKeyAndVisible()
             }
         })
         self.countryProvider = countryProvider

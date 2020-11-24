@@ -14,6 +14,7 @@ protocol PersistenceManagable: AnyObject {
     var persistentContainer: NSPersistentContainer { get }
     var context: NSManagedObjectContext { get }
     func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]?
+    func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
     @discardableResult func saveContext() -> Bool
     @discardableResult func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool?
 }
@@ -78,6 +79,17 @@ class PersistenceManager: PersistenceManagable {
         do {
             try self.context.execute(delete)
             return true
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    // MARK: - Core Data Counting support
+    func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int? {
+        do {
+            let count = try self.context.count(for: request)
+            return count
         } catch {
             print(error.localizedDescription)
             return nil
