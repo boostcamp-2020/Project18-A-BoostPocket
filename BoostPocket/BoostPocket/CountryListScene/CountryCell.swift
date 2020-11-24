@@ -17,7 +17,6 @@ class CountryCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         self.accessoryType = .none
     }
     

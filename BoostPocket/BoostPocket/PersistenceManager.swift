@@ -62,6 +62,7 @@ class PersistenceManager: PersistenceManagable {
     // MARK: - Core Data Fetching support
     
     func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]? {
+        // TODO: - fetchRequest Type이 Coutnry일 경우, alphabetic order로 sort
         do {
             let fetchedResult = try self.context.fetch(request)
             return fetchedResult
