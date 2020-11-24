@@ -52,7 +52,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
                 travelListVC.travelListViewModel = TravelListViewModel(countryProvider: countryProvider)
                 
-                self.window?.rootViewController = travelListVC
+                self.window?.rootViewController = mainNavigationController
                 self.window?.makeKeyAndVisible()
             }
         })

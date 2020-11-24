@@ -31,10 +31,9 @@ class CountryListViewController: UIViewController {
     @IBOutlet weak var countrySearchBar: UISearchBar!
         
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        TableViewConfigure()
-        NavigationBarConfigure()
+        configureTableView()
+        configureNavigationBar()
         configureDataSource()
     }
     
@@ -42,11 +41,12 @@ class CountryListViewController: UIViewController {
         countryListViewModel?.needFetchItems()
     }
     
-    private func TableViewConfigure() {
+    private func configureTableView() {
+        countryListTableView.delegate = self
         countryListTableView.register(UINib.init(nibName: CountryCell.identifier, bundle: .main), forCellReuseIdentifier: CountryCell.identifier)
     }
     
-    private func NavigationBarConfigure() {
+    private func configureNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
         title = "여행할 나라를 선택해주세요"
@@ -55,6 +55,10 @@ class CountryListViewController: UIViewController {
     private func configureDataSource() {
         dataSource = DataSource(tableView: countryListTableView, cellProvider: { (countryListTableView, indexPath, countryItemViewModel) -> UITableViewCell? in
             guard let cell = countryListTableView.dequeueReusableCell(withIdentifier: CountryCell.identifier, for: indexPath) as? CountryCell else { return UITableViewCell() }
+            
+            if let selectedRow = countryListTableView.indexPathForSelectedRow, selectedRow == indexPath {
+                cell.accessoryType = .checkmark
+            }
             
             cell.configure(with: countryItemViewModel)
             return cell
@@ -67,11 +71,28 @@ class CountryListViewController: UIViewController {
     
     @objc func doneButtonTapped() {
         if countryListTableView.indexPathForSelectedRow != nil {
-            // countries[selectedIndexPath.row]
+            // 선택된 셀이 있을 때
+        } else {
+            // 국가를 선택하지 않았을 때
         }
+        
         dismiss(animated: true) { [weak self] in
             self?.doneButtonHandler?()
         }
+    }
+}
+
+extension CountryListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = countryListTableView.cellForRow(at: indexPath)
+        
+        cell?.accessoryType = .checkmark
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        cell?.accessoryType = .none
     }
 }
 
