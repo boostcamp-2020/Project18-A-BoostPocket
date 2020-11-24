@@ -63,6 +63,9 @@ extension CountryListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CountryCell.identifier, for: indexPath) as? CountryCell,
               let cellViewModel = countryListViewModel?.cellForItemAt(path: indexPath) else { return UITableViewCell() }
+
+        // TODO: - 선택된 셀에 대하여 체크박스 다시 나타나도록 할 것
+
         cell.configure(with: cellViewModel)
         return cell
     }

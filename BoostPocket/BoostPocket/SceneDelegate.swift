@@ -23,8 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         let countryProvider = CountryProvider(persistenceManager: persistenceManager)
+        
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
-        self.dataLoader = DataLoader(session: session)
+        dataLoader = DataLoader(session: session)
         
         let url = "https://api.exchangeratesapi.io/latest?base=KRW"
         dataLoader?.requestExchangeRate(url: url, completion: { [weak self] (result) in
@@ -34,10 +35,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 if numberOfCountries <= 0 {
                     print("setup")
                     self.setupCountries(with: data)
-                } else {
-                    print("delete all")
-                    self.persistenceManager.deleteAll(request: Country.fetchRequest())
                 }
+//                else {
+//                    print("delete all")
+//                    self.persistenceManager.deleteAll(request: Country.fetchRequest())
+//                }
                 
             case .failure(let error):
                 print(error.localizedDescription)
@@ -53,9 +55,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 self.window?.makeKeyAndVisible()
             }
         })
+        
         self.countryProvider = countryProvider
     }
     
+    // TODO: - 테스트코드 작성하기
     private func setupCountries(with data: ExchangeRate) {
         let koreaLocale = NSLocale(localeIdentifier: "ko_KR")
         let identifiers = NSLocale.availableLocaleIdentifiers
@@ -79,6 +83,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
     
+    // TODO: - 테스트코드 작성하기
     private func filterCountries(_ identifiers: [String], data: ExchangeRate) -> [String: String] {
         var filteredIdentifiers: [String: String] = [:]
         
