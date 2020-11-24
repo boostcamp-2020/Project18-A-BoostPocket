@@ -36,10 +36,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     print("setup")
                     self.setupCountries(with: data)
                 }
-//                else {
-//                    print("delete all")
-//                    self.persistenceManager.deleteAll(request: Country.fetchRequest())
-//                }
                 
             case .failure(let error):
                 print(error.localizedDescription)
@@ -71,14 +67,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             if let currencyCode = locale.currencyCode,
                 let countryName = koreaLocale.localizedString(forCountryCode: countryCode),
                 let exchangeRate = data.rates[currencyCode],
-                let flagImage = Flag(countryCode: countryCode)?.originalImage.pngData() {
+                let flagImage = Flag(countryCode: countryCode)?.image(style: .roundedRect).pngData() {
                 
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
                 let date: Date = dateFormatter.date(from: data.date) ?? Date()
                 
-                print(date)
                 countryProvider?.createCountry(name: countryName, lastUpdated: date, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
             }
         }

@@ -14,7 +14,7 @@ class CountryListViewController: UIViewController {
     typealias SnapShot = NSDiffableDataSourceSnapshot<Section, CountryItemViewModel>
     
     var dataSource: DataSource!
-    var doneButtonHandler: (() -> Void)?
+    var doneButtonHandler: ((CountryItemViewModel) -> Void)?
     var countryListViewModel: CountryListPresentable? {
         didSet {
             countryListViewModel?.didFetch = { [weak self] fetchedCountries in
@@ -29,9 +29,10 @@ class CountryListViewController: UIViewController {
     
     @IBOutlet weak var countryListTableView: UITableView!
     @IBOutlet weak var countrySearchBar: UISearchBar!
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        countrySearchBar.delegate = self
         configureTableView()
         configureNavigationBar()
         configureDataSource()
@@ -47,7 +48,6 @@ class CountryListViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
         title = "여행할 나라를 선택해주세요"
     }
@@ -65,39 +65,73 @@ class CountryListViewController: UIViewController {
         })
     }
     
-    @objc func cancelButtonTapped() {
-        dismiss(animated: true, completion: nil)
-    }
-    
     @objc func doneButtonTapped() {
-        if countryListTableView.indexPathForSelectedRow != nil {
-            // 선택된 셀이 있을 때
-        } else {
-            // 국가를 선택하지 않았을 때
+        guard let selectedIndexPath = countryListTableView.indexPathForSelectedRow else {
+            // 선택하지 않았을 때
+            dismiss(animated: true, completion: nil)
+            return
         }
         
         dismiss(animated: true) { [weak self] in
-            self?.doneButtonHandler?()
+            guard let selectedCountryItemViewModel = self?.countryListViewModel?.cellForItemAt(path: selectedIndexPath) else {
+                // TODO: - 에러처리
+                return
+            }
+            self?.doneButtonHandler?(selectedCountryItemViewModel)
         }
+    }
+    
+    private func applySnapShot(with countries: [CountryItemViewModel]) {
+        var snapshot = SnapShot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(countries)
+        self.dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func filterContentForSearchText(_ query: String) {
+        let countries = countryListViewModel?.countries
+        let filteredCountries = countries?.filter { (country) -> Bool in
+            return country.name.lowercased().contains(query.lowercased())
+        }
+        
+        applySnapShot(with: filteredCountries ?? [])
     }
 }
 
 extension CountryListViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = countryListTableView.cellForRow(at: indexPath)
-        
+        let cell = tableView.cellForRow(at: indexPath)
         cell?.accessoryType = .checkmark
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
-        
         cell?.accessoryType = .none
     }
+    
 }
 
-extension CountryListViewController {
-    enum Section {
-        case main
+extension CountryListViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        searchBar.showsCancelButton = false
+        searchBar.endEditing(true)
+        
+        applySnapShot(with: countryListViewModel?.countries ?? [])
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            applySnapShot(with: countryListViewModel?.countries ?? [])
+        } else {
+            filterContentForSearchText(searchText)
+        }
+    }
+    
 }
