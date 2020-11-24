@@ -10,8 +10,8 @@ import UIKit
 
 class CountryListViewController: UIViewController {
     
-    typealias DataSource = UITableViewDiffableDataSource<Section, CountryItemViewModel>
-    typealias SnapShot = NSDiffableDataSourceSnapshot<Section, CountryItemViewModel>
+    typealias DataSource = UITableViewDiffableDataSource<String, CountryItemViewModel>
+    typealias SnapShot = NSDiffableDataSourceSnapshot<String, CountryItemViewModel>
     
     var dataSource: DataSource!
     var doneButtonHandler: ((CountryItemViewModel) -> Void)?
@@ -20,14 +20,17 @@ class CountryListViewController: UIViewController {
             countryListViewModel?.didFetch = { [weak self] fetchedCountries in
                 guard let self = self else { return }
                 
+                var snapshot = SnapShot()
+                let sections = self.setupSection(with: fetchedCountries)
+                snapshot.appendSections(sections)
+                
                 fetchedCountries.forEach { country in
-                    let countrySection = String(country.name.prefix(1))
-                    print(countrySection)
+                    let consonant = String(country.name.prefix(1)).firstConsonant
+                    snapshot.appendItems([country], toSection: consonant)
                 }
                 
-                var snapshot = SnapShot()
-                snapshot.appendSections([.main])
-                snapshot.appendItems(fetchedCountries)
+//                snapshot.appendSections([.main])
+//                snapshot.appendItems(fetchedCountries)
                 self.dataSource.apply(snapshot, animatingDifferences: true)
             }
         }
@@ -90,9 +93,18 @@ class CountryListViewController: UIViewController {
     private func applySnapShot(with countries: [CountryItemViewModel]) {
         
         
+//        var snapshot = SnapShot()
+//        snapshot.appendSections([.main])
+//        snapshot.appendItems(countries)
         var snapshot = SnapShot()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(countries)
+        let sections = self.setupSection(with: countries)
+        snapshot.appendSections(sections)
+        
+        countries.forEach { country in
+            let consonant = String(country.name.prefix(1)).firstConsonant
+            snapshot.appendItems([country], toSection: consonant)
+        }
+        
         self.dataSource.apply(snapshot, animatingDifferences: true)
     }
     
@@ -103,6 +115,17 @@ class CountryListViewController: UIViewController {
         }
         
         applySnapShot(with: filteredCountries ?? [])
+    }
+    
+    private func setupSection(with countries: [CountryItemViewModel]) -> [String] {
+        var consonants = Set<String>()
+        countries.forEach { country in
+            let consonant = String(country.name.prefix(1)).firstConsonant
+            consonants.insert(consonant)
+        }
+        var sections = [String](consonants)
+        sections = sections.sorted(by: {$0 < $1})
+        return sections
     }
 }
 
