@@ -18,6 +18,13 @@
 		5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */; };
 		5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C96E8E1256BDA4200246590 /* CountryViewModelTests.swift */; };
 		5C96E8ED256BDA7200246590 /* CountryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */; };
+		5CB682E5256C03F800830373 /* CountryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB682E4256C03F800830373 /* CountryListViewModel.swift */; };
+		5CB682E9256C088500830373 /* CountryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB682E4256C03F800830373 /* CountryListViewModel.swift */; };
+		5CD76E9F256C24DC00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
+		5CD76EA6256C92CF00BD6CE3 /* Travel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F99F256B8FBA003049CB /* Travel+CoreDataClass.swift */; };
+		5CD76EB7256C933C00BD6CE3 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A1256B8FBA003049CB /* Country+CoreDataClass.swift */; };
+		5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A2256B8FBA003049CB /* Country+CoreDataProperties.swift */; };
+		5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
 		956BBC58256B9CCC007803B1 /* CountryProviderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BBC57256B9CCC007803B1 /* CountryProviderStub.swift */; };
 		9572F977256B5397003049CB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9572F976256B5397003049CB /* .swiftlint.yml */; };
 		9572F986256B54E4003049CB /* NetworkManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9572F97D256B54E4003049CB /* NetworkManager.framework */; };
@@ -27,10 +34,7 @@
 		9572F994256B54E4003049CB /* NetworkManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9572F97D256B54E4003049CB /* NetworkManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9572F99C256B552E003049CB /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F99B256B552E003049CB /* DataLoader.swift */; };
 		9572F99D256B552E003049CB /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F99B256B552E003049CB /* DataLoader.swift */; };
-		9572F9A3256B8FBA003049CB /* Travel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F99F256B8FBA003049CB /* Travel+CoreDataClass.swift */; };
 		9572F9A4256B8FBA003049CB /* Travel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A0256B8FBA003049CB /* Travel+CoreDataProperties.swift */; };
-		9572F9A5256B8FBA003049CB /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A1256B8FBA003049CB /* Country+CoreDataClass.swift */; };
-		9572F9A6256B8FBA003049CB /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A2256B8FBA003049CB /* Country+CoreDataProperties.swift */; };
 		9572F9A9256B902C003049CB /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A8256B902C003049CB /* PersistenceManager.swift */; };
 		9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9AD256B9524003049CB /* CountryProvider.swift */; };
 		9572F9B0256B9703003049CB /* CountryProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9AF256B9703003049CB /* CountryProviderTests.swift */; };
@@ -45,7 +49,6 @@
 		95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7B25664DBE0007810C /* SceneDelegate.swift */; };
 		95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7D25664DBE0007810C /* TravelListViewController.swift */; };
 		95A42E8125664DBE0007810C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E7F25664DBE0007810C /* Main.storyboard */; };
-		95A42E8425664DBE0007810C /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
 		95A42E8625664DC40007810C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8525664DC40007810C /* Assets.xcassets */; };
 		95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8725664DC40007810C /* LaunchScreen.storyboard */; };
 		95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E9325664DC40007810C /* BoostPocketTests.swift */; };
@@ -108,6 +111,7 @@
 		5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProfileViewController.swift; sourceTree = "<group>"; };
 		5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryItemViewModel.swift; sourceTree = "<group>"; };
 		5C96E8E1256BDA4200246590 /* CountryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewModelTests.swift; sourceTree = "<group>"; };
+		5CB682E4256C03F800830373 /* CountryListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryListViewModel.swift; sourceTree = "<group>"; };
 		81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.debug.xcconfig"; sourceTree = "<group>"; };
 		956BBC57256B9CCC007803B1 /* CountryProviderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryProviderStub.swift; sourceTree = "<group>"; };
@@ -234,6 +238,7 @@
 				5C3DAF3425665F0200178EA0 /* CountryCell.xib */,
 				9572F9AD256B9524003049CB /* CountryProvider.swift */,
 				5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */,
+				5CB682E4256C03F800830373 /* CountryListViewModel.swift */,
 			);
 			path = CountryListScene;
 			sourceTree = "<group>";
@@ -598,18 +603,19 @@
 			files = (
 				95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */,
 				5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */,
+				5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */,
 				5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */,
+				5CB682E5256C03F800830373 /* CountryListViewModel.swift in Sources */,
 				9572F9A9256B902C003049CB /* PersistenceManager.swift in Sources */,
 				5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */,
+				5CD76EB7256C933C00BD6CE3 /* Country+CoreDataClass.swift in Sources */,
 				5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */,
 				9572F9A4256B8FBA003049CB /* Travel+CoreDataProperties.swift in Sources */,
-				95A42E8425664DBE0007810C /* BoostPocket.xcdatamodeld in Sources */,
-				9572F9A6256B8FBA003049CB /* Country+CoreDataProperties.swift in Sources */,
+				5CD76EA6256C92CF00BD6CE3 /* Travel+CoreDataClass.swift in Sources */,
 				9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */,
+				5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
 				95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */,
 				95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */,
-				9572F9A5256B8FBA003049CB /* Country+CoreDataClass.swift in Sources */,
-				9572F9A3256B8FBA003049CB /* Travel+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,6 +624,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C96E8ED256BDA7200246590 /* CountryItemViewModel.swift in Sources */,
+				5CD76E9F256C24DC00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
 				9572F9B1256B970E003049CB /* PersistenceManager.swift in Sources */,
 				956BBC58256B9CCC007803B1 /* CountryProviderStub.swift in Sources */,
 				5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */,
@@ -625,6 +632,7 @@
 				9572F9B5256B9B5E003049CB /* Country+CoreDataProperties.swift in Sources */,
 				9572F9B3256B974C003049CB /* PersistenceManagerStub.swift in Sources */,
 				9572F9B8256B9B90003049CB /* Travel+CoreDataProperties.swift in Sources */,
+				5CB682E9256C088500830373 /* CountryListViewModel.swift in Sources */,
 				9572F9B6256B9B60003049CB /* Country+CoreDataClass.swift in Sources */,
 				95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */,
 				9572F9B0256B9703003049CB /* CountryProviderTests.swift in Sources */,

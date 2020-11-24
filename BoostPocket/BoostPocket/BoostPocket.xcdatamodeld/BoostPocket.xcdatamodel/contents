@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Country" representedClassName="Country" syncable="YES">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Country" representedClassName=".Country" syncable="YES">
         <attribute name="currencyCode" attributeType="String"/>
         <attribute name="exchangeRate" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="flagImage" attributeType="Binary"/>
@@ -19,7 +19,7 @@
         <relationship name="country" maxCount="1" deletionRule="Nullify" destinationEntity="Country" inverseName="travels" inverseEntity="Country"/>
     </entity>
     <elements>
-        <element name="Travel" positionX="-63" positionY="-18" width="128" height="163"/>
         <element name="Country" positionX="139.05078125" positionY="-38.7421875" width="128" height="133"/>
+        <element name="Travel" positionX="-63" positionY="-18" width="128" height="163"/>
     </elements>
 </model>

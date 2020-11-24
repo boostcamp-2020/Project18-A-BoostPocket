@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CoreData
+
 
 protocol CountryProvidable: AnyObject {
     var countries: [Country]? { get }
@@ -29,9 +31,10 @@ class CountryProvider: CountryProvidable {
     }
     
     func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) -> Country? {
-        guard let persistenceManager = persistenceManager else { return nil }
-        
-        let newCountry = Country(context: persistenceManager.context)
+        guard let persistenceManager = persistenceManager,
+              let entity = NSEntityDescription.entity(forEntityName: "Country", in: persistenceManager.context)
+              else { return nil }
+            let newCountry = Country(entity: entity, insertInto: persistenceManager.context)
         
         newCountry.name = name
         newCountry.lastUpdated = lastUpdated
