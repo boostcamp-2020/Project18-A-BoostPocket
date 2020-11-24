@@ -23,6 +23,7 @@
 		5CD76EB7256C933C00BD6CE3 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A1256B8FBA003049CB /* Country+CoreDataClass.swift */; };
 		5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A2256B8FBA003049CB /* Country+CoreDataProperties.swift */; };
 		5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
+		954F7019256D1C4B00B2E48B /* TravleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954F7018256D1C4B00B2E48B /* TravleListViewModel.swift */; };
 		956BBC58256B9CCC007803B1 /* CountryProviderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BBC57256B9CCC007803B1 /* CountryProviderStub.swift */; };
 		9572F977256B5397003049CB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9572F976256B5397003049CB /* .swiftlint.yml */; };
 		9572F986256B54E4003049CB /* NetworkManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9572F97D256B54E4003049CB /* NetworkManager.framework */; };
@@ -106,6 +107,7 @@
 		5CB682E4256C03F800830373 /* CountryListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryListViewModel.swift; sourceTree = "<group>"; };
 		81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.debug.xcconfig"; sourceTree = "<group>"; };
+		954F7018256D1C4B00B2E48B /* TravleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravleListViewModel.swift; sourceTree = "<group>"; };
 		956BBC57256B9CCC007803B1 /* CountryProviderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryProviderStub.swift; sourceTree = "<group>"; };
 		9572F976256B5397003049CB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		9572F97D256B54E4003049CB /* NetworkManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				95A42E7D25664DBE0007810C /* TravelListViewController.swift */,
+				954F7018256D1C4B00B2E48B /* TravleListViewModel.swift */,
 			);
 			path = TravelListScene;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				5CD76EB7256C933C00BD6CE3 /* Country+CoreDataClass.swift in Sources */,
 				5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */,
 				9572F9A4256B8FBA003049CB /* Travel+CoreDataProperties.swift in Sources */,
+				954F7019256D1C4B00B2E48B /* TravleListViewModel.swift in Sources */,
 				5CD76EA6256C92CF00BD6CE3 /* Travel+CoreDataClass.swift in Sources */,
 				9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */,
 				5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
