@@ -49,9 +49,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
                 guard let mainNavigationController = storyboard.instantiateViewController(identifier: "MainNavigationViewController") as? UINavigationController,
                     let travelListVC = mainNavigationController.topViewController as? TravelListViewController else { return }
-                travelListVC.countryListViewModel = CountryListViewModel(countryProvider: countryProvider)
                 
-                self.window?.rootViewController = travelListVC
+                travelListVC.travelListViewModel = TravelListViewModel(countryProvider: countryProvider)
+                
+                self.window?.rootViewController = mainNavigationController
                 self.window?.makeKeyAndVisible()
             }
         })

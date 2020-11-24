@@ -14,7 +14,7 @@ protocol CountryItemPresentable {
     var currencyCode: String { get }
 }
 
-struct CountryItemViewModel: CountryItemPresentable, Equatable {
+struct CountryItemViewModel: CountryItemPresentable, Equatable, Hashable {
     var name: String
     var flag: Data
     var currencyCode: String
@@ -24,5 +24,4 @@ struct CountryItemViewModel: CountryItemPresentable, Equatable {
         self.flag = country.flagImage ?? Data()
         self.currencyCode = country.currencyCode ?? ""
     }
-    
 }

@@ -10,7 +10,7 @@ import Foundation
 
 protocol CountryListPresentable: AnyObject {
     var countries: [CountryItemViewModel] { get }
-    var didFetch: (() -> Void)? { get set }
+    var didFetch: (([CountryItemViewModel]) -> Void)? { get set }
     
     func needFetchItems()
     @discardableResult func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) -> CountryItemViewModel?
@@ -19,7 +19,7 @@ protocol CountryListPresentable: AnyObject {
 }
 
 class CountryListViewModel: CountryListPresentable {
-    var didFetch: (() -> Void)?
+    var didFetch: (([CountryItemViewModel]) -> Void)?
     var countries: [CountryItemViewModel] = []
     private weak var countryProvider: CountryProvidable?
     
@@ -28,13 +28,14 @@ class CountryListViewModel: CountryListPresentable {
     }
     
     func needFetchItems() {
-        let fetchedCountries = countryProvider?.fetchCountries()
-        fetchedCountries?.forEach { country in
+        guard let fetchedCountries = countryProvider?.fetchCountries() else { return }
+        
+        fetchedCountries.forEach { country in
             self.countries.append(CountryItemViewModel(country: country))
         }
         
         DispatchQueue.main.async { [weak self] in
-            self?.didFetch?()
+            self?.didFetch?(self?.countries ?? [])
         }
     }
     
