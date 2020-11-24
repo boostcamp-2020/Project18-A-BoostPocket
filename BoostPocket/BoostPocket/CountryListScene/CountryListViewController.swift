@@ -12,6 +12,7 @@ class CountryListViewController: UIViewController {
     
     var countries: [String] = ["a", "b", "c", "d", "e"]
     var doneButtonHandler: (() -> Void)?
+    var countryListViewModel: CountryListPresentable?
     
     @IBOutlet weak var countryListTableView: UITableView!
     @IBOutlet weak var countrySearchBar: UISearchBar!
@@ -24,12 +25,14 @@ class CountryListViewController: UIViewController {
     private func configure() {
         TableViewConfigure()
         NavigationBarConfigure()
+        countryListViewModel?.needFetchItems()
     }
     
     private func TableViewConfigure() {
         countryListTableView.register(UINib.init(nibName: CountryCell.identifier, bundle: .main), forCellReuseIdentifier: CountryCell.identifier)
         countryListTableView.dataSource = self
         countryListTableView.delegate = self
+
     }
     
     private func NavigationBarConfigure() {
@@ -54,12 +57,13 @@ class CountryListViewController: UIViewController {
 
 extension CountryListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countries.count
+        return countryListViewModel?.numberOfItem() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CountryCell.identifier, for: indexPath) as? CountryCell else { return UITableViewCell() }
-        cell.configure(with: countries[indexPath.row])
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CountryCell.identifier, for: indexPath) as? CountryCell,
+              let cellViewModel = countryListViewModel?.cellForItemAt(path: indexPath) else { return UITableViewCell() }
+        cell.configure(with: cellViewModel)
         return cell
     }
 }

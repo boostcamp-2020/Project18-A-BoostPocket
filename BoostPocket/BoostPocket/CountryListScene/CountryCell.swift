@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import FlagKit
 
 class CountryCell: UITableViewCell {
     static let identifier = "CountryCell"
 
     @IBOutlet weak var countryNameLabel: UILabel!
-
-    func configure(with countryName: String) {
-        countryNameLabel.text = countryName
+    @IBOutlet weak var countryFlagImageView: UIImageView!
+    
+    func configure(with country: CountryItemPresentable) {
+        countryNameLabel.text = country.name
+        guard let flagImage = UIImage(data: country.flag) else { return }
+        countryFlagImageView.image = flagImage
     }
 }
