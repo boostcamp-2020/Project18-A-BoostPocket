@@ -19,6 +19,12 @@ class CountryListViewController: UIViewController {
         didSet {
             countryListViewModel?.didFetch = { [weak self] fetchedCountries in
                 guard let self = self else { return }
+                
+                fetchedCountries.forEach { country in
+                    let countrySection = String(country.name.prefix(1))
+                    print(countrySection)
+                }
+                
                 var snapshot = SnapShot()
                 snapshot.appendSections([.main])
                 snapshot.appendItems(fetchedCountries)
@@ -82,6 +88,8 @@ class CountryListViewController: UIViewController {
     }
     
     private func applySnapShot(with countries: [CountryItemViewModel]) {
+        
+        
         var snapshot = SnapShot()
         snapshot.appendSections([.main])
         snapshot.appendItems(countries)
