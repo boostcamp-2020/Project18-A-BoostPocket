@@ -10,7 +10,7 @@ import UIKit
 
 class CountryListViewController: UIViewController {
     
-    typealias DataSource = UITableViewDiffableDataSource<String, CountryItemViewModel>
+    typealias DataSource = SectionTitledDiffableDataSource<String, CountryItemViewModel>
     typealias SnapShot = NSDiffableDataSourceSnapshot<String, CountryItemViewModel>
     
     var dataSource: DataSource!
@@ -20,18 +20,7 @@ class CountryListViewController: UIViewController {
             countryListViewModel?.didFetch = { [weak self] fetchedCountries in
                 guard let self = self else { return }
                 
-                var snapshot = SnapShot()
-                let sections = self.setupSection(with: fetchedCountries)
-                snapshot.appendSections(sections)
-                
-                fetchedCountries.forEach { country in
-                    let consonant = String(country.name.prefix(1)).firstConsonant
-                    snapshot.appendItems([country], toSection: consonant)
-                }
-                
-//                snapshot.appendSections([.main])
-//                snapshot.appendItems(fetchedCountries)
-                self.dataSource.apply(snapshot, animatingDifferences: true)
+                self.applySnapShot(with: fetchedCountries)
             }
         }
     }
@@ -62,6 +51,7 @@ class CountryListViewController: UIViewController {
     }
     
     private func configureDataSource() {
+        
         dataSource = DataSource(tableView: countryListTableView, cellProvider: { (countryListTableView, indexPath, countryItemViewModel) -> UITableViewCell? in
             guard let cell = countryListTableView.dequeueReusableCell(withIdentifier: CountryCell.identifier, for: indexPath) as? CountryCell else { return UITableViewCell() }
             
@@ -92,10 +82,6 @@ class CountryListViewController: UIViewController {
     
     private func applySnapShot(with countries: [CountryItemViewModel]) {
         
-        
-//        var snapshot = SnapShot()
-//        snapshot.appendSections([.main])
-//        snapshot.appendItems(countries)
         var snapshot = SnapShot()
         let sections = self.setupSection(with: countries)
         snapshot.appendSections(sections)
@@ -106,6 +92,7 @@ class CountryListViewController: UIViewController {
         }
         
         self.dataSource.apply(snapshot, animatingDifferences: true)
+        
     }
     
     private func filterContentForSearchText(_ query: String) {
@@ -140,7 +127,6 @@ extension CountryListViewController: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.accessoryType = .none
     }
-    
 }
 
 extension CountryListViewController: UISearchBarDelegate {
@@ -165,4 +151,25 @@ extension CountryListViewController: UISearchBarDelegate {
         }
     }
     
+}
+
+class SectionTitledDiffableDataSource<SectionIdentifierType, ItemIdentifierType>: UITableViewDiffableDataSource<SectionIdentifierType, ItemIdentifierType>
+    where SectionIdentifierType: Hashable, ItemIdentifierType: Hashable {
+    
+    var useSectionIndex: Bool = true
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+
+        return snapshot().sectionIdentifiers.compactMap { $0 as? String }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return snapshot().sectionIdentifiers[section] as? String
+    }
+
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        guard useSectionIndex else { return 0 }
+        return snapshot().sectionIdentifiers.firstIndex(where: { ($0 as? String) == title }) ?? 0
+    }
 }
