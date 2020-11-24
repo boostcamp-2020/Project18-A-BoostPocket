@@ -13,8 +13,9 @@ protocol PersistenceManagable: AnyObject {
     var modelName: String { get }
     var persistentContainer: NSPersistentContainer { get }
     var context: NSManagedObjectContext { get }
-    @discardableResult func saveContext() -> Bool
     func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]?
+    @discardableResult func saveContext() -> Bool
+    @discardableResult func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool?
 }
 
 class PersistenceManager: PersistenceManagable {
@@ -64,6 +65,21 @@ class PersistenceManager: PersistenceManagable {
             let fetchedResult = try self.context.fetch(request)
             return fetchedResult
         } catch {
+            return nil
+        }
+    }
+    
+    // MARK: - Core Data Deleting support
+    
+    @discardableResult
+    func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool? {
+        let request: NSFetchRequest<NSFetchRequestResult> = T.fetchRequest()
+        let delete = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try self.context.execute(delete)
+            return true
+        } catch {
+            print(error.localizedDescription)
             return nil
         }
     }

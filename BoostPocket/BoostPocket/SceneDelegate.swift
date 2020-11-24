@@ -27,16 +27,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.dataLoader = DataLoader(session: session)
         
         let url = "https://api.exchangeratesapi.io/latest?base=KRW"
-        dataLoader?.requestExchangeRate(url: url, completion: { [weak self](result) in
+        dataLoader?.requestExchangeRate(url: url, completion: { [weak self] (result) in
             switch result {
             case .success(let data):
                 if let fetchedCountries = self?.countryProvider?.fetchCountries(), fetchedCountries.isEmpty {
+                    print("setup")
                     self?.setupCountries(with: data)
-                } else if let countries = self?.countryProvider?.fetchCountries() {
-                    countries.forEach { country in
-                        self?.persistenceManager.context.delete(country)
-                        self?.persistenceManager.saveContext()
-                    }
+                } else {
+                    print("delete all")
+                    self?.persistenceManager.deleteAll(request: Country.fetchRequest())
                 }
                 
             case .failure(let error):
