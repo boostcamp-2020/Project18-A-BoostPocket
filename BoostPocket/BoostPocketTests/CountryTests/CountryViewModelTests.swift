@@ -71,18 +71,19 @@ class CountryViewModelTests: XCTestCase {
         countryListViewModel.createCountry(name: "\(countryName)1", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1")
         countryListViewModel.createCountry(name: "\(countryName)2", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 1.0, currencyCode: "\(currencyCode)2")
         countryListViewModel.createCountry(name: "\(countryName)3", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 2.0, currencyCode: "\(currencyCode)3")
-        countryListViewModel.createCountry(name: "\(countryName)4", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 3.0, currencyCode: "\(currencyCode)4")
-        countryListViewModel.createCountry(name: "\(countryName)5", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 4.0, currencyCode: "\(currencyCode)5")
         
-        XCTAssertEqual(countryListViewModel.numberOfItem(), 5)
+        XCTAssertEqual(countryListViewModel.numberOfItem(), 3)
     }
     
     func test_countryListViewModel_needFetchItem() {
-        countryProvider.createCountry(name: "\(countryName)1", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1")
-        countryProvider.createCountry(name: "\(countryName)2", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)2")
+        countryProvider.createCountry(name: "\(countryName)다", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)2")
+        countryProvider.createCountry(name: "\(countryName)나", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1")
+        countryProvider.createCountry(name: "\(countryName)라", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)2")
+        countryProvider.createCountry(name: "\(countryName)가", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)2")
         
         countryListViewModel.needFetchItems()
-        
-        XCTAssertEqual(countryListViewModel.countries.count, 2)
+        XCTAssertEqual(countryListViewModel.countries.count, 4)
+        XCTAssertEqual(countryListViewModel.countries.first?.name, "\(countryName)가")
+        XCTAssertEqual(countryListViewModel.countries.last?.name, "\(countryName)라")
     }
 }
