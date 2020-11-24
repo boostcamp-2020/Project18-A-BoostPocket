@@ -72,7 +72,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
                 let date: Date = dateFormatter.date(from: data.date) ?? Date()
-                print(countryProvider?.createCountry(name: countryName, lastUpdated: date, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode))
+                countryProvider?.createCountry(name: countryName, lastUpdated: date, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
             }
         }
     }
@@ -106,8 +106,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Save changes in the application's managed object context when the application transitions to the background.
         
-        // TODO: persistence manager로 대체하기
-        // (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        persistenceManager.saveContext()
     }
 
 }

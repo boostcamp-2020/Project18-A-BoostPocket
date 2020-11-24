@@ -46,7 +46,7 @@ class CountryListViewController: UIViewController {
     }
     
     @objc func doneButtonTapped() {
-        if let selectedIndexPath = countryListTableView.indexPathForSelectedRow {
+        if countryListTableView.indexPathForSelectedRow != nil {
             // countries[selectedIndexPath.row]
         }
         dismiss(animated: true) { [weak self] in

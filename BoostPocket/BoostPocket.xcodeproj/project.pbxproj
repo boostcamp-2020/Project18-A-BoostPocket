@@ -292,11 +292,11 @@
 			isa = PBXGroup;
 			children = (
 				9572F9AF256B9703003049CB /* CountryProviderTests.swift */,
+				5C96E8E1256BDA4200246590 /* CountryViewModelTests.swift */,
 				9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */,
 				956BBC57256B9CCC007803B1 /* CountryProviderStub.swift */,
 				95A42E9325664DC40007810C /* BoostPocketTests.swift */,
 				95A42E9525664DC40007810C /* Info.plist */,
-				5C96E8E1256BDA4200246590 /* CountryViewModelTests.swift */,
 			);
 			path = BoostPocketTests;
 			sourceTree = "<group>";
