@@ -14,7 +14,7 @@ protocol CountryItemPresentable {
     var currencyCode: String { get }
 }
 
-struct CountryItemViewModel: CountryItemPresentable {
+struct CountryItemViewModel: CountryItemPresentable, Equatable {
     var name: String
     var flag: Data
     var currencyCode: String

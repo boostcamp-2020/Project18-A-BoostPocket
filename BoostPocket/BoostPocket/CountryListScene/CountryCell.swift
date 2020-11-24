@@ -15,7 +15,7 @@ class CountryCell: UITableViewCell {
     @IBOutlet weak var countryNameLabel: UILabel!
     @IBOutlet weak var countryFlagImageView: UIImageView!
     
-    func configure(with country: CountryItemPresentable) {
+    func configure(with country: CountryItemViewModel) {
         countryNameLabel.text = country.name
         guard let flagImage = UIImage(data: country.flag) else { return }
         countryFlagImageView.image = flagImage

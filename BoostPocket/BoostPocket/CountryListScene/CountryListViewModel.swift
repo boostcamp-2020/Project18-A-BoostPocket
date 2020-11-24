@@ -9,17 +9,18 @@
 import Foundation
 
 protocol CountryListPresentable: AnyObject {
-    var countries: [CountryItemPresentable] { get }
+    var countries: [CountryItemViewModel] { get }
     var didFetch: (() -> Void)? { get set }
     
     func needFetchItems()
-    func cellForItemAt(path: IndexPath) -> CountryItemPresentable
+    func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) -> CountryItemViewModel?
+    func cellForItemAt(path: IndexPath) -> CountryItemViewModel
     func numberOfItem() -> Int
 }
 
 class CountryListViewModel: CountryListPresentable {
     var didFetch: (() -> Void)?
-    var countries: [CountryItemPresentable] = []
+    var countries: [CountryItemViewModel] = []
     private var countryProvider: CountryProvidable?
     
     init(countryProvider: CountryProvidable) {
@@ -31,13 +32,21 @@ class CountryListViewModel: CountryListPresentable {
         fetchedCountries?.forEach { country in
             self.countries.append(CountryItemViewModel(country: country))
         }
-            
+        
         DispatchQueue.main.async { [weak self] in
             self?.didFetch?()
         }
     }
     
-    func cellForItemAt(path: IndexPath) -> CountryItemPresentable {
+    @discardableResult
+    func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) -> CountryItemViewModel? {
+        guard let createdCountry = countryProvider?.createCountry(name: name, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) else { return nil }
+        let createdCountryItemViewModel = CountryItemViewModel(country: createdCountry)
+        countries.append(createdCountryItemViewModel)
+        return createdCountryItemViewModel
+    }
+    
+    func cellForItemAt(path: IndexPath) -> CountryItemViewModel {
         return countries[path.row]
     }
     
