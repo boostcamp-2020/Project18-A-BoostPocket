@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+@testable import BoostPocket
 
 class PersistenceManagerStub: PersistenceManager {
     override init() {

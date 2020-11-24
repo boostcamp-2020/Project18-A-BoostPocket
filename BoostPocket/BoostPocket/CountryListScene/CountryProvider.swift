@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 protocol CountryProvidable: AnyObject {
     var countries: [Country]? { get }
     func fetchCountries() -> [Country]?
@@ -30,6 +29,7 @@ class CountryProvider: CountryProvidable {
         return countries
     }
     
+    @discardableResult
     func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) -> Country? {
         guard let persistenceManager = persistenceManager,
               let entity = NSEntityDescription.entity(forEntityName: "Country", in: persistenceManager.context)

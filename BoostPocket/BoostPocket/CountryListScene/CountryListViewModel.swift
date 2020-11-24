@@ -30,7 +30,6 @@ class CountryListViewModel: CountryListPresentable {
         let fetchedCountries = countryProvider?.fetchCountries()
         fetchedCountries?.forEach { country in
             self.countries.append(CountryItemViewModel(country: country))
-            print(country.name)
         }
             
         DispatchQueue.main.async { [weak self] in

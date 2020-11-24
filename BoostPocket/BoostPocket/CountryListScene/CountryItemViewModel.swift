@@ -19,7 +19,7 @@ struct CountryItemViewModel: CountryItemPresentable {
     var flag: Data
     var currencyCode: String
     
-    init(country: Country) {
+    init(country: CountryProtocol) {
         self.name = country.name ?? ""
         self.flag = country.flagImage ?? Data()
         self.currencyCode = country.currencyCode ?? ""
