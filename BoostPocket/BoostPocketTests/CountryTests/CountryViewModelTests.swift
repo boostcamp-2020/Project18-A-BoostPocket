@@ -86,15 +86,3 @@ class CountryViewModelTests: XCTestCase {
         XCTAssertEqual(countryListViewModel.countries.count, 2)
     }
 }
-
-class CountryStub: CountryProtocol {
-    var name: String?
-    var flagImage: Data?
-    var currencyCode: String?
-    
-    init(name: String?, flagImage: Data?, currencyCode: String?) {
-        self.name = name
-        self.flagImage = flagImage
-        self.currencyCode = currencyCode
-    }
-}

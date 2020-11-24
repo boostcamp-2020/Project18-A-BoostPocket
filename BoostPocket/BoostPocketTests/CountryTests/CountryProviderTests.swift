@@ -22,7 +22,7 @@ class CountryProviderTests: XCTestCase {
     
     override func setUpWithError() throws {
         persistenceManagerStub = PersistenceManagerStub()
-        countryProviderStub = CountryProviderStub(persistenceManager: persistenceManagerStub)
+        countryProviderStub = CountryProvider(persistenceManager: persistenceManagerStub)
     }
 
     override func tearDownWithError() throws {
