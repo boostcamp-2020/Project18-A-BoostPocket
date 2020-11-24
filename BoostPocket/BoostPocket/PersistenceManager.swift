@@ -13,8 +13,10 @@ protocol PersistenceManagable: AnyObject {
     var modelName: String { get }
     var persistentContainer: NSPersistentContainer { get }
     var context: NSManagedObjectContext { get }
-    func saveContext() -> Bool
     func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]?
+    func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
+    @discardableResult func saveContext() -> Bool
+    @discardableResult func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool?
 }
 
 class PersistenceManager: PersistenceManagable {
@@ -24,7 +26,7 @@ class PersistenceManager: PersistenceManagable {
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: modelName)
-        container.loadPersistentStores() { (storeDescription, error) in
+        container.loadPersistentStores { (_, error) in
             if let error = error as NSError? {
                 dump(error)
             }
@@ -40,6 +42,7 @@ class PersistenceManager: PersistenceManagable {
     // MARK: - Core Data Saving support
 
     // TODO: saveContext 자체 테스트할 것
+    @discardableResult
     func saveContext() -> Bool {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -63,6 +66,32 @@ class PersistenceManager: PersistenceManagable {
             let fetchedResult = try self.context.fetch(request)
             return fetchedResult
         } catch {
+            return nil
+        }
+    }
+    
+    // MARK: - Core Data Deleting support
+    
+    @discardableResult
+    func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool? {
+        let request: NSFetchRequest<NSFetchRequestResult> = T.fetchRequest()
+        let delete = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try self.context.execute(delete)
+            return true
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    // MARK: - Core Data Counting support
+    func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int? {
+        do {
+            let count = try self.context.count(for: request)
+            return count
+        } catch {
+            print(error.localizedDescription)
             return nil
         }
     }

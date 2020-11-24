@@ -15,6 +15,12 @@ class CountryCell: UITableViewCell {
     @IBOutlet weak var countryNameLabel: UILabel!
     @IBOutlet weak var countryFlagImageView: UIImageView!
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.accessoryType = .none
+    }
+    
     func configure(with country: CountryItemViewModel) {
         countryNameLabel.text = country.name
         guard let flagImage = UIImage(data: country.flag) else { return }

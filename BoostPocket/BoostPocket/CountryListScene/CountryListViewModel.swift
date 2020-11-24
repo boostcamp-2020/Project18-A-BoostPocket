@@ -13,7 +13,7 @@ protocol CountryListPresentable: AnyObject {
     var didFetch: (() -> Void)? { get set }
     
     func needFetchItems()
-    func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) -> CountryItemViewModel?
+    @discardableResult func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) -> CountryItemViewModel?
     func cellForItemAt(path: IndexPath) -> CountryItemViewModel
     func numberOfItem() -> Int
 }
@@ -21,7 +21,7 @@ protocol CountryListPresentable: AnyObject {
 class CountryListViewModel: CountryListPresentable {
     var didFetch: (() -> Void)?
     var countries: [CountryItemViewModel] = []
-    private var countryProvider: CountryProvidable?
+    private weak var countryProvider: CountryProvidable?
     
     init(countryProvider: CountryProvidable) {
         self.countryProvider = countryProvider
