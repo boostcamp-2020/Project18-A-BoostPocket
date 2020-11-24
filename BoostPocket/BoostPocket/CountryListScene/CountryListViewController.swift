@@ -10,35 +10,55 @@ import UIKit
 
 class CountryListViewController: UIViewController {
     
-    var countries: [String] = ["a", "b", "c", "d", "e"]
+    typealias DataSource = UITableViewDiffableDataSource<Section, CountryItemViewModel>
+    typealias SnapShot = NSDiffableDataSourceSnapshot<Section, CountryItemViewModel>
+    
+    var dataSource: DataSource!
     var doneButtonHandler: (() -> Void)?
-    var countryListViewModel: CountryListPresentable?
+    var countryListViewModel: CountryListPresentable? {
+        didSet {
+            countryListViewModel?.didFetch = { [weak self] fetchedCountries in
+                guard let self = self else { return }
+                var snapshot = SnapShot()
+                snapshot.appendSections([.main])
+                snapshot.appendItems(fetchedCountries)
+                self.dataSource.apply(snapshot, animatingDifferences: true)
+            }
+        }
+    }
     
     @IBOutlet weak var countryListTableView: UITableView!
     @IBOutlet weak var countrySearchBar: UISearchBar!
-    
+        
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        configure()
-    }
-    
-    private func configure() {
         TableViewConfigure()
         NavigationBarConfigure()
+        configureDataSource()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         countryListViewModel?.needFetchItems()
     }
     
     private func TableViewConfigure() {
         countryListTableView.register(UINib.init(nibName: CountryCell.identifier, bundle: .main), forCellReuseIdentifier: CountryCell.identifier)
-        countryListTableView.dataSource = self
-        countryListTableView.delegate = self
-
     }
     
     private func NavigationBarConfigure() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
         title = "여행할 나라를 선택해주세요"
+    }
+    
+    private func configureDataSource() {
+        dataSource = DataSource(tableView: countryListTableView, cellProvider: { (countryListTableView, indexPath, countryItemViewModel) -> UITableViewCell? in
+            guard let cell = countryListTableView.dequeueReusableCell(withIdentifier: CountryCell.identifier, for: indexPath) as? CountryCell else { return UITableViewCell() }
+            
+            cell.configure(with: countryItemViewModel)
+            return cell
+        })
     }
     
     @objc func cancelButtonTapped() {
@@ -55,30 +75,8 @@ class CountryListViewController: UIViewController {
     }
 }
 
-extension CountryListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countryListViewModel?.numberOfItem() ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CountryCell.identifier, for: indexPath) as? CountryCell,
-              let cellViewModel = countryListViewModel?.cellForItemAt(path: indexPath) else { return UITableViewCell() }
-
-        // TODO: - 선택된 셀에 대하여 체크박스 다시 나타나도록 할 것
-
-        cell.configure(with: cellViewModel)
-        return cell
-    }
-}
-
-extension CountryListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        cell?.accessoryType = .checkmark
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        cell?.accessoryType = .none
+extension CountryListViewController {
+    enum Section {
+        case main
     }
 }
