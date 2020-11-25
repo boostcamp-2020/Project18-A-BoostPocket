@@ -18,8 +18,7 @@ protocol PersistenceManagable: AnyObject {
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
     @discardableResult func createObject(newObjectInfo: InformationProtocol) -> DataModelProtocol?
     @discardableResult func saveContext() -> Bool
-    @discardableResult func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool?
-    // @discardableResult func delete(object: NSManagedObject) -> Bool
+    @discardableResult func delete(object: DataModelProtocol) -> Bool
 }
 
 class PersistenceManager: PersistenceManagable {
@@ -67,16 +66,16 @@ class PersistenceManager: PersistenceManagable {
         
         var createdObject: DataModelProtocol?
         
-        switch newObjectInfo.informationType {
-        case .CountryInfo:
+        switch newObjectInfo.entityType {
+        case .countryType:
             guard let newObjectInfo = newObjectInfo as? CountryInfo else { return nil }
             createdObject = setupCountryInfo(countryInfo: newObjectInfo)
             
-        case .TravelInfo:
+        case .travelType:
             guard let newObjectInfo = newObjectInfo as? TravelInfo else { return nil }
             createdObject = setupTravelInfo(travelInfo: newObjectInfo)
             
-        case .HistoryInfo:
+        case .historyType:
             return nil
         }
         
@@ -124,6 +123,7 @@ class PersistenceManager: PersistenceManagable {
     
     // MARK: - Core Data Fetching support
     
+    // TODO: - 테스트코드 작성하기
     func fetchAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T] {
         if T.self == Country.self {
             let nameSort = NSSortDescriptor(key: "name", ascending: true)
@@ -138,6 +138,7 @@ class PersistenceManager: PersistenceManagable {
         }
     }
     
+    // TODO: - Seg fault 에러 알아보기
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]? {
         do {
             let fetchResult = try self.context.fetch(request)
@@ -149,37 +150,30 @@ class PersistenceManager: PersistenceManagable {
     }
     
     // MARK: - Core Data Deleting support
-    
-    // TODO: - 리턴값 optional에서 Bool로 바꾸고, provider 코드에서도 변경사항 적용하기
-    // TODO: - 테스트코드 작성
+
     @discardableResult
-    func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool? {
-        let request: NSFetchRequest<NSFetchRequestResult> = T.fetchRequest()
-        let delete = NSBatchDeleteRequest(fetchRequest: request)
+    func delete(object: DataModelProtocol) -> Bool {
+        
+        var deletingObject = NSManagedObject()
+        
+        if let travelObject = object as? Travel {
+            deletingObject = travelObject
+        } else if let countryObject = object as? Country {
+            deletingObject = countryObject
+        }
+        
+        self.context.delete(deletingObject)
         do {
-            try self.context.execute(delete)
+            try context.save()
             return true
         } catch {
             print(error.localizedDescription)
-            return nil
+            return false
         }
     }
     
-    // TODO: - 특정 Object 삭제 코드
-    //    @discardableResult
-    //    func delete(object: NSManagedObject) -> Bool {
-    //        self.context.delete(object)
-    //        do {
-    //            try context.save()
-    //            return true
-    //        } catch {
-    //            return false
-    //        }
-    //    }
-    
     // MARK: - Core Data Counting support
     
-    // TODO: - 테스트코드 작성
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int? {
         do {
             let count = try self.context.count(for: request)
