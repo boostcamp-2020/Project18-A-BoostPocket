@@ -20,5 +20,5 @@ jobs:
       shell: bash
       
     - name: Run BoostPocketTests
-      run: xcodebuild test -workspace BoostPocket.xcworkspace -scheme BoostPocketTests -destination 'platform=iOS Simulator,name=iPhone 11'
+      run: xcodebuild test -workspace BoostPocket/BoostPocket.xcworkspace -scheme BoostPocketTests -destination 'platform=iOS Simulator,name=iPhone 11'
 
