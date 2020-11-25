@@ -72,7 +72,7 @@ class CountryListViewController: UIViewController {
         }
         
         dismiss(animated: true) { [weak self] in
-            guard let selectedCountryItemViewModel = self?.countryListViewModel?.cellForItemAt(path: selectedIndexPath) else {
+            guard let selectedCountryItemViewModel = self?.dataSource.itemIdentifier(for: selectedIndexPath) else {
                 // TODO: - 에러처리
                 return
             }
@@ -87,8 +87,9 @@ class CountryListViewController: UIViewController {
         snapshot.appendSections(sections)
         
         countries.forEach { country in
-            let consonant = String(country.name.prefix(1)).firstConsonant
-            snapshot.appendItems([country], toSection: consonant)
+            if let consonant = String(country.name.prefix(1)).firstConsonant {
+                snapshot.appendItems([country], toSection: consonant)
+            }
         }
         
         self.dataSource.apply(snapshot, animatingDifferences: true)
@@ -107,8 +108,9 @@ class CountryListViewController: UIViewController {
     private func setupSection(with countries: [CountryItemViewModel]) -> [String] {
         var consonants = Set<String>()
         countries.forEach { country in
-            let consonant = String(country.name.prefix(1)).firstConsonant
-            consonants.insert(consonant)
+            if let consonant = String(country.name.prefix(1)).firstConsonant {
+                consonants.insert(consonant)
+            }
         }
         var sections = [String](consonants)
         sections = sections.sorted(by: {$0 < $1})

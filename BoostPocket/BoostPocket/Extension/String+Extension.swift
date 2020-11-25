@@ -10,10 +10,10 @@ import Foundation
 
 extension String {
     
-    var firstConsonant: String {
-        guard let value = UnicodeScalar(self)?.value else { return "대" }
+    var firstConsonant: String? {
+        guard let value = UnicodeScalar(self)?.value else { return nil }
         let x = (value - 0xac00) / 28 / 21
-        guard let first = UnicodeScalar(0x1100 + x) else { return "ㄱ" }
+        guard let first = UnicodeScalar(0x1100 + x) else { return nil }
         return String(first)
     }
 }
