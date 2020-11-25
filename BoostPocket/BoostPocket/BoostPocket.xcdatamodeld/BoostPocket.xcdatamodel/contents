@@ -8,18 +8,24 @@
         <attribute name="name" attributeType="String"/>
         <relationship name="travels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Travel" inverseName="country" inverseEntity="Travel"/>
     </entity>
+    <entity name="History" representedClassName="History" syncable="YES">
+        <relationship name="travel" maxCount="1" deletionRule="Nullify" destinationEntity="Travel" inverseName="history" inverseEntity="Travel"/>
+    </entity>
     <entity name="Travel" representedClassName="Travel" syncable="YES">
         <attribute name="budget" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="coverImage" attributeType="Binary"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="exchangeRate" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="memo" optional="YES" attributeType="String"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="country" maxCount="1" deletionRule="Nullify" destinationEntity="Country" inverseName="travels" inverseEntity="Country"/>
+        <relationship name="history" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="History" inverseName="travel" inverseEntity="History"/>
     </entity>
     <elements>
         <element name="Country" positionX="139.05078125" positionY="-38.7421875" width="128" height="133"/>
-        <element name="Travel" positionX="-63" positionY="-18" width="128" height="163"/>
+        <element name="Travel" positionX="-63" positionY="-18" width="128" height="193"/>
+        <element name="History" positionX="145.828125" positionY="167.3515625" width="128" height="58"/>
     </elements>
 </model>

@@ -14,6 +14,7 @@ protocol PersistenceManagable: AnyObject {
     var persistentContainer: NSPersistentContainer { get }
     var context: NSManagedObjectContext { get }
     func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]
+    func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]?
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
     @discardableResult func createCountry(countryInfo: CountryInfo) -> Country?
     @discardableResult func saveContext() -> Bool
@@ -23,7 +24,7 @@ protocol PersistenceManagable: AnyObject {
 
 class PersistenceManager: PersistenceManagable {
     private(set) var modelName = "BoostPocket"
-
+    
     // MARK: - Core Data stack
     
     lazy var persistentContainer: NSPersistentContainer = {
@@ -40,7 +41,7 @@ class PersistenceManager: PersistenceManagable {
     var context: NSManagedObjectContext {
         return self.persistentContainer.viewContext
     }
-
+    
     // MARK: - Core Data Saving support
 
     @discardableResult
@@ -93,6 +94,16 @@ class PersistenceManager: PersistenceManagable {
             return fetchedResult
         } catch {
             return []
+        }
+    }
+    
+    func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]? {
+        do {
+            let fetchResult = try self.context.fetch(request)
+            return fetchResult
+        } catch {
+            print(error.localizedDescription)
+            return nil
         }
     }
     
