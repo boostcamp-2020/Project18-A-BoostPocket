@@ -16,6 +16,7 @@
         <attribute name="coverImage" attributeType="Binary"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="exchangeRate" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="memo" optional="YES" attributeType="String"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
@@ -24,7 +25,7 @@
     </entity>
     <elements>
         <element name="Country" positionX="139.05078125" positionY="-38.7421875" width="128" height="133"/>
-        <element name="Travel" positionX="-63" positionY="-18" width="128" height="178"/>
+        <element name="Travel" positionX="-63" positionY="-18" width="128" height="193"/>
         <element name="History" positionX="145.828125" positionY="167.3515625" width="128" height="58"/>
     </elements>
 </model>

@@ -24,6 +24,7 @@ extension Travel {
     @NSManaged public var memo: String?
     @NSManaged public var startDate: Date?
     @NSManaged public var title: String?
+    @NSManaged public var id: UUID?
     @NSManaged public var country: Country?
     @NSManaged public var history: NSSet?
 
