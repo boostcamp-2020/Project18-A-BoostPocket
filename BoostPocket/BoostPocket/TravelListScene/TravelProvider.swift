@@ -37,8 +37,9 @@ class TravelProvider: TravelProvidable {
     }
     
     func fetchTravels() -> [Travel] {
-        
-        return []
+        guard let persistenceManager = persistenceManager else { return [] }
+        travels = persistenceManager.fetchAll(request: Travel.fetchRequest())
+        return travels
     }
     
     func deleteTravel() {
