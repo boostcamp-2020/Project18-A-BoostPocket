@@ -46,6 +46,7 @@
 		95A42E8625664DC40007810C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8525664DC40007810C /* Assets.xcassets */; };
 		95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8725664DC40007810C /* LaunchScreen.storyboard */; };
 		95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E9325664DC40007810C /* BoostPocketTests.swift */; };
+		A9BF7A37256D496C00496CD8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A36256D496C00496CD8 /* String+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 		95A42E8F25664DC40007810C /* BoostPocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoostPocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A42E9325664DC40007810C /* BoostPocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostPocketTests.swift; sourceTree = "<group>"; };
 		95A42E9525664DC40007810C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9BF7A36256D496C00496CD8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		E2D16BE855D0105455137550 /* Pods-BoostPocketTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocketTests.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocketTests/Pods-BoostPocketTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -277,6 +279,7 @@
 		95A42E7825664DBE0007810C /* BoostPocket */ = {
 			isa = PBXGroup;
 			children = (
+				A9BF7A35256D496300496CD8 /* Extension */,
 				95A42E7925664DBE0007810C /* AppDelegate.swift */,
 				95A42E7B25664DBE0007810C /* SceneDelegate.swift */,
 				9572F9A8256B902C003049CB /* PersistenceManager.swift */,
@@ -332,6 +335,14 @@
 				460E2B0DBA1F49A0D275F156 /* Pods-BoostPocketTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A9BF7A35256D496300496CD8 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				A9BF7A36256D496C00496CD8 /* String+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -625,6 +636,7 @@
 				5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */,
 				5CD76EB7256C933C00BD6CE3 /* Country+CoreDataClass.swift in Sources */,
 				5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */,
+				A9BF7A37256D496C00496CD8 /* String+Extension.swift in Sources */,
 				9572F9A4256B8FBA003049CB /* Travel+CoreDataProperties.swift in Sources */,
 				954F7019256D1C4B00B2E48B /* TravleListViewModel.swift in Sources */,
 				5CD76EA6256C92CF00BD6CE3 /* Travel+CoreDataClass.swift in Sources */,
