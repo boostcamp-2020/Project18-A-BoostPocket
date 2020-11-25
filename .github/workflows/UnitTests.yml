@@ -1,8 +1,8 @@
 name: Unit Tests
 
 on:
-  pull_request:
-    branches: [ dev ]
+  pull_request: 
+    branches: [ dev , master ]
 
 jobs:
   build:
