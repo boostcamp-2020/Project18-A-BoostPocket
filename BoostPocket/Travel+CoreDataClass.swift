@@ -10,7 +10,19 @@
 import Foundation
 import CoreData
 
+protocol TravelProtocol {
+    var id: UUID? { get }
+    var title: String? { get }
+    var memo: String? { get }
+    var exchangeRate: Double { get }
+    var budget: Double { get }
+    var coverImage: Data? { get }
+    var startDate: Date? { get }
+    var endDate: Date? { get }
+    var country: Country? { get }
+}
+
 @objc(Travel)
-public class Travel: NSManagedObject, DataModelProtocol {
+public class Travel: NSManagedObject, TravelProtocol, DataModelProtocol {
     static let entityName = "Travel"
 }
