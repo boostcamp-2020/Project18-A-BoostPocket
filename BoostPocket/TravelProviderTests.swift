@@ -25,9 +25,15 @@ class TravelProviderTests: XCTestCase {
     }
 
     func test_travelProvier_createTravel() {
-        let createdTravel = travelProviderStub.createTravel()
+        
+        let countryName = "대한민국"
+        let countryProviderStub = CountryProvider(persistenceManager: persistenceManagerStub)
+        countryProviderStub.createCountry(name: countryName, lastUpdated: Date(), flagImage: Data(), exchangeRate: 1.0, currencyCode: "KRW")
+        let createdTravel = travelProviderStub.createTravel(countryName: countryName)
         
         XCTAssertNotNil(createdTravel)
+        XCTAssertEqual(createdTravel?.title, countryName)
+        XCTAssertEqual(createdTravel?.country?.name, countryName)
     }
 
 }
