@@ -35,8 +35,6 @@ struct TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     var flagImage: Data?
     var currencyCode: String?
     
-    
-    
     init(travel: TravelProtocol) {
         self.id = travel.id
         self.title = travel.title

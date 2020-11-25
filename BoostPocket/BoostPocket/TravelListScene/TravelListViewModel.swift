@@ -31,7 +31,6 @@ class TravelListViewModel: TravelListPresentable {
         self.travelProvider = travelProvider
     }
     
-    
     func needFetchItems() {
     }
     
