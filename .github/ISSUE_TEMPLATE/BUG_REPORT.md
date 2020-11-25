@@ -7,13 +7,15 @@ assignees: ''
 
 ---
 
-### Current behaviour (bug)
-Write here
+### Summary  
 
-### Expected behaviour (correct)
-Write here
 
-### 버그 재현방법
-1. Write here
-2. Write here
+### Steps to Reproduce  
+
+
+### Expected Results  
+
+
+### Actual Results  
+
 
