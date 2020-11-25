@@ -1,21 +1,11 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: Discussion
+about: Any topic to discuss about
 title: ''
-labels: Bug 🐞
+labels: discussion 💭
 assignees: ''
 
 ---
 
-### Summary  
-
-
-### Steps to Reproduce  
-
-
-### Expected Results  
-
-
-### Actual Results  
-
+### 의논하고 싶은 주제
 
