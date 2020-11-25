@@ -243,8 +243,8 @@
 			isa = PBXGroup;
 			children = (
 				95A42E7D25664DBE0007810C /* TravelListViewController.swift */,
-				954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */,
 				A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */,
+				954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */,
 				5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */,
 			);
 			path = TravelListScene;
