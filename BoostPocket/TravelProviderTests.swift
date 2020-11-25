@@ -12,8 +12,8 @@ import XCTest
 class TravelProviderTests: XCTestCase {
     
     var persistenceManagerStub: PersistenceManagable!
-    var countryProviderStub: CountryProvidable!
-    var travelProviderStub: TravelProvidable!
+    var countryProvider: CountryProvidable!
+    var travelProvider: TravelProvidable!
     
     let countryName = "대한민국"
     let lastUpdated = Date()
@@ -23,19 +23,20 @@ class TravelProviderTests: XCTestCase {
 
     override func setUpWithError() throws {
         persistenceManagerStub = PersistenceManagerStub()
-        countryProviderStub = CountryProvider(persistenceManager: persistenceManagerStub)
-        travelProviderStub = TravelProvider(persistenceManager: persistenceManagerStub)
+        countryProvider = CountryProvider(persistenceManager: persistenceManagerStub)
+        travelProvider = TravelProvider(persistenceManager: persistenceManagerStub)
     }
 
     override func tearDownWithError() throws {
         persistenceManagerStub = nil
-        travelProviderStub = nil
+        countryProvider = nil
+        travelProvider = nil
     }
 
     func test_travelProvider_createTravel() {
         
-        countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
-        let createdTravel = travelProviderStub.createTravel(countryName: countryName)
+        countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+        let createdTravel = travelProvider.createTravel(countryName: countryName)
         
         XCTAssertNotNil(createdTravel)
         XCTAssertEqual(createdTravel?.title, countryName)
@@ -44,15 +45,14 @@ class TravelProviderTests: XCTestCase {
     
     func test_travelProvider_fetchTravels() {
         
-        XCTAssertEqual(travelProviderStub.fetchTravels(), [])
-        countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
-        travelProviderStub.createTravel(countryName: countryName)
+        XCTAssertEqual(travelProvider.fetchTravels(), [])
+        countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+        travelProvider.createTravel(countryName: countryName)
         
-        XCTAssertNotEqual(travelProviderStub.fetchTravels(), [])
-        let travel = travelProviderStub.fetchTravels().first
+        XCTAssertNotEqual(travelProvider.fetchTravels(), [])
+        let travel = travelProvider.fetchTravels().first
         
         XCTAssertEqual(travel?.title, countryName)
         XCTAssertEqual(travel?.exchangeRate, exchangeRate)
     }
-
 }

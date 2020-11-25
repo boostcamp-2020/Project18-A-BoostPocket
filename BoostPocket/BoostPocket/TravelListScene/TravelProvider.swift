@@ -11,7 +11,7 @@ import CoreData
 
 protocol TravelProvidable: AnyObject {
     var travels: [Travel] { get }
-    func createTravel(countryName: String) -> Travel?
+    @discardableResult func createTravel(countryName: String) -> Travel?
     func fetchTravels() -> [Travel]
     func deleteTravel()
 }
@@ -25,6 +25,7 @@ class TravelProvider: TravelProvidable {
         self.persistenceManager = persistenceManager
     }
     
+    @discardableResult
     func createTravel(countryName: String) -> Travel? {
         
         guard let persistenceManager = persistenceManager,
