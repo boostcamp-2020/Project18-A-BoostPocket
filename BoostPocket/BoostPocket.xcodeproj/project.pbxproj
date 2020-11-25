@@ -16,7 +16,9 @@
 		5C3DAF3A25666A8000178EA0 /* TravelDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */; };
 		5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */; };
 		5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */; };
+		5C89619E256E917300575677 /* TravelStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C89619D256E917300575677 /* TravelStub.swift */; };
 		5C8C9196256E8436008C3919 /* TravelItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */; };
+		5C8C91AD256E8F0F008C3919 /* TravelViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C91AC256E8F0F008C3919 /* TravelViewModelTests.swift */; };
 		5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C96E8E1256BDA4200246590 /* CountryViewModelTests.swift */; };
 		5CB682E5256C03F800830373 /* CountryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB682E4256C03F800830373 /* CountryListViewModel.swift */; };
 		5CD76E9F256C24DC00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
@@ -112,7 +114,9 @@
 		5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TravelDetail.storyboard; sourceTree = "<group>"; };
 		5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProfileViewController.swift; sourceTree = "<group>"; };
 		5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryItemViewModel.swift; sourceTree = "<group>"; };
+		5C89619D256E917300575677 /* TravelStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelStub.swift; path = BoostPocket/TravelListScene/TravelStub.swift; sourceTree = SOURCE_ROOT; };
 		5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelItemViewModel.swift; sourceTree = "<group>"; };
+		5C8C91AC256E8F0F008C3919 /* TravelViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelViewModelTests.swift; path = BoostPocket/TravelListScene/TravelViewModelTests.swift; sourceTree = SOURCE_ROOT; };
 		5C96E8E1256BDA4200246590 /* CountryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewModelTests.swift; sourceTree = "<group>"; };
 		5CB682E4256C03F800830373 /* CountryListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryListViewModel.swift; sourceTree = "<group>"; };
 		81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -351,6 +355,8 @@
 			isa = PBXGroup;
 			children = (
 				A9BF7A76256E306000496CD8 /* TravelProviderTests.swift */,
+				5C8C91AC256E8F0F008C3919 /* TravelViewModelTests.swift */,
+				5C89619D256E917300575677 /* TravelStub.swift */,
 			);
 			path = TravelTests;
 			sourceTree = "<group>";
@@ -690,7 +696,9 @@
 				956BBC58256B9CCC007803B1 /* CountryStub.swift in Sources */,
 				A9BF7A77256E306100496CD8 /* TravelProviderTests.swift in Sources */,
 				5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */,
+				5C8C91AD256E8F0F008C3919 /* TravelViewModelTests.swift in Sources */,
 				9572F9B3256B974C003049CB /* PersistenceManagerStub.swift in Sources */,
+				5C89619E256E917300575677 /* TravelStub.swift in Sources */,
 				95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */,
 				9572F9B0256B9703003049CB /* CountryProviderTests.swift in Sources */,
 			);
