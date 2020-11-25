@@ -13,7 +13,7 @@ protocol TravelProvidable: AnyObject {
     var travels: [Travel] { get }
     @discardableResult func createTravel(countryName: String) -> Travel?
     func fetchTravels() -> [Travel]
-    func deleteTravel()
+    func deleteTravel(id: UUID)
 }
 
 class TravelProvider: TravelProvidable {
@@ -37,11 +37,16 @@ class TravelProvider: TravelProvidable {
     }
     
     func fetchTravels() -> [Travel] {
-        
-        return []
+        guard let persistenceManager = persistenceManager else { return [] }
+        travels = persistenceManager.fetchAll(request: Travel.fetchRequest())
+        return travels
     }
     
-    func deleteTravel() {
+    func deleteTravel(id: UUID) {
+        guard let deleteTravel = travels.filter({ $0.id == id }).first,
+              let persistenceManager = persistenceManager else { return }
         
+        persistenceManager.delete(object: deleteTravel)
+        travels = travels.filter { $0.id != id }
     }
 }

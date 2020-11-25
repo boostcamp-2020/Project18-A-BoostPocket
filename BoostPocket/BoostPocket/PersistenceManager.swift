@@ -22,6 +22,7 @@ protocol PersistenceManagable: AnyObject {
 }
 
 class PersistenceManager: PersistenceManagable {
+    
     private(set) var modelName = "BoostPocket"
     
     // MARK: - Core Data stack

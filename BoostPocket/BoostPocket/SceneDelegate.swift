@@ -15,6 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var persistenceManager: PersistenceManagable = PersistenceManager()
     var countryProvider: CountryProvidable?
+    var travelProvider: TravelProvidable?
     
     var dataLoader: DataLoader?
     
@@ -23,6 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         let countryProvider = CountryProvider(persistenceManager: persistenceManager)
+        let travelProvider = TravelProvider(persistenceManager: persistenceManager)
         
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
         dataLoader = DataLoader(session: session)
@@ -46,7 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 guard let mainNavigationController = storyboard.instantiateViewController(identifier: "MainNavigationViewController") as? UINavigationController,
                     let travelListVC = mainNavigationController.topViewController as? TravelListViewController else { return }
                 
-                travelListVC.travelListViewModel = TravelListViewModel(countryProvider: countryProvider)
+                travelListVC.travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider)
                 
                 self.window?.rootViewController = mainNavigationController
                 self.window?.makeKeyAndVisible()
@@ -54,6 +56,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         })
         
         self.countryProvider = countryProvider
+        self.travelProvider = travelProvider
     }
     
     // TODO: - 테스트코드 작성하기

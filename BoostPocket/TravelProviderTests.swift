@@ -25,6 +25,8 @@ class TravelProviderTests: XCTestCase {
         persistenceManagerStub = PersistenceManagerStub()
         countryProvider = CountryProvider(persistenceManager: persistenceManagerStub)
         travelProvider = TravelProvider(persistenceManager: persistenceManagerStub)
+        
+        countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
     }
 
     override func tearDownWithError() throws {
@@ -34,7 +36,6 @@ class TravelProviderTests: XCTestCase {
     }
 
     func test_travelProvider_createTravel() {
-        countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
         let createdTravel = travelProvider.createTravel(countryName: countryName)
         
         XCTAssertNotNil(createdTravel)
@@ -42,16 +43,24 @@ class TravelProviderTests: XCTestCase {
         XCTAssertEqual(createdTravel?.country?.name, countryName)
     }
     
-//    func test_travelProvider_fetchTravels() {
-//
-//        XCTAssertEqual(travelProvider.fetchTravels(), [])
-//        countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
-//        travelProvider.createTravel(countryName: countryName)
-//
-//        XCTAssertNotEqual(travelProvider.fetchTravels(), [])
-//        let travel = travelProvider.fetchTravels().first
-//
-//        XCTAssertEqual(travel?.title, countryName)
-//        XCTAssertEqual(travel?.exchangeRate, exchangeRate)
-//    }
+    func test_travelProvider_fetchTravels() {
+        travelProvider.createTravel(countryName: countryName)
+
+        XCTAssertNotEqual(travelProvider.fetchTravels(), [])
+        let travel = travelProvider.fetchTravels().first
+
+        XCTAssertEqual(travel?.title, countryName)
+        XCTAssertEqual(travel?.exchangeRate, exchangeRate)
+    }
+    
+    func test_travelProvider_deleteTravel() {
+        XCTAssertEqual(travelProvider.fetchTravels(), [])
+        travelProvider.createTravel(countryName: countryName)
+        
+        let fetchedTravel = travelProvider.fetchTravels().first
+        XCTAssertNotNil(fetchedTravel)
+        
+        travelProvider.deleteTravel(id: fetchedTravel?.id ?? UUID())
+        XCTAssertEqual(travelProvider.fetchTravels(), [])
+    }
 }
