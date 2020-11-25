@@ -19,10 +19,11 @@ protocol PersistenceManagable: AnyObject {
     @discardableResult func createObject(newObjectInfo: InformationProtocol) -> DataModelProtocol?
     @discardableResult func saveContext() -> Bool
     @discardableResult func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool?
-    // @discardableResult func delete(object: NSManagedObject) -> Bool
+    @discardableResult func delete(object: DataModelProtocol) -> Bool
 }
 
 class PersistenceManager: PersistenceManagable {
+    
     private(set) var modelName = "BoostPocket"
     
     // MARK: - Core Data stack
@@ -68,15 +69,15 @@ class PersistenceManager: PersistenceManagable {
         var createdObject: DataModelProtocol?
         
         switch newObjectInfo.informationType {
-        case .CountryInfo:
+        case .countryType:
             guard let newObjectInfo = newObjectInfo as? CountryInfo else { return nil }
             createdObject = setupCountryInfo(countryInfo: newObjectInfo)
             
-        case .TravelInfo:
+        case .travelType:
             guard let newObjectInfo = newObjectInfo as? TravelInfo else { return nil }
             createdObject = setupTravelInfo(travelInfo: newObjectInfo)
             
-        case .HistoryInfo:
+        case .historyType:
             return nil
         }
         
@@ -166,16 +167,10 @@ class PersistenceManager: PersistenceManagable {
     }
     
     // TODO: - 특정 Object 삭제 코드
-    //    @discardableResult
-    //    func delete(object: NSManagedObject) -> Bool {
-    //        self.context.delete(object)
-    //        do {
-    //            try context.save()
-    //            return true
-    //        } catch {
-    //            return false
-    //        }
-    //    }
+        @discardableResult
+        func delete(object: DataModelProtocol) -> Bool {
+            return true
+        }
     
     // MARK: - Core Data Counting support
     
