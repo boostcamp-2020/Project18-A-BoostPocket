@@ -28,7 +28,7 @@ class CountryProvider: CountryProvidable {
         guard let persistenceManager = persistenceManager else { return [] }
         
         countries.removeAll()
-        countries = persistenceManager.fetch(request: Country.fetchRequest())
+        countries = persistenceManager.fetchAll(request: Country.fetchRequest())
         
         return countries
     }
@@ -41,7 +41,10 @@ class CountryProvider: CountryProvidable {
                                          exchangeRate: exchangeRate,
                                          currencyCode: currencyCode)
         
-        guard let createdCountry = persistenceManager?.createCountry(countryInfo: newCountryInfo) else { return nil}
+        guard let createdObject = persistenceManager?.createObject(newObjectInfo: newCountryInfo),
+            let createdCountry = createdObject as? Country
+            else { return nil }
+        
         return createdCountry
     }
 }

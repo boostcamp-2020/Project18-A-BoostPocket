@@ -34,7 +34,6 @@ class TravelProviderTests: XCTestCase {
     }
 
     func test_travelProvider_createTravel() {
-        
         countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
         let createdTravel = travelProvider.createTravel(countryName: countryName)
         
@@ -43,16 +42,16 @@ class TravelProviderTests: XCTestCase {
         XCTAssertEqual(createdTravel?.country?.name, countryName)
     }
     
-    func test_travelProvider_fetchTravels() {
-        
-        XCTAssertEqual(travelProvider.fetchTravels(), [])
-        countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
-        travelProvider.createTravel(countryName: countryName)
-        
-        XCTAssertNotEqual(travelProvider.fetchTravels(), [])
-        let travel = travelProvider.fetchTravels().first
-        
-        XCTAssertEqual(travel?.title, countryName)
-        XCTAssertEqual(travel?.exchangeRate, exchangeRate)
-    }
+//    func test_travelProvider_fetchTravels() {
+//
+//        XCTAssertEqual(travelProvider.fetchTravels(), [])
+//        countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+//        travelProvider.createTravel(countryName: countryName)
+//
+//        XCTAssertNotEqual(travelProvider.fetchTravels(), [])
+//        let travel = travelProvider.fetchTravels().first
+//
+//        XCTAssertEqual(travel?.title, countryName)
+//        XCTAssertEqual(travel?.exchangeRate, exchangeRate)
+//    }
 }

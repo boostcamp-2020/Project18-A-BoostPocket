@@ -32,14 +32,15 @@ class PersistenceManagerTests: XCTestCase {
     }
 
     func test_persistenceManager_createCountry() {
-        let createdCountry = persistenceManagerStub.createCountry(countryInfo: countryInfo)
-        let fetchedCounties = persistenceManagerStub.fetch(request: Country.fetchRequest())
+        let createdObject = persistenceManagerStub.createObject(newObjectInfo: countryInfo)
+        let createdCountry = createdObject as? Country
         
+        let fetchedCounties = persistenceManagerStub.fetchAll(request: Country.fetchRequest())
+        
+        XCTAssertNotNil(createdObject)
         XCTAssertNotNil(createdCountry)
         XCTAssertNotEqual(fetchedCounties, [])
         XCTAssertEqual(fetchedCounties.first, createdCountry)
     }
-    
-    func test_persistenceManager_delete() { }
 
 }
