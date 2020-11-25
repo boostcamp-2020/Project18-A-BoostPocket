@@ -18,7 +18,7 @@ protocol PersistenceManagable: AnyObject {
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
     @discardableResult func createObject(newObjectInfo: InformationProtocol) -> DataModelProtocol?
     @discardableResult func saveContext() -> Bool
-    @discardableResult func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool?
+    @discardableResult func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool
     // @discardableResult func delete(object: NSManagedObject) -> Bool
 }
 
@@ -153,7 +153,7 @@ class PersistenceManager: PersistenceManagable {
     // TODO: - 리턴값 optional에서 Bool로 바꾸고, provider 코드에서도 변경사항 적용하기
     // TODO: - 테스트코드 작성
     @discardableResult
-    func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool? {
+    func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool {
         let request: NSFetchRequest<NSFetchRequestResult> = T.fetchRequest()
         let delete = NSBatchDeleteRequest(fetchRequest: request)
         do {
@@ -161,7 +161,7 @@ class PersistenceManager: PersistenceManagable {
             return true
         } catch {
             print(error.localizedDescription)
-            return nil
+            return false
         }
     }
     
