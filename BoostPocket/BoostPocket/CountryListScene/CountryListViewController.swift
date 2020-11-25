@@ -70,9 +70,16 @@ class CountryListViewController: UIViewController {
             dismiss(animated: true, completion: nil)
             return
         }
+        print(selectedIndexPath)
         
         dismiss(animated: true) { [weak self] in
-            guard let selectedCountryItemViewModel = self?.countryListViewModel?.cellForItemAt(path: selectedIndexPath) else {
+            
+            var numberOfRows = (0..<selectedIndexPath.section).reduce(0) {
+                $0 + (self?.countryListTableView.numberOfRows(inSection: $1) ?? 0)
+            }
+            numberOfRows += selectedIndexPath.row
+            
+            guard let selectedCountryItemViewModel = self?.countryListViewModel?.cellForItemAt(path: IndexPath(row: numberOfRows, section: 0)) else {
                 // TODO: - 에러처리
                 return
             }
