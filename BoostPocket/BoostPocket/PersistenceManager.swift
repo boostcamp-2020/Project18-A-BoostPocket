@@ -15,8 +15,10 @@ protocol PersistenceManagable: AnyObject {
     var context: NSManagedObjectContext { get }
     func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
+    @discardableResult func createCountry(countryInfo: CountryInfo) -> Country?
     @discardableResult func saveContext() -> Bool
     @discardableResult func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool?
+    // @discardableResult func delete(object: NSManagedObject) -> Bool
 }
 
 class PersistenceManager: PersistenceManagable {
@@ -41,7 +43,6 @@ class PersistenceManager: PersistenceManagable {
 
     // MARK: - Core Data Saving support
 
-    // TODO: saveContext 자체 테스트할 것
     @discardableResult
     func saveContext() -> Bool {
         let context = persistentContainer.viewContext
@@ -57,6 +58,26 @@ class PersistenceManager: PersistenceManagable {
         }
         
         return false // 주의
+    }
+    
+    @discardableResult
+    func createCountry(countryInfo: CountryInfo) -> Country? {
+        guard let entity = NSEntityDescription.entity(forEntityName: "Country", in: self.context) else { return nil }
+        
+        let newCountry = Country(entity: entity, insertInto: context)
+        newCountry.name = countryInfo.name
+        newCountry.lastUpdated = countryInfo.lastUpdated
+        newCountry.flagImage = countryInfo.flagImage
+        newCountry.exchangeRate = countryInfo.exchangeRate
+        newCountry.currencyCode = countryInfo.currencyCode
+        
+        do {
+            try self.context.save()
+            return newCountry
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
     }
     
     // MARK: - Core Data Fetching support
@@ -77,6 +98,8 @@ class PersistenceManager: PersistenceManagable {
     
     // MARK: - Core Data Deleting support
     
+    // TODO: - 리턴값 optional에서 Bool로 바꾸고, provider 코드에서도 변경사항 적용하기
+    // TODO: - 테스트코드 작성
     @discardableResult
     func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool? {
         let request: NSFetchRequest<NSFetchRequestResult> = T.fetchRequest()
@@ -90,7 +113,21 @@ class PersistenceManager: PersistenceManagable {
         }
     }
     
+    // TODO: - 특정 Object 삭제 코드
+//    @discardableResult
+//    func delete(object: NSManagedObject) -> Bool {
+//        self.context.delete(object)
+//        do {
+//            try context.save()
+//            return true
+//        } catch {
+//            return false
+//        }
+//    }
+  
     // MARK: - Core Data Counting support
+    
+    // TODO: - 테스트코드 작성
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int? {
         do {
             let count = try self.context.count(for: request)
