@@ -25,7 +25,9 @@ class TravelProviderTests: XCTestCase {
     }
 
     func test_travelProvier_createTravel() {
+        let createdTravel = travelProviderStub.createTravel()
         
+        XCTAssertNotNil(createdTravel)
     }
 
 }
