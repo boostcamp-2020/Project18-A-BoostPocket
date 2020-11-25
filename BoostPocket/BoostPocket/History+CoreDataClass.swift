@@ -1,5 +1,5 @@
 //
-//  Travel+CoreDataClass.swift
+//  History+CoreDataClass.swift
 //  BoostPocket
 //
 //  Created by 이승진 on 2020/11/25.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Travel)
-public class Travel: NSManagedObject {
+@objc(History)
+public class History: NSManagedObject {
 
 }
