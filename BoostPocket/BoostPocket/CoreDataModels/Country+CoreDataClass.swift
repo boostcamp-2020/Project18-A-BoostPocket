@@ -16,7 +16,9 @@ protocol CountryProtocol {
     var currencyCode: String? { get }
 }
 
+protocol DataModelProtocol { }
+
 @objc(Country)
-public class Country: NSManagedObject, CountryProtocol {
+public class Country: NSManagedObject, CountryProtocol, DataModelProtocol {
 
 }

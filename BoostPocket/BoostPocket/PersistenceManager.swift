@@ -16,7 +16,7 @@ protocol PersistenceManagable: AnyObject {
     func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]?
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
-    @discardableResult func createCountry(countryInfo: CountryInfo) -> Country?
+    @discardableResult func createObject(newObjectInfo: InformationProtocol) -> DataModelProtocol?
     @discardableResult func saveContext() -> Bool
     @discardableResult func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool?
     // @discardableResult func delete(object: NSManagedObject) -> Bool
@@ -61,24 +61,42 @@ class PersistenceManager: PersistenceManagable {
         return false // 주의
     }
     
+    // MARK: - Core Data Creating support
+    
+    //TODO: - generic 쓰는 방식과 더 나은 코드 고민해보기
     @discardableResult
-    func createCountry(countryInfo: CountryInfo) -> Country? {
+    func createObject(newObjectInfo: InformationProtocol) -> DataModelProtocol? {
         guard let entity = NSEntityDescription.entity(forEntityName: "Country", in: self.context) else { return nil }
+                
+        var createdObject: DataModelProtocol?
         
-        let newCountry = Country(entity: entity, insertInto: context)
+        switch newObjectInfo.informationType {
+        case .CountryInfo:
+            guard let newObjectInfo = newObjectInfo as? CountryInfo else { return nil }
+            let newCountry = Country(entity: entity, insertInto: context)
+            setupCountryInfo(newCountry: newCountry, countryInfo: newObjectInfo)
+            createdObject = newCountry
+        case .TravelInfo:
+            return nil
+        case .HistoryInfo:
+            return nil
+        }
+        
+        do {
+            try self.context.save()
+            return createdObject
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    private func setupCountryInfo(newCountry: Country, countryInfo: CountryInfo) {
         newCountry.name = countryInfo.name
         newCountry.lastUpdated = countryInfo.lastUpdated
         newCountry.flagImage = countryInfo.flagImage
         newCountry.exchangeRate = countryInfo.exchangeRate
         newCountry.currencyCode = countryInfo.currencyCode
-        
-        do {
-            try self.context.save()
-            return newCountry
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
     }
     
     // MARK: - Core Data Fetching support
