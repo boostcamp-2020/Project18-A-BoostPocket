@@ -24,9 +24,11 @@ class TravelListViewModel: TravelListPresentable {
     var travels: [TravelItemViewModel] = []
     var didFetch: (([TravelItemViewModel]) -> Void)?
     private weak var countryProvider: CountryProvidable?
+    private weak var travelProvider: TravelProvidable?
     
-    init(countryProvider: CountryProvidable?) {
+    init(countryProvider: CountryProvidable?, travelProvider: TravelProvidable?) {
         self.countryProvider = countryProvider
+        self.travelProvider = travelProvider
     }
     
     
