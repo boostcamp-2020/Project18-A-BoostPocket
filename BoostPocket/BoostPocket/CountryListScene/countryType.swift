@@ -15,11 +15,11 @@ enum EntityType {
 }
 
 protocol InformationProtocol {
-    var informationType: EntityType { get }
+    var entityType: EntityType { get }
 }
 
 struct CountryInfo: InformationProtocol {
-    private(set) var informationType: EntityType = .countryType
+    private(set) var entityType: EntityType = .countryType
     private(set) var name: String
     private(set) var lastUpdated: Date
     private(set) var flagImage: Data
@@ -36,7 +36,7 @@ struct CountryInfo: InformationProtocol {
 }
 
 struct TravelInfo: InformationProtocol {
-    private(set) var informationType: EntityType = .travelType
+    private(set) var entityType: EntityType = .travelType
     private(set) var countryName: String
     
     init(countryName: String) {
