@@ -35,7 +35,7 @@ class PersistenceManagerTests: XCTestCase {
         let createdObject = persistenceManagerStub.createObject(newObjectInfo: countryInfo)
         let createdCountry = createdObject as? Country
         
-        let fetchedCounties = persistenceManagerStub.fetch(request: Country.fetchRequest())
+        let fetchedCounties = persistenceManagerStub.fetchAll(request: Country.fetchRequest())
         
         XCTAssertNotNil(createdObject)
         XCTAssertNotNil(createdCountry)

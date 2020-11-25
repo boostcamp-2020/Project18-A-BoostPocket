@@ -13,7 +13,7 @@ protocol PersistenceManagable: AnyObject {
     var modelName: String { get }
     var persistentContainer: NSPersistentContainer { get }
     var context: NSManagedObjectContext { get }
-    func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]
+    func fetchAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]?
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
     @discardableResult func createObject(newObjectInfo: InformationProtocol) -> DataModelProtocol?
@@ -43,10 +43,9 @@ class PersistenceManager: PersistenceManagable {
     }
     
     // MARK: - Core Data Saving support
-
+    
     @discardableResult
     func saveContext() -> Bool {
-        let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
@@ -63,21 +62,20 @@ class PersistenceManager: PersistenceManagable {
     
     // MARK: - Core Data Creating support
     
-    //TODO: - generic 쓰는 방식과 더 나은 코드 고민해보기
     @discardableResult
     func createObject(newObjectInfo: InformationProtocol) -> DataModelProtocol? {
-        guard let entity = NSEntityDescription.entity(forEntityName: "Country", in: self.context) else { return nil }
-                
+        
         var createdObject: DataModelProtocol?
         
         switch newObjectInfo.informationType {
         case .CountryInfo:
             guard let newObjectInfo = newObjectInfo as? CountryInfo else { return nil }
-            let newCountry = Country(entity: entity, insertInto: context)
-            setupCountryInfo(newCountry: newCountry, countryInfo: newObjectInfo)
-            createdObject = newCountry
+            createdObject = setupCountryInfo(countryInfo: newObjectInfo)
+            
         case .TravelInfo:
-            return nil
+            guard let newObjectInfo = newObjectInfo as? TravelInfo else { return nil }
+            createdObject = setupTravelInfo(travelInfo: newObjectInfo)
+            
         case .HistoryInfo:
             return nil
         }
@@ -91,17 +89,42 @@ class PersistenceManager: PersistenceManagable {
         }
     }
     
-    private func setupCountryInfo(newCountry: Country, countryInfo: CountryInfo) {
+    private func setupCountryInfo(countryInfo: CountryInfo) -> Country? {
+        guard let entity = NSEntityDescription.entity(forEntityName: Country.entityName, in: self.context) else { return nil }
+        let newCountry = Country(entity: entity, insertInto: context)
+        
         newCountry.name = countryInfo.name
         newCountry.lastUpdated = countryInfo.lastUpdated
         newCountry.flagImage = countryInfo.flagImage
         newCountry.exchangeRate = countryInfo.exchangeRate
         newCountry.currencyCode = countryInfo.currencyCode
+        
+        return newCountry
+    }
+    
+    private func setupTravelInfo(travelInfo: TravelInfo) -> Travel? {
+        guard let entity = NSEntityDescription.entity(forEntityName: Travel.entityName, in: self.context) else { return nil }
+        let newTravel = Travel(entity: entity, insertInto: context)
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Country.entityName)
+        fetchRequest.predicate = NSPredicate(format: "name == %@", travelInfo.countryName)
+        
+        guard let countries = fetch(fetchRequest) as? [Country],
+            let fetchedCountry = countries.first
+            else { return nil }
+        
+        newTravel.title = fetchedCountry.name
+        newTravel.exchangeRate = fetchedCountry.exchangeRate
+        newTravel.country = fetchedCountry
+        newTravel.id = UUID()
+        newTravel.coverImage = Data() // TODO: - asset에 디폴트 이미지 넣어놓기
+        
+        return newTravel
     }
     
     // MARK: - Core Data Fetching support
     
-    func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T] {
+    func fetchAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T] {
         if T.self == Country.self {
             let nameSort = NSSortDescriptor(key: "name", ascending: true)
             request.sortDescriptors = [nameSort]
@@ -143,17 +166,17 @@ class PersistenceManager: PersistenceManagable {
     }
     
     // TODO: - 특정 Object 삭제 코드
-//    @discardableResult
-//    func delete(object: NSManagedObject) -> Bool {
-//        self.context.delete(object)
-//        do {
-//            try context.save()
-//            return true
-//        } catch {
-//            return false
-//        }
-//    }
-  
+    //    @discardableResult
+    //    func delete(object: NSManagedObject) -> Bool {
+    //        self.context.delete(object)
+    //        do {
+    //            try context.save()
+    //            return true
+    //        } catch {
+    //            return false
+    //        }
+    //    }
+    
     // MARK: - Core Data Counting support
     
     // TODO: - 테스트코드 작성

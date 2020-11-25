@@ -28,7 +28,7 @@ class CountryProvider: CountryProvidable {
         guard let persistenceManager = persistenceManager else { return [] }
         
         countries.removeAll()
-        countries = persistenceManager.fetch(request: Country.fetchRequest())
+        countries = persistenceManager.fetchAll(request: Country.fetchRequest())
         
         return countries
     }

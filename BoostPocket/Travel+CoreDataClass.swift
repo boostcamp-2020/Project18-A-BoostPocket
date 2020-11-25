@@ -11,6 +11,6 @@ import Foundation
 import CoreData
 
 @objc(Travel)
-public class Travel: NSManagedObject {
-
+public class Travel: NSManagedObject, DataModelProtocol {
+    static let entityName = "Travel"
 }

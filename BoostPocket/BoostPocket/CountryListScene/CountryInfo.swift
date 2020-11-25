@@ -34,3 +34,12 @@ struct CountryInfo: InformationProtocol {
         self.exchangeRate = exchangeRate
     }
 }
+
+struct TravelInfo: InformationProtocol {
+    private(set) var informationType: InformationType = .TravelInfo
+    private(set) var countryName: String
+    
+    init(countryName: String) {
+        self.countryName = countryName
+    }
+}

@@ -27,29 +27,13 @@ class TravelProvider: TravelProvidable {
     
     @discardableResult
     func createTravel(countryName: String) -> Travel? {
+        let newTravelInfo = TravelInfo(countryName: countryName)
         
-        guard let persistenceManager = persistenceManager,
-              let entity = NSEntityDescription.entity(forEntityName: "Travel", in: persistenceManager.context)
-        else { return nil }
+        guard let createdObject = persistenceManager?.createObject(newObjectInfo: newTravelInfo),
+            let createdTravel = createdObject as? Travel
+            else { return nil }
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Country")
-        fetchRequest.predicate = NSPredicate(format: "name == %@", countryName)
-        
-        guard let countries = persistenceManager.fetch(fetchRequest) as? [Country],
-              let fetchedCountry = countries.first else { return nil }
-        
-        let newTravel = Travel(entity: entity, insertInto: persistenceManager.context)
-        newTravel.title = countryName
-        newTravel.exchangeRate = fetchedCountry.exchangeRate
-        newTravel.country = fetchedCountry
-        
-        let urlString: String = "https://source.unsplash.com/random/500x500"
-        guard let url = URL(string: urlString) else { return nil }
-        let data = try? Data(contentsOf: url)
-        // TODO : asset 에 default 이미지 추가
-        newTravel.coverImage = data
-        
-        return newTravel
+        return createdTravel
     }
     
     func fetchTravels() -> [Travel] {

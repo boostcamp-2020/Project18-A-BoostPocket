@@ -20,5 +20,5 @@ protocol DataModelProtocol { }
 
 @objc(Country)
 public class Country: NSManagedObject, CountryProtocol, DataModelProtocol {
-
+    static let entityName = "Country"
 }
