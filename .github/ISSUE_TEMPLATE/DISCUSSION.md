@@ -1,10 +1,21 @@
 ---
-name: Discussion
-about: Any topic to discuss about
+name: Bug report
+about: Create a report to help us improve
 title: ''
-labels: discussion :thought_balloon:
+labels: Bug 🐞
 assignees: ''
 
 ---
 
-### 의논해보고 싶은 주제
+### Summary  
+
+
+### Steps to Reproduce  
+
+
+### Expected Results  
+
+
+### Actual Results  
+
+
