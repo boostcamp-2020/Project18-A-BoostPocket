@@ -39,6 +39,8 @@
 		9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9AD256B9524003049CB /* CountryProvider.swift */; };
 		9572F9B0256B9703003049CB /* CountryProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9AF256B9703003049CB /* CountryProviderTests.swift */; };
 		9572F9B3256B974C003049CB /* PersistenceManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */; };
+		9579CBB7256E46A900E74A61 /* CountryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9579CBB6256E46A900E74A61 /* CountryInfo.swift */; };
+		9581C709256E34AC006ABA8E /* PersistenceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9581C708256E34AC006ABA8E /* PersistenceManagerTests.swift */; };
 		95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7925664DBE0007810C /* AppDelegate.swift */; };
 		95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7B25664DBE0007810C /* SceneDelegate.swift */; };
 		95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7D25664DBE0007810C /* TravelListViewController.swift */; };
@@ -128,6 +130,8 @@
 		9572F9AD256B9524003049CB /* CountryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryProvider.swift; sourceTree = "<group>"; };
 		9572F9AF256B9703003049CB /* CountryProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryProviderTests.swift; sourceTree = "<group>"; };
 		9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManagerStub.swift; sourceTree = "<group>"; };
+		9579CBB6256E46A900E74A61 /* CountryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInfo.swift; sourceTree = "<group>"; };
+		9581C708256E34AC006ABA8E /* PersistenceManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManagerTests.swift; sourceTree = "<group>"; };
 		95A42E7625664DBE0007810C /* BoostPocket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoostPocket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A42E7925664DBE0007810C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95A42E7B25664DBE0007810C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -238,6 +242,7 @@
 				9572F9AD256B9524003049CB /* CountryProvider.swift */,
 				5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */,
 				5CB682E4256C03F800830373 /* CountryListViewModel.swift */,
+				9579CBB6256E46A900E74A61 /* CountryInfo.swift */,
 			);
 			path = CountryListScene;
 			sourceTree = "<group>";
@@ -249,6 +254,15 @@
 				5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */,
 			);
 			path = TravelDetailScene;
+			sourceTree = "<group>";
+		};
+		9581C707256E348A006ABA8E /* PersistenceManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */,
+				9581C708256E34AC006ABA8E /* PersistenceManagerTests.swift */,
+			);
+			path = PersistenceManagerTests;
 			sourceTree = "<group>";
 		};
 		95A42E6D25664DBE0007810C = {
@@ -301,7 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				95A42E9325664DC40007810C /* BoostPocketTests.swift */,
-				9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */,
+				9581C707256E348A006ABA8E /* PersistenceManagerTests */,
 				95B907A5256D606F009C2B27 /* TravelTests */,
 				95B907A4256D6060009C2B27 /* CountryTests */,
 				95A42E9525664DC40007810C /* Info.plist */,
@@ -628,6 +642,7 @@
 			files = (
 				95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */,
 				5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */,
+				9579CBB7256E46A900E74A61 /* CountryInfo.swift in Sources */,
 				5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */,
 				5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */,
 				954F701B256D3E7700B2E48B /* Sections.swift in Sources */,
@@ -651,6 +666,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9581C709256E34AC006ABA8E /* PersistenceManagerTests.swift in Sources */,
 				5CD76E9F256C24DC00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
 				956BBC58256B9CCC007803B1 /* CountryStub.swift in Sources */,
 				5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */,

@@ -35,21 +35,13 @@ class CountryProvider: CountryProvidable {
     
     @discardableResult
     func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) -> Country? {
-        guard let persistenceManager = persistenceManager,
-              let entity = NSEntityDescription.entity(forEntityName: "Country", in: persistenceManager.context)
-              else { return nil }
-            let newCountry = Country(entity: entity, insertInto: persistenceManager.context)
+        let newCountryInfo = CountryInfo(name: name,
+                                         lastUpdated: lastUpdated,
+                                         flagImage: flagImage,
+                                         exchangeRate: exchangeRate,
+                                         currencyCode: currencyCode)
         
-        newCountry.name = name
-        newCountry.lastUpdated = lastUpdated
-        newCountry.flagImage = flagImage
-        newCountry.exchangeRate = exchangeRate
-        newCountry.currencyCode = currencyCode
-        
-        if persistenceManager.saveContext() {
-            countries.append(newCountry)
-            return newCountry
-        }
-        return nil
+        guard let createdCountry = persistenceManager?.createCountry(countryInfo: newCountryInfo) else { return nil}
+        return createdCountry
     }
 }
