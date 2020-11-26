@@ -59,4 +59,17 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertEqual(travelItemViewModel.flagImage, country?.flagImage)
         XCTAssertEqual(travelItemViewModel.countryName, country?.name)
     }
+    
+    func test_TravelListViewModel_createTravel() {
+        let countryName = "대한민국"
+        let travel = travelListViewModel.createTravel(countryName: countryName)
+        
+        XCTAssertNotNil(travel)
+        XCTAssertEqual(travel, travelListViewModel.travels.first)
+        
+        if let createdTravel = travel {
+            XCTAssertEqual(createdTravel.title, countryName)
+            XCTAssertEqual(createdTravel.countryName, countryName)
+        }
+    }
 }
