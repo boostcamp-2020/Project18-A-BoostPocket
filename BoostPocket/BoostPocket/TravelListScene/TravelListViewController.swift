@@ -17,19 +17,18 @@ class TravelListViewController: UIViewController {
             }
         }
     }
-
+    
     @IBOutlet weak var travelListCollectionView: UICollectionView!
     
     typealias DataSource = UICollectionViewDiffableDataSource<TravelSection, TravelItemViewModel>
     typealias SnapShot = NSDiffableDataSourceSnapshot<TravelSection, TravelItemViewModel>
     
-    var dataSource: DataSource!
+    lazy var dataSource: DataSource = configureDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureCollectionView()
-        configureDataSource()
         
     }
     
@@ -41,17 +40,30 @@ class TravelListViewController: UIViewController {
     private func configureCollectionView() {
         travelListCollectionView.delegate = self
         travelListCollectionView.register(TravelCell.getNib(), forCellWithReuseIdentifier: TravelCell.identifier)
+        travelListCollectionView.register(TravelHeaderCell.getNib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TravelHeaderCell.identifier)
     }
     
-    private func configureDataSource() {
-        dataSource = DataSource(collectionView: travelListCollectionView, cellProvider: { (travelListCollectionView, indexPath, travelItemViewModel) -> UICollectionViewCell? in
-            guard let cell = travelListCollectionView.dequeueReusableCell(withReuseIdentifier: TravelCell.identifier, for: indexPath) as? TravelCell
-            else { return UICollectionViewCell() }
-            
-            cell.configure(with: travelItemViewModel)
-            
+    private func configureDataSource() -> DataSource {
+        let dataSource = DataSource(collectionView: travelListCollectionView) { (collectionView, indexPath, item) -> UICollectionViewCell? in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TravelCell.identifier, for: indexPath) as? TravelCell else { return UICollectionViewCell() }
+            cell.configure(with: item)
             return cell
-        })
+        }
+        
+        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TravelHeaderCell.identifier, for: indexPath) as? TravelHeaderCell else { return UICollectionReusableView() }
+            let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            switch section {
+            case .current:
+                sectionHeader.configure(with: "현재 여행 중인 나라")
+            case .past:
+                sectionHeader.configure(with: "지난 여행")
+            case .upcoming:
+                sectionHeader.configure(with: "다가오는 여행")
+            }
+            return sectionHeader
+        }
+        return dataSource
     }
     
     func applySnapShot(with travels: [TravelItemViewModel]) {
@@ -79,20 +91,20 @@ class TravelListViewController: UIViewController {
         }
         return .current
     }
-
+    
     @IBAction func newTravelButtonTapped(_ sender: Any) {
         let countryListVC = CountryListViewController.init(nibName: "CountryListViewController", bundle: nil)
-
+        
         guard let countryListViewModel = travelListViewModel?.createCountryListViewModel() else { return }
         
         countryListVC.countryListViewModel = countryListViewModel
         countryListVC.doneButtonHandler = { (selectedCountry) in
             dump(selectedCountry)
             self.travelListViewModel?.createTravel(countryName: selectedCountry.name)
-
-//            let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
-//            guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else { return }
-//            self.navigationController?.pushViewController(tabBarVC, animated: true)
+            
+            //            let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
+            //            guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else { return }
+            //            self.navigationController?.pushViewController(tabBarVC, animated: true)
         }
         
         let navigationController = UINavigationController(rootViewController: countryListVC)
@@ -104,8 +116,8 @@ class TravelListViewController: UIViewController {
 extension TravelListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-//        let cell = collectionView.cellForItem(at: indexPath)
-//        cell?.safeAreaInsets = UIEdgeInsets(top: <#T##CGFloat#>, left: <#T##CGFloat#>, bottom: <#T##CGFloat#>, right: <#T##CGFloat#>)
+        //        let cell = collectionView.cellForItem(at: indexPath)
+        //        cell?.safeAreaInsets = UIEdgeInsets(top: <#T##CGFloat#>, left: <#T##CGFloat#>, bottom: <#T##CGFloat#>, right: <#T##CGFloat#>)
         let width = self.view.bounds.width * 0.8
         
         return CGSize(width: width, height: width)
@@ -113,8 +125,14 @@ extension TravelListViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension TravelListViewController: UICollectionViewDelegate {
-    
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+
+        let section = dataSource.snapshot().sectionIdentifiers[section]
+        if section == .current {
+            return CGSize(width: self.view.bounds.width, height: 100)
+        }
+        return CGSize(width: self.view.bounds.width, height: 50)
+    }
 }
 
 extension Data {
