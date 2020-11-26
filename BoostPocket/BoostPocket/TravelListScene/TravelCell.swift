@@ -22,10 +22,11 @@ class TravelCell: UICollectionViewCell {
         
         guard let coverImage = travel.coverImage, let flagImage = travel.flagImage else { return }
         
+        coverImageView.contentMode = .scaleAspectFill
         coverImageView.image = UIImage(data: coverImage)
         travelTitleLabel.text = travel.title
         // TODO : date formmater extension 만들기
-        travelingDateLabel.text = "\(travel.startDate)"
+        travelingDateLabel.text = setDateFormat(startDate: travel.startDate, endDate: travel.endDate)
         flagImageView.image = UIImage(data: flagImage)
         // TODO : 총 사용 금액으로 설정하기
         spentMoneyLabel.text = "\(travel.budget)"
@@ -35,4 +36,16 @@ class TravelCell: UICollectionViewCell {
         return UINib(nibName: TravelCell.identifier, bundle: nil)
     }
 
+    func setDateFormat(startDate: Date?, endDate: Date?) -> String {
+        var dateString = ""
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy. MM. dd."
+        if let startDate = startDate, let endDate = endDate {
+            dateString += formatter.string(from: startDate)
+            dateString += " ~ "
+            dateString += formatter.string(from: endDate)
+        }
+        return dateString
+    }
+    
 }

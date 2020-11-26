@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="235" height="211"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gmy-dG-DoZ" userLabel="Cover Image">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gmy-dG-DoZ" userLabel="Cover Image">
                         <rect key="frame" x="0.0" y="0.0" width="235" height="211"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69T-Nt-sjr">
@@ -64,6 +64,11 @@
                 <constraint firstItem="BvG-Ku-dp3" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="z2z-yk-Xze"/>
             </constraints>
             <size key="customSize" width="235" height="211"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                    <integer key="value" value="10"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="coverImageView" destination="Gmy-dG-DoZ" id="E66-x3-5dM"/>
                 <outlet property="flagImageView" destination="BvG-Ku-dp3" id="M0y-Ot-Spm"/>

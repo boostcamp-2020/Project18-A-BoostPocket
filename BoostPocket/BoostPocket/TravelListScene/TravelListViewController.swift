@@ -101,7 +101,25 @@ class TravelListViewController: UIViewController {
     
 }
 
+extension TravelListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+//        let cell = collectionView.cellForItem(at: indexPath)
+//        cell?.safeAreaInsets = UIEdgeInsets(top: <#T##CGFloat#>, left: <#T##CGFloat#>, bottom: <#T##CGFloat#>, right: <#T##CGFloat#>)
+        let width = self.view.bounds.width * 0.8
+        
+        return CGSize(width: width, height: width)
+    }
+}
+
 extension TravelListViewController: UICollectionViewDelegate {
     
     
+}
+
+extension Data {
+    func getCoverImage() -> Data? {
+        let randomNumber = Int.random(in: 1...7)
+        return UIImage(named: "cover\(randomNumber)")?.pngData()
+    }
 }

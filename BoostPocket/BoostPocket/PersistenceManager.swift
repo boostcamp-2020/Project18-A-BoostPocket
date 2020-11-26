@@ -107,9 +107,11 @@ class PersistenceManager: PersistenceManagable {
         newTravel.title = fetchedCountry.name
         newTravel.exchangeRate = fetchedCountry.exchangeRate
         newTravel.country = fetchedCountry
+        // TODO : endDate 나중에 없애기
         newTravel.startDate = Date()
+        newTravel.endDate = Date()
         newTravel.id = UUID()
-        newTravel.coverImage = Data() // TODO: - asset에 디폴트 이미지 넣어놓기
+        newTravel.coverImage = Data().getCoverImage()
         
         return newTravel
     }
