@@ -15,8 +15,8 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dg6-B3-Hrv">
-                    <rect key="frame" x="139" y="14.5" width="42" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <rect key="frame" x="141.5" y="16.5" width="37" height="17"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>

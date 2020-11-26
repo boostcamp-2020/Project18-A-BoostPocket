@@ -52,15 +52,12 @@ class TravelListViewController: UIViewController {
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TravelHeaderCell.identifier, for: indexPath) as? TravelHeaderCell else { return UICollectionReusableView() }
+
             let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
-            switch section {
-            case .current:
-                sectionHeader.configure(with: "현재 여행 중인 나라")
-            case .past:
-                sectionHeader.configure(with: "지난 여행")
-            case .upcoming:
-                sectionHeader.configure(with: "다가오는 여행")
-            }
+            // TODO: 여행 개수 찾는 방법 고민해보기..
+            // let travelNumber = dataSource.snapshot().numberOfItems
+            sectionHeader.configure(with: section, numberOfTravel: self.travelListViewModel?.travels.count ?? 0)
+            
             return sectionHeader
         }
         return dataSource
