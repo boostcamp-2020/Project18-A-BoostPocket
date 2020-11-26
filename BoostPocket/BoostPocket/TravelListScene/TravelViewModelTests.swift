@@ -79,4 +79,15 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertNotNil(createdTravel?.coverImage)
         XCTAssertNotNil(createdTravel?.flagImage)
     }
+    
+    func test_TravelListViewModel_cellForItemAt() {
+        travelListViewModel.createTravel(countryName: countryName)
+        
+        let travelItem = travelListViewModel.cellForItemAt(path: IndexPath(row: 0, section: 0))
+        
+        XCTAssertEqual(travelItem?.title, country?.name)
+        XCTAssertEqual(travelItem?.countryName, country?.name)
+        XCTAssertEqual(travelItem?.currencyCode, country?.currencyCode)
+        XCTAssertEqual(travelItem?.exchangeRate, country?.exchangeRate)
+    }
 }
