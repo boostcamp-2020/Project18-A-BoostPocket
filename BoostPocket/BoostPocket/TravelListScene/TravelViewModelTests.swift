@@ -15,32 +15,35 @@ class TravelViewModelTests: XCTestCase {
     var persistenceManager: PersistenceManagable!
     var countryProvider: CountryProvidable!
     var travelProvider: TravelProvidable!
+    var country: Country!
     
-    var id = UUID()
-    var title = "test title"
-    var memo = "memo"
-    var exchangeRate = 12.1
-    var budget = 3.29
-    var coverImage = Data()
-    var startDate = Date()
-    var endDate = Date()
-
+    let id = UUID()
+    let title = "test title"
+    let memo = "memo"
+    let exchangeRate = 12.1
+    let budget = 3.29
+    let coverImage = Data()
+    let startDate = Date()
+    let endDate = Date()
+    let countryName = "대한민국"
+    
     override func setUpWithError() throws {
         persistenceManager = PersistenceManagerStub()
         countryProvider = CountryProvider(persistenceManager: persistenceManager)
+        country = countryProvider.createCountry(name: countryName, lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "KRW")
         travelProvider = TravelProvider(persistenceManager: persistenceManager)
         travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider)
     }
-
+    
     override func tearDownWithError() throws {
         travelListViewModel = nil
         travelProvider = nil
+        country = nil
         countryProvider = nil
         persistenceManager = nil
     }
-
+    
     func test_TravelItemViewModel_createInstance() throws {
-        let country = countryProvider.createCountry(name: "test name", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "KRW")
         let travel = TravelStub(id: id, title: title, memo: memo, exchangeRate: exchangeRate,
                                 budget: budget, coverImage: coverImage, startDate: startDate,
                                 endDate: endDate, country: country)
@@ -58,5 +61,22 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertEqual(travelItemViewModel.currencyCode, country?.currencyCode)
         XCTAssertEqual(travelItemViewModel.flagImage, country?.flagImage)
         XCTAssertEqual(travelItemViewModel.countryName, country?.name)
+    }
+    
+    func test_TravelListViewModel_createTravel() {
+        let createdTravel = travelListViewModel.createTravel(countryName: countryName)
+        
+        XCTAssertNotNil(createdTravel)
+        XCTAssertEqual(createdTravel, travelListViewModel.travels.first)
+        
+        XCTAssertEqual(createdTravel?.title, country?.name)
+        XCTAssertEqual(createdTravel?.countryName, country?.name)
+        XCTAssertEqual(createdTravel?.currencyCode, country?.currencyCode)
+        XCTAssertEqual(createdTravel?.exchangeRate, country?.exchangeRate)
+        XCTAssertEqual(createdTravel?.budget, 0.0)
+        XCTAssertNil(createdTravel?.startDate)
+        XCTAssertNil(createdTravel?.endDate)
+        XCTAssertNotNil(createdTravel?.coverImage)
+        XCTAssertNotNil(createdTravel?.flagImage)
     }
 }
