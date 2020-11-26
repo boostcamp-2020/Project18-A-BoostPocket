@@ -40,6 +40,7 @@
 		9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9AD256B9524003049CB /* CountryProvider.swift */; };
 		9572F9B0256B9703003049CB /* CountryProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9AF256B9703003049CB /* CountryProviderTests.swift */; };
 		9572F9B3256B974C003049CB /* PersistenceManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */; };
+		95747A67256FAF6B0065C419 /* TravelDetailTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95747A66256FAF6B0065C419 /* TravelDetailTabbarController.swift */; };
 		9579CBB7256E46A900E74A61 /* DataModelInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9579CBB6256E46A900E74A61 /* DataModelInfo.swift */; };
 		9581C709256E34AC006ABA8E /* PersistenceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9581C708256E34AC006ABA8E /* PersistenceManagerTests.swift */; };
 		95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7925664DBE0007810C /* AppDelegate.swift */; };
@@ -143,6 +144,7 @@
 		9572F9AD256B9524003049CB /* CountryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryProvider.swift; sourceTree = "<group>"; };
 		9572F9AF256B9703003049CB /* CountryProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryProviderTests.swift; sourceTree = "<group>"; };
 		9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManagerStub.swift; sourceTree = "<group>"; };
+		95747A66256FAF6B0065C419 /* TravelDetailTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDetailTabbarController.swift; sourceTree = "<group>"; };
 		9579CBB6256E46A900E74A61 /* DataModelInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelInfo.swift; sourceTree = "<group>"; };
 		9581C708256E34AC006ABA8E /* PersistenceManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManagerTests.swift; sourceTree = "<group>"; };
 		95A42E7625664DBE0007810C /* BoostPocket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoostPocket.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -282,6 +284,7 @@
 			children = (
 				5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */,
 				5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */,
+				95747A66256FAF6B0065C419 /* TravelDetailTabbarController.swift */,
 			);
 			path = TravelDetailScene;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 			files = (
 				95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */,
 				5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */,
+				95747A67256FAF6B0065C419 /* TravelDetailTabbarController.swift in Sources */,
 				9579CBB7256E46A900E74A61 /* DataModelInfo.swift in Sources */,
 				5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */,
 				5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */,

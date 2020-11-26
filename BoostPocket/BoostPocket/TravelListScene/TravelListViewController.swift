@@ -89,10 +89,14 @@ class TravelListViewController: UIViewController {
         countryListVC.doneButtonHandler = { (selectedCountry) in
             dump(selectedCountry)
             self.travelListViewModel?.createTravel(countryName: selectedCountry.name)
-
-//            let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
-//            guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else { return }
-//            self.navigationController?.pushViewController(tabBarVC, animated: true)
+            
+            /*
+            // 2주차 데모 내용에서 제외
+            let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
+            guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController else { return }
+            
+            self.navigationController?.pushViewController(tabBarVC, animated: true)
+             */
         }
         
         let navigationController = UINavigationController(rootViewController: countryListVC)
@@ -103,18 +107,27 @@ class TravelListViewController: UIViewController {
 
 extension TravelListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-//        let cell = collectionView.cellForItem(at: indexPath)
-//        cell?.safeAreaInsets = UIEdgeInsets(top: <#T##CGFloat#>, left: <#T##CGFloat#>, bottom: <#T##CGFloat#>, right: <#T##CGFloat#>)
         let width = self.view.bounds.width * 0.8
-        
         return CGSize(width: width, height: width)
     }
 }
 
 extension TravelListViewController: UICollectionViewDelegate {
-    
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let selectedTravelViewModel = travelListViewModel?.cellForItemAt(path: indexPath) else { return }
+        
+        let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
+        guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController,
+            let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
+            else { return }
+        
+        tabBarVC.setupChildViewControllers(with: selectedTravelViewModel)
+        profileVC.deleteButtonHandler = {
+            print("delete button tapped!")
+        }
+        
+        self.navigationController?.pushViewController(tabBarVC, animated: true)
+    }
 }
 
 extension Data {

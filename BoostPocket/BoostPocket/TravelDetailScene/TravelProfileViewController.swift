@@ -9,11 +9,17 @@
 import UIKit
 
 class TravelProfileViewController: UIViewController {
-
+    
+    var deleteButtonHandler: (() -> Void)?
+    
+    // TODO: - private으로 감추고 주입하는 방법 생각해보기
+    var travelItemViewModel: TravelItemPresentable?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+        deleteButtonHandler?()
+    }
 }

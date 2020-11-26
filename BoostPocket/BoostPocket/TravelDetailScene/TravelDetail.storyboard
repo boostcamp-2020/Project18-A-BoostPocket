@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,7 +15,19 @@
                     <view key="view" contentMode="scaleToFill" id="oSf-dj-s8a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아직 준비중이에요💁‍♂️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA7-O4-NF8">
+                                <rect key="frame" x="134.5" y="437.5" width="145" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="nA7-O4-NF8" firstAttribute="centerY" secondItem="oSf-dj-s8a" secondAttribute="centerY" id="lCR-yy-TRh"/>
+                            <constraint firstItem="nA7-O4-NF8" firstAttribute="centerX" secondItem="oSf-dj-s8a" secondAttribute="centerX" id="rOk-kI-ODB"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="gwU-vf-3l1"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="지출목록" image="list.bullet" catalog="system" id="wRC-jA-Szt"/>
@@ -30,7 +43,19 @@
                     <view key="view" contentMode="scaleToFill" id="sa6-cu-tQi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아직 준비중이에요💁‍♂️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNY-WL-G6t">
+                                <rect key="frame" x="134.5" y="437.5" width="145" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="FNY-WL-G6t" firstAttribute="centerY" secondItem="sa6-cu-tQi" secondAttribute="centerY" id="5kr-D5-Qhh"/>
+                            <constraint firstItem="FNY-WL-G6t" firstAttribute="centerX" secondItem="sa6-cu-tQi" secondAttribute="centerX" id="zvg-7h-b5Z"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="dz2-Wq-4eW"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="리포트" image="chart.pie.fill" catalog="system" id="hU1-KU-wkB"/>
@@ -46,7 +71,36 @@
                     <view key="view" contentMode="scaleToFill" id="ceG-Wu-6YY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JeD-4g-VkL">
+                                <rect key="frame" x="151" y="429" width="112" height="38"/>
+                                <color key="backgroundColor" name="deleteButtonColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <inset key="contentEdgeInsets" minX="15" minY="10" maxX="15" maxY="10"/>
+                                <state key="normal" title="여행 삭제하기">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="deleteButtonTapped:" destination="F3d-DV-lrb" eventType="touchUpInside" id="DIh-D6-MqT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="JeD-4g-VkL" firstAttribute="centerY" secondItem="ceG-Wu-6YY" secondAttribute="centerY" id="ckB-tQ-e2b"/>
+                            <constraint firstItem="JeD-4g-VkL" firstAttribute="centerX" secondItem="ceG-Wu-6YY" secondAttribute="centerX" id="q9b-AL-iQr"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="GL9-dr-PWQ"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="여행프로필" image="airplane" catalog="system" id="Ln5-3b-m3G"/>
@@ -55,10 +109,10 @@
             </objects>
             <point key="canvasLocation" x="-1749" y="536"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Travel Detail Tabbar Controller-->
         <scene sceneID="bI8-dr-6zx">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" id="NHL-nM-A3j" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TravelDetailTabbarController" id="NHL-nM-A3j" customClass="TravelDetailTabbarController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TNk-vR-43i">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -79,5 +133,8 @@
         <image name="airplane" catalog="system" width="128" height="115"/>
         <image name="chart.pie.fill" catalog="system" width="128" height="124"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
+        <namedColor name="deleteButtonColor">
+            <color red="0.98642331360000002" green="0.72441965340000003" blue="0.73115354779999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
