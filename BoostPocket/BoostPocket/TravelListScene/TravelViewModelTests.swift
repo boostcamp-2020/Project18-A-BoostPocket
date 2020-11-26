@@ -90,4 +90,15 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertEqual(travelItem?.currencyCode, country?.currencyCode)
         XCTAssertEqual(travelItem?.exchangeRate, country?.exchangeRate)
     }
+    
+    func test_TravelListViewModel_numberOfItem() {
+        countryProvider.createCountry(name: "미국", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "USD")
+        countryProvider.createCountry(name: "일본", lastUpdated: Date(), flagImage: Data(), exchangeRate: 12.1, currencyCode: "JPY")
+
+        travelListViewModel.createTravel(countryName: "대한민국")
+        travelListViewModel.createTravel(countryName: "미국")
+        travelListViewModel.createTravel(countryName: "일본")
+        
+        XCTAssertEqual(travelListViewModel.numberOfItem(), 3)
+    }
 }
