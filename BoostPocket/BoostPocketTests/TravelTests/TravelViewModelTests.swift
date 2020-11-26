@@ -43,7 +43,7 @@ class TravelViewModelTests: XCTestCase {
         persistenceManager = nil
     }
     
-    func test_TravelItemViewModel_createInstance() throws {
+    func test_travelItemViewModel_createInstance() throws {
         let travel = TravelStub(id: id, title: title, memo: memo, exchangeRate: exchangeRate,
                                 budget: budget, coverImage: coverImage, startDate: startDate,
                                 endDate: endDate, country: country)
@@ -63,7 +63,7 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertEqual(travelItemViewModel.countryName, country?.name)
     }
     
-    func test_TravelListViewModel_createTravel() {
+    func test_travelListViewModel_createTravel() {
         let createdTravel = travelListViewModel.createTravel(countryName: countryName)
         
         XCTAssertNotNil(createdTravel)
@@ -80,7 +80,7 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertNotNil(createdTravel?.flagImage)
     }
     
-    func test_TravelListViewModel_needFetchItems() {
+    func test_travelListViewModel_needFetchItems() {
         XCTAssertNotNil(countryProvider.createCountry(name: "미국", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "USD"))
         XCTAssertNotNil(countryProvider.createCountry(name: "일본", lastUpdated: Date(), flagImage: Data(), exchangeRate: 12.1, currencyCode: "JPY"))
         
@@ -94,7 +94,7 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertEqual(travelListViewModel.travels.last?.title, "일본")
     }
     
-    func test_TravelListViewModel_cellForItemAt() {
+    func test_travelListViewModel_cellForItemAt() {
         travelListViewModel.createTravel(countryName: countryName)
 
         let travelItem = travelListViewModel.cellForItemAt(path: IndexPath(row: 0, section: 0))
@@ -105,14 +105,22 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertEqual(travelItem?.exchangeRate, country?.exchangeRate)
     }
     
-    func test_TravelListViewModel_numberOfItem() {
+    func test_travelListViewModel_numberOfItem() {
         XCTAssertNotNil(countryProvider.createCountry(name: "미국", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "USD"))
         XCTAssertNotNil(countryProvider.createCountry(name: "일본", lastUpdated: Date(), flagImage: Data(), exchangeRate: 12.1, currencyCode: "JPY"))
 
         travelListViewModel.createTravel(countryName: "대한민국")
         travelListViewModel.createTravel(countryName: "미국")
-        travelListViewModel.createTravel(countryName: "일본")
+        travelListViewModel.createTravel(countryName: "가나") // 없는 국가 -> 여행생성실패
         
-        XCTAssertEqual(travelListViewModel.numberOfItem(), 3)
+        XCTAssertEqual(travelListViewModel.numberOfItem(), 2) // 그러므로 대한민국,미국 2개여야한다
+    }
+    
+    func test_travelListViewModel_deleteTravel() {
+        let createdTravel = travelListViewModel.createTravel(countryName: "대한민국")
+        let travelId = createdTravel?.id
+        XCTAssertNotNil(createdTravel)
+        XCTAssertNotNil(travelId)
+        XCTAssertTrue(travelListViewModel.deleteTravel(id: travelId ?? UUID()))
     }
 }

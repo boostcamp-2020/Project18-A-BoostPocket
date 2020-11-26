@@ -107,7 +107,7 @@ class TravelListViewController: UIViewController {
 
 extension TravelListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = self.view.bounds.width * 0.8
+        let width = self.view.bounds.width * 0.9
         return CGSize(width: width, height: width)
     }
 }
@@ -122,17 +122,21 @@ extension TravelListViewController: UICollectionViewDelegate {
             else { return }
         
         tabBarVC.setupChildViewControllers(with: selectedTravelViewModel)
-        profileVC.deleteButtonHandler = {
-            print("delete button tapped!")
-        }
+        profileVC.profileDelegate = self
         
         self.navigationController?.pushViewController(tabBarVC, animated: true)
     }
 }
 
-extension Data {
-    func getCoverImage() -> Data? {
-        let randomNumber = Int.random(in: 1...7)
-        return UIImage(named: "cover\(randomNumber)")?.pngData()
+extension TravelListViewController: TravelItemProfileDelegate {
+    func deleteTravel(id: UUID?) {
+        if let travelListViewModel = travelListViewModel,
+            let deletingId = id,
+            travelListViewModel.deleteTravel(id: deletingId) {
+            print("여행을 삭제했습니다.")
+        } else {
+            // TODO: - listVM, id, delete 과정 중 문제가 생겨 실패 시 사용자에게 noti
+            print("여행 삭제에 실패했습니다.")
+        }
     }
 }

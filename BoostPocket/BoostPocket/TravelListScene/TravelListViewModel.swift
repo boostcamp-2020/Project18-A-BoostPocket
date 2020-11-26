@@ -17,6 +17,7 @@ protocol TravelListPresentable {
     @discardableResult func createTravel(countryName: String) -> TravelItemViewModel?
     func cellForItemAt(path: IndexPath) -> TravelItemViewModel?
     func numberOfItem() -> Int
+    func deleteTravel(id: UUID) -> Bool
 }
 
 class TravelListViewModel: TravelListPresentable {
@@ -52,6 +53,16 @@ class TravelListViewModel: TravelListPresentable {
         let createdTravelItemViewModel = TravelItemViewModel(travel: createdTravel)
         travels.append(createdTravelItemViewModel)
         return createdTravelItemViewModel
+    }
+    
+    func deleteTravel(id: UUID) -> Bool {
+        if let travelProvider = travelProvider,
+            travelProvider.deleteTravel(id: id),
+            let indexToDelete = travels.indices.filter({ travels[$0].id == id }).first {
+            travels.remove(at: indexToDelete)
+            return true
+        }
+        return false
     }
     
     func cellForItemAt(path: IndexPath) -> TravelItemViewModel? {

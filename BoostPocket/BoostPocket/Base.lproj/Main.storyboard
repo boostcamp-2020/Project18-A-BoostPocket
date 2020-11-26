@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--트래비포켓-->
+        <!--BoostPocket-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="TravelListViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
@@ -106,7 +106,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="트래비포켓" id="Vxu-Wh-3nW"/>
+                    <navigationItem key="navigationItem" title="BoostPocket" id="Vxu-Wh-3nW"/>
                     <connections>
                         <outlet property="travelListCollectionView" destination="bPb-a6-87W" id="QKB-jb-CSc"/>
                     </connections>
@@ -140,7 +140,7 @@
         <image name="3.circle" catalog="system" width="128" height="121"/>
         <image name="4.circle" catalog="system" width="128" height="121"/>
         <namedColor name="mainColor">
-            <color red="0.45850920680000001" green="0.75747555489999996" blue="0.95680087800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.45899999141693115" green="0.75700002908706665" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

@@ -17,7 +17,6 @@ protocol TravelProvidable: AnyObject {
 }
 
 class TravelProvider: TravelProvidable {
-    
     private weak var persistenceManager: PersistenceManagable?
     var travels: [Travel] = []
     
@@ -32,12 +31,14 @@ class TravelProvider: TravelProvidable {
             let createdTravel = createdObject as? Travel
             else { return nil }
         
+        travels.append(createdTravel)
         return createdTravel
     }
     
     func fetchTravels() -> [Travel] {
         guard let persistenceManager = persistenceManager else { return [] }
         travels = persistenceManager.fetchAll(request: Travel.fetchRequest())
+        
         return travels
     }
     
