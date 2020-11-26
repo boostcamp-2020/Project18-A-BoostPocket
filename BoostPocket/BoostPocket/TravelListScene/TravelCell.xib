@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="TravelCell" customModule="BoostPocket" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TravelCell" id="gTV-IL-0wX" customClass="TravelCell" customModule="BoostPocket" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="235" height="211"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -64,6 +64,13 @@
                 <constraint firstItem="BvG-Ku-dp3" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="z2z-yk-Xze"/>
             </constraints>
             <size key="customSize" width="235" height="211"/>
+            <connections>
+                <outlet property="coverImageView" destination="Gmy-dG-DoZ" id="E66-x3-5dM"/>
+                <outlet property="flagImageView" destination="BvG-Ku-dp3" id="M0y-Ot-Spm"/>
+                <outlet property="spentMoneyLabel" destination="woF-dC-F93" id="5oU-Ai-3F5"/>
+                <outlet property="travelTitleLabel" destination="69T-Nt-sjr" id="dtW-fJ-52L"/>
+                <outlet property="travelingDateLabel" destination="1sc-j4-zb5" id="hVk-8t-KLz"/>
+            </connections>
             <point key="canvasLocation" x="467.39130434782612" y="59.263392857142854"/>
         </collectionViewCell>
     </objects>

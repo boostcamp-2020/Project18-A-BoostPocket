@@ -9,10 +9,30 @@
 import UIKit
 
 class TravelCell: UICollectionViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    
+    static let identifier = "TravelCell"
+    
+    @IBOutlet weak var coverImageView: UIImageView!
+    @IBOutlet weak var travelTitleLabel: UILabel!
+    @IBOutlet weak var travelingDateLabel: UILabel!
+    @IBOutlet weak var flagImageView: UIImageView!
+    @IBOutlet weak var spentMoneyLabel: UILabel!
+    
+    func configure(with travel: TravelItemViewModel) {
+        
+        guard let coverImage = travel.coverImage, let flagImage = travel.flagImage else { return }
+        
+        coverImageView.image = UIImage(data: coverImage)
+        travelTitleLabel.text = travel.title
+        // TODO : date formmater extension 만들기
+        travelingDateLabel.text = "\(travel.startDate)"
+        flagImageView.image = UIImage(data: flagImage)
+        // TODO : 총 사용 금액으로 설정하기
+        spentMoneyLabel.text = "\(travel.budget)"
+    }
+    
+    static func getNib() -> UINib {
+        return UINib(nibName: TravelCell.identifier, bundle: nil)
     }
 
 }

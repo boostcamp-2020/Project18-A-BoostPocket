@@ -92,6 +92,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="트래비포켓" id="Vxu-Wh-3nW"/>
+                    <connections>
+                        <outlet property="travelListCollectionView" destination="bPb-a6-87W" id="QKB-jb-CSc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
