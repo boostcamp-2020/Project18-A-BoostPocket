@@ -47,7 +47,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BvG-Ku-dp3">
-                        <rect key="frame" x="96" y="91" width="43" height="29"/>
+                        <rect key="frame" x="101.5" y="95" width="32" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="BvG-Ku-dp3" secondAttribute="height" multiplier="3:2" id="Hl2-Mg-nZS"/>
                         </constraints>
@@ -61,7 +61,7 @@
                 <constraint firstAttribute="trailing" secondItem="Gmy-dG-DoZ" secondAttribute="trailing" id="FQx-sK-VBG"/>
                 <constraint firstItem="1sc-j4-zb5" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="JIn-8P-iFc"/>
                 <constraint firstItem="1sc-j4-zb5" firstAttribute="top" secondItem="69T-Nt-sjr" secondAttribute="bottom" constant="3" id="Zmi-7n-Zlr"/>
-                <constraint firstItem="BvG-Ku-dp3" firstAttribute="height" secondItem="Gmy-dG-DoZ" secondAttribute="height" multiplier="0.135922" id="alb-rp-K9O"/>
+                <constraint firstItem="BvG-Ku-dp3" firstAttribute="height" secondItem="Gmy-dG-DoZ" secondAttribute="height" multiplier="0.1" id="alb-rp-K9O"/>
                 <constraint firstItem="Gmy-dG-DoZ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="flp-A8-cNy"/>
                 <constraint firstItem="Gmy-dG-DoZ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ic0-7l-43u"/>
                 <constraint firstItem="BvG-Ku-dp3" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="jXY-Ek-7Co"/>

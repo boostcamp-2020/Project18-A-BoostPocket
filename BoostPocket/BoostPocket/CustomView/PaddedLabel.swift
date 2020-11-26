@@ -9,6 +9,23 @@
 import UIKit
 
 class PaddedLabel: UILabel {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configure()
+    }
+    
+    func configure() {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.cornerRadius = 15
+    }
+    
     // MARK: - Properties
     override var intrinsicContentSize: CGSize {
         let superContentSize = super.intrinsicContentSize
