@@ -1,0 +1,16 @@
+included:
+
+excluded:
+- Pods
+
+disabled_rules:
+- trailing_whitespace
+- identifier_name
+- function_parameter_count
+- line_length
+- type_name
+- unused_optional_binding
+- generic_type_name
+
+force_cast: warning
+line_length: 250

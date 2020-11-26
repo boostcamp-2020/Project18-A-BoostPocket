@@ -3,27 +3,93 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3725D4AFE6D2AE5B6A21D483 /* Pods_BoostPocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B97464333E742D61CD6648 /* Pods_BoostPocket.framework */; };
+		470EEBDB802C6552ECB4E189 /* Pods_BoostPocketTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */; };
 		5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */; };
 		5C3DAF302566576000178EA0 /* CountryListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */; };
 		5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3325665F0200178EA0 /* CountryCell.swift */; };
 		5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3425665F0200178EA0 /* CountryCell.xib */; };
 		5C3DAF3A25666A8000178EA0 /* TravelDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */; };
 		5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */; };
+		5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */; };
+		5C79747E256FA1C3007CB1ED /* LongTravelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C79747C256FA1C3007CB1ED /* LongTravelCell.swift */; };
+		5C79747F256FA1C3007CB1ED /* LongTravelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C79747D256FA1C3007CB1ED /* LongTravelCell.xib */; };
+		5C797493256FD263007CB1ED /* TravelHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C797491256FD263007CB1ED /* TravelHeaderCell.swift */; };
+		5C797494256FD263007CB1ED /* TravelHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C797492256FD263007CB1ED /* TravelHeaderCell.xib */; };
+		5C89619E256E917300575677 /* TravelStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C89619D256E917300575677 /* TravelStub.swift */; };
+		5C8C9196256E8436008C3919 /* TravelItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */; };
+		5C8C91AD256E8F0F008C3919 /* TravelViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C91AC256E8F0F008C3919 /* TravelViewModelTests.swift */; };
+		5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C96E8E1256BDA4200246590 /* CountryViewModelTests.swift */; };
+		5CB682E5256C03F800830373 /* CountryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB682E4256C03F800830373 /* CountryListViewModel.swift */; };
+		5CD76E9F256C24DC00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
+		5CD76EB7256C933C00BD6CE3 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A1256B8FBA003049CB /* Country+CoreDataClass.swift */; };
+		5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A2256B8FBA003049CB /* Country+CoreDataProperties.swift */; };
+		5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
+		954F7019256D1C4B00B2E48B /* TravelListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */; };
+		954F701B256D3E7700B2E48B /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954F701A256D3E7700B2E48B /* Sections.swift */; };
+		956BBC58256B9CCC007803B1 /* CountryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BBC57256B9CCC007803B1 /* CountryStub.swift */; };
+		9572F977256B5397003049CB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9572F976256B5397003049CB /* .swiftlint.yml */; };
+		9572F986256B54E4003049CB /* NetworkManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9572F97D256B54E4003049CB /* NetworkManager.framework */; };
+		9572F98D256B54E4003049CB /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F98C256B54E4003049CB /* NetworkManagerTests.swift */; };
+		9572F98F256B54E4003049CB /* NetworkManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9572F97F256B54E4003049CB /* NetworkManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9572F992256B54E4003049CB /* NetworkManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9572F97D256B54E4003049CB /* NetworkManager.framework */; };
+		9572F994256B54E4003049CB /* NetworkManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9572F97D256B54E4003049CB /* NetworkManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9572F99C256B552E003049CB /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F99B256B552E003049CB /* DataLoader.swift */; };
+		9572F99D256B552E003049CB /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F99B256B552E003049CB /* DataLoader.swift */; };
+		9572F9A9256B902C003049CB /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A8256B902C003049CB /* PersistenceManager.swift */; };
+		9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9AD256B9524003049CB /* CountryProvider.swift */; };
+		9572F9B0256B9703003049CB /* CountryProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9AF256B9703003049CB /* CountryProviderTests.swift */; };
+		9572F9B3256B974C003049CB /* PersistenceManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */; };
+		95747A67256FAF6B0065C419 /* TravelDetailTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95747A66256FAF6B0065C419 /* TravelDetailTabbarController.swift */; };
+		95747A69256FCEEA0065C419 /* Data+ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95747A68256FCEEA0065C419 /* Data+ImageData.swift */; };
+		9579CBB7256E46A900E74A61 /* DataModelInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9579CBB6256E46A900E74A61 /* DataModelInfo.swift */; };
+		9581C709256E34AC006ABA8E /* PersistenceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9581C708256E34AC006ABA8E /* PersistenceManagerTests.swift */; };
 		95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7925664DBE0007810C /* AppDelegate.swift */; };
 		95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7B25664DBE0007810C /* SceneDelegate.swift */; };
 		95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7D25664DBE0007810C /* TravelListViewController.swift */; };
 		95A42E8125664DBE0007810C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E7F25664DBE0007810C /* Main.storyboard */; };
-		95A42E8425664DBE0007810C /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
 		95A42E8625664DC40007810C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8525664DC40007810C /* Assets.xcassets */; };
 		95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8725664DC40007810C /* LaunchScreen.storyboard */; };
 		95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E9325664DC40007810C /* BoostPocketTests.swift */; };
+		A9BF7A37256D496C00496CD8 /* String+firstConsonant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */; };
+		A9BF7A50256E293F00496CD8 /* TravelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */; };
+		A9BF7A67256E2B2800496CD8 /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A65256E2B2800496CD8 /* History+CoreDataClass.swift */; };
+		A9BF7A68256E2B2800496CD8 /* History+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A66256E2B2800496CD8 /* History+CoreDataProperties.swift */; };
+		A9BF7A71256E2D5900496CD8 /* Travel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */; };
+		A9BF7A72256E2D5900496CD8 /* Travel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A70256E2D5900496CD8 /* Travel+CoreDataProperties.swift */; };
+		A9BF7A77256E306100496CD8 /* TravelProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A76256E306000496CD8 /* TravelProviderTests.swift */; };
+		A9BF7A86256F420D00496CD8 /* TravelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A84256F420D00496CD8 /* TravelCell.swift */; };
+		A9BF7A87256F420D00496CD8 /* TravelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BF7A85256F420D00496CD8 /* TravelCell.xib */; };
+		A9BF7AA5256F9B8800496CD8 /* Date+ConvertToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7AA4256F9B8800496CD8 /* Date+ConvertToString.swift */; };
+		A9BF7AAB256F9CBF00496CD8 /* PaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7AAA256F9CBF00496CD8 /* PaddedLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9572F987256B54E4003049CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95A42E6E25664DBE0007810C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9572F97C256B54E4003049CB;
+			remoteInfo = NetworkManager;
+		};
+		9572F989256B54E4003049CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95A42E6E25664DBE0007810C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 95A42E7525664DBE0007810C;
+			remoteInfo = BoostPocket;
+		};
+		9572F990256B54E4003049CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95A42E6E25664DBE0007810C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9572F97C256B54E4003049CB;
+			remoteInfo = NetworkManager;
+		};
 		95A42E9025664DC40007810C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 95A42E6E25664DBE0007810C /* Project object */;
@@ -33,13 +99,63 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9572F993256B54E4003049CB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9572F994256B54E4003049CB /* NetworkManager.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		05B97464333E742D61CD6648 /* Pods_BoostPocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		460E2B0DBA1F49A0D275F156 /* Pods-BoostPocketTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocketTests.release.xcconfig"; path = "Target Support Files/Pods-BoostPocketTests/Pods-BoostPocketTests.release.xcconfig"; sourceTree = "<group>"; };
+		57F756558017352589C6CED3 /* Pods-BoostPocket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.release.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.release.xcconfig"; sourceTree = "<group>"; };
 		5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewController.swift; sourceTree = "<group>"; };
 		5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryListViewController.xib; sourceTree = "<group>"; };
 		5C3DAF3325665F0200178EA0 /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
 		5C3DAF3425665F0200178EA0 /* CountryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryCell.xib; sourceTree = "<group>"; };
 		5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TravelDetail.storyboard; sourceTree = "<group>"; };
 		5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProfileViewController.swift; sourceTree = "<group>"; };
+		5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryItemViewModel.swift; sourceTree = "<group>"; };
+		5C79747C256FA1C3007CB1ED /* LongTravelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTravelCell.swift; sourceTree = "<group>"; };
+		5C79747D256FA1C3007CB1ED /* LongTravelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LongTravelCell.xib; sourceTree = "<group>"; };
+		5C797491256FD263007CB1ED /* TravelHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelHeaderCell.swift; sourceTree = "<group>"; };
+		5C797492256FD263007CB1ED /* TravelHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravelHeaderCell.xib; sourceTree = "<group>"; };
+		5C89619D256E917300575677 /* TravelStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelStub.swift; path = BoostPocketTests/TravelTests/TravelStub.swift; sourceTree = SOURCE_ROOT; };
+		5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelItemViewModel.swift; sourceTree = "<group>"; };
+		5C8C91AC256E8F0F008C3919 /* TravelViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelViewModelTests.swift; path = BoostPocketTests/TravelTests/TravelViewModelTests.swift; sourceTree = SOURCE_ROOT; };
+		5C96E8E1256BDA4200246590 /* CountryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewModelTests.swift; sourceTree = "<group>"; };
+		5CB682E4256C03F800830373 /* CountryListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryListViewModel.swift; sourceTree = "<group>"; };
+		81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.debug.xcconfig"; sourceTree = "<group>"; };
+		954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewModel.swift; sourceTree = "<group>"; };
+		954F701A256D3E7700B2E48B /* Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
+		956BBC57256B9CCC007803B1 /* CountryStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryStub.swift; sourceTree = "<group>"; };
+		9572F976256B5397003049CB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		9572F97D256B54E4003049CB /* NetworkManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9572F97F256B54E4003049CB /* NetworkManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
+		9572F980256B54E4003049CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9572F985256B54E4003049CB /* NetworkManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9572F98C256B54E4003049CB /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
+		9572F98E256B54E4003049CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9572F99B256B552E003049CB /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
+		9572F9A1256B8FBA003049CB /* Country+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9572F9A2256B8FBA003049CB /* Country+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9572F9A8256B902C003049CB /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		9572F9AD256B9524003049CB /* CountryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryProvider.swift; sourceTree = "<group>"; };
+		9572F9AF256B9703003049CB /* CountryProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryProviderTests.swift; sourceTree = "<group>"; };
+		9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManagerStub.swift; sourceTree = "<group>"; };
+		95747A66256FAF6B0065C419 /* TravelDetailTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDetailTabbarController.swift; sourceTree = "<group>"; };
+		95747A68256FCEEA0065C419 /* Data+ImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+ImageData.swift"; sourceTree = "<group>"; };
+		9579CBB6256E46A900E74A61 /* DataModelInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelInfo.swift; sourceTree = "<group>"; };
+		9581C708256E34AC006ABA8E /* PersistenceManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManagerTests.swift; sourceTree = "<group>"; };
 		95A42E7625664DBE0007810C /* BoostPocket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoostPocket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A42E7925664DBE0007810C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95A42E7B25664DBE0007810C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,13 +168,42 @@
 		95A42E8F25664DC40007810C /* BoostPocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoostPocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A42E9325664DC40007810C /* BoostPocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostPocketTests.swift; sourceTree = "<group>"; };
 		95A42E9525664DC40007810C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+firstConsonant.swift"; sourceTree = "<group>"; };
+		A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProvider.swift; sourceTree = "<group>"; };
+		A9BF7A65256E2B2800496CD8 /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "History+CoreDataClass.swift"; path = "BoostPocket/CoreDataModels/History+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		A9BF7A66256E2B2800496CD8 /* History+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "History+CoreDataProperties.swift"; path = "BoostPocket/CoreDataModels/History+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Travel+CoreDataClass.swift"; path = "BoostPocket/CoreDataModels/Travel+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		A9BF7A70256E2D5900496CD8 /* Travel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Travel+CoreDataProperties.swift"; path = "BoostPocket/CoreDataModels/Travel+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		A9BF7A76256E306000496CD8 /* TravelProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelProviderTests.swift; path = BoostPocketTests/TravelTests/TravelProviderTests.swift; sourceTree = SOURCE_ROOT; };
+		A9BF7A84256F420D00496CD8 /* TravelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelCell.swift; sourceTree = "<group>"; };
+		A9BF7A85256F420D00496CD8 /* TravelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravelCell.xib; sourceTree = "<group>"; };
+		A9BF7AA4256F9B8800496CD8 /* Date+ConvertToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ConvertToString.swift"; sourceTree = "<group>"; };
+		A9BF7AAA256F9CBF00496CD8 /* PaddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
+		E2D16BE855D0105455137550 /* Pods-BoostPocketTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocketTests.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocketTests/Pods-BoostPocketTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9572F97A256B54E4003049CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9572F982256B54E4003049CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9572F986256B54E4003049CB /* NetworkManager.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		95A42E7325664DBE0007810C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3725D4AFE6D2AE5B6A21D483 /* Pods_BoostPocket.framework in Frameworks */,
+				9572F992256B54E4003049CB /* NetworkManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,18 +211,115 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				470EEBDB802C6552ECB4E189 /* Pods_BoostPocketTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		412BCF7739918A83178FE6E3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				05B97464333E742D61CD6648 /* Pods_BoostPocket.framework */,
+				81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9572F97E256B54E4003049CB /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				9572F97F256B54E4003049CB /* NetworkManager.h */,
+				9572F980256B54E4003049CB /* Info.plist */,
+				9572F99B256B552E003049CB /* DataLoader.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		9572F98B256B54E4003049CB /* NetworkManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				9572F98C256B54E4003049CB /* NetworkManagerTests.swift */,
+				9572F98E256B54E4003049CB /* Info.plist */,
+			);
+			path = NetworkManagerTests;
+			sourceTree = "<group>";
+		};
+		9572F99E256B8F42003049CB /* CoreDataModels */ = {
+			isa = PBXGroup;
+			children = (
+				A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */,
+				A9BF7A70256E2D5900496CD8 /* Travel+CoreDataProperties.swift */,
+				A9BF7A65256E2B2800496CD8 /* History+CoreDataClass.swift */,
+				A9BF7A66256E2B2800496CD8 /* History+CoreDataProperties.swift */,
+				9572F9A1256B8FBA003049CB /* Country+CoreDataClass.swift */,
+				9572F9A2256B8FBA003049CB /* Country+CoreDataProperties.swift */,
+			);
+			path = CoreDataModels;
+			sourceTree = "<group>";
+		};
+		9572F9AA256B947D003049CB /* TravelListScene */ = {
+			isa = PBXGroup;
+			children = (
+				95A42E7D25664DBE0007810C /* TravelListViewController.swift */,
+				A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */,
+				954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */,
+				5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */,
+				5C79747C256FA1C3007CB1ED /* LongTravelCell.swift */,
+				5C79747D256FA1C3007CB1ED /* LongTravelCell.xib */,
+				A9BF7A84256F420D00496CD8 /* TravelCell.swift */,
+				A9BF7A85256F420D00496CD8 /* TravelCell.xib */,
+				5C797491256FD263007CB1ED /* TravelHeaderCell.swift */,
+				5C797492256FD263007CB1ED /* TravelHeaderCell.xib */,
+			);
+			path = TravelListScene;
+			sourceTree = "<group>";
+		};
+		9572F9AB256B949C003049CB /* CountryListScene */ = {
+			isa = PBXGroup;
+			children = (
+				5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */,
+				5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */,
+				5C3DAF3325665F0200178EA0 /* CountryCell.swift */,
+				5C3DAF3425665F0200178EA0 /* CountryCell.xib */,
+				9572F9AD256B9524003049CB /* CountryProvider.swift */,
+				5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */,
+				5CB682E4256C03F800830373 /* CountryListViewModel.swift */,
+			);
+			path = CountryListScene;
+			sourceTree = "<group>";
+		};
+		9572F9AC256B94F8003049CB /* TravelDetailScene */ = {
+			isa = PBXGroup;
+			children = (
+				5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */,
+				5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */,
+				95747A66256FAF6B0065C419 /* TravelDetailTabbarController.swift */,
+			);
+			path = TravelDetailScene;
+			sourceTree = "<group>";
+		};
+		9581C707256E348A006ABA8E /* PersistenceManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */,
+				9581C708256E34AC006ABA8E /* PersistenceManagerTests.swift */,
+			);
+			path = PersistenceManagerTests;
+			sourceTree = "<group>";
+		};
 		95A42E6D25664DBE0007810C = {
 			isa = PBXGroup;
 			children = (
+				9572F976256B5397003049CB /* .swiftlint.yml */,
 				95A42E7825664DBE0007810C /* BoostPocket */,
 				95A42E9225664DC40007810C /* BoostPocketTests */,
+				9572F97E256B54E4003049CB /* NetworkManager */,
+				9572F98B256B54E4003049CB /* NetworkManagerTests */,
 				95A42E7725664DBE0007810C /* Products */,
+				975CDBB5924A01ABC7FC0012 /* Pods */,
+				412BCF7739918A83178FE6E3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,6 +328,8 @@
 			children = (
 				95A42E7625664DBE0007810C /* BoostPocket.app */,
 				95A42E8F25664DC40007810C /* BoostPocketTests.xctest */,
+				9572F97D256B54E4003049CB /* NetworkManager.framework */,
+				9572F985256B54E4003049CB /* NetworkManagerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,20 +337,22 @@
 		95A42E7825664DBE0007810C /* BoostPocket */ = {
 			isa = PBXGroup;
 			children = (
+				A9BF7AA9256F9C9700496CD8 /* CustomView */,
+				A9BF7A35256D496300496CD8 /* Extension */,
 				95A42E7925664DBE0007810C /* AppDelegate.swift */,
 				95A42E7B25664DBE0007810C /* SceneDelegate.swift */,
-				95A42E7D25664DBE0007810C /* TravelListViewController.swift */,
+				9572F9A8256B902C003049CB /* PersistenceManager.swift */,
+				954F701A256D3E7700B2E48B /* Sections.swift */,
+				9579CBB6256E46A900E74A61 /* DataModelInfo.swift */,
+				9572F9AC256B94F8003049CB /* TravelDetailScene */,
+				9572F9AB256B949C003049CB /* CountryListScene */,
+				9572F9AA256B947D003049CB /* TravelListScene */,
+				9572F99E256B8F42003049CB /* CoreDataModels */,
 				95A42E7F25664DBE0007810C /* Main.storyboard */,
 				95A42E8525664DC40007810C /* Assets.xcassets */,
 				95A42E8725664DC40007810C /* LaunchScreen.storyboard */,
 				95A42E8A25664DC40007810C /* Info.plist */,
 				95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */,
-				5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */,
-				5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */,
-				5C3DAF3325665F0200178EA0 /* CountryCell.swift */,
-				5C3DAF3425665F0200178EA0 /* CountryCell.xib */,
-				5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */,
-				5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */,
 			);
 			path = BoostPocket;
 			sourceTree = "<group>";
@@ -115,25 +361,130 @@
 			isa = PBXGroup;
 			children = (
 				95A42E9325664DC40007810C /* BoostPocketTests.swift */,
+				9581C707256E348A006ABA8E /* PersistenceManagerTests */,
+				95B907A5256D606F009C2B27 /* TravelTests */,
+				95B907A4256D6060009C2B27 /* CountryTests */,
 				95A42E9525664DC40007810C /* Info.plist */,
 			);
 			path = BoostPocketTests;
 			sourceTree = "<group>";
 		};
+		95B907A4256D6060009C2B27 /* CountryTests */ = {
+			isa = PBXGroup;
+			children = (
+				9572F9AF256B9703003049CB /* CountryProviderTests.swift */,
+				5C96E8E1256BDA4200246590 /* CountryViewModelTests.swift */,
+				956BBC57256B9CCC007803B1 /* CountryStub.swift */,
+			);
+			path = CountryTests;
+			sourceTree = "<group>";
+		};
+		95B907A5256D606F009C2B27 /* TravelTests */ = {
+			isa = PBXGroup;
+			children = (
+				A9BF7A76256E306000496CD8 /* TravelProviderTests.swift */,
+				5C8C91AC256E8F0F008C3919 /* TravelViewModelTests.swift */,
+				5C89619D256E917300575677 /* TravelStub.swift */,
+			);
+			path = TravelTests;
+			sourceTree = "<group>";
+		};
+		975CDBB5924A01ABC7FC0012 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */,
+				57F756558017352589C6CED3 /* Pods-BoostPocket.release.xcconfig */,
+				E2D16BE855D0105455137550 /* Pods-BoostPocketTests.debug.xcconfig */,
+				460E2B0DBA1F49A0D275F156 /* Pods-BoostPocketTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		A9BF7A35256D496300496CD8 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */,
+				95747A68256FCEEA0065C419 /* Data+ImageData.swift */,
+				A9BF7AA4256F9B8800496CD8 /* Date+ConvertToString.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		A9BF7AA9256F9C9700496CD8 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				A9BF7AAA256F9CBF00496CD8 /* PaddedLabel.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		9572F978256B54E4003049CB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9572F98F256B54E4003049CB /* NetworkManager.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		95A42E7525664DBE0007810C /* BoostPocket */ = {
+		9572F97C256B54E4003049CB /* NetworkManager */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 95A42E9825664DC40007810C /* Build configuration list for PBXNativeTarget "BoostPocket" */;
+			buildConfigurationList = 9572F999256B54E4003049CB /* Build configuration list for PBXNativeTarget "NetworkManager" */;
 			buildPhases = (
-				95A42E7225664DBE0007810C /* Sources */,
-				95A42E7325664DBE0007810C /* Frameworks */,
-				95A42E7425664DBE0007810C /* Resources */,
+				9572F978256B54E4003049CB /* Headers */,
+				9572F979256B54E4003049CB /* Sources */,
+				9572F97A256B54E4003049CB /* Frameworks */,
+				9572F97B256B54E4003049CB /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+			);
+			name = NetworkManager;
+			productName = NetworkManager;
+			productReference = 9572F97D256B54E4003049CB /* NetworkManager.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		9572F984256B54E4003049CB /* NetworkManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9572F99A256B54E4003049CB /* Build configuration list for PBXNativeTarget "NetworkManagerTests" */;
+			buildPhases = (
+				9572F981256B54E4003049CB /* Sources */,
+				9572F982256B54E4003049CB /* Frameworks */,
+				9572F983256B54E4003049CB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9572F988256B54E4003049CB /* PBXTargetDependency */,
+				9572F98A256B54E4003049CB /* PBXTargetDependency */,
+			);
+			name = NetworkManagerTests;
+			productName = NetworkManagerTests;
+			productReference = 9572F985256B54E4003049CB /* NetworkManagerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		95A42E7525664DBE0007810C /* BoostPocket */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 95A42E9825664DC40007810C /* Build configuration list for PBXNativeTarget "BoostPocket" */;
+			buildPhases = (
+				B55ECE59FADBC4DD39B5B4A0 /* [CP] Check Pods Manifest.lock */,
+				95A42E7225664DBE0007810C /* Sources */,
+				95A42E7325664DBE0007810C /* Frameworks */,
+				95A42E7425664DBE0007810C /* Resources */,
+				9572F975256B5326003049CB /* ShellScript */,
+				AEF4ECA62A7CFEDFFDC5ACCA /* [CP] Embed Pods Frameworks */,
+				9572F993256B54E4003049CB /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9572F991256B54E4003049CB /* PBXTargetDependency */,
 			);
 			name = BoostPocket;
 			productName = BoostPocket;
@@ -144,6 +495,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 95A42E9B25664DC40007810C /* Build configuration list for PBXNativeTarget "BoostPocketTests" */;
 			buildPhases = (
+				863277859F00183827011288 /* [CP] Check Pods Manifest.lock */,
 				95A42E8B25664DC40007810C /* Sources */,
 				95A42E8C25664DC40007810C /* Frameworks */,
 				95A42E8D25664DC40007810C /* Resources */,
@@ -168,6 +520,14 @@
 				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = BoostPocket;
 				TargetAttributes = {
+					9572F97C256B54E4003049CB = {
+						CreatedOnToolsVersion = 11.6;
+						LastSwiftMigration = 1160;
+					};
+					9572F984256B54E4003049CB = {
+						CreatedOnToolsVersion = 11.6;
+						TestTargetID = 95A42E7525664DBE0007810C;
+					};
 					95A42E7525664DBE0007810C = {
 						CreatedOnToolsVersion = 11.6;
 					};
@@ -192,19 +552,39 @@
 			targets = (
 				95A42E7525664DBE0007810C /* BoostPocket */,
 				95A42E8E25664DC40007810C /* BoostPocketTests */,
+				9572F97C256B54E4003049CB /* NetworkManager */,
+				9572F984256B54E4003049CB /* NetworkManagerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9572F97B256B54E4003049CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9572F983256B54E4003049CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		95A42E7425664DBE0007810C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */,
 				95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */,
+				5C797494256FD263007CB1ED /* TravelHeaderCell.xib in Resources */,
+				A9BF7A87256F420D00496CD8 /* TravelCell.xib in Resources */,
 				5C3DAF302566576000178EA0 /* CountryListViewController.xib in Resources */,
+				9572F977256B5397003049CB /* .swiftlint.yml in Resources */,
 				95A42E8625664DC40007810C /* Assets.xcassets in Resources */,
+				5C79747F256FA1C3007CB1ED /* LongTravelCell.xib in Resources */,
 				95A42E8125664DBE0007810C /* Main.storyboard in Resources */,
 				5C3DAF3A25666A8000178EA0 /* TravelDetail.storyboard in Resources */,
 			);
@@ -219,17 +599,138 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		863277859F00183827011288 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BoostPocketTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9572F975256B5326003049CB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
+		};
+		AEF4ECA62A7CFEDFFDC5ACCA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BoostPocket/Pods-BoostPocket-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BoostPocket/Pods-BoostPocket-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BoostPocket/Pods-BoostPocket-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B55ECE59FADBC4DD39B5B4A0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BoostPocket-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		9572F979256B54E4003049CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9572F99C256B552E003049CB /* DataLoader.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9572F981256B54E4003049CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9572F99D256B552E003049CB /* DataLoader.swift in Sources */,
+				9572F98D256B54E4003049CB /* NetworkManagerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		95A42E7225664DBE0007810C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */,
 				5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */,
+				95747A67256FAF6B0065C419 /* TravelDetailTabbarController.swift in Sources */,
+				5C79747E256FA1C3007CB1ED /* LongTravelCell.swift in Sources */,
+				9579CBB7256E46A900E74A61 /* DataModelInfo.swift in Sources */,
+				5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */,
 				5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */,
+				5C8C9196256E8436008C3919 /* TravelItemViewModel.swift in Sources */,
+				A9BF7AAB256F9CBF00496CD8 /* PaddedLabel.swift in Sources */,
+				A9BF7A50256E293F00496CD8 /* TravelProvider.swift in Sources */,
+				954F701B256D3E7700B2E48B /* Sections.swift in Sources */,
+				5CB682E5256C03F800830373 /* CountryListViewModel.swift in Sources */,
+				A9BF7A72256E2D5900496CD8 /* Travel+CoreDataProperties.swift in Sources */,
+				9572F9A9256B902C003049CB /* PersistenceManager.swift in Sources */,
+				A9BF7AA5256F9B8800496CD8 /* Date+ConvertToString.swift in Sources */,
 				5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */,
-				95A42E8425664DBE0007810C /* BoostPocket.xcdatamodeld in Sources */,
+				5CD76EB7256C933C00BD6CE3 /* Country+CoreDataClass.swift in Sources */,
+				A9BF7A67256E2B2800496CD8 /* History+CoreDataClass.swift in Sources */,
+				5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */,
+				A9BF7A68256E2B2800496CD8 /* History+CoreDataProperties.swift in Sources */,
+				A9BF7A37256D496C00496CD8 /* String+firstConsonant.swift in Sources */,
+				95747A69256FCEEA0065C419 /* Data+ImageData.swift in Sources */,
+				5C797493256FD263007CB1ED /* TravelHeaderCell.swift in Sources */,
+				954F7019256D1C4B00B2E48B /* TravelListViewModel.swift in Sources */,
+				A9BF7A71256E2D5900496CD8 /* Travel+CoreDataClass.swift in Sources */,
+				9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */,
+				5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
 				95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */,
+				A9BF7A86256F420D00496CD8 /* TravelCell.swift in Sources */,
 				95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,13 +739,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9581C709256E34AC006ABA8E /* PersistenceManagerTests.swift in Sources */,
+				5CD76E9F256C24DC00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
+				956BBC58256B9CCC007803B1 /* CountryStub.swift in Sources */,
+				A9BF7A77256E306100496CD8 /* TravelProviderTests.swift in Sources */,
+				5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */,
+				5C8C91AD256E8F0F008C3919 /* TravelViewModelTests.swift in Sources */,
+				9572F9B3256B974C003049CB /* PersistenceManagerStub.swift in Sources */,
+				5C89619E256E917300575677 /* TravelStub.swift in Sources */,
 				95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */,
+				9572F9B0256B9703003049CB /* CountryProviderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		9572F988256B54E4003049CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9572F97C256B54E4003049CB /* NetworkManager */;
+			targetProxy = 9572F987256B54E4003049CB /* PBXContainerItemProxy */;
+		};
+		9572F98A256B54E4003049CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 95A42E7525664DBE0007810C /* BoostPocket */;
+			targetProxy = 9572F989256B54E4003049CB /* PBXContainerItemProxy */;
+		};
+		9572F991256B54E4003049CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9572F97C256B54E4003049CB /* NetworkManager */;
+			targetProxy = 9572F990256B54E4003049CB /* PBXContainerItemProxy */;
+		};
 		95A42E9125664DC40007810C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 95A42E7525664DBE0007810C /* BoostPocket */;
@@ -272,6 +797,103 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		9572F995256B54E4003049CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = NetworkManager/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BoostPocket.NetworkManager;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		9572F996256B54E4003049CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = NetworkManager/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BoostPocket.NetworkManager;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		9572F997256B54E4003049CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				INFOPLIST_FILE = NetworkManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BoostPocket.NetworkManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BoostPocket.app/BoostPocket";
+			};
+			name = Debug;
+		};
+		9572F998256B54E4003049CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				INFOPLIST_FILE = NetworkManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BoostPocket.NetworkManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BoostPocket.app/BoostPocket";
+			};
+			name = Release;
+		};
 		95A42E9625664DC40007810C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -388,7 +1010,9 @@
 		};
 		95A42E9925664DC40007810C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -406,7 +1030,9 @@
 		};
 		95A42E9A25664DC40007810C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57F756558017352589C6CED3 /* Pods-BoostPocket.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -424,6 +1050,7 @@
 		};
 		95A42E9C25664DC40007810C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2D16BE855D0105455137550 /* Pods-BoostPocketTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -446,6 +1073,7 @@
 		};
 		95A42E9D25664DC40007810C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 460E2B0DBA1F49A0D275F156 /* Pods-BoostPocketTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -469,6 +1097,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9572F999256B54E4003049CB /* Build configuration list for PBXNativeTarget "NetworkManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9572F995256B54E4003049CB /* Debug */,
+				9572F996256B54E4003049CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9572F99A256B54E4003049CB /* Build configuration list for PBXNativeTarget "NetworkManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9572F997256B54E4003049CB /* Debug */,
+				9572F998256B54E4003049CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		95A42E7125664DBE0007810C /* Build configuration list for PBXProject "BoostPocket" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
