@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GER-CQ-fWE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GER-CQ-fWE">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--트래비포켓-->
+        <!--BoostPocket-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="TravelListViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
@@ -56,12 +55,11 @@
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UM-5b-qib">
                                 <rect key="frame" x="149" y="794" width="116" height="38"/>
-                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                <color key="backgroundColor" name="mainColor"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <inset key="contentEdgeInsets" minX="15" minY="10" maxX="15" maxY="10"/>
                                 <state key="normal" title="새 여행 만들기">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="titleShadowColor" red="0.70292260360000003" green="0.20526309279999999" blue="0.17926333589999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -90,8 +88,7 @@
                                 <cells/>
                             </collectionView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="8UM-5b-qib" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Bvg-Xo-R0Q"/>
                             <constraint firstItem="bPb-a6-87W" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XjT-ag-ceK"/>
@@ -103,8 +100,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8UM-5b-qib" secondAttribute="bottom" constant="30" id="uyg-lT-pue"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bPb-a6-87W" secondAttribute="trailing" id="wYS-m2-q56"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="트래비포켓" id="Vxu-Wh-3nW"/>
+                    <navigationItem key="navigationItem" title="BoostPocket" id="Vxu-Wh-3nW"/>
                     <connections>
                         <outlet property="travelListCollectionView" destination="bPb-a6-87W" id="QKB-jb-CSc"/>
                     </connections>

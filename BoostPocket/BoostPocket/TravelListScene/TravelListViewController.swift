@@ -112,9 +112,13 @@ class TravelListViewController: UIViewController {
             dump(selectedCountry)
             self.travelListViewModel?.createTravel(countryName: selectedCountry.name)
             
-            //            let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
-            //            guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else { return }
-            //            self.navigationController?.pushViewController(tabBarVC, animated: true)
+            /*
+            // 2주차 데모 내용에서 제외
+            let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
+            guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController else { return }
+            
+            self.navigationController?.pushViewController(tabBarVC, animated: true)
+             */
         }
         
         let navigationController = UINavigationController(rootViewController: countryListVC)
@@ -144,7 +148,6 @@ class TravelListViewController: UIViewController {
 
 extension TravelListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         var width: CGFloat = self.view.bounds.width * 0.8
         var height: CGFloat = width
         switch layout {
@@ -174,6 +177,21 @@ extension TravelListViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension TravelListViewController: UICollectionViewDelegate {
+  
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let selectedTravelViewModel = travelListViewModel?.cellForItemAt(path: indexPath) else { return }
+        
+        let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
+        guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController,
+            let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
+            else { return }
+        
+        tabBarVC.setupChildViewControllers(with: selectedTravelViewModel)
+        profileVC.profileDelegate = self
+        
+        self.navigationController?.pushViewController(tabBarVC, animated: true)
+    }
+  
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 
         let section = dataSource.snapshot().sectionIdentifiers[section]
@@ -181,12 +199,19 @@ extension TravelListViewController: UICollectionViewDelegate {
             return CGSize(width: self.view.bounds.width, height: 100)
         }
         return CGSize(width: self.view.bounds.width, height: 50)
+
     }
 }
 
-extension Data {
-    func getCoverImage() -> Data? {
-        let randomNumber = Int.random(in: 1...7)
-        return UIImage(named: "cover\(randomNumber)")?.pngData()
+extension TravelListViewController: TravelItemProfileDelegate {
+    func deleteTravel(id: UUID?) {
+        if let travelListViewModel = travelListViewModel,
+            let deletingId = id,
+            travelListViewModel.deleteTravel(id: deletingId) {
+            print("여행을 삭제했습니다.")
+        } else {
+            // TODO: - listVM, id, delete 과정 중 문제가 생겨 실패 시 사용자에게 noti
+            print("여행 삭제에 실패했습니다.")
+        }
     }
 }

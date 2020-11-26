@@ -9,7 +9,6 @@
 import Foundation
 
 extension String {
-    
     var firstConsonant: String? {
         guard let value = UnicodeScalar(self)?.value else { return nil }
         let x = (value - 0xac00) / 28 / 21
