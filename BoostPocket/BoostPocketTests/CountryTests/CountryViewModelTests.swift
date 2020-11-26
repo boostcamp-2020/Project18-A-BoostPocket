@@ -76,10 +76,10 @@ class CountryViewModelTests: XCTestCase {
     }
     
     func test_countryListViewModel_needFetchItem() {
-        countryProvider.createCountry(name: "\(countryName)다", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)2")
-        countryProvider.createCountry(name: "\(countryName)나", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1")
-        countryProvider.createCountry(name: "\(countryName)라", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)2")
-        countryProvider.createCountry(name: "\(countryName)가", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)2")
+        XCTAssertNotNil(countryProvider.createCountry(name: "\(countryName)다", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)2"))
+        XCTAssertNotNil(countryProvider.createCountry(name: "\(countryName)나", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1"))
+        XCTAssertNotNil(countryProvider.createCountry(name: "\(countryName)라", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)2"))
+        XCTAssertNotNil(countryProvider.createCountry(name: "\(countryName)가", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)2"))
         
         countryListViewModel.needFetchItems()
         XCTAssertEqual(countryListViewModel.countries.count, 4)

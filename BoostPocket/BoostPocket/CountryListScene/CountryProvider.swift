@@ -12,7 +12,7 @@ import CoreData
 protocol CountryProvidable: AnyObject {
     var countries: [Country] { get }
     func fetchCountries() -> [Country]
-    @discardableResult func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) -> Country?
+    func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) -> Country?
 }
 
 class CountryProvider: CountryProvidable {
@@ -33,7 +33,6 @@ class CountryProvider: CountryProvidable {
         return countries
     }
     
-    @discardableResult
     func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) -> Country? {
         let newCountryInfo = CountryInfo(name: name,
                                          lastUpdated: lastUpdated,

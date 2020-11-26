@@ -11,7 +11,7 @@ import CoreData
 
 protocol TravelProvidable: AnyObject {
     var travels: [Travel] { get }
-    @discardableResult func createTravel(countryName: String) -> Travel?
+    func createTravel(countryName: String) -> Travel?
     func fetchTravels() -> [Travel]
     func deleteTravel(id: UUID) -> Bool
 }
@@ -25,7 +25,6 @@ class TravelProvider: TravelProvidable {
         self.persistenceManager = persistenceManager
     }
     
-    @discardableResult
     func createTravel(countryName: String) -> Travel? {
         let newTravelInfo = TravelInfo(countryName: countryName)
         
@@ -47,6 +46,11 @@ class TravelProvider: TravelProvidable {
               let persistenceManager = persistenceManager else { return false }
         
         let deletingTravel = travels[indexToDelete]
-        return persistenceManager.delete(deletingObject: deletingTravel)
+        if persistenceManager.delete(deletingObject: deletingTravel) {
+            self.travels.remove(at: indexToDelete)
+            return true
+        } else {
+            return false
+        }
     }
 }

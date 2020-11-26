@@ -33,8 +33,15 @@ class CountryProviderTests: XCTestCase {
     func test_countryProvider_fetchCountries() {
         XCTAssertEqual(countryProviderStub.fetchCountries(), [])
         
-        countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+        let createdCountry = countryProviderStub.createCountry(name: countryName,
+                                                               lastUpdated: lastUpdated,
+                                                               flagImage: flagImage,
+                                                               exchangeRate: exchangeRate,
+                                                               currencyCode: currencyCode)
+        
+        XCTAssertNotNil(createdCountry)
         XCTAssertNotEqual(countryProviderStub.fetchCountries(), [])
+        
         XCTAssertEqual(countryProviderStub.fetchCountries().first?.name, countryName)
         XCTAssertEqual(countryProviderStub.fetchCountries().first?.lastUpdated, lastUpdated)
         XCTAssertEqual(countryProviderStub.fetchCountries().first?.flagImage, flagImage)
