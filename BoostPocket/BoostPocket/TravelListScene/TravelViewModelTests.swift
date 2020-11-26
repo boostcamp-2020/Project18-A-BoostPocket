@@ -81,8 +81,8 @@ class TravelViewModelTests: XCTestCase {
     }
     
     func test_TravelListViewModel_needFetchItems() {
-        countryProvider.createCountry(name: "미국", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "USD")
-        countryProvider.createCountry(name: "일본", lastUpdated: Date(), flagImage: Data(), exchangeRate: 12.1, currencyCode: "JPY")
+        XCTAssertNotNil(countryProvider.createCountry(name: "미국", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "USD"))
+        XCTAssertNotNil(countryProvider.createCountry(name: "일본", lastUpdated: Date(), flagImage: Data(), exchangeRate: 12.1, currencyCode: "JPY"))
         
         XCTAssertNotNil(travelProvider.createTravel(countryName: "대한민국"))
         XCTAssertNotNil(travelProvider.createTravel(countryName: "미국"))
@@ -106,8 +106,8 @@ class TravelViewModelTests: XCTestCase {
     }
     
     func test_TravelListViewModel_numberOfItem() {
-        countryProvider.createCountry(name: "미국", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "USD")
-        countryProvider.createCountry(name: "일본", lastUpdated: Date(), flagImage: Data(), exchangeRate: 12.1, currencyCode: "JPY")
+        XCTAssertNotNil(countryProvider.createCountry(name: "미국", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "USD"))
+        XCTAssertNotNil(countryProvider.createCountry(name: "일본", lastUpdated: Date(), flagImage: Data(), exchangeRate: 12.1, currencyCode: "JPY"))
 
         travelListViewModel.createTravel(countryName: "대한민국")
         travelListViewModel.createTravel(countryName: "미국")
