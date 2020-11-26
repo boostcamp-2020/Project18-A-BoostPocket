@@ -46,7 +46,7 @@ class TravelListViewModel: TravelListPresentable {
     }
     
     func numberOfItem() -> Int {
-        return 0
+        return travels.count
     }
     
 }
