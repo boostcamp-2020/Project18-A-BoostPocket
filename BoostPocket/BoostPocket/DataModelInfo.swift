@@ -8,18 +8,7 @@
 
 import Foundation
 
-enum EntityType {
-    case countryType
-    case travelType
-    case historyType
-}
-
-protocol InformationProtocol {
-    var entityType: EntityType { get }
-}
-
-struct CountryInfo: InformationProtocol {
-    private(set) var entityType: EntityType = .countryType
+struct CountryInfo {
     private(set) var name: String
     private(set) var lastUpdated: Date
     private(set) var flagImage: Data
@@ -35,8 +24,7 @@ struct CountryInfo: InformationProtocol {
     }
 }
 
-struct TravelInfo: InformationProtocol {
-    private(set) var entityType: EntityType = .travelType
+struct TravelInfo {
     private(set) var countryName: String
     
     init(countryName: String) {

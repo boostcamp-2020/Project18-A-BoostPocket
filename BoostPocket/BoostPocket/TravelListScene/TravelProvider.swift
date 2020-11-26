@@ -13,7 +13,7 @@ protocol TravelProvidable: AnyObject {
     var travels: [Travel] { get }
     @discardableResult func createTravel(countryName: String) -> Travel?
     func fetchTravels() -> [Travel]
-    func deleteTravel(id: UUID)
+    func deleteTravel(id: UUID) -> Bool
 }
 
 class TravelProvider: TravelProvidable {
@@ -42,12 +42,11 @@ class TravelProvider: TravelProvidable {
         return travels
     }
     
-    func deleteTravel(id: UUID) {
-        guard let deleteTravel = travels.filter({ $0.id == id }).first,
-              let persistenceManager = persistenceManager else { return }
+    func deleteTravel(id: UUID) -> Bool {
+        guard let indexToDelete = travels.indices.filter({ travels[$0].id == id }).first,
+              let persistenceManager = persistenceManager else { return false }
         
-        persistenceManager.delete(object: deleteTravel)
-        // TODO: - Discussion 46번째 줄에서 처음으로 걸리는 객체의 index를 파악해서 removeAt하는 것은 어떨까요?
-        travels = travels.filter { $0.id != id }
+        let deletingTravel = travels[indexToDelete]
+        return persistenceManager.delete(deletingObject: deletingTravel)
     }
 }
