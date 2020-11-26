@@ -9,11 +9,10 @@
 import Foundation
 
 protocol DataLoadable {
-    
     var session: URLSession { get }
     var requestURL: URL? { get }
     func requestExchangeRate(url: String, completion: @escaping (Result<ExchangeRate, NetworkError>) -> Void)
-    func converToURL(url: String) -> URL?
+    func convertToURL(url: String) -> URL?
 }
 
 public class DataLoader: DataLoadable {
@@ -25,7 +24,7 @@ public class DataLoader: DataLoadable {
     }
     
     public func requestExchangeRate(url: String, completion: @escaping (Result<ExchangeRate, NetworkError>) -> Void) {
-        guard let requestURL = converToURL(url: url) else {
+        guard let requestURL = convertToURL(url: url) else {
             completion(.failure(.invalidURL("유효하지 않은 주소입니다.")))
             return
         }
@@ -47,7 +46,7 @@ public class DataLoader: DataLoadable {
         }.resume()
     }
     
-    public func converToURL(url: String) -> URL? {
+    public func convertToURL(url: String) -> URL? {
         guard let validURL = URL(string: url) else { return nil }
         
         return validURL
@@ -63,10 +62,15 @@ class DataLoaderStub: DataLoadable {
     }
     
     func requestExchangeRate(url: String, completion: @escaping (Result<ExchangeRate, NetworkError>) -> Void) {
-        requestURL = converToURL(url: url)
+        guard let validURL = convertToURL(url: url) else {
+            completion(.failure(.invalidURL("유효하지 않은 주소입니다.")))
+            return
+        }
+
+        requestURL = validURL
     }
     
-    func converToURL(url: String) -> URL? {
+    func convertToURL(url: String) -> URL? {
         guard let validURL = URL(string: url) else { return nil }
         
         return validURL

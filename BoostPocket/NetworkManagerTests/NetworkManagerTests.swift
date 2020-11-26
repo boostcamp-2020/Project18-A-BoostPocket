@@ -28,25 +28,30 @@ class NetworkManagerTests: XCTestCase {
         XCTAssertEqual(dataLoaderStub.session, session)
     }
     
-    func test_get_request_withURL() {
+    func test_dataLoader_requestExchangeRate() {
         // given
-        let url = "https://mockurl"
+        let validURL = "https://mockurl"
         
         // when
-        dataLoaderStub.requestExchangeRate(url: url) { _ in }
+        dataLoaderStub.requestExchangeRate(url: validURL) { _ in }
         
         // then
-        XCTAssert(dataLoaderStub.requestURL?.absoluteString == url)
+        XCTAssertNotNil(dataLoaderStub.requestURL)
+        XCTAssert(dataLoaderStub.requestURL?.absoluteString == validURL)
     }
     
-    func test_convert_to_URL() {
+    func test_dataLoader_convertToURL() {
         // given
-        let url = "https://mockurl"
+        let validURL = "https://mockurl"
+        let invalidURL = "👍"
         
         // when
-        let isValidURL = dataLoaderStub.converToURL(url: url)
+        let convertedValidURL = dataLoaderStub.convertToURL(url: validURL)
+        let convertedInvalidURL = dataLoaderStub.convertToURL(url: invalidURL)
         
         // then
-        XCTAssertEqual(isValidURL?.absoluteString, url)
+        XCTAssertNotNil(convertedValidURL)
+        XCTAssertEqual(convertedValidURL?.absoluteString, validURL)
+        XCTAssertNil(convertedInvalidURL)
     }
 }
