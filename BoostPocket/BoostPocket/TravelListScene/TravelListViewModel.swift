@@ -37,7 +37,7 @@ class TravelListViewModel: TravelListPresentable {
     func createTravel(countryName: String) -> TravelItemViewModel? {
         guard let createdTravel = travelProvider?.createTravel(countryName: countryName) else { return nil }
         let createdTravelItemViewModel = TravelItemViewModel(travel: createdTravel)
-        travels.append(createdTravelItemViewModel)
+        // travels.append(createdTravelItemViewModel)
         return createdTravelItemViewModel
     }
     

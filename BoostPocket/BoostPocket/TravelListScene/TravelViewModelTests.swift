@@ -80,16 +80,30 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertNotNil(createdTravel?.flagImage)
     }
     
-    func test_TravelListViewModel_cellForItemAt() {
-        travelListViewModel.createTravel(countryName: countryName)
+    func test_TravelListViewModel_needFetchItems() {
+        countryProvider.createCountry(name: "미국", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "USD")
+        countryProvider.createCountry(name: "일본", lastUpdated: Date(), flagImage: Data(), exchangeRate: 12.1, currencyCode: "JPY")
         
-        let travelItem = travelListViewModel.cellForItemAt(path: IndexPath(row: 0, section: 0))
+        travelListViewModel.createTravel(countryName: "대한민국")
+        travelListViewModel.createTravel(countryName: "미국")
+        travelListViewModel.createTravel(countryName: "일본")
         
-        XCTAssertEqual(travelItem?.title, country?.name)
-        XCTAssertEqual(travelItem?.countryName, country?.name)
-        XCTAssertEqual(travelItem?.currencyCode, country?.currencyCode)
-        XCTAssertEqual(travelItem?.exchangeRate, country?.exchangeRate)
+        travelListViewModel.needFetchItems()
+        XCTAssertEqual(travelListViewModel.travels.count, 3)
+        XCTAssertEqual(travelListViewModel.travels.first?.title, "대한민국")
+        XCTAssertEqual(travelListViewModel.travels.last?.title, "일본")
     }
+    
+//    func test_TravelListViewModel_cellForItemAt() {
+//        travelListViewModel.createTravel(countryName: countryName)
+//
+//        let travelItem = travelListViewModel.cellForItemAt(path: IndexPath(row: 0, section: 0))
+//
+//        XCTAssertEqual(travelItem?.title, country?.name)
+//        XCTAssertEqual(travelItem?.countryName, country?.name)
+//        XCTAssertEqual(travelItem?.currencyCode, country?.currencyCode)
+//        XCTAssertEqual(travelItem?.exchangeRate, country?.exchangeRate)
+//    }
     
     func test_TravelListViewModel_numberOfItem() {
         countryProvider.createCountry(name: "미국", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "USD")
