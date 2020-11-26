@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Travel List View Controller-->
+        <!--트래비포켓-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="TravelListViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,9 +17,78 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Rdy-JJ-Sg9">
+                                <rect key="frame" x="0.0" y="88" width="179" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHf-WB-OuR">
+                                        <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
+                                        <state key="normal" image="1.circle" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQQ-cn-ped">
+                                        <rect key="frame" x="45" y="0.0" width="44.5" height="45"/>
+                                        <state key="normal" image="2.circle" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYc-Qb-PfD">
+                                        <rect key="frame" x="89.5" y="0.0" width="45" height="45"/>
+                                        <state key="normal" image="3.circle" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FkX-fM-WP7">
+                                        <rect key="frame" x="134.5" y="0.0" width="44.5" height="45"/>
+                                        <state key="normal" image="4.circle" catalog="system"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Rdy-JJ-Sg9" secondAttribute="height" multiplier="4:1" id="EH7-HB-BEF"/>
+                                </constraints>
+                            </stackView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bPb-a6-87W">
+                                <rect key="frame" x="0.0" y="133" width="414" height="729"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TGJ-gd-ZwC">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hJh-5c-7lU" customClass="TravelListHeader" customModule="BoostPocket" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="header" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3v7-DP-QYE">
+                                            <rect key="frame" x="186" y="15" width="54" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <connections>
+                                        <outlet property="headerLabel" destination="3v7-DP-QYE" id="QIC-bn-n9n"/>
+                                    </connections>
+                                </collectionReusableView>
+                            </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UM-5b-qib">
-                                <rect key="frame" x="184" y="460" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="149" y="794" width="116" height="38"/>
+                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <inset key="contentEdgeInsets" minX="15" minY="10" maxX="15" maxY="10"/>
+                                <state key="normal" title="새 여행 만들기">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" red="0.70292260360000003" green="0.20526309279999999" blue="0.17926333589999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="newTravelButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="31D-dt-oFs"/>
                                 </connections>
@@ -29,10 +98,20 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="8UM-5b-qib" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Bvg-Xo-R0Q"/>
-                            <constraint firstItem="8UM-5b-qib" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="vqg-fn-F9Y"/>
+                            <constraint firstItem="bPb-a6-87W" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XjT-ag-ceK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bPb-a6-87W" secondAttribute="bottom" id="fYe-NS-Zbc"/>
+                            <constraint firstItem="bPb-a6-87W" firstAttribute="top" secondItem="Rdy-JJ-Sg9" secondAttribute="bottom" id="fwG-SU-qkk"/>
+                            <constraint firstItem="Rdy-JJ-Sg9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hEA-Fk-dF9"/>
+                            <constraint firstItem="Rdy-JJ-Sg9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mql-GA-5HP"/>
+                            <constraint firstItem="Rdy-JJ-Sg9" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.05" id="tVf-S5-SzH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8UM-5b-qib" secondAttribute="bottom" constant="30" id="uyg-lT-pue"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bPb-a6-87W" secondAttribute="trailing" id="wYS-m2-q56"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Vxu-Wh-3nW"/>
+                    <navigationItem key="navigationItem" title="트래비포켓" id="Vxu-Wh-3nW"/>
+                    <connections>
+                        <outlet property="travelListCollectionView" destination="bPb-a6-87W" id="QKB-jb-CSc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -58,8 +137,18 @@
         </scene>
     </scenes>
     <resources>
+        <image name="1.circle" catalog="system" width="128" height="121"/>
+        <image name="2.circle" catalog="system" width="128" height="121"/>
+        <image name="3.circle" catalog="system" width="128" height="121"/>
+        <image name="4.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

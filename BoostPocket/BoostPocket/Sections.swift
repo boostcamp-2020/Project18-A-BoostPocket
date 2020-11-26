@@ -8,6 +8,8 @@
 
 import Foundation
 
-enum Section {
-    case main
+enum TravelSection {
+    case current
+    case upcoming
+    case past
 }
