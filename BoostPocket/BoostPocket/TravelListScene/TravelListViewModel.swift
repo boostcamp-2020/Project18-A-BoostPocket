@@ -42,7 +42,7 @@ class TravelListViewModel: TravelListPresentable {
     }
     
     func cellForItemAt(path: IndexPath) -> TravelItemViewModel? {
-        return nil
+        return travels[path.row]
     }
     
     func numberOfItem() -> Int {
