@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TravelCollectionViewCell: UICollectionViewCell {
+class TravelCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
