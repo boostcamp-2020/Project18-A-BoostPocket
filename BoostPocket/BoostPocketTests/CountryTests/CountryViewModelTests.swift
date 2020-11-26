@@ -57,7 +57,7 @@ class CountryViewModelTests: XCTestCase {
     }
     
     func test_countryListViewModel_cellForItemAt() {
-        countryListViewModel.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+        XCTAssertNotNil(countryListViewModel.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode))
         
         let countryItemViewModel = countryListViewModel.cellForItemAt(path: IndexPath(row: 0, section: 0))
         
@@ -68,9 +68,9 @@ class CountryViewModelTests: XCTestCase {
     }
     
     func test_countryListViewModel_numberOfItem() {
-        countryListViewModel.createCountry(name: "\(countryName)1", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1")
-        countryListViewModel.createCountry(name: "\(countryName)2", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 1.0, currencyCode: "\(currencyCode)2")
-        countryListViewModel.createCountry(name: "\(countryName)3", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 2.0, currencyCode: "\(currencyCode)3")
+        XCTAssertNotNil(countryListViewModel.createCountry(name: "\(countryName)1", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1"))
+        XCTAssertNotNil(countryListViewModel.createCountry(name: "\(countryName)2", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 1.0, currencyCode: "\(currencyCode)2"))
+        XCTAssertNotNil(countryListViewModel.createCountry(name: "\(countryName)3", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 2.0, currencyCode: "\(currencyCode)3"))
         
         XCTAssertEqual(countryListViewModel.numberOfItem(), 3)
     }
