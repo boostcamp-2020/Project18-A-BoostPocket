@@ -51,7 +51,6 @@ class CountryListViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        
         dataSource = DataSource(tableView: countryListTableView, cellProvider: { (countryListTableView, indexPath, countryItemViewModel) -> UITableViewCell? in
             guard let cell = countryListTableView.dequeueReusableCell(withIdentifier: CountryCell.identifier, for: indexPath) as? CountryCell else { return UITableViewCell() }
             
@@ -81,7 +80,6 @@ class CountryListViewController: UIViewController {
     }
     
     private func applySnapShot(with countries: [CountryItemViewModel]) {
-        
         var snapshot = SnapShot()
         let sections = self.setupSection(with: countries)
         snapshot.appendSections(sections)
@@ -93,7 +91,6 @@ class CountryListViewController: UIViewController {
         }
         
         self.dataSource.apply(snapshot, animatingDifferences: true)
-        
     }
     
     private func filterContentForSearchText(_ query: String) {
@@ -129,6 +126,7 @@ extension CountryListViewController: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.accessoryType = .none
     }
+    
 }
 
 extension CountryListViewController: UISearchBarDelegate {

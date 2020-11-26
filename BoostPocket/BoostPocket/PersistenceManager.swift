@@ -16,9 +16,9 @@ protocol PersistenceManagable: AnyObject {
     func fetchAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]?
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
-    @discardableResult func createObject(newObjectInfo: InformationProtocol) -> DataModelProtocol?
+    func createObject<T>(newObjectInfo: T) -> DataModelProtocol?
+    func delete<T>(deletingObject: T) -> Bool
     @discardableResult func saveContext() -> Bool
-    @discardableResult func delete(object: DataModelProtocol) -> Bool
 }
 
 class PersistenceManager: PersistenceManagable {
@@ -62,22 +62,13 @@ class PersistenceManager: PersistenceManagable {
     
     // MARK: - Core Data Creating support
     
-    @discardableResult
-    func createObject(newObjectInfo: InformationProtocol) -> DataModelProtocol? {
-        
+    func createObject<T>(newObjectInfo: T) -> DataModelProtocol? {
         var createdObject: DataModelProtocol?
         
-        switch newObjectInfo.entityType {
-        case .countryType:
-            guard let newObjectInfo = newObjectInfo as? CountryInfo else { return nil }
-            createdObject = setupCountryInfo(countryInfo: newObjectInfo)
-            
-        case .travelType:
-            guard let newObjectInfo = newObjectInfo as? TravelInfo else { return nil }
-            createdObject = setupTravelInfo(travelInfo: newObjectInfo)
-            
-        case .historyType:
-            return nil
+        if let newCountryInfo = newObjectInfo as? CountryInfo {
+            createdObject = setupCountryInfo(countryInfo: newCountryInfo)
+        } else if let newTravelInfo = newObjectInfo as? TravelInfo {
+            createdObject = setupTravelInfo(travelInfo: newTravelInfo)
         }
         
         do {
@@ -152,18 +143,14 @@ class PersistenceManager: PersistenceManagable {
     
     // MARK: - Core Data Deleting support
 
-    @discardableResult
-    func delete(object: DataModelProtocol) -> Bool {
+    func delete<T>(deletingObject: T) -> Bool {
         
-        var deletingObject = NSManagedObject()
-        
-        if let travelObject = object as? Travel {
-            deletingObject = travelObject
-        } else if let countryObject = object as? Country {
-            deletingObject = countryObject
+        if let travelObject = deletingObject as? Travel {
+            self.context.delete(travelObject)
+        } else if let countryObject = deletingObject as? Country {
+            self.context.delete(countryObject)
         }
-        
-        self.context.delete(deletingObject)
+
         do {
             try context.save()
             return true

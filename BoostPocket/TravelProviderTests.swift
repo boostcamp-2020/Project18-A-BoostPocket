@@ -60,7 +60,8 @@ class TravelProviderTests: XCTestCase {
         let fetchedTravel = travelProvider.fetchTravels().first
         XCTAssertNotNil(fetchedTravel)
         
-        travelProvider.deleteTravel(id: fetchedTravel?.id ?? UUID())
+        let isDeleted = travelProvider.deleteTravel(id: fetchedTravel?.id ?? UUID())
+        XCTAssertTrue(isDeleted)
         XCTAssertEqual(travelProvider.fetchTravels(), [])
     }
 }

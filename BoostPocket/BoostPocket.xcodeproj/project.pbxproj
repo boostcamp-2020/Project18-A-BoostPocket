@@ -40,7 +40,7 @@
 		9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9AD256B9524003049CB /* CountryProvider.swift */; };
 		9572F9B0256B9703003049CB /* CountryProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9AF256B9703003049CB /* CountryProviderTests.swift */; };
 		9572F9B3256B974C003049CB /* PersistenceManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */; };
-		9579CBB7256E46A900E74A61 /* countryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9579CBB6256E46A900E74A61 /* countryType.swift */; };
+		9579CBB7256E46A900E74A61 /* DataModelInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9579CBB6256E46A900E74A61 /* DataModelInfo.swift */; };
 		9581C709256E34AC006ABA8E /* PersistenceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9581C708256E34AC006ABA8E /* PersistenceManagerTests.swift */; };
 		95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7925664DBE0007810C /* AppDelegate.swift */; };
 		95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7B25664DBE0007810C /* SceneDelegate.swift */; };
@@ -138,7 +138,7 @@
 		9572F9AD256B9524003049CB /* CountryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryProvider.swift; sourceTree = "<group>"; };
 		9572F9AF256B9703003049CB /* CountryProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryProviderTests.swift; sourceTree = "<group>"; };
 		9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManagerStub.swift; sourceTree = "<group>"; };
-		9579CBB6256E46A900E74A61 /* countryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countryType.swift; sourceTree = "<group>"; };
+		9579CBB6256E46A900E74A61 /* DataModelInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelInfo.swift; sourceTree = "<group>"; };
 		9581C708256E34AC006ABA8E /* PersistenceManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManagerTests.swift; sourceTree = "<group>"; };
 		95A42E7625664DBE0007810C /* BoostPocket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoostPocket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A42E7925664DBE0007810C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -243,8 +243,8 @@
 			isa = PBXGroup;
 			children = (
 				95A42E7D25664DBE0007810C /* TravelListViewController.swift */,
-				954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */,
 				A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */,
+				954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */,
 				5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */,
 			);
 			path = TravelListScene;
@@ -260,7 +260,6 @@
 				9572F9AD256B9524003049CB /* CountryProvider.swift */,
 				5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */,
 				5CB682E4256C03F800830373 /* CountryListViewModel.swift */,
-				9579CBB6256E46A900E74A61 /* countryType.swift */,
 			);
 			path = CountryListScene;
 			sourceTree = "<group>";
@@ -316,6 +315,7 @@
 				95A42E7B25664DBE0007810C /* SceneDelegate.swift */,
 				9572F9A8256B902C003049CB /* PersistenceManager.swift */,
 				954F701A256D3E7700B2E48B /* Sections.swift */,
+				9579CBB6256E46A900E74A61 /* DataModelInfo.swift */,
 				9572F9AC256B94F8003049CB /* TravelDetailScene */,
 				9572F9AB256B949C003049CB /* CountryListScene */,
 				9572F9AA256B947D003049CB /* TravelListScene */,
@@ -663,7 +663,7 @@
 			files = (
 				95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */,
 				5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */,
-				9579CBB7256E46A900E74A61 /* countryType.swift in Sources */,
+				9579CBB7256E46A900E74A61 /* DataModelInfo.swift in Sources */,
 				5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */,
 				5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */,
 				5C8C9196256E8436008C3919 /* TravelItemViewModel.swift in Sources */,
