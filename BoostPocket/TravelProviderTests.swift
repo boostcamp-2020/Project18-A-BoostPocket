@@ -14,6 +14,7 @@ class TravelProviderTests: XCTestCase {
     var persistenceManagerStub: PersistenceManagable!
     var countryProvider: CountryProvidable!
     var travelProvider: TravelProvidable!
+    var country: Country!
     
     let countryName = "대한민국"
     let lastUpdated = Date()
@@ -26,7 +27,7 @@ class TravelProviderTests: XCTestCase {
         countryProvider = CountryProvider(persistenceManager: persistenceManagerStub)
         travelProvider = TravelProvider(persistenceManager: persistenceManagerStub)
         
-        countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+        country = countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
     }
 
     override func tearDownWithError() throws {

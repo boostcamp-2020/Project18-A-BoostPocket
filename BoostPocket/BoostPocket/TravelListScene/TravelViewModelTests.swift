@@ -79,4 +79,5 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertNotNil(createdTravel?.coverImage)
         XCTAssertNotNil(createdTravel?.flagImage)
     }
+    
 }
