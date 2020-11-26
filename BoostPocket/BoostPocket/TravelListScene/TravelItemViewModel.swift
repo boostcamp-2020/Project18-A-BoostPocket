@@ -27,15 +27,13 @@ struct TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     var title: String?
     var memo: String?
     var exchangeRate: Double
-    var budget: Double
+    var budget: Double = 0.0
     var coverImage: Data?
     var startDate: Date?
     var endDate: Date?
     var countryName: String?
     var flagImage: Data?
     var currencyCode: String?
-    
-    
     
     init(travel: TravelProtocol) {
         self.id = travel.id
