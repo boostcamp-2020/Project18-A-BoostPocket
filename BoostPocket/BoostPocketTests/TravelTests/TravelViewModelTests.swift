@@ -74,7 +74,7 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertEqual(createdTravel?.currencyCode, country?.currencyCode)
         XCTAssertEqual(createdTravel?.exchangeRate, country?.exchangeRate)
         XCTAssertEqual(createdTravel?.budget, 0.0)
-        XCTAssertNil(createdTravel?.endDate)
+        XCTAssertNotNil(createdTravel?.endDate)
         XCTAssertNotNil(createdTravel?.startDate)
         XCTAssertNotNil(createdTravel?.coverImage)
         XCTAssertNotNil(createdTravel?.flagImage)
