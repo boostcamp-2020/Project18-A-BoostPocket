@@ -107,6 +107,7 @@ class PersistenceManager: PersistenceManagable {
         newTravel.title = fetchedCountry.name
         newTravel.exchangeRate = fetchedCountry.exchangeRate
         newTravel.country = fetchedCountry
+        newTravel.startDate = Date()
         newTravel.id = UUID()
         newTravel.coverImage = Data() // TODO: - asset에 디폴트 이미지 넣어놓기
         
@@ -120,6 +121,9 @@ class PersistenceManager: PersistenceManagable {
         if T.self == Country.self {
             let nameSort = NSSortDescriptor(key: "name", ascending: true)
             request.sortDescriptors = [nameSort]
+        } else if T.self == Travel.self {
+            let startDateSort = NSSortDescriptor(key: "startDate", ascending: true)
+            request.sortDescriptors = [startDateSort]
         }
         
         do {

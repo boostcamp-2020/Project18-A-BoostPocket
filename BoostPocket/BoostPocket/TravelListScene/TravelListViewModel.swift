@@ -21,7 +21,13 @@ protocol TravelListPresentable {
 
 class TravelListViewModel: TravelListPresentable {
     
-    var travels: [TravelItemViewModel] = []
+    var travels: [TravelItemViewModel] = [] {
+        willSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.didFetch?(newValue)
+            }
+        }
+    }
     var didFetch: (([TravelItemViewModel]) -> Void)?
     private weak var countryProvider: CountryProvidable?
     private weak var travelProvider: TravelProvidable?
@@ -32,6 +38,13 @@ class TravelListViewModel: TravelListPresentable {
     }
     
     func needFetchItems() {
+        guard let fetchedTravels = travelProvider?.fetchTravels() else { return }
+        travels.removeAll()
+        var newTravelItemViewModels: [TravelItemViewModel] = []
+        fetchedTravels.forEach { travel in
+            newTravelItemViewModels.append(TravelItemViewModel(travel: travel))
+        }
+        travels = newTravelItemViewModels
     }
     
     func createTravel(countryName: String) -> TravelItemViewModel? {
@@ -42,11 +55,11 @@ class TravelListViewModel: TravelListPresentable {
     }
     
     func cellForItemAt(path: IndexPath) -> TravelItemViewModel? {
-        return nil
+        return travels[path.row]
     }
     
     func numberOfItem() -> Int {
-        return 0
+        return travels.count
     }
     
 }

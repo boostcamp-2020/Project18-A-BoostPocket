@@ -74,10 +74,45 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertEqual(createdTravel?.currencyCode, country?.currencyCode)
         XCTAssertEqual(createdTravel?.exchangeRate, country?.exchangeRate)
         XCTAssertEqual(createdTravel?.budget, 0.0)
-        XCTAssertNil(createdTravel?.startDate)
         XCTAssertNil(createdTravel?.endDate)
+        XCTAssertNotNil(createdTravel?.startDate)
         XCTAssertNotNil(createdTravel?.coverImage)
         XCTAssertNotNil(createdTravel?.flagImage)
     }
     
+    func test_TravelListViewModel_needFetchItems() {
+        countryProvider.createCountry(name: "미국", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "USD")
+        countryProvider.createCountry(name: "일본", lastUpdated: Date(), flagImage: Data(), exchangeRate: 12.1, currencyCode: "JPY")
+        
+        XCTAssertNotNil(travelProvider.createTravel(countryName: "대한민국"))
+        XCTAssertNotNil(travelProvider.createTravel(countryName: "미국"))
+        XCTAssertNotNil(travelProvider.createTravel(countryName: "일본"))
+        
+        travelListViewModel.needFetchItems()
+        XCTAssertEqual(travelListViewModel.travels.count, 3)
+        XCTAssertEqual(travelListViewModel.travels.first?.title, "대한민국")
+        XCTAssertEqual(travelListViewModel.travels.last?.title, "일본")
+    }
+    
+    func test_TravelListViewModel_cellForItemAt() {
+        travelListViewModel.createTravel(countryName: countryName)
+
+        let travelItem = travelListViewModel.cellForItemAt(path: IndexPath(row: 0, section: 0))
+
+        XCTAssertEqual(travelItem?.title, country?.name)
+        XCTAssertEqual(travelItem?.countryName, country?.name)
+        XCTAssertEqual(travelItem?.currencyCode, country?.currencyCode)
+        XCTAssertEqual(travelItem?.exchangeRate, country?.exchangeRate)
+    }
+    
+    func test_TravelListViewModel_numberOfItem() {
+        countryProvider.createCountry(name: "미국", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "USD")
+        countryProvider.createCountry(name: "일본", lastUpdated: Date(), flagImage: Data(), exchangeRate: 12.1, currencyCode: "JPY")
+
+        travelListViewModel.createTravel(countryName: "대한민국")
+        travelListViewModel.createTravel(countryName: "미국")
+        travelListViewModel.createTravel(countryName: "일본")
+        
+        XCTAssertEqual(travelListViewModel.numberOfItem(), 3)
+    }
 }
