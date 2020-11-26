@@ -37,9 +37,9 @@ class TravelHeaderCell: UICollectionReusableView {
     
     func setConstraintOfCurrentLabel() {
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = false
-    }
+
+        headerLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true    }
     
     func setConstraintOfDefaultLabel() {
         headerLabel.translatesAutoresizingMaskIntoConstraints = false

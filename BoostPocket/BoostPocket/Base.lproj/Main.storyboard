@@ -23,18 +23,30 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHf-WB-OuR">
                                         <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
                                         <state key="normal" image="1.circle" catalog="system"/>
+                                        <connections>
+                                            <action selector="defaultButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bTC-xw-K6y"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQQ-cn-ped">
                                         <rect key="frame" x="45" y="0.0" width="44.5" height="45"/>
                                         <state key="normal" image="2.circle" catalog="system"/>
+                                        <connections>
+                                            <action selector="squareLayoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9cQ-O6-tKK"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYc-Qb-PfD">
                                         <rect key="frame" x="89.5" y="0.0" width="45" height="45"/>
                                         <state key="normal" image="3.circle" catalog="system"/>
+                                        <connections>
+                                            <action selector="rectangleLayoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nzS-do-SQ2"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FkX-fM-WP7">
                                         <rect key="frame" x="134.5" y="0.0" width="44.5" height="45"/>
                                         <state key="normal" image="4.circle" catalog="system"/>
+                                        <connections>
+                                            <action selector="hamburgerLayoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Thr-yo-PDl"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>

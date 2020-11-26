@@ -8,6 +8,13 @@
 
 import UIKit
 
+enum Layout {
+    case defaultLayout
+    case squareLayout
+    case rectangleLayout
+    case hamburgerLayout
+}
+
 class TravelListViewController: UIViewController {
     
     var travelListViewModel: TravelListPresentable? {
@@ -17,6 +24,7 @@ class TravelListViewController: UIViewController {
             }
         }
     }
+    var layout: Layout = .defaultLayout
     
     @IBOutlet weak var travelListCollectionView: UICollectionView!
     
@@ -38,6 +46,11 @@ class TravelListViewController: UIViewController {
     }
     
     private func configureCollectionView() {
+        var flowLayout = UICollectionViewFlowLayout()
+        flowLayout.minimumInteritemSpacing = 0
+        travelListCollectionView.setCollectionViewLayout(flowLayout, animated: true)
+        
+        
         travelListCollectionView.delegate = self
         travelListCollectionView.register(TravelCell.getNib(), forCellWithReuseIdentifier: TravelCell.identifier)
         travelListCollectionView.register(TravelHeaderCell.getNib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TravelHeaderCell.identifier)
@@ -108,16 +121,55 @@ class TravelListViewController: UIViewController {
         self.present(navigationController, animated: true, completion: nil)
     }
     
+    @IBAction func defaultButtonTapped(_ sender: UIButton) {
+        layout = .defaultLayout
+        travelListCollectionView.reloadData()
+    }
+    @IBAction func squareLayoutButtonTapped(_ sender: UIButton) {
+        layout = .squareLayout
+        travelListCollectionView.reloadData()
+    }
+    
+    @IBAction func rectangleLayoutButtonTapped(_ sender: UIButton) {
+        layout = .rectangleLayout
+        travelListCollectionView.reloadData()
+    }
+    
+    @IBAction func hamburgerLayoutButtonTapped(_ sender: UIButton) {
+        layout = .hamburgerLayout
+        travelListCollectionView.reloadData()
+    }
+    
 }
 
 extension TravelListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        //        let cell = collectionView.cellForItem(at: indexPath)
-        //        cell?.safeAreaInsets = UIEdgeInsets(top: <#T##CGFloat#>, left: <#T##CGFloat#>, bottom: <#T##CGFloat#>, right: <#T##CGFloat#>)
-        let width = self.view.bounds.width * 0.8
+        var width: CGFloat = self.view.bounds.width * 0.8
+        var height: CGFloat = width
+        switch layout {
+        case .defaultLayout:
+            width = self.view.bounds.width * 0.8
+            height = width
+        case .squareLayout:
+            width = (collectionView.bounds.width - 15 * 3) / 2
+            height = width
+        case .rectangleLayout:
+            width = self.view.bounds.width * 0.8
+            height = 100
+        case .hamburgerLayout:
+            width = self.view.bounds.width * 0.8
+            height = 100
+        }
         
-        return CGSize(width: width, height: width)
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if layout == .squareLayout {
+            return UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        }
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
 
