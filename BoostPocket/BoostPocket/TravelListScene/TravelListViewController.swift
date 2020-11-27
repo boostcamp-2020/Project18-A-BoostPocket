@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum Layout {
+enum ButtonLayout {
     case defaultLayout
     case squareLayout
     case rectangleLayout
@@ -19,7 +19,7 @@ class TravelListViewController: UIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<TravelSection, TravelItemViewModel>
     typealias SnapShot = NSDiffableDataSourceSnapshot<TravelSection, TravelItemViewModel>
     
-    var layout: Layout = .defaultLayout
+    var layout: ButtonLayout = .defaultLayout
     lazy var dataSource: DataSource = configureDataSource()
     var travelListViewModel: TravelListPresentable? {
         didSet {
@@ -30,10 +30,12 @@ class TravelListViewController: UIViewController {
     }
     
     @IBOutlet weak var travelListCollectionView: UICollectionView!
+    @IBOutlet var travelListLayoutButtons: [UIButton]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        travelListLayoutButtons.forEach { print($0.accessibilityLabel) }
         
     }
     
@@ -101,6 +103,29 @@ class TravelListViewController: UIViewController {
         return .current
     }
     
+    func resetTravelListLayoutButtonsAlpha() {
+        travelListLayoutButtons.forEach { $0.alpha = 0.4 }
+    }
+    
+    @IBAction func LayoutButtonTapped(_ sender: UIButton) {
+        resetTravelListLayoutButtonsAlpha()
+        sender.alpha = 1
+        let buttonLayout = travelListLayoutButtons.indices.filter {
+            travelListLayoutButtons[$0] == sender }[0]
+
+        switch buttonLayout {
+        case 0:
+            layout = .defaultLayout
+        case 1:
+            layout = .squareLayout
+        case 2:
+            layout = .rectangleLayout
+        default:
+            layout = .hamburgerLayout
+        }
+        applySnapShot(with: travelListViewModel?.travels ?? [])
+    }
+    
     @IBAction func newTravelButtonTapped(_ sender: Any) {
         let countryListVC = CountryListViewController.init(nibName: "CountryListViewController", bundle: nil)
         
@@ -123,27 +148,6 @@ class TravelListViewController: UIViewController {
         let navigationController = UINavigationController(rootViewController: countryListVC)
         self.present(navigationController, animated: true, completion: nil)
     }
-    
-    @IBAction func defaultButtonTapped(_ sender: UIButton) {
-        layout = .defaultLayout
-        applySnapShot(with: travelListViewModel?.travels ?? [])
-    }
-    
-    @IBAction func squareLayoutButtonTapped(_ sender: UIButton) {
-        layout = .squareLayout
-        applySnapShot(with: travelListViewModel?.travels ?? [])
-    }
-    
-    @IBAction func rectangleLayoutButtonTapped(_ sender: UIButton) {
-        layout = .rectangleLayout
-        applySnapShot(with: travelListViewModel?.travels ?? [])
-    }
-    
-    @IBAction func hamburgerLayoutButtonTapped(_ sender: UIButton) {
-        layout = .hamburgerLayout
-        applySnapShot(with: travelListViewModel?.travels ?? [])
-    }
-    
 }
 
 extension TravelListViewController: UICollectionViewDelegateFlowLayout {
