@@ -7,50 +7,106 @@
 //
 
 import UIKit
+import NetworkManager
+import FlagKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
-
-
+    var persistenceManager: PersistenceManagable = PersistenceManager()
+    var countryProvider: CountryProvidable?
+    var travelProvider: TravelProvidable?
+    
+    var dataLoader: DataLoader?
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        let countryProvider = CountryProvider(persistenceManager: persistenceManager)
+        let travelProvider = TravelProvider(persistenceManager: persistenceManager)
+        
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
+        dataLoader = DataLoader(session: session)
+        
+        let url = "https://api.exchangeratesapi.io/latest?base=KRW"
+        dataLoader?.requestExchangeRate(url: url, completion: { [weak self] (result) in
+            guard let self = self, let numberOfCountries = self.persistenceManager.count(request: Country.fetchRequest()) else { return }
+            switch result {
+            case .success(let data):
+                if numberOfCountries <= 0 {
+                    print("setup")
+                    self.setupCountries(with: data)
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            
+            DispatchQueue.main.async {
+                let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                guard let mainNavigationController = storyboard.instantiateViewController(identifier: "MainNavigationViewController") as? UINavigationController,
+                    let travelListVC = mainNavigationController.topViewController as? TravelListViewController else { return }
+                
+                travelListVC.travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider)
+                
+                self.window?.rootViewController = mainNavigationController
+                self.window?.makeKeyAndVisible()
+            }
+        })
+        
+        self.countryProvider = countryProvider
+        self.travelProvider = travelProvider
     }
-
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
+    
+    // TODO: - 테스트코드 작성하기
+    private func setupCountries(with data: ExchangeRate) {
+        let koreaLocale = NSLocale(localeIdentifier: "ko_KR")
+        let identifiers = NSLocale.availableLocaleIdentifiers
+        let countryDictionary = filterCountries(identifiers, data: data)
+        
+        countryDictionary.forEach { (countryCode, identifier) in
+            let locale = NSLocale(localeIdentifier: identifier)
+            if let currencyCode = locale.currencyCode,
+                let countryName = koreaLocale.localizedString(forCountryCode: countryCode),
+                let exchangeRate = data.rates[currencyCode],
+                let flagImage = Flag(countryCode: countryCode)?.image(style: .roundedRect).pngData() {
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+                let date: Date = dateFormatter.date(from: data.date) ?? Date()
+                
+                countryProvider?.createCountry(name: countryName, lastUpdated: date, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+            }
+        }
     }
-
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+    
+    // TODO: - 테스트코드 작성하기
+    private func filterCountries(_ identifiers: [String], data: ExchangeRate) -> [String: String] {
+        var filteredIdentifiers: [String: String] = [:]
+        
+        identifiers.forEach { identifier in
+            let locale = NSLocale(localeIdentifier: identifier)
+            if let currencyCode = locale.currencyCode,
+                let countryCode = locale.countryCode,
+                let _ = data.rates[currencyCode],
+                let _ = Flag(countryCode: countryCode)?.originalImage.pngData() {
+                filteredIdentifiers[countryCode] = identifier
+            }
+        }
+        
+        return filteredIdentifiers
     }
-
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
-    }
-
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
-    }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-
-        // Save changes in the application's managed object context when the application transitions to the background.
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
-    }
-
-
+    
+    func sceneDidDisconnect(_ scene: UIScene) { }
+    
+    func sceneDidBecomeActive(_ scene: UIScene) { }
+    
+    func sceneWillResignActive(_ scene: UIScene) { }
+    
+    func sceneWillEnterForeground(_ scene: UIScene) { }
+    
+    func sceneDidEnterBackground(_ scene: UIScene) { persistenceManager.saveContext() }
+    
 }
-

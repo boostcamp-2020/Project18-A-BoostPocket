@@ -1,0 +1,22 @@
+name: Unit Tests
+
+on:
+  pull_request: 
+    branches: [ dev , release, master ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Install Dependencies
+      working-directory: ./BoostPocket
+      run: pod install --repo-update
+      shell: bash
+      
+    - name: Run BoostPocketTests
+      run: xcodebuild test -workspace BoostPocket/BoostPocket.xcworkspace -scheme BoostPocketTests -destination 'platform=iOS Simulator,name=iPhone 11'
+
