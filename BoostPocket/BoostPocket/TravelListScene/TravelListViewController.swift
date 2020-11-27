@@ -49,14 +49,21 @@ class TravelListViewController: UIViewController {
         
         travelListCollectionView.delegate = self
         travelListCollectionView.register(TravelCell.getNib(), forCellWithReuseIdentifier: TravelCell.identifier)
+        travelListCollectionView.register(LongTravelCell.getNib(), forCellWithReuseIdentifier: LongTravelCell.identifier)
         travelListCollectionView.register(TravelHeaderCell.getNib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TravelHeaderCell.identifier)
     }
     
     private func configureDataSource() -> DataSource {
         let dataSource = DataSource(collectionView: travelListCollectionView) { (collectionView, indexPath, item) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TravelCell.identifier, for: indexPath) as? TravelCell else { return UICollectionViewCell() }
-            cell.configure(with: item)
-            return cell
+            if self.layout == .hamburgerLayout {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LongTravelCell.identifier, for: indexPath) as? LongTravelCell else { return UICollectionViewCell() }
+                cell.configure(with: item)
+                return cell
+            } else {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TravelCell.identifier, for: indexPath) as? TravelCell else { return UICollectionViewCell() }
+                cell.configure(with: item)
+                return cell
+            }
         }
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
