@@ -39,19 +39,19 @@
 ### 여행에서 돈을 관리하는 데 시간을 많이 쏟지 않고 여행에 집중해보세요!
 여행 중 발생한 지출과 수입에 대해 빠르고 간단히 입력하고, 결과를 리포트로 확인할 수 있습니다.
 
-<br>
-
 ## 목표
 - 사용자의 편의를 고려한 `UX` & `View`의 높은 완성도
 - `TDD` 도입을 통한 테스트 가능한 구조
 
-## 팀원
-> 우리 팀의 [그라운드 룰](https://github.com/boostcamp-2020/Project18-A-BoostPocket/wiki/%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C-%EB%A3%B0%F0%9F%93%8C) 바로가기 ! 
 <br>
 
+## Wiki Home  
+[팀 위키](https://github.com/boostcamp-2020/Project18-A-BoostPocket/wiki)에 오시면 더 많은 자료를 확인하실 수 있습니다
+
+## 팀원
 |🧑🏻‍💻 유시형|👩🏻‍💻 이승진|👩🏻‍💻 조송주|
 |-|-|-|
-|<img src="https://user-images.githubusercontent.com/65107199/99751943-a44a0c80-2b26-11eb-9d62-ffd30f1978b9.jpg" width="350px;">|<img src="https://user-images.githubusercontent.com/65107199/99751947-a57b3980-2b26-11eb-97d2-d68ccbb20f69.jpg" width="350px;">|<img src="https://user-images.githubusercontent.com/65107199/99751950-a6ac6680-2b26-11eb-95e5-dc209529d64d.jpg" width="350px;">|
+|<img src="https://user-images.githubusercontent.com/65107199/99751943-a44a0c80-2b26-11eb-9d62-ffd30f1978b9.jpg" width="200px;">|<img src="https://user-images.githubusercontent.com/65107199/99751947-a57b3980-2b26-11eb-97d2-d68ccbb20f69.jpg" width="200px;">|<img src="https://user-images.githubusercontent.com/65107199/99751950-a6ac6680-2b26-11eb-95e5-dc209529d64d.jpg" width="200px;">|
 |[@sihyungyou](https://github.com/sihyungyou)|[@devilzcough](https://github.com/devilzcough)|[@songjucho](https://github.com/songjucho)|
 
 <br>
@@ -67,7 +67,4 @@
 [2주차 데모 영상](https://youtu.be/v7ZPTcQ3dMI)  
 
 ## 배포  
-[여기](https://kr.object.ncloudstorage.com/boostpocket/Download.html)서 아이폰 디바이스에 다운로드 받을 수 있습니다👏
-
-
-`WIKI에 오시면 더 많은 자료를 열람하실 수 있습니다`
+[여기](https://kr.object.ncloudstorage.com/boostpocket/Download.html)서 아이폰 디바이스에 다운로드 받을 수 있습니다👏  
