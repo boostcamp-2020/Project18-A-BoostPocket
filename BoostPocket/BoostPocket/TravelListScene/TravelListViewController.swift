@@ -35,8 +35,6 @@ class TravelListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        travelListLayoutButtons.forEach { print($0.accessibilityLabel) }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -104,7 +102,7 @@ class TravelListViewController: UIViewController {
     }
     
     func resetTravelListLayoutButtonsAlpha() {
-        travelListLayoutButtons.forEach { $0.alpha = 0.4 }
+        travelListLayoutButtons.forEach { $0.alpha = 0.6  }
     }
     
     @IBAction func LayoutButtonTapped(_ sender: UIButton) {
@@ -163,10 +161,10 @@ extension TravelListViewController: UICollectionViewDelegateFlowLayout {
             width = (collectionView.bounds.width - 15 * 3) / 2
             height = width
         case .rectangleLayout:
-            width = self.view.bounds.width * 0.8
+            width = self.view.bounds.width * 0.9
             height = 100
         case .hamburgerLayout:
-            width = self.view.bounds.width * 0.8
+            width = self.view.bounds.width * 0.9
             height = 100
         }
         

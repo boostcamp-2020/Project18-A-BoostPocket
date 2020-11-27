@@ -18,35 +18,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Rdy-JJ-Sg9">
+                            <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" distribution="fillEqually" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="Rdy-JJ-Sg9">
                                 <rect key="frame" x="3" y="91" width="107.5" height="27"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHf-WB-OuR" userLabel="default">
-                                        <rect key="frame" x="0.0" y="0.0" width="24.5" height="27"/>
+                                        <rect key="frame" x="5" y="5" width="17.5" height="17"/>
                                         <accessibility key="accessibilityConfiguration" label="default"/>
                                         <state key="normal" image="default"/>
                                         <connections>
                                             <action selector="LayoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r7W-JB-BqD"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQQ-cn-ped" userLabel="square">
-                                        <rect key="frame" x="27.5" y="0.0" width="25" height="27"/>
+                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQQ-cn-ped" userLabel="square">
+                                        <rect key="frame" x="31.5" y="5" width="18" height="17"/>
                                         <accessibility key="accessibilityConfiguration" label="square"/>
                                         <state key="normal" image="square"/>
                                         <connections>
                                             <action selector="LayoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PBF-Tz-cux"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYc-Qb-PfD" userLabel="rectangle">
-                                        <rect key="frame" x="55.5" y="0.0" width="24.5" height="27"/>
+                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYc-Qb-PfD" userLabel="rectangle">
+                                        <rect key="frame" x="58.5" y="5" width="17.5" height="17"/>
                                         <accessibility key="accessibilityConfiguration" label="rectangle"/>
                                         <state key="normal" image="rectangle"/>
                                         <connections>
                                             <action selector="LayoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P96-1w-JEM"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FkX-fM-WP7" userLabel="hamburger">
-                                        <rect key="frame" x="83" y="0.0" width="24.5" height="27"/>
+                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FkX-fM-WP7" userLabel="hamburger">
+                                        <rect key="frame" x="85" y="5" width="17.5" height="17"/>
                                         <accessibility key="accessibilityConfiguration" label="hamburger"/>
                                         <state key="normal" image="hamburger"/>
                                         <connections>
@@ -58,6 +58,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Rdy-JJ-Sg9" secondAttribute="height" multiplier="4:1" id="EH7-HB-BEF"/>
                                 </constraints>
+                                <edgeInsets key="layoutMargins" top="5" left="5" bottom="5" right="5"/>
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bPb-a6-87W">
                                 <rect key="frame" x="0.0" y="118" width="414" height="744"/>
