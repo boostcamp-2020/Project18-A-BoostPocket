@@ -61,4 +61,13 @@
 #### [기획서](https://github.com/boostcamp-2020/Project18-A-BoostPocket/wiki/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B8%B0%ED%9A%8D%EC%84%9C)
 #### [데이터 구조](https://github.com/boostcamp-2020/Project18-A-BoostPocket/wiki/ERD)
 
+<br>
+
+## 데모  
+[2주차 데모 영상](https://youtu.be/v7ZPTcQ3dMI)  
+
+## 배포  
+[여기](https://kr.object.ncloudstorage.com/boostpocket/Download.html)서 아이폰 디바이스에 다운로드 받을 수 있습니다👏
+
+
 `WIKI에 오시면 더 많은 자료를 열람하실 수 있습니다`
