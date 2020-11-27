@@ -262,16 +262,10 @@
 		9572F9AA256B947D003049CB /* TravelListScene */ = {
 			isa = PBXGroup;
 			children = (
-				95A42E7D25664DBE0007810C /* TravelListViewController.swift */,
+				A980ADC6257095E60001F5DC /* View */,
 				A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */,
 				954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */,
 				5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */,
-				5C79747C256FA1C3007CB1ED /* LongTravelCell.swift */,
-				5C79747D256FA1C3007CB1ED /* LongTravelCell.xib */,
-				A9BF7A84256F420D00496CD8 /* TravelCell.swift */,
-				A9BF7A85256F420D00496CD8 /* TravelCell.xib */,
-				5C797491256FD263007CB1ED /* TravelHeaderCell.swift */,
-				5C797492256FD263007CB1ED /* TravelHeaderCell.xib */,
 			);
 			path = TravelListScene;
 			sourceTree = "<group>";
@@ -279,10 +273,7 @@
 		9572F9AB256B949C003049CB /* CountryListScene */ = {
 			isa = PBXGroup;
 			children = (
-				5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */,
-				5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */,
-				5C3DAF3325665F0200178EA0 /* CountryCell.swift */,
-				5C3DAF3425665F0200178EA0 /* CountryCell.xib */,
+				A980ADC5257095D70001F5DC /* View */,
 				9572F9AD256B9524003049CB /* CountryProvider.swift */,
 				5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */,
 				5CB682E4256C03F800830373 /* CountryListViewModel.swift */,
@@ -337,17 +328,16 @@
 		95A42E7825664DBE0007810C /* BoostPocket */ = {
 			isa = PBXGroup;
 			children = (
+				A980ADC3257095A80001F5DC /* Constants */,
 				A9BF7AA9256F9C9700496CD8 /* CustomView */,
-				A9BF7A35256D496300496CD8 /* Extension */,
+				A9BF7A35256D496300496CD8 /* Extensions */,
 				95A42E7925664DBE0007810C /* AppDelegate.swift */,
 				95A42E7B25664DBE0007810C /* SceneDelegate.swift */,
-				9572F9A8256B902C003049CB /* PersistenceManager.swift */,
-				954F701A256D3E7700B2E48B /* Sections.swift */,
-				9579CBB6256E46A900E74A61 /* DataModelInfo.swift */,
 				9572F9AC256B94F8003049CB /* TravelDetailScene */,
 				9572F9AB256B949C003049CB /* CountryListScene */,
 				9572F9AA256B947D003049CB /* TravelListScene */,
 				9572F99E256B8F42003049CB /* CoreDataModels */,
+				A980ADC4257095B90001F5DC /* Models */,
 				95A42E7F25664DBE0007810C /* Main.storyboard */,
 				95A42E8525664DC40007810C /* Assets.xcassets */,
 				95A42E8725664DC40007810C /* LaunchScreen.storyboard */,
@@ -400,14 +390,56 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		A9BF7A35256D496300496CD8 /* Extension */ = {
+		A980ADC3257095A80001F5DC /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				954F701A256D3E7700B2E48B /* Sections.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		A980ADC4257095B90001F5DC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9572F9A8256B902C003049CB /* PersistenceManager.swift */,
+				9579CBB6256E46A900E74A61 /* DataModelInfo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A980ADC5257095D70001F5DC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */,
+				5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */,
+				5C3DAF3325665F0200178EA0 /* CountryCell.swift */,
+				5C3DAF3425665F0200178EA0 /* CountryCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A980ADC6257095E60001F5DC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				95A42E7D25664DBE0007810C /* TravelListViewController.swift */,
+				5C79747C256FA1C3007CB1ED /* LongTravelCell.swift */,
+				5C79747D256FA1C3007CB1ED /* LongTravelCell.xib */,
+				A9BF7A84256F420D00496CD8 /* TravelCell.swift */,
+				A9BF7A85256F420D00496CD8 /* TravelCell.xib */,
+				5C797491256FD263007CB1ED /* TravelHeaderCell.swift */,
+				5C797492256FD263007CB1ED /* TravelHeaderCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A9BF7A35256D496300496CD8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */,
 				95747A68256FCEEA0065C419 /* Data+ImageData.swift */,
 				A9BF7AA4256F9B8800496CD8 /* Date+ConvertToString.swift */,
 			);
-			path = Extension;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		A9BF7AA9256F9C9700496CD8 /* CustomView */ = {
