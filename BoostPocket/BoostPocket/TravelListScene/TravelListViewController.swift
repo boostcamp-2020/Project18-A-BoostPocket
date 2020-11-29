@@ -54,22 +54,16 @@ class TravelListViewController: UIViewController {
     }
     
     private func configureDataSource() -> DataSource {
-        let dataSource = DataSource(collectionView: travelListCollectionView) { (collectionView, indexPath, item) -> UICollectionViewCell? in
-            if self.layout == .hamburgerLayout {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LongTravelCell.identifier, for: indexPath) as? LongTravelCell else { return UICollectionViewCell() }
-                cell.configure(with: item)
-                return cell
-            } else {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TravelCell.identifier, for: indexPath) as? TravelCell else { return UICollectionViewCell() }
-                cell.configure(with: item)
-                return cell
-            }
+        dataSource = DataSource(collectionView: travelListCollectionView) { (collectionView, indexPath, item) -> UICollectionViewCell? in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TravelCell.identifier, for: indexPath) as? TravelCell else { return UICollectionViewCell() }
+            cell.configure(with: item)
+            return cell
         }
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TravelHeaderCell.identifier, for: indexPath) as? TravelHeaderCell else { return UICollectionReusableView() }
             
-            let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
             // TODO: 여행 개수 찾는 방법 고민해보기..
             // let travelNumber = dataSource.snapshot().numberOfItems
             sectionHeader.configure(with: section, numberOfTravel: self.travelListViewModel?.travels.count ?? 0)
@@ -88,11 +82,7 @@ class TravelListViewController: UIViewController {
             let section = getTravelSection(with: travel)
             snapShot.appendItems([travel], toSection: section)
         }
-        
-        // TODO: - reloadData 없이 구현하는 방법 고민하기
-        dataSource.apply(snapShot, animatingDifferences: true) { [weak self] in
-            self?.travelListCollectionView.reloadData()
-        }
+        self.dataSource.apply(snapShot, animatingDifferences: true)
     }
     
     func getTravelSection(with travel: TravelItemViewModel) -> TravelSection {
@@ -162,16 +152,13 @@ extension TravelListViewController: UICollectionViewDelegateFlowLayout {
         
         switch layout {
         case .defaultLayout:
-            width = self.view.bounds.width * 0.9
+            width = view.bounds.width * 0.9
             height = width
         case .squareLayout:
             width = (collectionView.bounds.width - 15 * 3) / 2
             height = width
-        case .rectangleLayout:
-            width = self.view.bounds.width * 0.9
-            height = 100
-        case .hamburgerLayout:
-            width = self.view.bounds.width * 0.9
+        default:
+            width = view.bounds.width * 0.9
             height = 100
         }
         
@@ -193,8 +180,7 @@ extension TravelListViewController: UICollectionViewDelegate {
         
         let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
         guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController,
-            let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
-            else { return }
+              let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController else { return }
         
         tabBarVC.setupChildViewControllers(with: selectedTravelViewModel)
         profileVC.profileDelegate = self
@@ -216,8 +202,8 @@ extension TravelListViewController: UICollectionViewDelegate {
 extension TravelListViewController: TravelItemProfileDelegate {
     func deleteTravel(id: UUID?) {
         if let travelListViewModel = travelListViewModel,
-            let deletingId = id,
-            travelListViewModel.deleteTravel(id: deletingId) {
+           let deletingId = id,
+           travelListViewModel.deleteTravel(id: deletingId) {
             print("여행을 삭제했습니다.")
         } else {
             // TODO: - listVM, id, delete 과정 중 문제가 생겨 실패 시 사용자에게 noti
