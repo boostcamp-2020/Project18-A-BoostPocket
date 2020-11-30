@@ -12,7 +12,7 @@ import XCTest
 class TravelViewModelTests: XCTestCase {
     
     var travelListViewModel: TravelListPresentable!
-    var persistenceManager: PersistenceManagable!
+    var persistenceManagerStub: PersistenceManagable!
     var countryProvider: CountryProvidable!
     var travelProvider: TravelProvidable!
     var country: Country!
@@ -25,13 +25,17 @@ class TravelViewModelTests: XCTestCase {
     let coverImage = Data()
     let startDate = Date()
     let endDate = Date()
+    
     let countryName = "대한민국"
+    let lastUpdated = Date()
+    let flagImage = Data()
+    let currencyCode = "test code"
     
     override func setUpWithError() throws {
-        persistenceManager = PersistenceManagerStub()
-        countryProvider = CountryProvider(persistenceManager: persistenceManager)
+        persistenceManagerStub = PersistenceManagerStub()
+        countryProvider = CountryProvider(persistenceManager: persistenceManagerStub)
         country = countryProvider.createCountry(name: countryName, lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "KRW")
-        travelProvider = TravelProvider(persistenceManager: persistenceManager)
+        travelProvider = TravelProvider(persistenceManager: persistenceManagerStub)
         travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider)
     }
     
@@ -40,7 +44,7 @@ class TravelViewModelTests: XCTestCase {
         travelProvider = nil
         country = nil
         countryProvider = nil
-        persistenceManager = nil
+        persistenceManagerStub = nil
     }
     
     func test_travelItemViewModel_createInstance() throws {
@@ -122,5 +126,13 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertNotNil(createdTravel)
         XCTAssertNotNil(travelId)
         XCTAssertTrue(travelListViewModel.deleteTravel(id: travelId ?? UUID()))
+    }
+    
+    func test_travelListViewModel_updateTravel() {
+        XCTAssertNotNil(countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode))
+        let createdTravel = travelListViewModel.createTravel(countryName: countryName)
+        XCTAssertNotNil(createdTravel)
+        
+        XCTAssertTrue(travelListViewModel.updateTravel(countryName: countryName, id: (createdTravel?.id)!, title: title, memo: "updated memo", startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate))
     }
 }
