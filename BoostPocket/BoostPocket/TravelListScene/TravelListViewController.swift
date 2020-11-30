@@ -161,11 +161,8 @@ extension TravelListViewController: UICollectionViewDelegateFlowLayout {
         case .squareLayout:
             width = (collectionView.bounds.width - 15 * 3) / 2
             height = width
-        case .rectangleLayout:
-            width = self.view.bounds.width * 0.8
-            height = 100
-        case .hamburgerLayout:
-            width = self.view.bounds.width * 0.8
+        default:
+            width = self.view.bounds.width * 0.9
             height = 100
         }
         
