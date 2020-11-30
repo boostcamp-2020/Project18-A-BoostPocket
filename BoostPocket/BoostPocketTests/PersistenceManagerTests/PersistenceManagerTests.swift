@@ -11,7 +11,7 @@ import CoreData
 @testable import BoostPocket
 
 class PersistenceManagerTests: XCTestCase {
-
+    
     var persistenceManagerStub: PersistenceManagable!
     var countryInfo: CountryInfo!
     var travelInfo: TravelInfo!
@@ -27,13 +27,13 @@ class PersistenceManagerTests: XCTestCase {
         countryInfo = CountryInfo(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
         travelInfo = TravelInfo(countryName: countryName)
     }
-
+    
     override func tearDownWithError() throws {
         persistenceManagerStub = nil
         countryInfo = nil
         travelInfo = nil
     }
-
+    
     func test_persistenceManager_createObject() {
         let createdCountryObject = persistenceManagerStub.createObject(newObjectInfo: countryInfo)
         let createdCountry = createdCountryObject as? Country
@@ -54,18 +54,22 @@ class PersistenceManagerTests: XCTestCase {
         XCTAssertEqual(fetchedTravels.first, createdTravel)
     }
     
-/*
-    func test_persistenceManager_fetch() {
-        let createdCountry = persistenceManagerStub.createObject(newObjectInfo: countryInfo)
+    func test_persistenceManager_fetchAll() {
+        XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Country.entityName)
-        fetchRequest.predicate = NSPredicate(format: "name == %@", countryName)
+        let createdCountryObject = persistenceManagerStub.createObject(newObjectInfo: countryInfo)
+        let createdCountry = createdCountryObject as? Country
+        XCTAssertNotNil(createdCountryObject)
+        XCTAssertNotNil(createdCountry)
         
-        let fetchResult = persistenceManagerStub.fetch(fetchRequest)
-        XCTAssertNotNil(fetchResult)
-        XCTAssertEqual(fetchResult?.first, createdCountry)
+        let createdTravelObject = persistenceManagerStub.createObject(newObjectInfo: travelInfo)
+        let createdTravel = createdTravelObject as? Travel
+        XCTAssertNotNil(createdTravelObject)
+        XCTAssertNotNil(createdTravel)
+        
+        XCTAssertNotEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
+        XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()).first, createdTravel)
     }
-*/
     
     func test_persistenceManager_delete() {
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
@@ -80,7 +84,7 @@ class PersistenceManagerTests: XCTestCase {
         XCTAssertNotNil(createdCountry)
         XCTAssertNotNil(createdTravelObject)
         XCTAssertNotNil(createdTravel)
-                
+        
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Country.fetchRequest()).first, createdCountry)
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()).first, createdTravel)
         

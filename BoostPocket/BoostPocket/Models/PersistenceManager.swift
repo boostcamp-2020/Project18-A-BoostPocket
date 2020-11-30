@@ -118,7 +118,6 @@ class PersistenceManager: PersistenceManagable {
     
     // MARK: - Core Data Fetching support
     
-    // TODO: - 테스트코드 작성하기
     func fetchAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T] {
         if T.self == Country.self {
             let nameSort = NSSortDescriptor(key: "name", ascending: true)
@@ -136,7 +135,7 @@ class PersistenceManager: PersistenceManagable {
         }
     }
     
-    // TODO: - Seg fault 에러 알아보기
+    // TODO: - 테스트코드 작성하기
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]? {
         do {
             let fetchResult = try self.context.fetch(request)
