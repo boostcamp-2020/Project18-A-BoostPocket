@@ -13,11 +13,12 @@ protocol PersistenceManagable: AnyObject {
     var modelName: String { get }
     var persistentContainer: NSPersistentContainer { get }
     var context: NSManagedObjectContext { get }
+    func createObject<T>(newObjectInfo: T) -> DataModelProtocol?
     func fetchAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]?
-    func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
-    func createObject<T>(newObjectInfo: T) -> DataModelProtocol?
+    func updateObject<T>(updatedObjectInfo: T) -> DataModelProtocol?
     func delete<T>(deletingObject: T) -> Bool
+    func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
     @discardableResult func saveContext() -> Bool
 }
 
@@ -104,19 +105,20 @@ class PersistenceManager: PersistenceManagable {
             let fetchedCountry = countries.first
             else { return nil }
         
-        newTravel.title = fetchedCountry.name
-        newTravel.exchangeRate = fetchedCountry.exchangeRate
         newTravel.country = fetchedCountry
-        // TODO : endDate 나중에 없애기
-        newTravel.startDate = Date()
-        newTravel.endDate = Date()
-        newTravel.id = UUID()
-        newTravel.coverImage = Data().getCoverImage()
+        newTravel.id = travelInfo.id
+        newTravel.title = travelInfo.title
+        newTravel.memo = travelInfo.memo
+        newTravel.startDate = travelInfo.startDate
+        newTravel.endDate = travelInfo.endDate // TODO : endDate 나중에 없애기
+        newTravel.exchangeRate = fetchedCountry.exchangeRate
+        newTravel.budget = travelInfo.budget
+        newTravel.coverImage = travelInfo.coverImage
         
         return newTravel
     }
     
-    // MARK: - Core Data Fetching support
+    // MARK: - Core Data Retrieving support
     
     func fetchAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T] {
         if T.self == Country.self {
@@ -145,8 +147,53 @@ class PersistenceManager: PersistenceManagable {
         }
     }
     
+    // MARK: - Core Data Updating support
+    
+    func updateObject<T>(updatedObjectInfo: T) -> DataModelProtocol? {
+        var updatedObject: DataModelProtocol?
+        
+        if let updatedTravelInfo = updatedObjectInfo as? TravelInfo, let updatedTravel =  updateTravel(travelInfo: updatedTravelInfo) {
+            updatedObject = updatedTravel
+        }
+        
+        do {
+            try self.context.save()
+            return updatedObject
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    private func updateTravel(travelInfo: TravelInfo) -> Travel? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Travel.entityName)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", travelInfo.id as CVarArg)
+        
+        do {
+            let anys = try self.context.fetch(fetchRequest)
+            let objectUpdate = anys[0] as? NSManagedObject
+            
+            objectUpdate?.setValue(travelInfo.title, forKey: "title")
+            objectUpdate?.setValue(travelInfo.memo, forKey: "memo")
+            objectUpdate?.setValue(travelInfo.startDate, forKey: "startDate")
+            objectUpdate?.setValue(travelInfo.endDate, forKey: "endDate")
+            objectUpdate?.setValue(travelInfo.budget, forKey: "budget")
+            objectUpdate?.setValue(travelInfo.coverImage, forKey: "coverImage")
+            
+            try self.context.save()
+            
+            let travels = fetch(fetchRequest) as? [Travel]
+            let updatedTravel = travels?.first
+            
+            return updatedTravel
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
     // MARK: - Core Data Deleting support
-
+    
     func delete<T>(deletingObject: T) -> Bool {
         
         if let travelObject = deletingObject as? Travel {
@@ -154,7 +201,7 @@ class PersistenceManager: PersistenceManagable {
         } else if let countryObject = deletingObject as? Country {
             self.context.delete(countryObject)
         }
-
+        
         do {
             try context.save()
             return true

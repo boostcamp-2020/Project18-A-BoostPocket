@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CoreData
 
 protocol TravelProvidable: AnyObject {
     var travels: [Travel] { get }
@@ -25,7 +24,7 @@ class TravelProvider: TravelProvidable {
     }
     
     func createTravel(countryName: String) -> Travel? {
-        let newTravelInfo = TravelInfo(countryName: countryName)
+        let newTravelInfo = TravelInfo(countryName: countryName, id: UUID(), title: countryName, memo: "", startDate: Date(), endDate: Date(), coverImage: Data(), budget: Double(), exchangeRate: Double())
         
         guard let createdObject = persistenceManager?.createObject(newObjectInfo: newTravelInfo),
             let createdTravel = createdObject as? Travel

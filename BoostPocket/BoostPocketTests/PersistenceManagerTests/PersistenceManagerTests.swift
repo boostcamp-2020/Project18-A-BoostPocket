@@ -16,16 +16,22 @@ class PersistenceManagerTests: XCTestCase {
     var countryInfo: CountryInfo!
     var travelInfo: TravelInfo!
     
+    let id = UUID()
+    let memo = ""
+    let startDate = Date()
+    let endDate = Date()
+    let coverImage = Data()
+    let budget = Double()
+    let exchangeRate = 1.5
     let countryName = "test name"
     let lastUpdated = Date()
     let flagImage = Data()
-    let exchangeRate = 1.5
     let currencyCode = "test code"
     
     override func setUpWithError() throws {
         persistenceManagerStub = PersistenceManagerStub()
         countryInfo = CountryInfo(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
-        travelInfo = TravelInfo(countryName: countryName)
+        travelInfo = TravelInfo(countryName: countryName, id: id, title: countryName, memo: memo, startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate)
     }
     
     override func tearDownWithError() throws {
@@ -73,6 +79,23 @@ class PersistenceManagerTests: XCTestCase {
         let fetchedCountry = persistenceManagerStub.fetch(fetchRequest) as? [Country]
         XCTAssertNotNil(fetchedCountry)
         XCTAssertEqual(fetchedCountry?.first, createdCountry)
+    }
+    
+    func test_persistenceManager_updateObject() {
+        let createdCountry = persistenceManagerStub.createObject(newObjectInfo: countryInfo) as? Country
+        let createdTravel = persistenceManagerStub.createObject(newObjectInfo: travelInfo) as? Travel
+        dump(createdTravel)
+        
+        XCTAssertNotNil(createdCountry)
+        XCTAssertNotNil(createdTravel)
+        
+        travelInfo = TravelInfo(countryName: countryName, id: id, title: countryName, memo: "updated memo", startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate)
+        
+        let updatedTravel = persistenceManagerStub.updateObject(updatedObjectInfo: travelInfo) as? Travel
+        dump(updatedTravel)
+        
+        XCTAssertNotNil(updatedTravel)
+        XCTAssertEqual(updatedTravel?.memo, "updated memo")
     }
     
     func test_persistenceManager_delete() {
