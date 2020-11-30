@@ -183,8 +183,8 @@ extension TravelListViewController: UICollectionViewDelegate {
         
         let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
         guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController,
-              let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
-        else { return }
+            let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
+            else { return }
         
         tabBarVC.setupChildViewControllers(with: selectedTravelViewModel)
         profileVC.profileDelegate = self
@@ -203,15 +203,33 @@ extension TravelListViewController: UICollectionViewDelegate {
     }
 }
 
-extension TravelListViewController: TravelItemProfileDelegate {
+extension TravelListViewController: TravelProfileDelegate {
     func deleteTravel(id: UUID?) {
         if let travelListViewModel = travelListViewModel,
-           let deletingId = id,
-           travelListViewModel.deleteTravel(id: deletingId) {
+            let deletingId = id,
+            travelListViewModel.deleteTravel(id: deletingId) {
             print("여행을 삭제했습니다.")
         } else {
             // TODO: - listVM, id, delete 과정 중 문제가 생겨 실패 시 사용자에게 noti
             print("여행 삭제에 실패했습니다.")
+        }
+    }
+    
+    func updateTravel(id: UUID? = nil, newTitle: String? = nil, newMemo: String?, newStartDate: Date? = nil, newEndDate: Date? = nil, newCoverImage: Data? = nil, newBudget: Double? = nil, newExchangeRate: Double? = nil) {
+        if let travelListViewModel = travelListViewModel,
+            let updatingId = id,
+            let updatingTravel = travelListViewModel.travels.filter({ $0.id == updatingId }).first,
+            let countryName = updatingTravel.countryName,
+            let title = updatingTravel.title,
+            let memo = updatingTravel.memo,
+            let startDate = updatingTravel.startDate,
+            let endDate = updatingTravel.endDate,
+            let coverImage = updatingTravel.coverImage,
+            
+            travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo ?? memo, startDate: newStartDate ?? startDate, endDate: newEndDate ?? endDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) {
+            print("여행 정보 업데이트 성공")
+        } else {
+            print("여행 정보 업데이트 실패")
         }
     }
 }
