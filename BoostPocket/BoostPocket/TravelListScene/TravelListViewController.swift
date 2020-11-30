@@ -24,6 +24,7 @@ class TravelListViewController: UIViewController {
     var travelListViewModel: TravelListPresentable? {
         didSet {
             travelListViewModel?.didFetch = { [weak self] fetchedTravels in
+                self?.travelListCollectionView.reloadData()
                 self?.applySnapShot(with: fetchedTravels)
             }
         }
@@ -77,16 +78,14 @@ class TravelListViewController: UIViewController {
     func applySnapShot(with travels: [TravelItemViewModel]) {
         var snapShot = SnapShot()
         snapShot.appendSections([.current, .past, .upcoming])
-        
         travels.forEach { travel in
             let section = getTravelSection(with: travel)
             snapShot.appendItems([travel], toSection: section)
         }
         
         // TODO: - reloadData 없이 구현하는 방법 고민하기
-        dataSource.apply(snapShot, animatingDifferences: true) { [weak self] in
-            self?.travelListCollectionView.reloadData()
-        }
+        
+        dataSource.apply(snapShot, animatingDifferences: true)
     }
     
     func getTravelSection(with travel: TravelItemViewModel) -> TravelSection {
