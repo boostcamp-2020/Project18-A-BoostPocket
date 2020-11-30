@@ -13,13 +13,14 @@ class MemoEditViewController: UIViewController {
     
     var saveButtonHandler: ((String) -> Void)?
     private var previousMemo: String?
-    
+    private let placeholder = "여행을 위한 메모를 입력해보세요"
     @IBOutlet weak var memoView: UIView!
     @IBOutlet weak var memoTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.memoTextView.text = previousMemo
+        memoTextView.delegate = self
+        setInitialTextviewPlaceholder()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +39,39 @@ class MemoEditViewController: UIViewController {
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         dismiss(animated: true) { [weak self] in
             self?.saveButtonHandler?(self?.memoTextView.text ?? "")
+        }
+    }
+    
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private func setInitialTextviewPlaceholder() {
+        self.memoTextView.text = previousMemo
+        if previousMemo == placeholder {
+            memoTextView.textColor = .lightGray
+        }
+    }
+    
+    private func setTextViewPlaceholder() {
+        if memoTextView.text == placeholder {
+            memoTextView.text = ""
+            memoTextView.textColor = .black
+        } else if memoTextView.text.isEmpty {
+            memoTextView.text = placeholder
+            memoTextView.textColor = .lightGray
+        }
+    }
+}
+
+extension MemoEditViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        setTextViewPlaceholder()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            setTextViewPlaceholder()
         }
     }
 }

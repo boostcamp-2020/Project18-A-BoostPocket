@@ -9,16 +9,16 @@
 import UIKit
 
 class TitleEditViewController: UIViewController {
-    
+    static let identifier = "TitleEditViewController"
+ 
     var saveButtonHandler: ((String) -> Void)?
-    
+    private var previousTitle: String?
     @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var titleTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        self.titleTextField.text = previousTitle
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,8 +39,33 @@ class TitleEditViewController: UIViewController {
             self?.saveButtonHandler?(self?.titleTextField.text ?? "")
         }
     }
+
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
+extension TitleEditViewController {
+    
+    static let storyboardName = "TravelDetail"
+    
+    static func present(at viewController: UIViewController,
+                        previousTitle: String,
+                        onDismiss: ((String) -> Void)?) {
+                
+        let storyBoard = UIStoryboard(name: storyboardName, bundle: Bundle.main)
+        
+        guard let vc = storyBoard.instantiateViewController(withIdentifier: TitleEditViewController.identifier) as? TitleEditViewController else { return }
+
+        vc.previousTitle = previousTitle
+        vc.saveButtonHandler = onDismiss
+        
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        viewController.present(vc, animated: true, completion: nil)
+    }
+}
+ 
 extension TitleEditViewController {
     func registerForKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -63,7 +88,6 @@ extension TitleEditViewController {
     @objc func keyboardWillHide(note: NSNotification) {
         UIView.animate(withDuration: 0.3, animations: {
             self.titleView.transform = .identity
-        })
-        
+        }) 
     }
 }

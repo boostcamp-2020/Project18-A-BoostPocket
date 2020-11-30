@@ -20,6 +20,8 @@ class TravelProfileViewController: UIViewController {
     
     @IBOutlet weak var travelMemoLabel: UILabel!
     @IBOutlet weak var travelTitleLabel: UILabel!
+    @IBOutlet weak var flagImage: UIImageView!
+    @IBOutlet weak var coverImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +34,18 @@ class TravelProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupTravelProfile()
+    }
+    
+    private func setupTravelProfile() {
         self.travelTitleLabel.text = travelItemViewModel?.title
-        self.travelMemoLabel.text = travelItemViewModel?.memo ?? "여행을 위한 메모를 입력해보세요"
+        if let memo = travelItemViewModel?.memo, !memo.isEmpty {
+            travelMemoLabel.text = memo
+        } else {
+            travelMemoLabel.text = "여행을 위한 메모를 입력해보세요"
+        }
+        self.flagImage.image = UIImage(data: travelItemViewModel?.flagImage ?? Data())
+        self.coverImage.image = UIImage(data: travelItemViewModel?.coverImage ?? Data())
     }
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
@@ -42,15 +54,12 @@ class TravelProfileViewController: UIViewController {
     }
     
     @objc func titleLabelTapped() {
-        let storyboard = UIStoryboard.init(name: "TravelDetail", bundle: nil)
-        guard let titleEditVC = storyboard.instantiateViewController(withIdentifier: "TitleEditViewController") as? TitleEditViewController else { return }
         
-        titleEditVC.saveButtonHandler = { newTitle in
-            self.travelTitleLabel.text = newTitle
+        TitleEditViewController.present(at: self, previousTitle: travelTitleLabel.text ?? "") { [weak self] (newTitle) in
+            let updatingTitle = newTitle.isEmpty ? self?.travelItemViewModel?.countryName : newTitle
+            self?.travelTitleLabel.text = updatingTitle
+            self?.profileDelegate?.updateTravel(id: self?.travelItemViewModel?.id, newTitle: updatingTitle, newMemo: nil, newStartDate: nil, newEndDate: nil, newCoverImage: nil, newBudget: nil, newExchangeRate: nil)
         }
-        titleEditVC.modalPresentationStyle = .overFullScreen
-        titleEditVC.modalTransitionStyle = .crossDissolve
-        present(titleEditVC, animated: true, completion: nil)
     }
     
     @objc func memoLabelTapped() {
