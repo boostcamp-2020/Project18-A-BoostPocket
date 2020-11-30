@@ -135,7 +135,6 @@ class PersistenceManager: PersistenceManagable {
         }
     }
     
-    // TODO: - 테스트코드 작성하기
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]? {
         do {
             let fetchResult = try self.context.fetch(request)

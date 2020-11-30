@@ -71,6 +71,18 @@ class PersistenceManagerTests: XCTestCase {
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()).first, createdTravel)
     }
     
+    func test_persistenceManager_fetch() {
+        let createdCountry = persistenceManagerStub.createObject(newObjectInfo: countryInfo) as? Country
+        XCTAssertNotNil(createdCountry)
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Country.entityName)
+        fetchRequest.predicate = NSPredicate(format: "name == %@", countryInfo.name)
+        
+        let fetchedCountry = persistenceManagerStub.fetch(fetchRequest) as? [Country]
+        XCTAssertNotNil(fetchedCountry)
+        XCTAssertEqual(fetchedCountry?.first, createdCountry)
+    }
+    
     func test_persistenceManager_delete() {
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Country.fetchRequest()), [])
