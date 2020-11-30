@@ -18,7 +18,6 @@ class TravelProfileViewController: UIViewController {
     var travelItemViewModel: TravelItemPresentable?
     weak var profileDelegate: TravelProfileDelegate?
     
-    @IBOutlet weak var travelTitleLabel: UILabel!
     @IBOutlet weak var travelMemoLabel: UILabel!
     @IBOutlet weak var travelTitleLabel: UILabel!
     
