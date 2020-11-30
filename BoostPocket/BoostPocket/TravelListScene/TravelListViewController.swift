@@ -82,7 +82,9 @@ class TravelListViewController: UIViewController {
             let section = getTravelSection(with: travel)
             snapShot.appendItems([travel], toSection: section)
         }
-        self.dataSource.apply(snapShot, animatingDifferences: true)
+        self.dataSource.apply(snapShot, animatingDifferences: true) { [weak self] in
+            self?.travelListCollectionView.reloadData()
+        }
     }
     
     func getTravelSection(with travel: TravelItemViewModel) -> TravelSection {
@@ -105,8 +107,7 @@ class TravelListViewController: UIViewController {
     @IBAction func LayoutButtonTapped(_ sender: UIButton) {
         resetTravelListLayoutButtonsAlpha()
         sender.alpha = 1
-        let buttonLayout = travelListLayoutButtons.indices.filter {
-            travelListLayoutButtons[$0] == sender }[0]
+        let buttonLayout = travelListLayoutButtons.indices.filter { travelListLayoutButtons[$0] == sender }[0]
 
         switch buttonLayout {
         case 0:
