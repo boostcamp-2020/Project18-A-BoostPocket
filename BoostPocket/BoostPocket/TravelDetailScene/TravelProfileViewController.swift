@@ -32,7 +32,11 @@ class TravelProfileViewController: UIViewController {
     
     @objc func memoLabelTapped() {
         let storyboard = UIStoryboard.init(name: "TravelDetail", bundle: nil)
-        let memoEditVC = storyboard.instantiateViewController(withIdentifier: "MemoEditViewController")
+        guard let memoEditVC = storyboard.instantiateViewController(withIdentifier: "MemoEditViewController") as? MemoEditViewController else { return }
+        
+        memoEditVC.saveButtonHandler = { newMemo in
+            self.travelMemoLabel.text = newMemo
+        }
         memoEditVC.modalPresentationStyle = .overFullScreen
         memoEditVC.modalTransitionStyle = .crossDissolve
         present(memoEditVC, animated: true, completion: nil)
