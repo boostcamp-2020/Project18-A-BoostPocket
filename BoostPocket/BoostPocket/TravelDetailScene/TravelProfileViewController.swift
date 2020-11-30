@@ -18,13 +18,17 @@ class TravelProfileViewController: UIViewController {
     var travelItemViewModel: TravelItemPresentable?
     weak var profileDelegate: TravelProfileDelegate?
     
+    @IBOutlet weak var travelTitleLabel: UILabel!
     @IBOutlet weak var travelMemoLabel: UILabel!
     @IBOutlet weak var travelTitleLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tap = UITapGestureRecognizer(target: self, action: #selector(memoLabelTapped))
-        travelMemoLabel.addGestureRecognizer(tap)
+        let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
+        let memoTap = UITapGestureRecognizer(target: self, action: #selector(memoLabelTapped))
+        
+        travelTitleLabel.addGestureRecognizer(titleTap)
+        travelMemoLabel.addGestureRecognizer(memoTap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +40,18 @@ class TravelProfileViewController: UIViewController {
     @IBAction func deleteButtonTapped(_ sender: Any) {
         profileDelegate?.deleteTravel(id: travelItemViewModel?.id)
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func titleLabelTapped() {
+        let storyboard = UIStoryboard.init(name: "TravelDetail", bundle: nil)
+        guard let titleEditVC = storyboard.instantiateViewController(withIdentifier: "TitleEditViewController") as? TitleEditViewController else { return }
+        
+        titleEditVC.saveButtonHandler = { newTitle in
+            self.travelTitleLabel.text = newTitle
+        }
+        titleEditVC.modalPresentationStyle = .overFullScreen
+        titleEditVC.modalTransitionStyle = .crossDissolve
+        present(titleEditVC, animated: true, completion: nil)
     }
     
     @objc func memoLabelTapped() {

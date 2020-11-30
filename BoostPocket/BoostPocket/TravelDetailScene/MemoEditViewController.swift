@@ -20,7 +20,7 @@ class MemoEditViewController: UIViewController {
         self.memoTextView.text = previousMemo
     }
     
-    @IBAction func saveButtonTapped(_ sender: Any) {
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
         dismiss(animated: true) { [weak self] in
             self?.saveButtonHandler?(self?.memoTextView.text ?? "")
         }
