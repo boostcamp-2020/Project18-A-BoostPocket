@@ -56,6 +56,7 @@
 		95A42E8625664DC40007810C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8525664DC40007810C /* Assets.xcassets */; };
 		95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8725664DC40007810C /* LaunchScreen.storyboard */; };
 		95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E9325664DC40007810C /* BoostPocketTests.swift */; };
+		A99E0613257534F10014C29F /* TitleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0612257534F10014C29F /* TitleEditViewController.swift */; };
 		A9BF7A37256D496C00496CD8 /* String+firstConsonant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */; };
 		A9BF7A50256E293F00496CD8 /* TravelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */; };
 		A9BF7A67256E2B2800496CD8 /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A65256E2B2800496CD8 /* History+CoreDataClass.swift */; };
@@ -170,6 +171,7 @@
 		95A42E8F25664DC40007810C /* BoostPocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoostPocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A42E9325664DC40007810C /* BoostPocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostPocketTests.swift; sourceTree = "<group>"; };
 		95A42E9525664DC40007810C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A99E0612257534F10014C29F /* TitleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleEditViewController.swift; sourceTree = "<group>"; };
 		A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+firstConsonant.swift"; sourceTree = "<group>"; };
 		A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProvider.swift; sourceTree = "<group>"; };
 		A9BF7A65256E2B2800496CD8 /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "History+CoreDataClass.swift"; path = "BoostPocket/CoreDataModels/History+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -290,6 +292,7 @@
 				5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */,
 				95747A66256FAF6B0065C419 /* TravelDetailTabbarController.swift */,
 				5CF409472575239200351F4B /* MemoEditViewController.swift */,
+				A99E0612257534F10014C29F /* TitleEditViewController.swift */,
 			);
 			path = TravelDetailScene;
 			sourceTree = "<group>";
@@ -768,6 +771,7 @@
 				5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */,
 				A9BF7A86256F420D00496CD8 /* TravelCell.swift in Sources */,
 				95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */,
+				A99E0613257534F10014C29F /* TitleEditViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
