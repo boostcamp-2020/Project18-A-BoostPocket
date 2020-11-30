@@ -7,13 +7,16 @@ assignees: ''
 
 ---
 
-### I want to be able to..
+### Description
 
-### So that...
 
-### Check List
+### Todo
+- [ ] Todo1
+- [ ] Todo2
+- [ ] Todo3
 
-- [ ] check1
-- [ ] check2
-- [ ] check3
 
+### Checkpoints
+- [ ] Check1
+- [ ] Check2
+- [ ] Check3
