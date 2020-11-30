@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CoreData
 
 protocol CountryProvidable: AnyObject {
     var countries: [Country] { get }
