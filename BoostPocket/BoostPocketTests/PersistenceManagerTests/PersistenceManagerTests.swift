@@ -35,21 +35,17 @@ class PersistenceManagerTests: XCTestCase {
     }
     
     func test_persistenceManager_createObject() {
-        let createdCountryObject = persistenceManagerStub.createObject(newObjectInfo: countryInfo)
-        let createdCountry = createdCountryObject as? Country
-        let fetchedCounties = persistenceManagerStub.fetchAll(request: Country.fetchRequest())
-        
-        XCTAssertNotNil(createdCountryObject)
+        let createdCountry = persistenceManagerStub.createObject(newObjectInfo: countryInfo) as? Country
         XCTAssertNotNil(createdCountry)
+        
+        let fetchedCounties = persistenceManagerStub.fetchAll(request: Country.fetchRequest())
         XCTAssertNotEqual(fetchedCounties, [])
         XCTAssertEqual(fetchedCounties.first, createdCountry)
         
-        let createdTravelObject = persistenceManagerStub.createObject(newObjectInfo: travelInfo)
-        let createdTravel = createdTravelObject as? Travel
-        let fetchedTravels = persistenceManagerStub.fetchAll(request: Travel.fetchRequest())
-        
-        XCTAssertNotNil(createdTravelObject)
+        let createdTravel = persistenceManagerStub.createObject(newObjectInfo: travelInfo) as? Travel
         XCTAssertNotNil(createdTravel)
+        
+        let fetchedTravels = persistenceManagerStub.fetchAll(request: Travel.fetchRequest())
         XCTAssertNotEqual(fetchedTravels, [])
         XCTAssertEqual(fetchedTravels.first, createdTravel)
     }
@@ -57,14 +53,10 @@ class PersistenceManagerTests: XCTestCase {
     func test_persistenceManager_fetchAll() {
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
         
-        let createdCountryObject = persistenceManagerStub.createObject(newObjectInfo: countryInfo)
-        let createdCountry = createdCountryObject as? Country
-        XCTAssertNotNil(createdCountryObject)
+        let createdCountry = persistenceManagerStub.createObject(newObjectInfo: countryInfo) as? Country
         XCTAssertNotNil(createdCountry)
         
-        let createdTravelObject = persistenceManagerStub.createObject(newObjectInfo: travelInfo)
-        let createdTravel = createdTravelObject as? Travel
-        XCTAssertNotNil(createdTravelObject)
+        let createdTravel = persistenceManagerStub.createObject(newObjectInfo: travelInfo) as? Travel
         XCTAssertNotNil(createdTravel)
         
         XCTAssertNotEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
@@ -87,14 +79,10 @@ class PersistenceManagerTests: XCTestCase {
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Country.fetchRequest()), [])
         
-        let createdCountryObject = persistenceManagerStub.createObject(newObjectInfo: countryInfo)
-        let createdCountry = createdCountryObject as? Country
-        let createdTravelObject = persistenceManagerStub.createObject(newObjectInfo: travelInfo)
-        let createdTravel = createdTravelObject as? Travel
+        let createdCountry = persistenceManagerStub.createObject(newObjectInfo: countryInfo) as? Country
+        let createdTravel = persistenceManagerStub.createObject(newObjectInfo: travelInfo) as? Travel
         
-        XCTAssertNotNil(createdCountryObject)
         XCTAssertNotNil(createdCountry)
-        XCTAssertNotNil(createdTravelObject)
         XCTAssertNotNil(createdTravel)
         
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Country.fetchRequest()).first, createdCountry)
@@ -110,14 +98,12 @@ class PersistenceManagerTests: XCTestCase {
     }
     
     func test_persistenceManager_count() {
-        let createdCountryObject = persistenceManagerStub.createObject(newObjectInfo: countryInfo)
-        XCTAssertNotNil(createdCountryObject)
+        XCTAssertNotNil(persistenceManagerStub.createObject(newObjectInfo: countryInfo) as? Country)
         XCTAssertEqual(persistenceManagerStub.count(request: Travel.fetchRequest()), 0)
         
         XCTAssertNotNil(persistenceManagerStub.createObject(newObjectInfo: travelInfo))
         XCTAssertNotNil(persistenceManagerStub.createObject(newObjectInfo: travelInfo))
         XCTAssertNotNil(persistenceManagerStub.createObject(newObjectInfo: travelInfo))
-        
         XCTAssertNotNil(persistenceManagerStub.count(request: Travel.fetchRequest()))
         XCTAssertEqual(persistenceManagerStub.count(request: Travel.fetchRequest()), 3)
     }
