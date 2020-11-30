@@ -31,6 +31,10 @@ class MemoEditViewController: UIViewController {
         unregisterForKeyboardNotifications()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         dismiss(animated: true) { [weak self] in
             self?.saveButtonHandler?(self?.memoTextView.text ?? "")

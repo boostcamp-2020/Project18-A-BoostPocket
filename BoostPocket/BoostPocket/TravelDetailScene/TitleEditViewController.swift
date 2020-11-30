@@ -9,7 +9,7 @@
 import UIKit
 
 class TitleEditViewController: UIViewController {
-
+    
     var saveButtonHandler: ((String) -> Void)?
     
     @IBOutlet weak var titleView: UIView!
@@ -17,7 +17,7 @@ class TitleEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -28,6 +28,10 @@ class TitleEditViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         unregisterForKeyboardNotifications()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
