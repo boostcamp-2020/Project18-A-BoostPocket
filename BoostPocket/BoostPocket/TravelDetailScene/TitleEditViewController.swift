@@ -12,6 +12,7 @@ class TitleEditViewController: UIViewController {
 
     var saveButtonHandler: ((String) -> Void)?
     
+    @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var titleTextField: UITextField!
     
     override func viewDidLoad() {
@@ -20,10 +21,45 @@ class TitleEditViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerForKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        unregisterForKeyboardNotifications()
+    }
+    
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         dismiss(animated: true) { [weak self] in
             self?.saveButtonHandler?(self?.titleTextField.text ?? "")
         }
     }
+}
 
+extension TitleEditViewController {
+    func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func unregisterForKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name:UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name:UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(note: NSNotification) {
+        if let keyboardSize = (note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.titleView.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height / 3)
+            })
+        }
+    }
+    
+    @objc func keyboardWillHide(note: NSNotification) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.titleView.transform = .identity
+        })
+        
+    }
 }

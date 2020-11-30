@@ -583,6 +583,7 @@
                     </view>
                     <connections>
                         <outlet property="titleTextField" destination="Xft-Lx-5eQ" id="NDF-qG-jZ7"/>
+                        <outlet property="titleView" destination="h3p-Pl-e1l" id="VeN-Lf-3CB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="arK-Sd-H2R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
