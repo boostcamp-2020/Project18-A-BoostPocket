@@ -101,7 +101,7 @@ class TravelListViewController: UIViewController {
         return .current
     }
     
-    @IBAction func newTravelButtonTapped(_ sender: Any) {
+    @IBAction func newTravelButtonTapped(_ sender: UIButton) {
         let countryListVC = CountryListViewController.init(nibName: "CountryListViewController", bundle: nil)
         
         guard let countryListViewModel = travelListViewModel?.createCountryListViewModel() else { return }
