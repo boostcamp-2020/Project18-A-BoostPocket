@@ -13,6 +13,7 @@ protocol TravelProvidable: AnyObject {
     func createTravel(countryName: String) -> Travel?
     func fetchTravels() -> [Travel]
     func deleteTravel(id: UUID) -> Bool
+    func updateTravel(updatedTravelInfo: TravelInfo) -> Travel?
 }
 
 class TravelProvider: TravelProvidable {
@@ -39,6 +40,16 @@ class TravelProvider: TravelProvidable {
         travels = persistenceManager.fetchAll(request: Travel.fetchRequest())
         
         return travels
+    }
+    
+    func updateTravel(updatedTravelInfo: TravelInfo) -> Travel? {
+        guard let persistenceManager = persistenceManager,
+            let updatedTravel = persistenceManager.updateObject(updatedObjectInfo: updatedTravelInfo) as? Travel,
+            let indexToUpdate = travels.indices.filter({ travels[$0].id == updatedTravel.id }).first
+            else { return nil }
+        
+        self.travels[indexToUpdate] = updatedTravel
+        return updatedTravel
     }
     
     func deleteTravel(id: UUID) -> Bool {
