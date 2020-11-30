@@ -30,6 +30,7 @@ class TravelListViewController: UIViewController {
     }
     
     @IBOutlet weak var travelListCollectionView: UICollectionView!
+    @IBOutlet var layoutButtons: [UIButton]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,6 +102,28 @@ class TravelListViewController: UIViewController {
         return .current
     }
     
+    private func resetAlphaOfLayoutButtons() {
+        layoutButtons.forEach { $0.alpha = 0.5 }
+    }
+    
+    @IBAction func layoutButtonTapped(_ sender: UIButton) {
+        resetAlphaOfLayoutButtons()
+        sender.alpha = 1
+        
+        let index = layoutButtons.firstIndex(of: sender)
+        switch index {
+        case 0:
+            layout = .defaultLayout
+        case 1:
+            layout = .squareLayout
+        case 2:
+            layout = .rectangleLayout
+        default:
+            layout = .hamburgerLayout
+        }
+        applySnapShot(with: travelListViewModel?.travels ?? [])
+    }
+    
     @IBAction func newTravelButtonTapped(_ sender: Any) {
         let countryListVC = CountryListViewController.init(nibName: "CountryListViewController", bundle: nil)
         
@@ -122,26 +145,6 @@ class TravelListViewController: UIViewController {
         
         let navigationController = UINavigationController(rootViewController: countryListVC)
         self.present(navigationController, animated: true, completion: nil)
-    }
-    
-    @IBAction func defaultButtonTapped(_ sender: UIButton) {
-        layout = .defaultLayout
-        applySnapShot(with: travelListViewModel?.travels ?? [])
-    }
-    
-    @IBAction func squareLayoutButtonTapped(_ sender: UIButton) {
-        layout = .squareLayout
-        applySnapShot(with: travelListViewModel?.travels ?? [])
-    }
-    
-    @IBAction func rectangleLayoutButtonTapped(_ sender: UIButton) {
-        layout = .rectangleLayout
-        applySnapShot(with: travelListViewModel?.travels ?? [])
-    }
-    
-    @IBAction func hamburgerLayoutButtonTapped(_ sender: UIButton) {
-        layout = .hamburgerLayout
-        applySnapShot(with: travelListViewModel?.travels ?? [])
     }
     
 }
