@@ -9,15 +9,15 @@
 import UIKit
 
 class TitleEditViewController: UIViewController {
-
-    var saveButtonHandler: ((String) -> Void)?
+    static let identifier = "TitleEditViewController"
     
+    var saveButtonHandler: ((String) -> Void)?
+    private var previousTitle: String?
     @IBOutlet weak var titleTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.titleTextField.text = previousTitle
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
@@ -26,4 +26,30 @@ class TitleEditViewController: UIViewController {
         }
     }
 
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+extension TitleEditViewController {
+    
+    static let storyboardName = "TravelDetail"
+    
+    static func present(at viewController: UIViewController,
+                        previousTitle: String,
+                        onDismiss: ((String) -> Void)?) {
+                
+        let storyBoard = UIStoryboard(name: storyboardName, bundle: Bundle.main)
+        
+        guard let vc = storyBoard.instantiateViewController(withIdentifier: TitleEditViewController.identifier) as? TitleEditViewController else { return }
+
+        vc.previousTitle = previousTitle
+        vc.saveButtonHandler = onDismiss
+        
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        viewController.present(vc, animated: true, completion: nil)
+    }
+    
 }
