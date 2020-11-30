@@ -22,7 +22,15 @@ protocol TravelItemPresentable {
     var currencyCode: String? { get }
 }
 
-struct TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
+class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
+    static func == (lhs: TravelItemViewModel, rhs: TravelItemViewModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     var id: UUID?
     var title: String?
     var memo: String?
