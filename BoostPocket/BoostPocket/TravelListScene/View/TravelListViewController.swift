@@ -24,6 +24,7 @@ class TravelListViewController: UIViewController {
     var travelListViewModel: TravelListPresentable? {
         didSet {
             travelListViewModel?.didFetch = { [weak self] fetchedTravels in
+                self?.travelListCollectionView.reloadData()
                 self?.applySnapShot(with: fetchedTravels)
             }
         }
@@ -76,20 +77,16 @@ class TravelListViewController: UIViewController {
     func applySnapShot(with travels: [TravelItemViewModel]) {
         var snapShot = SnapShot()
         snapShot.appendSections([.current, .past, .upcoming])
-        
         travels.forEach { travel in
             let section = getTravelSection(with: travel)
             snapShot.appendItems([travel], toSection: section)
         }
         
         // TODO: - reloadData 없이 구현하는 방법 고민하기
-        dataSource.apply(snapShot, animatingDifferences: true) { [weak self] in
-            self?.travelListCollectionView.reloadData()
-        }
+        dataSource.apply(snapShot, animatingDifferences: true)
     }
     
     func getTravelSection(with travel: TravelItemViewModel) -> TravelSection {
-        
         let today = Date()
         guard let startDate = travel.startDate, let endDate = travel.endDate else { return .upcoming }
         
@@ -184,8 +181,8 @@ extension TravelListViewController: UICollectionViewDelegate {
         
         let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
         guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController,
-            let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
-            else { return }
+              let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
+        else { return }
         
         tabBarVC.setupChildViewControllers(with: selectedTravelViewModel)
         profileVC.profileDelegate = self
@@ -207,8 +204,8 @@ extension TravelListViewController: UICollectionViewDelegate {
 extension TravelListViewController: TravelItemProfileDelegate {
     func deleteTravel(id: UUID?) {
         if let travelListViewModel = travelListViewModel,
-            let deletingId = id,
-            travelListViewModel.deleteTravel(id: deletingId) {
+           let deletingId = id,
+           travelListViewModel.deleteTravel(id: deletingId) {
             print("여행을 삭제했습니다.")
         } else {
             // TODO: - listVM, id, delete 과정 중 문제가 생겨 실패 시 사용자에게 noti
