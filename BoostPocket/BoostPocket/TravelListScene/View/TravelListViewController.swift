@@ -82,9 +82,6 @@ class TravelListViewController: UIViewController {
             let section = getTravelSection(with: travel)
             snapShot.appendItems([travel], toSection: section)
         }
-        
-        // TODO: - reloadData 없이 구현하는 방법 고민하기
-        
         dataSource.apply(snapShot, animatingDifferences: true)
     }
     
@@ -145,7 +142,6 @@ class TravelListViewController: UIViewController {
         let navigationController = UINavigationController(rootViewController: countryListVC)
         self.present(navigationController, animated: true, completion: nil)
     }
-    
 }
 
 extension TravelListViewController: UICollectionViewDelegateFlowLayout {
@@ -183,8 +179,7 @@ extension TravelListViewController: UICollectionViewDelegate {
         
         let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
         guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController,
-              let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
-        else { return }
+              let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController else { return }
         
         tabBarVC.setupChildViewControllers(with: selectedTravelViewModel)
         profileVC.profileDelegate = self
