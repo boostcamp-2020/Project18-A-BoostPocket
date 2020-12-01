@@ -8,10 +8,10 @@
 
 import XCTest
 import CoreData
+import NetworkManager
 @testable import BoostPocket
 
 class PersistenceManagerTests: XCTestCase {
-    
     var persistenceManagerStub: PersistenceManagable!
     var countryInfo: CountryInfo!
     var travelInfo: TravelInfo!
@@ -29,7 +29,9 @@ class PersistenceManagerTests: XCTestCase {
     let currencyCode = "test code"
     
     override func setUpWithError() throws {
-        persistenceManagerStub = PersistenceManagerStub()
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
+        let dataLoader = DataLoader(session: session)
+        persistenceManagerStub = PersistenceManagerStub(dataLoader: dataLoader)
         countryInfo = CountryInfo(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
         travelInfo = TravelInfo(countryName: countryName, id: id, title: countryName, memo: memo, startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate)
     }
@@ -54,6 +56,19 @@ class PersistenceManagerTests: XCTestCase {
         let fetchedTravels = persistenceManagerStub.fetchAll(request: Travel.fetchRequest())
         XCTAssertNotEqual(fetchedTravels, [])
         XCTAssertEqual(fetchedTravels.first, createdTravel)
+    }
+    
+    func test_persistenceManager_isExchangeRateOutdated() {
+        let dateString: String = "2020-11-30 10:20:00"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+        
+        let yeaterday: Date = dateFormatter.date(from: dateString)!
+        let today = Date()
+        
+        XCTAssertFalse(persistenceManagerStub.isExchangeRateOutdated(lastUpdated: today))
+        XCTAssertTrue(persistenceManagerStub.isExchangeRateOutdated(lastUpdated: yeaterday))
     }
     
     func test_persistenceManager_fetchAll() {

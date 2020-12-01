@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import NetworkManager
 @testable import BoostPocket
 
 class CountryViewModelTests: XCTestCase {
@@ -22,7 +23,9 @@ class CountryViewModelTests: XCTestCase {
     let currencyCode = "test code"
     
     override func setUpWithError() throws {
-        persistenceManager = PersistenceManagerStub()
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
+        let dataLoader = DataLoader(session: session)
+        persistenceManager = PersistenceManagerStub(dataLoader: dataLoader)
         countryProvider = CountryProvider(persistenceManager: persistenceManager)
         countryListViewModel = CountryListViewModel(countryProvider: countryProvider)
     }
