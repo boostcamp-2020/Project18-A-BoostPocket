@@ -55,7 +55,7 @@ class TravelProfileViewController: UIViewController {
         self.coverImage.image = UIImage(data: travelItemViewModel?.coverImage ?? Data())
     }
     
-    @IBAction func deleteButtonTapped(_ sender: Any) {
+    @IBAction func deleteButtonTapped(_ sender: UIButton) {
         profileDelegate?.deleteTravel(id: travelItemViewModel?.id)
         self.navigationController?.popViewController(animated: true)
     }
@@ -92,10 +92,8 @@ extension TravelProfileViewController: UIImagePickerControllerDelegate, UINaviga
         
         if let newImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             coverImage.image = newImage
-//            print(newImage.pngData())
-//            let data = newImage.pngData()
             
-            profileDelegate?.updateTravel(id: travelItemViewModel?.id, newTitle: nil, newMemo: nil, newStartDate: nil, newEndDate: nil, newCoverImage: newImage.pngData(), newBudget: nil, newExchangeRate: nil)
+            profileDelegate?.updateTravel(id: travelItemViewModel?.id, newTitle: travelItemViewModel?.title, newMemo: travelItemViewModel?.memo, newStartDate: travelItemViewModel?.startDate, newEndDate: travelItemViewModel?.endDate, newCoverImage: newImage.pngData(), newBudget: travelItemViewModel?.budget, newExchangeRate: travelItemViewModel?.exchangeRate)
         }
         dismiss(animated: true, completion: nil)
     }

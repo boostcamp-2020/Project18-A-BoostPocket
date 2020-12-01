@@ -179,8 +179,8 @@ extension TravelListViewController: UICollectionViewDelegateFlowLayout {
 extension TravelListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = dataSource.itemIdentifier(for: indexPath)?.id
-        guard let selectedTravelViewModel = travelListViewModel?.cellForItemAt(path: indexPath) else { return }
+        
+        guard let selectedTravelViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
         
         let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
         guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController,
