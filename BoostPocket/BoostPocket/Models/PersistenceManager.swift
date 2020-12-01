@@ -9,11 +9,13 @@
 import Foundation
 import CoreData
 import NetworkManager
+import FlagKit
 
 protocol PersistenceManagable: AnyObject {
     var modelName: String { get }
     var persistentContainer: NSPersistentContainer { get }
     var context: NSManagedObjectContext { get }
+    
     func createObject<T>(newObjectInfo: T, completion: @escaping (DataModelProtocol?) -> Void)
     func fetchAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]?
@@ -28,8 +30,7 @@ protocol PersistenceManagable: AnyObject {
 class PersistenceManager: PersistenceManagable {
     private weak var dataLoader: DataLoader?
     private(set) var modelName = "BoostPocket"
-    
-    // MARK: - Core Data stack
+    private let exchangeRateAPIurl = "https://api.exchangeratesapi.io/latest?base=KRW"
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: modelName)
@@ -48,11 +49,71 @@ class PersistenceManager: PersistenceManagable {
     
     init(dataLoader: DataLoader) {
         self.dataLoader = dataLoader
-        
     }
     
-    // MARK: - Core Data Saving support
+    func createCountriesWithAPIRequest() {
+        dataLoader?.requestExchangeRate(url: exchangeRateAPIurl) { [weak self] (result) in
+            guard let self = self,
+                let numberOfCountries = self.count(request: Country.fetchRequest())
+                else { return }
+            
+            switch result {
+            case .success(let data):
+                if numberOfCountries <= 0 {
+                    print("setup countries")
+                    self.setupCountries(with: data)
+                }
+            case .failure(let error):
+                print("Network Error")
+                print(error.localizedDescription)
+            }
+        }
+    }
     
+    // TODO: - 테스트코드 작성하기
+    private func setupCountries(with data: ExchangeRate) {
+        let koreaLocale = NSLocale(localeIdentifier: "ko_KR")
+        let identifiers = NSLocale.availableLocaleIdentifiers
+        let countryDictionary = filterCountries(identifiers, data: data)
+        
+        countryDictionary.forEach { (countryCode, identifier) in
+            let locale = NSLocale(localeIdentifier: identifier)
+            if let currencyCode = locale.currencyCode,
+                let countryName = koreaLocale.localizedString(forCountryCode: countryCode),
+                let exchangeRate = data.rates[currencyCode],
+                let flagImage = Flag(countryCode: countryCode)?.image(style: .roundedRect).pngData() {
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+                let date: Date = dateFormatter.date(from: data.date) ?? Date()
+                
+                createObject(newObjectInfo: CountryInfo(name: countryName, lastUpdated: date, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)) { _ in }
+            }
+        }
+    }
+    
+    // TODO: - 테스트코드 작성하기
+    private func filterCountries(_ identifiers: [String], data: ExchangeRate) -> [String: String] {
+        var filteredIdentifiers: [String: String] = [:]
+        
+        identifiers.forEach { identifier in
+            let locale = NSLocale(localeIdentifier: identifier)
+            if let currencyCode = locale.currencyCode,
+                let countryCode = locale.countryCode,
+                let _ = data.rates[currencyCode],
+                let _ = Flag(countryCode: countryCode)?.originalImage.pngData() {
+                filteredIdentifiers[countryCode] = identifier
+            }
+        }
+        
+        return filteredIdentifiers
+    }
+}
+
+// MARK: - Core Data Saving support
+
+extension PersistenceManager {
     func saveContext() {
         if context.hasChanges {
             do {
@@ -64,9 +125,11 @@ class PersistenceManager: PersistenceManagable {
             }
         }
     }
-    
-    // MARK: - Core Data Creating support
-    
+}
+
+// MARK: - Core Data Creating support
+
+extension PersistenceManager {
     func createObject<T>(newObjectInfo: T, completion: @escaping (DataModelProtocol?) -> Void) {
         var createdObject: DataModelProtocol?
         
@@ -82,7 +145,7 @@ class PersistenceManager: PersistenceManagable {
             }
         }
     }
-    
+
     private func setupCountryInfo(countryInfo: CountryInfo) -> Country? {
         guard let entity = NSEntityDescription.entity(forEntityName: Country.entityName, in: self.context) else { return nil }
         let newCountry = Country(entity: entity, insertInto: context)
@@ -95,7 +158,7 @@ class PersistenceManager: PersistenceManagable {
         
         return newCountry
     }
-    
+
     func setupTravelInfo(travelInfo: TravelInfo, completion: @escaping (Travel?) -> Void) {
         guard let entity = NSEntityDescription.entity(forEntityName: Travel.entityName, in: self.context) else {
             completion(nil)
@@ -121,9 +184,7 @@ class PersistenceManager: PersistenceManagable {
         newTravel.coverImage = travelInfo.coverImage
         
         if let lastUpdated = fetchedCountry.lastUpdated, isExchangeRateOutdated(lastUpdated: lastUpdated) {
-            let url = "https://api.exchangeratesapi.io/latest?base=KRW"
-            
-            dataLoader?.requestExchangeRate(url: url) { [weak self] (result) in
+            dataLoader?.requestExchangeRate(url: exchangeRateAPIurl) { [weak self] (result) in
                 guard let currencyCode = fetchedCountry.currencyCode else { return }
                 
                 switch result {
@@ -155,13 +216,15 @@ class PersistenceManager: PersistenceManagable {
             completion(newTravel)
         }
     }
-    
+
     func isExchangeRateOutdated(lastUpdated: Date) -> Bool {
         return !Calendar.current.isDateInToday(lastUpdated)
     }
-    
-    // MARK: - Core Data Retrieving support
-    
+}
+
+// MARK: - Core Data Retrieving support
+
+extension PersistenceManager {
     func fetchAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T] {
         if T.self == Country.self {
             let nameSort = NSSortDescriptor(key: "name", ascending: true)
@@ -178,7 +241,7 @@ class PersistenceManager: PersistenceManagable {
             return []
         }
     }
-    
+
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]? {
         do {
             let fetchResult = try self.context.fetch(request)
@@ -188,9 +251,11 @@ class PersistenceManager: PersistenceManagable {
             return nil
         }
     }
-    
-    // MARK: - Core Data Updating support
-    
+}
+
+// MARK: - Core Data Updating support
+
+extension PersistenceManager {
     func updateObject<T>(updatedObjectInfo: T) -> DataModelProtocol? {
         var updatedObject: DataModelProtocol?
         
@@ -202,7 +267,7 @@ class PersistenceManager: PersistenceManagable {
         
         return updatedObject
     }
-    
+
     private func updateTravel(travelInfo: TravelInfo) -> Travel? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Travel.entityName)
         fetchRequest.predicate = NSPredicate(format: "id == %@", travelInfo.id as CVarArg)
@@ -230,7 +295,7 @@ class PersistenceManager: PersistenceManagable {
             return nil
         }
     }
-    
+
     private func updateCountry(countryInfo: CountryInfo) -> Country? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Country.entityName)
         fetchRequest.predicate = NSPredicate(format: "name == %@", countryInfo.name)
@@ -254,9 +319,11 @@ class PersistenceManager: PersistenceManagable {
             return nil
         }
     }
-    
-    // MARK: - Core Data Deleting support
-    
+}
+
+// MARK: - Core Data Deleting support
+
+extension PersistenceManager {
     func delete<T>(deletingObject: T) -> Bool {
         
         if let travelObject = deletingObject as? Travel {
@@ -273,9 +340,11 @@ class PersistenceManager: PersistenceManagable {
             return false
         }
     }
-    
-    // MARK: - Core Data Counting support
-    
+}
+
+// MARK: - Core Data Counting support
+
+extension PersistenceManager {
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int? {
         do {
             let count = try self.context.count(for: request)

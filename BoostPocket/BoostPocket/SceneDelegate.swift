@@ -8,7 +8,6 @@
 
 import UIKit
 import NetworkManager
-import FlagKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -27,77 +26,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let persistenceManager = PersistenceManager(dataLoader: dataLoader)
         let countryProvider = CountryProvider(persistenceManager: persistenceManager)
         let travelProvider = TravelProvider(persistenceManager: persistenceManager)
+
+        persistenceManager.createCountriesWithAPIRequest()
         
-        let url = "https://api.exchangeratesapi.io/latest?base=KRW"
-        dataLoader.requestExchangeRate(url: url, completion: { [weak self] (result) in
-            guard let self = self, let numberOfCountries = persistenceManager.count(request: Country.fetchRequest()) else { return }
-            switch result {
-            case .success(let data):
-                if numberOfCountries <= 0 {
-                    print("setup")
-                    self.setupCountries(with: data)
-                }
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-            
-            DispatchQueue.main.async {
-                let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                guard let mainNavigationController = storyboard.instantiateViewController(identifier: "MainNavigationViewController") as? UINavigationController,
-                    let travelListVC = mainNavigationController.topViewController as? TravelListViewController else { return }
-                
-                travelListVC.travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider)
-                
-                self.window?.rootViewController = mainNavigationController
-                self.window?.makeKeyAndVisible()
-            }
-        })
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        guard let mainNavigationController = storyboard.instantiateViewController(identifier: "MainNavigationViewController") as? UINavigationController,
+            let travelListVC = mainNavigationController.topViewController as? TravelListViewController else { return }
         
+        travelListVC.travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider)
+        
+        self.window?.rootViewController = mainNavigationController
+        self.window?.makeKeyAndVisible()
+    
         self.dataLoader = dataLoader
         self.persistenceManager = persistenceManager
         self.countryProvider = countryProvider
         self.travelProvider = travelProvider
-    }
-    
-    // TODO: - 테스트코드 작성하기
-    private func setupCountries(with data: ExchangeRate) {
-        let koreaLocale = NSLocale(localeIdentifier: "ko_KR")
-        let identifiers = NSLocale.availableLocaleIdentifiers
-        let countryDictionary = filterCountries(identifiers, data: data)
-        
-        countryDictionary.forEach { (countryCode, identifier) in
-            let locale = NSLocale(localeIdentifier: identifier)
-            if let currencyCode = locale.currencyCode,
-                let countryName = koreaLocale.localizedString(forCountryCode: countryCode),
-                let exchangeRate = data.rates[currencyCode],
-                let flagImage = Flag(countryCode: countryCode)?.image(style: .roundedRect).pngData() {
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-                let date: Date = dateFormatter.date(from: data.date) ?? Date()
-                
-                countryProvider?.createCountry(name: countryName, lastUpdated: date, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) { _ in }
-            }
-        }
-    }
-    
-    // TODO: - 테스트코드 작성하기
-    private func filterCountries(_ identifiers: [String], data: ExchangeRate) -> [String: String] {
-        var filteredIdentifiers: [String: String] = [:]
-        
-        identifiers.forEach { identifier in
-            let locale = NSLocale(localeIdentifier: identifier)
-            if let currencyCode = locale.currencyCode,
-                let countryCode = locale.countryCode,
-                let _ = data.rates[currencyCode],
-                let _ = Flag(countryCode: countryCode)?.originalImage.pngData() {
-                filteredIdentifiers[countryCode] = identifier
-            }
-        }
-        
-        return filteredIdentifiers
     }
     
     func sceneDidDisconnect(_ scene: UIScene) { }
