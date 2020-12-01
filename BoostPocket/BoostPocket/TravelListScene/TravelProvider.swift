@@ -10,7 +10,7 @@ import Foundation
 
 protocol TravelProvidable: AnyObject {
     var travels: [Travel] { get }
-    func createTravel(countryName: String) -> Travel?
+    func createTravel(countryName: String, completion: @escaping (Travel?) -> Void)
     func fetchTravels() -> [Travel]
     func deleteTravel(id: UUID) -> Bool
     func updateTravel(updatedTravelInfo: TravelInfo) -> Travel?
@@ -24,15 +24,18 @@ class TravelProvider: TravelProvidable {
         self.persistenceManager = persistenceManager
     }
     
-    func createTravel(countryName: String) -> Travel? {
-        let newTravelInfo = TravelInfo(countryName: countryName, id: UUID(), title: countryName, memo: "", startDate: Date(), endDate: Date(), coverImage: Data(), budget: Double(), exchangeRate: Double())
+    func createTravel(countryName: String, completion: @escaping (Travel?) -> Void) {
+        let newTravelInfo = TravelInfo(countryName: countryName, id: UUID(), title: countryName, memo: nil, startDate: nil, endDate: nil, coverImage: Data().getCoverImage() ?? Data(), budget: Double(), exchangeRate: Double())
         
-        guard let createdObject = persistenceManager?.createObject(newObjectInfo: newTravelInfo),
-            let createdTravel = createdObject as? Travel
-            else { return nil }
-        
-        travels.append(createdTravel)
-        return createdTravel
+        persistenceManager?.createObject(newObjectInfo: newTravelInfo) { [weak self] (createdObject) in
+            guard let createdTravel = createdObject as? Travel else {
+                completion(nil)
+                return
+            }
+            
+            self?.travels.append(createdTravel)
+            completion(createdTravel)
+        }
     }
     
     func fetchTravels() -> [Travel] {

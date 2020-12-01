@@ -13,7 +13,7 @@ protocol TravelListPresentable {
     func createCountryListViewModel() -> CountryListViewModel?
     var didFetch: (([TravelItemViewModel]) -> Void)? { get set }
 
-    @discardableResult func createTravel(countryName: String) -> TravelItemViewModel?
+    func createTravel(countryName: String, completion: @escaping (TravelItemViewModel?) -> Void)
     func needFetchItems()
     func cellForItemAt(id: UUID) -> TravelItemViewModel?
     func updateTravel(countryName: String, id: UUID, title: String, memo: String?, startDate: Date?, endDate: Date?, coverImage: Data, budget: Double, exchangeRate: Double) -> Bool
@@ -25,6 +25,7 @@ class TravelListViewModel: TravelListPresentable {
     
     var travels: [TravelItemViewModel] = [] {
         willSet {
+            
             DispatchQueue.main.async { [weak self] in
                 self?.didFetch?(newValue)
             }
@@ -39,12 +40,18 @@ class TravelListViewModel: TravelListPresentable {
         self.travelProvider = travelProvider
     }
     
-    @discardableResult
-    func createTravel(countryName: String) -> TravelItemViewModel? {
-        guard let createdTravel = travelProvider?.createTravel(countryName: countryName) else { return nil }
-        let createdTravelItemViewModel = TravelItemViewModel(travel: createdTravel)
-        travels.append(createdTravelItemViewModel)
-        return createdTravelItemViewModel
+    func createTravel(countryName: String, completion: @escaping (TravelItemViewModel?) -> Void) {
+        travelProvider?.createTravel(countryName: countryName) { [weak self] (createdTravel) in
+            guard let createdTravel = createdTravel else {
+                completion(nil)
+                return
+            }
+            
+            let createdTravelItemViewModel = TravelItemViewModel(travel: createdTravel)
+            self?.travels.append(createdTravelItemViewModel)
+            completion(createdTravelItemViewModel)
+        }
+        
     }
     
     func needFetchItems() {

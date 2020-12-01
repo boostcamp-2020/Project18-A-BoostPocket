@@ -9,6 +9,7 @@
 import UIKit
 
 class CountryListViewController: UIViewController {
+    static let identifier = "CountryListViewController"
     
     typealias DataSource = SectionTitledDiffableDataSource<String, CountryItemViewModel>
     typealias SnapShot = NSDiffableDataSourceSnapshot<String, CountryItemViewModel>
