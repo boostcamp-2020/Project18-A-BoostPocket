@@ -149,7 +149,7 @@ class TravelListViewController: UIViewController {
 extension TravelListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var width = self.view.bounds.width * 0.9
-        var height: CGFloat = 120
+        var height: CGFloat = self.view.bounds.height * 0.25
         
         switch layout {
         case .defaultLayout:
