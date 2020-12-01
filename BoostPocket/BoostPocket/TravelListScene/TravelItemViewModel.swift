@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol TravelItemPresentable {
+protocol TravelItemPresentable: AnyObject {
     var id: UUID? { get }
     var title: String? { get }
     var memo: String? { get }

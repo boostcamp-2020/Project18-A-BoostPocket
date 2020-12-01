@@ -67,8 +67,6 @@ class TravelListViewController: UIViewController {
             guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TravelHeaderCell.identifier, for: indexPath) as? TravelHeaderCell else { return UICollectionReusableView() }
             
             let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
-            // TODO: 여행 개수 찾는 방법 고민해보기..
-            // let travelNumber = dataSource.snapshot().numberOfItems
             sectionHeader.configure(with: section, numberOfTravel: self.travelListViewModel?.travels.count ?? 0)
             
             return sectionHeader
@@ -85,7 +83,6 @@ class TravelListViewController: UIViewController {
             snapShot.appendItems([travel], toSection: section)
         }
         
-        // TODO: - reloadData 없이 구현하는 방법 고민하기
         dataSource.apply(snapShot, animatingDifferences: true)
     }
     
@@ -207,7 +204,6 @@ extension TravelListViewController: TravelProfileDelegate {
             travelListViewModel.deleteTravel(id: deletingId) {
             print("여행을 삭제했습니다.")
         } else {
-            // TODO: - listVM, id, delete 과정 중 문제가 생겨 실패 시 사용자에게 noti
             print("여행 삭제에 실패했습니다.")
         }
     }
