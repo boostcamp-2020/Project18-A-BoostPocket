@@ -67,7 +67,6 @@ class CountryListViewController: UIViewController {
     
     @objc func doneButtonTapped() {
         guard let selectedIndexPath = countryListTableView.indexPathForSelectedRow else {
-            // 선택하지 않았을 때
             dismiss(animated: true, completion: nil)
             return
         }
