@@ -25,13 +25,20 @@ class TravelProfileViewController: UIViewController {
     @IBOutlet weak var endDatePicker: UIDatePicker!
     @IBOutlet weak var coverImage: UIImageView!
     
+    private var imagePicker = UIImagePickerController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imagePicker.delegate = self
+        
         let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
         let memoTap = UITapGestureRecognizer(target: self, action: #selector(memoLabelTapped))
+        let coverImageTap = UITapGestureRecognizer(target: self, action: #selector(coverImageTapped))
         
         travelTitleLabel.addGestureRecognizer(titleTap)
         travelMemoLabel.addGestureRecognizer(memoTap)
+        coverImage.addGestureRecognizer(coverImageTap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,7 +59,7 @@ class TravelProfileViewController: UIViewController {
         self.coverImage.image = UIImage(data: travelItemViewModel?.coverImage ?? Data())
     }
     
-    @IBAction func deleteButtonTapped(_ sender: Any) {
+    @IBAction func deleteButtonTapped(_ sender: UIButton) {
         profileDelegate?.deleteTravel(id: travelItemViewModel?.id)
         self.navigationController?.popViewController(animated: true)
     }
@@ -79,5 +86,27 @@ class TravelProfileViewController: UIViewController {
             self?.travelMemoLabel.text = newMemo.isEmpty ? "여행을 위한 메모를 입력해보세요" : newMemo
             self?.profileDelegate?.updateTravel(id: self?.travelItemViewModel?.id, newTitle: self?.travelItemViewModel?.title, newMemo: newMemo, newStartDate: self?.travelItemViewModel?.startDate, newEndDate: self?.travelItemViewModel?.endDate, newCoverImage: self?.travelItemViewModel?.coverImage, newBudget: self?.travelItemViewModel?.budget, newExchangeRate: self?.travelItemViewModel?.exchangeRate)
         }
+    }
+    
+    @objc func coverImageTapped() {
+        openPhotoLibrary()
+    }
+    
+    private func openPhotoLibrary() {
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: false, completion: nil)
+    }
+}
+
+extension TravelProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        
+        if let newImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            coverImage.image = newImage
+            
+            profileDelegate?.updateTravel(id: travelItemViewModel?.id, newTitle: travelItemViewModel?.title, newMemo: travelItemViewModel?.memo, newStartDate: travelItemViewModel?.startDate, newEndDate: travelItemViewModel?.endDate, newCoverImage: newImage.pngData(), newBudget: travelItemViewModel?.budget, newExchangeRate: travelItemViewModel?.exchangeRate)
+        }
+        dismiss(animated: true, completion: nil)
     }
 }

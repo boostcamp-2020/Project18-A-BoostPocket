@@ -179,7 +179,7 @@ extension TravelListViewController: UICollectionViewDelegateFlowLayout {
 extension TravelListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let selectedTravelViewModel = self.dataSource.itemIdentifier(for: indexPath) else { return }
+        guard let selectedTravelViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
         
         let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
         guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController,

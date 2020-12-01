@@ -42,7 +42,7 @@ struct TravelInfo {
         self.memo = memo
         self.startDate = startDate
         self.endDate = endDate
-        self.coverImage = coverImage.getCoverImage() ?? Data()
+        self.coverImage = coverImage
         self.budget = budget
         self.exchangeRate = exchangeRate
     }
