@@ -48,6 +48,7 @@ class TravelListViewController: UIViewController {
     private func configureCollectionView() {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.minimumInteritemSpacing = 0
+        flowLayout.minimumLineSpacing = 15
         travelListCollectionView.setCollectionViewLayout(flowLayout, animated: true)
         
         travelListCollectionView.delegate = self
@@ -150,22 +151,17 @@ class TravelListViewController: UIViewController {
 
 extension TravelListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var width: CGFloat
-        var height: CGFloat
+        var width = self.view.bounds.width * 0.9
+        var height: CGFloat = 120
         
         switch layout {
         case .defaultLayout:
-            width = self.view.bounds.width * 0.9
             height = width
         case .squareLayout:
             width = (collectionView.bounds.width - 15 * 3) / 2
             height = width
-        case .rectangleLayout:
-            width = self.view.bounds.width * 0.8
-            height = 100
-        case .hamburgerLayout:
-            width = self.view.bounds.width * 0.8
-            height = 100
+        default:
+            break
         }
         
         return CGSize(width: width, height: height)
