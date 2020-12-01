@@ -56,6 +56,19 @@ class PersistenceManagerTests: XCTestCase {
         XCTAssertEqual(fetchedTravels.first, createdTravel)
     }
     
+    func test_persistenceManager_isExchangeRateOutdated() {
+        let dateString: String = "2020-11-30 10:20:00"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+        
+        let yeaterday: Date = dateFormatter.date(from: dateString)!
+        let today = Date()
+        
+        XCTAssertFalse(persistenceManagerStub.isExchangeRateOutdated(lastUpdated: today))
+        XCTAssertTrue(persistenceManagerStub.isExchangeRateOutdated(lastUpdated: yeaterday))
+    }
+    
     func test_persistenceManager_fetchAll() {
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
         
