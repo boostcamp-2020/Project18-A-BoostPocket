@@ -17,7 +17,7 @@ class CountryViewModelTests: XCTestCase {
     var countryProvider: CountryProvidable!
     
     let countryName = "test name"
-    let lastUpdated = Date()
+    let lastUpdated = "2019-08-23".convertToDate()
     let flagImage = Data()
     let exchangeRate = 1.5
     let currencyCode = "test code"
@@ -47,18 +47,16 @@ class CountryViewModelTests: XCTestCase {
     }
     
     func test_countryListViewModel_createCountry() {
-        let country = countryListViewModel.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+        countryListViewModel.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
         
-        XCTAssertNotNil(country)
-        XCTAssertEqual(country, countryListViewModel.countries.first)
-        
-        if let createdCountry = country {
-            XCTAssertEqual(createdCountry.name, countryName)
-            XCTAssertEqual(createdCountry.flag, flagImage)
-            XCTAssertEqual(createdCountry.currencyCode, currencyCode)
-        }
+        let createdCountry = countryListViewModel.countries.first
+        XCTAssertNotNil(createdCountry)
+        XCTAssertEqual(createdCountry?.name, countryName)
+        XCTAssertEqual(createdCountry?.flag, flagImage)
+        XCTAssertEqual(createdCountry?.currencyCode, currencyCode)
     }
     
+    // 없애는 함수
     func test_countryListViewModel_cellForItemAt() {
         XCTAssertNotNil(countryListViewModel.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode))
         
@@ -71,22 +69,25 @@ class CountryViewModelTests: XCTestCase {
     }
     
     func test_countryListViewModel_numberOfItem() {
-        XCTAssertNotNil(countryListViewModel.createCountry(name: "\(countryName)1", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1"))
-        XCTAssertNotNil(countryListViewModel.createCountry(name: "\(countryName)2", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 1.0, currencyCode: "\(currencyCode)2"))
-        XCTAssertNotNil(countryListViewModel.createCountry(name: "\(countryName)3", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 2.0, currencyCode: "\(currencyCode)3"))
+        countryListViewModel.createCountry(name: "\(countryName)1", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1")
+        countryListViewModel.createCountry(name: "\(countryName)2", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 1.0, currencyCode: "\(currencyCode)2")
+        countryListViewModel.createCountry(name: "\(countryName)3", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 2.0, currencyCode: "\(currencyCode)3")
         
         XCTAssertEqual(countryListViewModel.numberOfItem(), 3)
     }
     
     func test_countryListViewModel_needFetchItem() {
-        XCTAssertNotNil(countryProvider.createCountry(name: "\(countryName)다", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)2"))
-        XCTAssertNotNil(countryProvider.createCountry(name: "\(countryName)나", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1"))
-        XCTAssertNotNil(countryProvider.createCountry(name: "\(countryName)라", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)2"))
-        XCTAssertNotNil(countryProvider.createCountry(name: "\(countryName)가", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)2"))
+        let expectation = XCTestExpectation(description: "Successfully Created Country")
+        
+        countryProvider.createCountry(name: "\(countryName)가", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1") { (country) in
+            XCTAssertNotNil(country)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 5.0)
         
         countryListViewModel.needFetchItems()
-        XCTAssertEqual(countryListViewModel.countries.count, 4)
+        XCTAssertEqual(countryListViewModel.countries.count, 1)
         XCTAssertEqual(countryListViewModel.countries.first?.name, "\(countryName)가")
-        XCTAssertEqual(countryListViewModel.countries.last?.name, "\(countryName)라")
     }
 }

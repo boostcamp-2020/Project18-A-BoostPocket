@@ -23,6 +23,7 @@ class TravelListViewController: UIViewController {
     lazy var dataSource: DataSource = configureDataSource()
     var travelListViewModel: TravelListPresentable? {
         didSet {
+            
             travelListViewModel?.didFetch = { [weak self] fetchedTravels in
                 self?.travelListCollectionView.reloadData()
                 self?.applySnapShot(with: fetchedTravels)
@@ -122,22 +123,24 @@ class TravelListViewController: UIViewController {
     }
     
     @IBAction func newTravelButtonTapped(_ sender: Any) {
-        let countryListVC = CountryListViewController.init(nibName: "CountryListViewController", bundle: nil)
+        let countryListVC = CountryListViewController.init(nibName: CountryListViewController.identifier, bundle: nil)
         
         guard let countryListViewModel = travelListViewModel?.createCountryListViewModel() else { return }
         
         countryListVC.countryListViewModel = countryListViewModel
         countryListVC.doneButtonHandler = { (selectedCountry) in
-            dump(selectedCountry)
-            self.travelListViewModel?.createTravel(countryName: selectedCountry.name)
-            
-            /*
-             // 2주차 데모 내용에서 제외
-             let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
-             guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController else { return }
-             
-             self.navigationController?.pushViewController(tabBarVC, animated: true)
-             */
+            self.travelListViewModel?.createTravel(countryName: selectedCountry.name) { (travelItemViewModel) in
+                DispatchQueue.main.async {
+                    guard let createdTravelItemViewModel = travelItemViewModel,
+                        let tabBarVC = TravelDetailTabbarController.createTabbarVC(),
+                    let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
+                        else { return }
+                    
+                    tabBarVC.setupChildViewControllers(with: createdTravelItemViewModel)
+                    profileVC.profileDelegate = self
+                    self.navigationController?.pushViewController(tabBarVC, animated: true)
+                }
+            }
         }
         
         let navigationController = UINavigationController(rootViewController: countryListVC)
@@ -179,12 +182,10 @@ extension TravelListViewController: UICollectionViewDelegateFlowLayout {
 extension TravelListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let selectedTravelViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
-        
-        let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
-        guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController,
+        guard let selectedTravelViewModel = dataSource.itemIdentifier(for: indexPath),
+            let tabBarVC = TravelDetailTabbarController.createTabbarVC(),
             let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
-            else { return }
+        else { return }
         
         tabBarVC.setupChildViewControllers(with: selectedTravelViewModel)
         profileVC.profileDelegate = self

@@ -29,7 +29,6 @@ public class DataLoader: DataLoadable {
             return
         }
         
-        // 실제 요청
         session.dataTask(with: requestURL) { data, _, error in
             guard error == nil, let data = data else {
                 completion(.failure(.networkError(error!)))

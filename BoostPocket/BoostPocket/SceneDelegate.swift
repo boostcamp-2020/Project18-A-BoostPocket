@@ -78,7 +78,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
                 let date: Date = dateFormatter.date(from: data.date) ?? Date()
                 
-                countryProvider?.createCountry(name: countryName, lastUpdated: date, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+                countryProvider?.createCountry(name: countryName, lastUpdated: date, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) { _ in }
             }
         }
     }
