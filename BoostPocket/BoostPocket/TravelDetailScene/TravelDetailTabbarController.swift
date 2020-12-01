@@ -20,3 +20,14 @@ class TravelDetailTabbarController: UITabBarController {
         profileVC.travelItemViewModel = travelItemViewModel
     }
 }
+
+extension TravelDetailTabbarController {
+    static let storyboardName = "TravelDetail"
+    
+    static func createTabbarVC() -> TravelDetailTabbarController? {
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: identifier) as? TravelDetailTabbarController
+        
+        return vc
+    }
+}

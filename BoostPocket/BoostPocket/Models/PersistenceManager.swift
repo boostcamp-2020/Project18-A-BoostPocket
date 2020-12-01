@@ -48,6 +48,7 @@ class PersistenceManager: PersistenceManagable {
     
     init(dataLoader: DataLoader) {
         self.dataLoader = dataLoader
+        
     }
     
     // MARK: - Core Data Saving support

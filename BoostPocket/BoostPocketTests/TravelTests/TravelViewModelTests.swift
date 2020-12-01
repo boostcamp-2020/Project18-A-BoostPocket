@@ -17,29 +17,31 @@ class TravelViewModelTests: XCTestCase {
     var countryProvider: CountryProvidable!
     var travelProvider: TravelProvidable!
     var country: Country!
+    var dataLoader: DataLoader?
     
     let id = UUID()
     let title = "test title"
     let memo = "memo"
-    let exchangeRate = 12.1
     let budget = 3.29
     let coverImage = Data()
     let startDate = Date()
     let endDate = Date()
-    
+    let exchangeRate = 12.1
     let countryName = "대한민국"
-    let lastUpdated = Date()
+    let lastUpdated = "2019-08-23".convertToDate()
     let flagImage = Data()
-    let currencyCode = "test code"
+    let currencyCode = "KRW"
     
     override func setUpWithError() throws {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
         let dataLoader = DataLoader(session: session)
         persistenceManagerStub = PersistenceManagerStub(dataLoader: dataLoader)
         countryProvider = CountryProvider(persistenceManager: persistenceManagerStub)
-        country = countryProvider.createCountry(name: countryName, lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "KRW")
         travelProvider = TravelProvider(persistenceManager: persistenceManagerStub)
         travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider)
+        countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) { _ in }
+
+        self.dataLoader = dataLoader
     }
     
     override func tearDownWithError() throws {
@@ -71,71 +73,88 @@ class TravelViewModelTests: XCTestCase {
     }
     
     func test_travelListViewModel_createTravel() {
-        let createdTravel = travelListViewModel.createTravel(countryName: countryName)
+        let expectation = XCTestExpectation(description: "Successfully Created TravelItemViewModel")
         
-        XCTAssertNotNil(createdTravel)
-        XCTAssertEqual(createdTravel, travelListViewModel.travels.first)
-        
-        XCTAssertEqual(createdTravel?.title, country?.name)
-        XCTAssertEqual(createdTravel?.countryName, country?.name)
-        XCTAssertEqual(createdTravel?.currencyCode, country?.currencyCode)
-        XCTAssertEqual(createdTravel?.exchangeRate, country?.exchangeRate)
-        XCTAssertEqual(createdTravel?.budget, 0.0)
-        XCTAssertNotNil(createdTravel?.endDate)
-        XCTAssertNotNil(createdTravel?.startDate)
-        XCTAssertNotNil(createdTravel?.coverImage)
-        XCTAssertNotNil(createdTravel?.flagImage)
+        travelListViewModel.createTravel(countryName: countryName) { (travelItemViewModel) in
+            XCTAssertNotNil(travelItemViewModel)
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5.0)
+    
+        let createdTravelItemViewModel = travelListViewModel.travels.first
+        XCTAssertNotNil(createdTravelItemViewModel)
+        XCTAssertEqual(createdTravelItemViewModel?.title, countryName)
+        XCTAssertEqual(createdTravelItemViewModel?.countryName, countryName)
+        XCTAssertEqual(createdTravelItemViewModel?.currencyCode, currencyCode)
+        XCTAssertEqual(createdTravelItemViewModel?.budget, Double())
+        XCTAssertNotNil(createdTravelItemViewModel?.exchangeRate)
+        XCTAssertNil(createdTravelItemViewModel?.startDate)
+        XCTAssertNil(createdTravelItemViewModel?.endDate)
+        XCTAssertNil(createdTravelItemViewModel?.memo)
+        XCTAssertNotNil(createdTravelItemViewModel?.coverImage)
+        XCTAssertNotNil(createdTravelItemViewModel?.flagImage)
     }
     
     func test_travelListViewModel_needFetchItems() {
-        XCTAssertNotNil(countryProvider.createCountry(name: "미국", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "USD"))
-        XCTAssertNotNil(countryProvider.createCountry(name: "일본", lastUpdated: Date(), flagImage: Data(), exchangeRate: 12.1, currencyCode: "JPY"))
+        let expectation = XCTestExpectation(description: "Successfully Created Travel")
         
-        XCTAssertNotNil(travelProvider.createTravel(countryName: "대한민국"))
-        XCTAssertNotNil(travelProvider.createTravel(countryName: "미국"))
-        XCTAssertNotNil(travelProvider.createTravel(countryName: "일본"))
+        travelProvider.createTravel(countryName: countryName) { (travel) in
+            XCTAssertNotNil(travel)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 5.0)
         
         travelListViewModel.needFetchItems()
-        XCTAssertEqual(travelListViewModel.travels.count, 3)
-        XCTAssertEqual(travelListViewModel.travels.first?.title, "대한민국")
-        XCTAssertEqual(travelListViewModel.travels.last?.title, "일본")
-    }
-    
-    func test_travelListViewModel_cellForItemAt() {
-        let createdTravel = travelListViewModel.createTravel(countryName: countryName)
-        XCTAssertNotNil(createdTravel)
-        let travelItem = travelListViewModel.cellForItemAt(id: createdTravel!.id!)
-
-        XCTAssertEqual(travelItem?.title, country?.name)
-        XCTAssertEqual(travelItem?.countryName, country?.name)
-        XCTAssertEqual(travelItem?.currencyCode, country?.currencyCode)
-        XCTAssertEqual(travelItem?.exchangeRate, country?.exchangeRate)
-    }
-    
-    func test_travelListViewModel_numberOfItem() {
-        XCTAssertNotNil(countryProvider.createCountry(name: "미국", lastUpdated: Date(), flagImage: Data(), exchangeRate: 3.29, currencyCode: "USD"))
-        XCTAssertNotNil(countryProvider.createCountry(name: "일본", lastUpdated: Date(), flagImage: Data(), exchangeRate: 12.1, currencyCode: "JPY"))
-
-        travelListViewModel.createTravel(countryName: "대한민국")
-        travelListViewModel.createTravel(countryName: "미국")
-        travelListViewModel.createTravel(countryName: "가나") // 없는 국가 -> 여행생성실패
+        let firstTravel = travelListViewModel.travels.first
         
-        XCTAssertEqual(travelListViewModel.numberOfItem(), 2) // 그러므로 대한민국,미국 2개여야한다
+        XCTAssertNotNil(firstTravel)
+        XCTAssertEqual(travelListViewModel.travels.count, 1)
+        XCTAssertEqual(firstTravel?.title, countryName)
+    }
+
+    func test_travelListViewModel_numberOfItem() {
+        let expectation = XCTestExpectation(description: "Successfully Created TravelItemViewModel")
+        
+        travelListViewModel.createTravel(countryName: countryName) { (travelItemViewModel) in
+            XCTAssertNotNil(travelItemViewModel)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 5.0)
+                
+        XCTAssertEqual(travelListViewModel.numberOfItem(), 1)
     }
     
     func test_travelListViewModel_deleteTravel() {
-        let createdTravel = travelListViewModel.createTravel(countryName: "대한민국")
-        let travelId = createdTravel?.id
-        XCTAssertNotNil(createdTravel)
-        XCTAssertNotNil(travelId)
-        XCTAssertTrue(travelListViewModel.deleteTravel(id: travelId ?? UUID()))
-    }
-    
-    func test_travelListViewModel_updateTravel() {
-        XCTAssertNotNil(countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode))
-        let createdTravel = travelListViewModel.createTravel(countryName: countryName)
-        XCTAssertNotNil(createdTravel)
+        let expectation = XCTestExpectation(description: "Successfully Created TravelItemViewModel")
+        var createdItemViewModel: TravelItemViewModel?
         
-        XCTAssertTrue(travelListViewModel.updateTravel(countryName: countryName, id: (createdTravel?.id)!, title: title, memo: "updated memo", startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate))
+        travelListViewModel.createTravel(countryName: countryName) { (travelItemViewModel) in
+            XCTAssertNotNil(travelItemViewModel)
+            createdItemViewModel = travelItemViewModel
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 5.0)
+        
+        let id = createdItemViewModel?.id
+        XCTAssertTrue(travelListViewModel.deleteTravel(id: id ?? UUID()))
+    }
+
+    func test_travelListViewModel_updateTravel() {
+        let expectation = XCTestExpectation(description: "Successfully Created TravelItemViewModel")
+        var createdItemViewModel: TravelItemViewModel?
+        
+        travelListViewModel.createTravel(countryName: countryName) { (travelItemViewModel) in
+            XCTAssertNotNil(travelItemViewModel)
+            createdItemViewModel = travelItemViewModel
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 5.0)
+
+        XCTAssertTrue(travelListViewModel.updateTravel(countryName: countryName, id: createdItemViewModel?.id ?? UUID(), title: countryName, memo: createdItemViewModel?.memo ?? "", startDate: createdItemViewModel?.startDate ?? Date(), endDate: createdItemViewModel?.startDate ?? Date(), coverImage: createdItemViewModel?.coverImage ?? Data(), budget: createdItemViewModel?.budget ?? Double(), exchangeRate: createdItemViewModel?.exchangeRate ?? Double()))
     }
 }

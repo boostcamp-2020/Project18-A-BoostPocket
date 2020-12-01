@@ -15,6 +15,7 @@ class PersistenceManagerTests: XCTestCase {
     var persistenceManagerStub: PersistenceManagable!
     var countryInfo: CountryInfo!
     var travelInfo: TravelInfo!
+    var dataLoader: DataLoader?
     
     let id = UUID()
     let memo = ""
@@ -23,10 +24,10 @@ class PersistenceManagerTests: XCTestCase {
     let coverImage = Data()
     let budget = Double()
     let exchangeRate = 1.5
-    let countryName = "test name"
-    let lastUpdated = Date()
+    let countryName = "대한민국"
+    let lastUpdated = "2019-08-23".convertToDate()
     let flagImage = Data()
-    let currencyCode = "test code"
+    let currencyCode = "KRW"
     
     override func setUpWithError() throws {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
@@ -34,6 +35,8 @@ class PersistenceManagerTests: XCTestCase {
         persistenceManagerStub = PersistenceManagerStub(dataLoader: dataLoader)
         countryInfo = CountryInfo(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
         travelInfo = TravelInfo(countryName: countryName, id: id, title: countryName, memo: memo, startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate)
+        
+        self.dataLoader = dataLoader
     }
     
     override func tearDownWithError() throws {
@@ -43,15 +46,29 @@ class PersistenceManagerTests: XCTestCase {
     }
     
     func test_persistenceManager_createObject() {
-        let createdCountry = persistenceManagerStub.createObject(newObjectInfo: countryInfo) as? Country
-        XCTAssertNotNil(createdCountry)
+        let countryExpectation = XCTestExpectation(description: "Successfully Created Country")
+        var createdCountry: Country?
+        
+        persistenceManagerStub.createObject(newObjectInfo: countryInfo) { (createdObject) in
+            createdCountry = createdObject as? Country
+            XCTAssertNotNil(createdCountry)
+            countryExpectation.fulfill()
+        }
+        
+        let travelExpectation = XCTestExpectation(description: "Successfully Created Travel")
+        var createdTravel: Travel?
+        
+        persistenceManagerStub.createObject(newObjectInfo: travelInfo) { (createdObject) in
+            createdTravel = createdObject as? Travel
+            XCTAssertNotNil(createdTravel)
+            travelExpectation.fulfill()
+        }
+        
+        wait(for: [countryExpectation, travelExpectation], timeout: 5.0)
         
         let fetchedCounties = persistenceManagerStub.fetchAll(request: Country.fetchRequest())
         XCTAssertNotEqual(fetchedCounties, [])
         XCTAssertEqual(fetchedCounties.first, createdCountry)
-        
-        let createdTravel = persistenceManagerStub.createObject(newObjectInfo: travelInfo) as? Travel
-        XCTAssertNotNil(createdTravel)
         
         let fetchedTravels = persistenceManagerStub.fetchAll(request: Travel.fetchRequest())
         XCTAssertNotEqual(fetchedTravels, [])
@@ -74,19 +91,37 @@ class PersistenceManagerTests: XCTestCase {
     func test_persistenceManager_fetchAll() {
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
         
-        let createdCountry = persistenceManagerStub.createObject(newObjectInfo: countryInfo) as? Country
-        XCTAssertNotNil(createdCountry)
+        let countryExpectation = XCTestExpectation(description: "Successfully Created Country")
+        var createdCountry: Country?
         
-        let createdTravel = persistenceManagerStub.createObject(newObjectInfo: travelInfo) as? Travel
-        XCTAssertNotNil(createdTravel)
+        persistenceManagerStub.createObject(newObjectInfo: countryInfo) { (createdObject) in
+            createdCountry = createdObject as? Country
+            XCTAssertNotNil(createdCountry)
+            countryExpectation.fulfill()
+        }
         
+        let travelExpectation = XCTestExpectation(description: "Successfully Created Travel")
+        var createdTravel: Travel?
+        
+        persistenceManagerStub.createObject(newObjectInfo: travelInfo) { (createdObject) in
+            createdTravel = createdObject as? Travel
+            XCTAssertNotNil(createdTravel)
+            travelExpectation.fulfill()
+        }
+        
+        wait(for: [countryExpectation, travelExpectation], timeout: 5.0)
+        
+        XCTAssertNotEqual(persistenceManagerStub.fetchAll(request: Country.fetchRequest()), [])
         XCTAssertNotEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
-        XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()).first, createdTravel)
     }
     
     func test_persistenceManager_fetch() {
-        let createdCountry = persistenceManagerStub.createObject(newObjectInfo: countryInfo) as? Country
-        XCTAssertNotNil(createdCountry)
+        var createdCountry: Country?
+        
+        persistenceManagerStub.createObject(newObjectInfo: countryInfo) { (createdObject) in
+            createdCountry = createdObject as? Country
+            XCTAssertNotNil(createdCountry)
+        }
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Country.entityName)
         fetchRequest.predicate = NSPredicate(format: "name == %@", countryInfo.name)
@@ -97,56 +132,102 @@ class PersistenceManagerTests: XCTestCase {
     }
     
     func test_persistenceManager_updateObject() {
-        let createdCountry = persistenceManagerStub.createObject(newObjectInfo: countryInfo) as? Country
-        let createdTravel = persistenceManagerStub.createObject(newObjectInfo: travelInfo) as? Travel
-        dump(createdTravel)
+        let countryExpectation = XCTestExpectation(description: "Successfully Created Country")
+        var createdCountry: Country?
         
-        XCTAssertNotNil(createdCountry)
-        XCTAssertNotNil(createdTravel)
+        persistenceManagerStub.createObject(newObjectInfo: countryInfo) { (createdObject) in
+            createdCountry = createdObject as? Country
+            XCTAssertNotNil(createdCountry)
+            countryExpectation.fulfill()
+        }
+        
+        let travelExpectation = XCTestExpectation(description: "Successfully Travel Country")
+        var createdTravel: Travel?
+        
+        persistenceManagerStub.createObject(newObjectInfo: travelInfo) { (createdObject) in
+            createdTravel = createdObject as? Travel
+            XCTAssertNotNil(createdTravel)
+            travelExpectation.fulfill()
+        }
+        
+        wait(for: [countryExpectation, travelExpectation], timeout: 5.0)
+        
+        let newLastUpdated = "2020-12-25".convertToDate()
+        let newExchagneRate = 12.0
+        countryInfo = CountryInfo(name: countryName, lastUpdated: newLastUpdated, flagImage: flagImage, exchangeRate: newExchagneRate, currencyCode: currencyCode)
         
         travelInfo = TravelInfo(countryName: countryName, id: id, title: countryName, memo: "updated memo", startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate)
         
+        let updatedCountry = persistenceManagerStub.updateObject(updatedObjectInfo: countryInfo) as? Country
         let updatedTravel = persistenceManagerStub.updateObject(updatedObjectInfo: travelInfo) as? Travel
-        dump(updatedTravel)
+        
+        XCTAssertNotNil(updatedCountry)
+        XCTAssertEqual(createdCountry?.lastUpdated, newLastUpdated)
+        XCTAssertEqual(createdCountry?.exchangeRate, newExchagneRate)
         
         XCTAssertNotNil(updatedTravel)
-        XCTAssertEqual(updatedTravel?.memo, "updated memo")
-    }
-    
-    func test_persistenceManager_setupTravelInfo_exchangeRateOutdated() {
-
+        XCTAssertEqual(createdTravel?.memo, "updated memo")
     }
     
     func test_persistenceManager_delete() {
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Country.fetchRequest()), [])
         
-        let createdCountry = persistenceManagerStub.createObject(newObjectInfo: countryInfo) as? Country
-        let createdTravel = persistenceManagerStub.createObject(newObjectInfo: travelInfo) as? Travel
+        let countryExpectation = XCTestExpectation(description: "Successfully Created Country")
+        var createdCountry: Country?
         
-        XCTAssertNotNil(createdCountry)
-        XCTAssertNotNil(createdTravel)
+        persistenceManagerStub.createObject(newObjectInfo: countryInfo) { (createdObject) in
+            createdCountry = createdObject as? Country
+            XCTAssertNotNil(createdCountry)
+            countryExpectation.fulfill()
+        }
+        
+        let travelExpectation = XCTestExpectation(description: "Successfully Travel Country")
+        var createdTravel: Travel?
+        
+        persistenceManagerStub.createObject(newObjectInfo: travelInfo) { (createdObject) in
+            createdTravel = createdObject as? Travel
+            XCTAssertNotNil(createdTravel)
+            travelExpectation.fulfill()
+        }
+        
+        wait(for: [countryExpectation, travelExpectation], timeout: 5.0)
         
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Country.fetchRequest()).first, createdCountry)
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()).first, createdTravel)
         
-        let isTravelDelted = persistenceManagerStub.delete(deletingObject: createdTravel)
-        let isCountryDeleted = persistenceManagerStub.delete(deletingObject: createdCountry)
+        XCTAssertTrue(persistenceManagerStub.delete(deletingObject: createdTravel))
+        XCTAssertTrue(persistenceManagerStub.delete(deletingObject: createdCountry))
         
-        XCTAssertTrue(isCountryDeleted)
-        XCTAssertTrue(isTravelDelted)
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Country.fetchRequest()), [])
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
     }
     
     func test_persistenceManager_count() {
-        XCTAssertNotNil(persistenceManagerStub.createObject(newObjectInfo: countryInfo) as? Country)
+        XCTAssertEqual(persistenceManagerStub.count(request: Country.fetchRequest()), 0)
         XCTAssertEqual(persistenceManagerStub.count(request: Travel.fetchRequest()), 0)
         
-        XCTAssertNotNil(persistenceManagerStub.createObject(newObjectInfo: travelInfo))
-        XCTAssertNotNil(persistenceManagerStub.createObject(newObjectInfo: travelInfo))
-        XCTAssertNotNil(persistenceManagerStub.createObject(newObjectInfo: travelInfo))
-        XCTAssertNotNil(persistenceManagerStub.count(request: Travel.fetchRequest()))
-        XCTAssertEqual(persistenceManagerStub.count(request: Travel.fetchRequest()), 3)
+        let countryExpectation = XCTestExpectation(description: "Successfully Created Country")
+        var createdCountry: Country?
+        
+        persistenceManagerStub.createObject(newObjectInfo: countryInfo) { (createdObject) in
+            createdCountry = createdObject as? Country
+            XCTAssertNotNil(createdCountry)
+            countryExpectation.fulfill()
+        }
+        
+        let travelExpectation = XCTestExpectation(description: "Successfully Travel Country")
+        var createdTravel: Travel?
+        
+        persistenceManagerStub.createObject(newObjectInfo: travelInfo) { (createdObject) in
+            createdTravel = createdObject as? Travel
+            XCTAssertNotNil(createdTravel)
+            travelExpectation.fulfill()
+        }
+        
+        wait(for: [countryExpectation, travelExpectation], timeout: 5.0)
+        
+        XCTAssertEqual(persistenceManagerStub.count(request: Country.fetchRequest()), 1)
+        XCTAssertEqual(persistenceManagerStub.count(request: Travel.fetchRequest()), 1)
     }
 }
