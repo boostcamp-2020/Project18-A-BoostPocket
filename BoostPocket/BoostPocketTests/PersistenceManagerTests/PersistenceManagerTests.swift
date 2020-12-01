@@ -45,6 +45,14 @@ class PersistenceManagerTests: XCTestCase {
         travelInfo = nil
     }
     
+    func test_persistenceManager_filterCountries() {
+        let identifiers = ["ko_KR", "ja_JP"]
+        let rates = ["KRW": 1.0, "JPY": 0.0941570188]
+        let expected = ["KR": "ko_KR", "JP": "ja_JP"]
+        
+        XCTAssertEqual(expected, persistenceManagerStub.filterCountries(identifiers, rates: rates))
+    }
+    
     func test_persistenceManager_createObject() {
         let countryExpectation = XCTestExpectation(description: "Successfully Created Country")
         var createdCountry: Country?

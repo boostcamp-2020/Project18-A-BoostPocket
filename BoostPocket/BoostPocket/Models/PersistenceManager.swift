@@ -16,6 +16,7 @@ protocol PersistenceManagable: AnyObject {
     var persistentContainer: NSPersistentContainer { get }
     var context: NSManagedObjectContext { get }
     
+    func filterCountries(_ identifiers: [String], rates: [String : Double]) -> [String: String]
     func createObject<T>(newObjectInfo: T, completion: @escaping (DataModelProtocol?) -> Void)
     func fetchAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]?
@@ -74,7 +75,7 @@ class PersistenceManager: PersistenceManagable {
     private func setupCountries(with data: ExchangeRate) {
         let koreaLocale = NSLocale(localeIdentifier: "ko_KR")
         let identifiers = NSLocale.availableLocaleIdentifiers
-        let countryDictionary = filterCountries(identifiers, data: data)
+        let countryDictionary = filterCountries(identifiers, rates: data.rates)
         
         countryDictionary.forEach { (countryCode, identifier) in
             let locale = NSLocale(localeIdentifier: identifier)
@@ -93,15 +94,14 @@ class PersistenceManager: PersistenceManagable {
         }
     }
     
-    // TODO: - 테스트코드 작성하기
-    private func filterCountries(_ identifiers: [String], data: ExchangeRate) -> [String: String] {
+    func filterCountries(_ identifiers: [String], rates: [String: Double]) -> [String: String] {
         var filteredIdentifiers: [String: String] = [:]
         
         identifiers.forEach { identifier in
             let locale = NSLocale(localeIdentifier: identifier)
             if let currencyCode = locale.currencyCode,
                 let countryCode = locale.countryCode,
-                let _ = data.rates[currencyCode],
+                let _ = rates[currencyCode],
                 let _ = Flag(countryCode: countryCode)?.originalImage.pngData() {
                 filteredIdentifiers[countryCode] = identifier
             }
