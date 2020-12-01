@@ -13,25 +13,24 @@ import FlagKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    var persistenceManager: PersistenceManagable = PersistenceManager()
+    var dataLoader: DataLoader?
+    var persistenceManager: PersistenceManagable?
     var countryProvider: CountryProvidable?
     var travelProvider: TravelProvidable?
-    
-    var dataLoader: DataLoader?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let _ = (scene as? UIWindowScene) else { return }
         
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
+        let dataLoader = DataLoader(session: session)
+        let persistenceManager = PersistenceManager(dataLoader: dataLoader)
         let countryProvider = CountryProvider(persistenceManager: persistenceManager)
         let travelProvider = TravelProvider(persistenceManager: persistenceManager)
         
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
-        dataLoader = DataLoader(session: session)
-        
         let url = "https://api.exchangeratesapi.io/latest?base=KRW"
-        dataLoader?.requestExchangeRate(url: url, completion: { [weak self] (result) in
-            guard let self = self, let numberOfCountries = self.persistenceManager.count(request: Country.fetchRequest()) else { return }
+        dataLoader.requestExchangeRate(url: url, completion: { [weak self] (result) in
+            guard let self = self, let numberOfCountries = persistenceManager.count(request: Country.fetchRequest()) else { return }
             switch result {
             case .success(let data):
                 if numberOfCountries <= 0 {
@@ -55,6 +54,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
         })
         
+        self.dataLoader = dataLoader
+        self.persistenceManager = persistenceManager
         self.countryProvider = countryProvider
         self.travelProvider = travelProvider
     }
@@ -107,6 +108,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func sceneWillEnterForeground(_ scene: UIScene) { }
     
-    func sceneDidEnterBackground(_ scene: UIScene) { persistenceManager.saveContext() }
+    func sceneDidEnterBackground(_ scene: UIScene) { self.persistenceManager?.saveContext() }
     
 }
