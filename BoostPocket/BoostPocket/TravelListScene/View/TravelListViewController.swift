@@ -179,7 +179,7 @@ extension TravelListViewController: UICollectionViewDelegateFlowLayout {
 extension TravelListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let selectedTravelViewModel = travelListViewModel?.cellForItemAt(path: indexPath) else { return }
+        guard let selectedTravelViewModel = self.dataSource.itemIdentifier(for: indexPath) else { return }
         
         let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
         guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController,
@@ -215,17 +215,18 @@ extension TravelListViewController: TravelProfileDelegate {
         }
     }
     
-    func updateTravel(id: UUID? = nil, newTitle: String? = nil, newMemo: String? = nil, newStartDate: Date? = nil, newEndDate: Date? = nil, newCoverImage: Data? = nil, newBudget: Double? = nil, newExchangeRate: Double? = nil) {
-            if let travelListViewModel = travelListViewModel,
-                let updatingId = id,
-                let updatingTravel = travelListViewModel.travels.filter({ $0.id == updatingId }).first,
-                let countryName = updatingTravel.countryName,
-                let title = updatingTravel.title,
-                let coverImage = updatingTravel.coverImage,
-                travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo, startDate: newStartDate, endDate: newEndDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) {
-                print("여행 정보 업데이트 성공")
-            } else {
-                print("여행 정보 업데이트 실패")
-            }
+    func updateTravel(id: UUID? = nil, newTitle: String? = nil, newMemo: String?, newStartDate: Date? = nil, newEndDate: Date? = nil, newCoverImage: Data? = nil, newBudget: Double? = nil, newExchangeRate: Double? = nil) {
+        if let travelListViewModel = travelListViewModel,
+            let updatingId = id,
+            let updatingTravel = travelListViewModel.travels.filter({ $0.id == updatingId }).first,
+            let countryName = updatingTravel.countryName,
+            let title = updatingTravel.title,
+            let coverImage = updatingTravel.coverImage,
+            
+            travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo, startDate: newStartDate, endDate: newEndDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) {
+            print("여행 정보 업데이트 성공")
+        } else {
+            print("여행 정보 업데이트 실패")
         }
+    }
 }

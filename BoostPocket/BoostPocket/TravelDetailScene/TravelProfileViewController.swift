@@ -21,6 +21,8 @@ class TravelProfileViewController: UIViewController {
     @IBOutlet weak var travelMemoLabel: UILabel!
     @IBOutlet weak var travelTitleLabel: UILabel!
     @IBOutlet weak var flagImage: UIImageView!
+    @IBOutlet weak var startDatePicker: UIDatePicker!
+    @IBOutlet weak var endDatePicker: UIDatePicker!
     @IBOutlet weak var coverImage: UIImageView!
     
     override func viewDidLoad() {
@@ -45,6 +47,8 @@ class TravelProfileViewController: UIViewController {
             travelMemoLabel.text = "여행을 위한 메모를 입력해보세요"
         }
         self.flagImage.image = UIImage(data: travelItemViewModel?.flagImage ?? Data())
+        self.startDatePicker.date = travelItemViewModel?.startDate ?? Date()
+        self.endDatePicker.date = travelItemViewModel?.endDate ?? Date()
         self.coverImage.image = UIImage(data: travelItemViewModel?.coverImage ?? Data())
     }
     
@@ -53,19 +57,27 @@ class TravelProfileViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func startDateSelected(_ sender: UIDatePicker) {
+        profileDelegate?.updateTravel(id: travelItemViewModel?.id, newTitle: travelItemViewModel?.title, newMemo: travelItemViewModel?.memo, newStartDate: sender.date, newEndDate: travelItemViewModel?.endDate, newCoverImage: travelItemViewModel?.coverImage, newBudget: travelItemViewModel?.budget, newExchangeRate: travelItemViewModel?.exchangeRate)
+        endDatePicker.minimumDate = startDatePicker.date
+    }
+    
+    @IBAction func endDateSelected(_ sender: UIDatePicker) {
+        profileDelegate?.updateTravel(id: travelItemViewModel?.id, newTitle: travelItemViewModel?.title, newMemo: travelItemViewModel?.memo, newStartDate: travelItemViewModel?.startDate, newEndDate: sender.date, newCoverImage: travelItemViewModel?.coverImage, newBudget: travelItemViewModel?.budget, newExchangeRate: travelItemViewModel?.exchangeRate)
+    }
+    
     @objc func titleLabelTapped() {
-        
         TitleEditViewController.present(at: self, previousTitle: travelTitleLabel.text ?? "") { [weak self] (newTitle) in
             let updatingTitle = newTitle.isEmpty ? self?.travelItemViewModel?.countryName : newTitle
             self?.travelTitleLabel.text = updatingTitle
-            self?.profileDelegate?.updateTravel(id: self?.travelItemViewModel?.id, newTitle: updatingTitle, newMemo: nil, newStartDate: nil, newEndDate: nil, newCoverImage: nil, newBudget: nil, newExchangeRate: nil)
+            self?.profileDelegate?.updateTravel(id: self?.travelItemViewModel?.id, newTitle: updatingTitle, newMemo: self?.travelItemViewModel?.memo, newStartDate: self?.travelItemViewModel?.startDate, newEndDate: self?.travelItemViewModel?.endDate, newCoverImage: self?.travelItemViewModel?.coverImage, newBudget: self?.travelItemViewModel?.budget, newExchangeRate: self?.travelItemViewModel?.exchangeRate)
         }
     }
     
     @objc func memoLabelTapped() {
         MemoEditViewController.present(at: self, previousMemo: travelMemoLabel.text ?? "") { [weak self] (newMemo) in
             self?.travelMemoLabel.text = newMemo.isEmpty ? "여행을 위한 메모를 입력해보세요" : newMemo
-            self?.profileDelegate?.updateTravel(id: self?.travelItemViewModel?.id, newTitle: nil, newMemo: newMemo, newStartDate: nil, newEndDate: nil, newCoverImage: nil, newBudget: nil, newExchangeRate: nil)
+            self?.profileDelegate?.updateTravel(id: self?.travelItemViewModel?.id, newTitle: self?.travelItemViewModel?.title, newMemo: newMemo, newStartDate: self?.travelItemViewModel?.startDate, newEndDate: self?.travelItemViewModel?.endDate, newCoverImage: self?.travelItemViewModel?.coverImage, newBudget: self?.travelItemViewModel?.budget, newExchangeRate: self?.travelItemViewModel?.exchangeRate)
         }
     }
 }
