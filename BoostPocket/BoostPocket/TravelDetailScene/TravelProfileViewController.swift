@@ -23,13 +23,20 @@ class TravelProfileViewController: UIViewController {
     @IBOutlet weak var flagImage: UIImageView!
     @IBOutlet weak var coverImage: UIImageView!
     
+    private var imagePicker = UIImagePickerController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imagePicker.delegate = self
+        
         let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
         let memoTap = UITapGestureRecognizer(target: self, action: #selector(memoLabelTapped))
+        let coverImageTap = UITapGestureRecognizer(target: self, action: #selector(coverImageTapped))
         
         travelTitleLabel.addGestureRecognizer(titleTap)
         travelMemoLabel.addGestureRecognizer(memoTap)
+        coverImage.addGestureRecognizer(coverImageTap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,4 +75,17 @@ class TravelProfileViewController: UIViewController {
             self?.profileDelegate?.updateTravel(id: self?.travelItemViewModel?.id, newTitle: nil, newMemo: newMemo, newStartDate: nil, newEndDate: nil, newCoverImage: nil, newBudget: nil, newExchangeRate: nil)
         }
     }
+    
+    @objc func coverImageTapped() {
+        openPhotoLibrary()
+    }
+    
+    private func openPhotoLibrary() {
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: false, completion: nil)
+    }
+}
+
+extension TravelProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
 }
