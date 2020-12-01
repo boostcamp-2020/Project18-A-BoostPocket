@@ -61,8 +61,15 @@ class TravelProfileViewController: UIViewController {
     }
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
-        profileDelegate?.deleteTravel(id: travelItemViewModel?.id)
-        self.navigationController?.popViewController(animated: true)
+        let alert = UIAlertController(title: "여행 삭제하기", message: "정말로 이 여행을 삭제하시겠습니까?", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+            self.profileDelegate?.deleteTravel(id: self.travelItemViewModel?.id)
+            self.navigationController?.popViewController(animated: true)
+        }
+        let cancel = UIAlertAction(title: "취소", style: .destructive, handler: nil)
+        alert.addAction(cancel)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func startDateSelected(_ sender: UIDatePicker) {
