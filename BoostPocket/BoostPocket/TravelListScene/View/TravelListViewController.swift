@@ -179,7 +179,7 @@ extension TravelListViewController: UICollectionViewDelegateFlowLayout {
 extension TravelListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let selectedTravelViewModel = travelListViewModel?.cellForItemAt(path: indexPath) else { return }
+        guard let selectedTravelViewModel = self.dataSource.itemIdentifier(for: indexPath) else { return }
         
         let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
         guard let tabBarVC = storyboard.instantiateViewController(withIdentifier: TravelDetailTabbarController.identifier) as? TravelDetailTabbarController,
@@ -221,12 +221,9 @@ extension TravelListViewController: TravelProfileDelegate {
             let updatingTravel = travelListViewModel.travels.filter({ $0.id == updatingId }).first,
             let countryName = updatingTravel.countryName,
             let title = updatingTravel.title,
-            let memo = updatingTravel.memo,
-            let startDate = updatingTravel.startDate,
-            let endDate = updatingTravel.endDate,
             let coverImage = updatingTravel.coverImage,
             
-            travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo ?? memo, startDate: newStartDate ?? startDate, endDate: newEndDate ?? endDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) {
+            travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo, startDate: newStartDate, endDate: newEndDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) {
             print("여행 정보 업데이트 성공")
         } else {
             print("여행 정보 업데이트 실패")
