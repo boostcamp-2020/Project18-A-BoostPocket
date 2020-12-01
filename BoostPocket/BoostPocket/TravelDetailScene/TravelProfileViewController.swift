@@ -88,4 +88,12 @@ class TravelProfileViewController: UIViewController {
 
 extension TravelProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                coverImage.image = image
+                print(info)
+        }
+        dismiss(animated: true, completion: nil)
+    }
 }
