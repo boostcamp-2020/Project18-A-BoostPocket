@@ -100,8 +100,8 @@ class TravelViewModelTests: XCTestCase {
     
     func test_travelListViewModel_cellForItemAt() {
         let createdTravel = travelListViewModel.createTravel(countryName: countryName)
-
-        let travelItem = travelListViewModel.cellForItemAt(id: createdTravel?.id)
+        XCTAssertNotNil(createdTravel)
+        let travelItem = travelListViewModel.cellForItemAt(id: createdTravel!.id!)
 
         XCTAssertEqual(travelItem?.title, country?.name)
         XCTAssertEqual(travelItem?.countryName, country?.name)
