@@ -59,6 +59,7 @@ class TravelProfileViewController: UIViewController {
     
     @IBAction func startDateSelected(_ sender: UIDatePicker) {
         profileDelegate?.updateTravel(id: travelItemViewModel?.id, newTitle: travelItemViewModel?.title, newMemo: travelItemViewModel?.memo, newStartDate: sender.date, newEndDate: travelItemViewModel?.endDate, newCoverImage: travelItemViewModel?.coverImage, newBudget: travelItemViewModel?.budget, newExchangeRate: travelItemViewModel?.exchangeRate)
+        endDatePicker.minimumDate = startDatePicker.date
     }
     
     @IBAction func endDateSelected(_ sender: UIDatePicker) {
@@ -66,7 +67,6 @@ class TravelProfileViewController: UIViewController {
     }
     
     @objc func titleLabelTapped() {
-        
         TitleEditViewController.present(at: self, previousTitle: travelTitleLabel.text ?? "") { [weak self] (newTitle) in
             let updatingTitle = newTitle.isEmpty ? self?.travelItemViewModel?.countryName : newTitle
             self?.travelTitleLabel.text = updatingTitle
