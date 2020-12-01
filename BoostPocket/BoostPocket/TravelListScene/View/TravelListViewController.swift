@@ -23,6 +23,7 @@ class TravelListViewController: UIViewController {
     lazy var dataSource: DataSource = configureDataSource()
     var travelListViewModel: TravelListPresentable? {
         didSet {
+            
             travelListViewModel?.didFetch = { [weak self] fetchedTravels in
                 self?.travelListCollectionView.reloadData()
                 self?.applySnapShot(with: fetchedTravels)

@@ -38,6 +38,7 @@ class CountryListViewModel: CountryListPresentable {
         self.countries.removeAll()
         var newCountryItemViewModels: [CountryItemViewModel] = []
         fetchedCountries.forEach { country in
+            // print("\(country.name), \(country.lastUpdated), \(country.travels)")
             newCountryItemViewModels.append(CountryItemViewModel(country: country))
         }
         countries = newCountryItemViewModels

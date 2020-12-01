@@ -113,6 +113,10 @@ class PersistenceManagerTests: XCTestCase {
         XCTAssertEqual(updatedTravel?.memo, "updated memo")
     }
     
+    func test_persistenceManager_setupTravelInfo_exchangeRateOutdated() {
+
+    }
+    
     func test_persistenceManager_delete() {
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
         XCTAssertEqual(persistenceManagerStub.fetchAll(request: Country.fetchRequest()), [])

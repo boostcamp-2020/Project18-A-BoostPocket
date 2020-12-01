@@ -11,6 +11,7 @@ disabled_rules:
 - type_name
 - unused_optional_binding
 - generic_type_name
+- force_try
 
 force_cast: warning
 line_length: 250

@@ -21,6 +21,7 @@ protocol PersistenceManagable: AnyObject {
     func updateObject<T>(updatedObjectInfo: T) -> DataModelProtocol?
     func delete<T>(deletingObject: T) -> Bool
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
+    func setupTravelInfo(travelInfo: TravelInfo) -> Travel?
     @discardableResult func saveContext() -> Bool
 }
 
@@ -59,6 +60,7 @@ class PersistenceManager: PersistenceManagable {
                 return true
             } catch {
                 let nserror = error as NSError
+                print("saveContext Error")
                 print(nserror.localizedDescription)
                 return false
             }
@@ -82,6 +84,7 @@ class PersistenceManager: PersistenceManagable {
             try self.context.save()
             return createdObject
         } catch {
+            print("createObject Error")
             print(error.localizedDescription)
             return nil
         }
@@ -100,7 +103,7 @@ class PersistenceManager: PersistenceManagable {
         return newCountry
     }
     
-    private func setupTravelInfo(travelInfo: TravelInfo) -> Travel? {
+    func setupTravelInfo(travelInfo: TravelInfo) -> Travel? {
         guard let entity = NSEntityDescription.entity(forEntityName: Travel.entityName, in: self.context) else { return nil }
         let newTravel = Travel(entity: entity, insertInto: context)
         
@@ -108,6 +111,9 @@ class PersistenceManager: PersistenceManagable {
         fetchRequest.predicate = NSPredicate(format: "name == %@", travelInfo.countryName)
         
         guard let countries = fetch(fetchRequest) as? [Country], let fetchedCountry = countries.first else { return nil }
+        
+        print("fetchedCountry.lastUpdated : \(fetchedCountry.lastUpdated)")
+        print("isOutdated: \(isExchangeRateOutdated(lastUpdated: fetchedCountry.lastUpdated!))")
         
         newTravel.country = fetchedCountry
         newTravel.id = travelInfo.id
@@ -118,19 +124,19 @@ class PersistenceManager: PersistenceManagable {
         newTravel.budget = travelInfo.budget
         newTravel.coverImage = travelInfo.coverImage
         
-        // check if lastupdated is outdated
         if let lastUpdated = fetchedCountry.lastUpdated, isExchangeRateOutdated(lastUpdated: lastUpdated) {
-            // if so, request exchange rate API again
             let url = "https://api.exchangeratesapi.io/latest?base=KRW"
             
             dataLoader?.requestExchangeRate(url: url) { [weak self] (result) in
                 guard let currencyCode = fetchedCountry.currencyCode else { return }
                 
                 switch result {
+                    
                 case .success(let data):
                     
                     let newExchangeRate = data.rates[currencyCode] ?? fetchedCountry.exchangeRate
                     let newLastUpdated = data.date.convertToDate()
+                    
                     newTravel.exchangeRate = newExchangeRate
                     
                     if let countryName = fetchedCountry.name,
@@ -139,13 +145,19 @@ class PersistenceManager: PersistenceManagable {
                         self?.updateObject(updatedObjectInfo: CountryInfo(name: countryName, lastUpdated: newLastUpdated, flagImage: flagImage, exchangeRate: newExchangeRate, currencyCode: currencyCode)) != nil {
                         print("환율 정보 업데이트 성공")
                     }
+                    
                 case .failure(let error):
+                    print(".failure error")
                     print(error.localizedDescription)
                     newTravel.exchangeRate = fetchedCountry.exchangeRate
                 }
+                // completion(newTravel)
             }
+            print("return newTravel 직전 : \(newTravel.country?.lastUpdated)")
+            print("return newTravel 직전 : \(newTravel.country?.exchangeRate)")
             return newTravel
         } else {
+            
             newTravel.exchangeRate = fetchedCountry.exchangeRate
             return newTravel
         }
@@ -195,13 +207,7 @@ class PersistenceManager: PersistenceManagable {
             updatedObject = updatedCountry
         }
         
-        do {
-            try self.context.save()
-            return updatedObject
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
+        return updatedObject
     }
     
     private func updateTravel(travelInfo: TravelInfo) -> Travel? {
@@ -226,6 +232,7 @@ class PersistenceManager: PersistenceManagable {
             
             return updatedTravel
         } catch {
+            print("updateTravel Error")
             print(error.localizedDescription)
             return nil
         }
@@ -241,13 +248,22 @@ class PersistenceManager: PersistenceManagable {
             
             objectUpdate?.setValue(countryInfo.lastUpdated, forKey: "lastUpdated")
             objectUpdate?.setValue(countryInfo.exchangeRate, forKey: "exchangeRate")
-            
-            try self.context.save()
+       
+            DispatchQueue.main.async { [weak self] in
+                do {
+                    try self?.context.save()
+                } catch {
+                    print("DispatchQueue Error")
+                    print(error.localizedDescription)
+                }
+            }
             
             let countries = fetch(fetchRequest) as? [Country]
             let updatedCountry = countries?.first
+            
             return updatedCountry
         } catch {
+            print("updateCountry Error")
             print(error.localizedDescription)
             return nil
         }

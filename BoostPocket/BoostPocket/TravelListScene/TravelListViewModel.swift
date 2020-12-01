@@ -25,6 +25,7 @@ class TravelListViewModel: TravelListPresentable {
     
     var travels: [TravelItemViewModel] = [] {
         willSet {
+            
             DispatchQueue.main.async { [weak self] in
                 self?.didFetch?(newValue)
             }
@@ -42,7 +43,9 @@ class TravelListViewModel: TravelListPresentable {
     @discardableResult
     func createTravel(countryName: String) -> TravelItemViewModel? {
         guard let createdTravel = travelProvider?.createTravel(countryName: countryName) else { return nil }
+        
         let createdTravelItemViewModel = TravelItemViewModel(travel: createdTravel)
+        
         travels.append(createdTravelItemViewModel)
         return createdTravelItemViewModel
     }
