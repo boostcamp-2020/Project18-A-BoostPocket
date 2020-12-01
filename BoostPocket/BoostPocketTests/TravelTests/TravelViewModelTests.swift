@@ -99,9 +99,9 @@ class TravelViewModelTests: XCTestCase {
     }
     
     func test_travelListViewModel_cellForItemAt() {
-        travelListViewModel.createTravel(countryName: countryName)
+        let createdTravel = travelListViewModel.createTravel(countryName: countryName)
 
-        let travelItem = travelListViewModel.cellForItemAt(path: IndexPath(row: 0, section: 0))
+        let travelItem = travelListViewModel.cellForItemAt(id: createdTravel?.id)
 
         XCTAssertEqual(travelItem?.title, country?.name)
         XCTAssertEqual(travelItem?.countryName, country?.name)

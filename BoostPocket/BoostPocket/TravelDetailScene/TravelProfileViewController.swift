@@ -88,11 +88,14 @@ class TravelProfileViewController: UIViewController {
 
 extension TravelProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                coverImage.image = image
-                print(info)
+        if let newImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            coverImage.image = newImage
+//            print(newImage.pngData())
+//            let data = newImage.pngData()
+            
+            profileDelegate?.updateTravel(id: travelItemViewModel?.id, newTitle: nil, newMemo: nil, newStartDate: nil, newEndDate: nil, newCoverImage: newImage.pngData(), newBudget: nil, newExchangeRate: nil)
         }
         dismiss(animated: true, completion: nil)
     }

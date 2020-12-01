@@ -28,14 +28,14 @@ struct TravelInfo {
     private(set) var countryName: String
     private(set) var id: UUID
     private(set) var title: String
-    private(set) var memo: String
-    private(set) var startDate: Date
-    private(set) var endDate: Date
+    private(set) var memo: String?
+    private(set) var startDate: Date?
+    private(set) var endDate: Date?
     private(set) var coverImage: Data
     private(set) var budget: Double
     private(set) var exchangeRate: Double
     
-    init(countryName: String, id: UUID, title: String, memo: String, startDate: Date, endDate: Date, coverImage: Data, budget: Double, exchangeRate: Double) {
+    init(countryName: String, id: UUID, title: String, memo: String?, startDate: Date?, endDate: Date?, coverImage: Data, budget: Double, exchangeRate: Double) {
         self.countryName = countryName
         self.id = id
         self.title = title
