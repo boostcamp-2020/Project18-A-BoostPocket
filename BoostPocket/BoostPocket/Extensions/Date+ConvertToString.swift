@@ -22,3 +22,15 @@ extension Date {
         return formatter.string(from: self)
     }
 }
+
+extension String {
+    func convertToDate() -> Date {
+        let dateString :String = self
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+
+        let date: Date = dateFormatter.date(from: dateString)!
+        return date
+    }
+}

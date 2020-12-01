@@ -179,7 +179,6 @@ extension TravelListViewController: UICollectionViewDelegateFlowLayout {
 extension TravelListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         guard let selectedTravelViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
         
         let storyboard = UIStoryboard(name: "TravelDetail", bundle: nil)
@@ -222,9 +221,6 @@ extension TravelListViewController: TravelProfileDelegate {
             let updatingTravel = travelListViewModel.travels.filter({ $0.id == updatingId }).first,
             let countryName = updatingTravel.countryName,
             let title = updatingTravel.title,
-//            let memo = updatingTravel.memo,
-//            let startDate = updatingTravel.startDate,
-//            let endDate = updatingTravel.endDate,
             let coverImage = updatingTravel.coverImage,
             
             travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo, startDate: newStartDate, endDate: newEndDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) {
