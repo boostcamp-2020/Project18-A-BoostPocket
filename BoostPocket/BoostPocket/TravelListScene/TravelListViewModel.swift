@@ -13,7 +13,7 @@ protocol TravelListPresentable {
     func createCountryListViewModel() -> CountryListViewModel?
     var didFetch: (([TravelItemViewModel]) -> Void)? { get set }
 
-    @discardableResult func createTravel(countryName: String) -> TravelItemViewModel?
+    func createTravel(countryName: String)
     func needFetchItems()
     func cellForItemAt(id: UUID) -> TravelItemViewModel?
     func updateTravel(countryName: String, id: UUID, title: String, memo: String?, startDate: Date?, endDate: Date?, coverImage: Data, budget: Double, exchangeRate: Double) -> Bool
@@ -40,14 +40,16 @@ class TravelListViewModel: TravelListPresentable {
         self.travelProvider = travelProvider
     }
     
-    @discardableResult
-    func createTravel(countryName: String) -> TravelItemViewModel? {
-        guard let createdTravel = travelProvider?.createTravel(countryName: countryName) else { return nil }
+    func createTravel(countryName: String) {    
+        travelProvider?.createTravel(countryName: countryName) { [weak self] (createdTravel) in
+            guard let createdTravel = createdTravel else {
+                return
+            }
+            
+            let createdTravelItemViewModel = TravelItemViewModel(travel: createdTravel)
+            self?.travels.append(createdTravelItemViewModel)
+        }
         
-        let createdTravelItemViewModel = TravelItemViewModel(travel: createdTravel)
-        
-        travels.append(createdTravelItemViewModel)
-        return createdTravelItemViewModel
     }
     
     func needFetchItems() {

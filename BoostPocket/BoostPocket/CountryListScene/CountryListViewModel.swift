@@ -13,7 +13,7 @@ protocol CountryListPresentable: AnyObject {
     var didFetch: (([CountryItemViewModel]) -> Void)? { get set }
     
     func needFetchItems()
-    func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) -> CountryItemViewModel?
+    func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String)
     func cellForItemAt(path: IndexPath) -> CountryItemViewModel
     func numberOfItem() -> Int
 }
@@ -38,17 +38,18 @@ class CountryListViewModel: CountryListPresentable {
         self.countries.removeAll()
         var newCountryItemViewModels: [CountryItemViewModel] = []
         fetchedCountries.forEach { country in
-            // print("\(country.name), \(country.lastUpdated), \(country.travels)")
             newCountryItemViewModels.append(CountryItemViewModel(country: country))
         }
         countries = newCountryItemViewModels
     }
     
-    func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) -> CountryItemViewModel? {
-        guard let createdCountry = countryProvider?.createCountry(name: name, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) else { return nil }
-        let createdCountryItemViewModel = CountryItemViewModel(country: createdCountry)
-        countries.append(createdCountryItemViewModel)
-        return createdCountryItemViewModel
+    func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) {
+        countryProvider?.createCountry(name: name, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) { [weak self] (createdCountry) in
+            guard let createdCountry = createdCountry else { return }
+            
+            let createdCountryItemViewModel = CountryItemViewModel(country: createdCountry)
+            self?.countries.append(createdCountryItemViewModel)
+        }
     }
     
     func cellForItemAt(path: IndexPath) -> CountryItemViewModel {
