@@ -15,7 +15,7 @@ protocol TravelProfileDelegate: AnyObject {
 
 class TravelProfileViewController: UIViewController {
     // TODO: - private으로 감추고 주입하는 방법 생각해보기
-    var travelItemViewModel: TravelItemPresentable?
+    weak var travelItemViewModel: TravelItemPresentable?
     weak var profileDelegate: TravelProfileDelegate?
     
     @IBOutlet weak var travelMemoLabel: UILabel!

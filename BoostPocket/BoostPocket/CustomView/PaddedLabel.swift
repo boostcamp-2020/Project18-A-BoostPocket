@@ -23,7 +23,7 @@ class PaddedLabel: UILabel {
     func configure() {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.white.cgColor
-        self.layer.cornerRadius = 15
+        self.layer.cornerRadius = self.frame.width * 0.2
     }
     
     // MARK: - Properties
