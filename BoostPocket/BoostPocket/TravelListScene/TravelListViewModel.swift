@@ -16,7 +16,7 @@ protocol TravelListPresentable {
     @discardableResult func createTravel(countryName: String) -> TravelItemViewModel?
     func needFetchItems()
     func cellForItemAt(path: IndexPath) -> TravelItemViewModel?
-    func updateTravel(countryName: String, id: UUID, title: String, memo: String, startDate: Date, endDate: Date, coverImage: Data, budget: Double, exchangeRate: Double) -> Bool
+    func updateTravel(countryName: String, id: UUID, title: String, memo: String?, startDate: Date?, endDate: Date?, coverImage: Data, budget: Double, exchangeRate: Double) -> Bool
     func deleteTravel(id: UUID) -> Bool
     func numberOfItem() -> Int
 }
@@ -61,7 +61,7 @@ class TravelListViewModel: TravelListPresentable {
         return travels[path.row]
     }
     
-    func updateTravel(countryName: String, id: UUID, title: String, memo: String, startDate: Date, endDate: Date, coverImage: Data, budget: Double, exchangeRate: Double) -> Bool {
+    func updateTravel(countryName: String, id: UUID, title: String, memo: String?, startDate: Date?, endDate: Date?, coverImage: Data, budget: Double, exchangeRate: Double) -> Bool {
         let travelInfo = TravelInfo(countryName: countryName, id: id, title: title, memo: memo, startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate)
         
         guard let updatedTravel = travelProvider?.updateTravel(updatedTravelInfo: travelInfo),

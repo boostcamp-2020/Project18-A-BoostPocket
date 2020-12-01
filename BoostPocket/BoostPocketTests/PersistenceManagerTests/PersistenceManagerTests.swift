@@ -8,10 +8,10 @@
 
 import XCTest
 import CoreData
+import NetworkManager
 @testable import BoostPocket
 
 class PersistenceManagerTests: XCTestCase {
-    
     var persistenceManagerStub: PersistenceManagable!
     var countryInfo: CountryInfo!
     var travelInfo: TravelInfo!
@@ -29,7 +29,9 @@ class PersistenceManagerTests: XCTestCase {
     let currencyCode = "test code"
     
     override func setUpWithError() throws {
-        persistenceManagerStub = PersistenceManagerStub()
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
+        let dataLoader = DataLoader(session: session)
+        persistenceManagerStub = PersistenceManagerStub(dataLoader: dataLoader)
         countryInfo = CountryInfo(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
         travelInfo = TravelInfo(countryName: countryName, id: id, title: countryName, memo: memo, startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate)
     }
