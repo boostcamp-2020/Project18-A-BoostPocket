@@ -44,6 +44,17 @@ class HistoryProvider: HistoryProvidable {
     }
     
     func deleteHistory(id: UUID) -> Bool {
+        guard let indexToDelete = histories.indices.filter({ histories[$0].id == id }).first,
+            let persistenceManager = persistenceManager
+            else { return false }
+        
+        let deletingHistory = histories[indexToDelete]
+        if persistenceManager.delete(deletingObject: deletingHistory) {
+            
+            self.histories.remove(at: indexToDelete)
+            return true
+        }
+        
         return false
     }
     

@@ -365,6 +365,8 @@ extension PersistenceManager {
             self.context.delete(travelObject)
         } else if let countryObject = deletingObject as? Country {
             self.context.delete(countryObject)
+        } else if let historyObject = deletingObject as? History {
+            self.context.delete(historyObject)
         }
         
         do {
