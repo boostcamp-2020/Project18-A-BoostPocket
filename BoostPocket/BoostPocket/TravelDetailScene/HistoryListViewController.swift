@@ -71,10 +71,9 @@ class HistoryListViewController: UIViewController {
     
     private func applySnapshot(with histories: [DummyHistory]) {
         var snapshot = Snapshot()
-        let sections = self.setupSection(with: histories)
-        snapshot.appendSections(sections)
+        snapshot.appendSections(headers)
         histories.forEach { history in
-            if let section = sections.filter({ Calendar.current.isDate(history.date, inSameDayAs: $0.date) }).first {
+            if let section = headers.filter({ Calendar.current.isDate(history.date, inSameDayAs: $0.date) }).first {
                 snapshot.appendItems([history], toSection: section)
             }
         }
