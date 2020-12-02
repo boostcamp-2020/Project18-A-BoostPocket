@@ -18,6 +18,7 @@ class TravelViewModelTests: XCTestCase {
     var travelProvider: TravelProvidable!
     var country: Country!
     var dataLoader: DataLoader?
+    let countriesExpectation = XCTestExpectation(description: "Successfully Created Countries")
     
     let id = UUID()
     let title = "test title"
@@ -36,10 +37,16 @@ class TravelViewModelTests: XCTestCase {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
         let dataLoader = DataLoader(session: session)
         persistenceManagerStub = PersistenceManagerStub(dataLoader: dataLoader)
+        
+        persistenceManagerStub.createCountriesWithAPIRequest { [weak self] (result) in
+            if result {
+                self?.countriesExpectation.fulfill()
+            }
+        }
+        
         countryProvider = CountryProvider(persistenceManager: persistenceManagerStub)
         travelProvider = TravelProvider(persistenceManager: persistenceManagerStub)
         travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider)
-        countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) { _ in }
 
         self.dataLoader = dataLoader
     }
@@ -47,8 +54,6 @@ class TravelViewModelTests: XCTestCase {
     override func tearDownWithError() throws {
         travelListViewModel = nil
         travelProvider = nil
-        country = nil
-        countryProvider = nil
         persistenceManagerStub = nil
     }
     
@@ -73,34 +78,40 @@ class TravelViewModelTests: XCTestCase {
     }
     
     func test_travelListViewModel_createTravel() {
+        wait(for: [countriesExpectation], timeout: 5.0)
+        
         let expectation = XCTestExpectation(description: "Successfully Created TravelItemViewModel")
+        var createdTravelItemViewModel: TravelItemViewModel?
         
         travelListViewModel.createTravel(countryName: countryName) { (travelItemViewModel) in
-            XCTAssertNotNil(travelItemViewModel)
+            createdTravelItemViewModel = travelItemViewModel
+            XCTAssertNotNil(createdTravelItemViewModel)
             expectation.fulfill()
         }
 
         wait(for: [expectation], timeout: 5.0)
     
-        let createdTravelItemViewModel = travelListViewModel.travels.first
-        XCTAssertNotNil(createdTravelItemViewModel)
         XCTAssertEqual(createdTravelItemViewModel?.title, countryName)
         XCTAssertEqual(createdTravelItemViewModel?.countryName, countryName)
         XCTAssertEqual(createdTravelItemViewModel?.currencyCode, currencyCode)
         XCTAssertEqual(createdTravelItemViewModel?.budget, Double())
         XCTAssertNotNil(createdTravelItemViewModel?.exchangeRate)
+        XCTAssertNotNil(createdTravelItemViewModel?.coverImage)
+        XCTAssertNotNil(createdTravelItemViewModel?.flagImage)
         XCTAssertNil(createdTravelItemViewModel?.startDate)
         XCTAssertNil(createdTravelItemViewModel?.endDate)
         XCTAssertNil(createdTravelItemViewModel?.memo)
-        XCTAssertNotNil(createdTravelItemViewModel?.coverImage)
-        XCTAssertNotNil(createdTravelItemViewModel?.flagImage)
     }
     
     func test_travelListViewModel_needFetchItems() {
+        wait(for: [countriesExpectation], timeout: 5.0)
+        
         let expectation = XCTestExpectation(description: "Successfully Created Travel")
+        var createdTravel: Travel?
         
         travelProvider.createTravel(countryName: countryName) { (travel) in
-            XCTAssertNotNil(travel)
+            createdTravel = travel
+            XCTAssertNotNil(createdTravel)
             expectation.fulfill()
         }
         
@@ -111,10 +122,12 @@ class TravelViewModelTests: XCTestCase {
         
         XCTAssertNotNil(firstTravel)
         XCTAssertEqual(travelListViewModel.travels.count, 1)
-        XCTAssertEqual(firstTravel?.title, countryName)
+        XCTAssertEqual(firstTravel?.id, createdTravel?.id)
     }
 
     func test_travelListViewModel_numberOfItem() {
+        wait(for: [countriesExpectation], timeout: 5.0)
+        
         let expectation = XCTestExpectation(description: "Successfully Created TravelItemViewModel")
         
         travelListViewModel.createTravel(countryName: countryName) { (travelItemViewModel) in
@@ -128,6 +141,8 @@ class TravelViewModelTests: XCTestCase {
     }
     
     func test_travelListViewModel_deleteTravel() {
+        wait(for: [countriesExpectation], timeout: 5.0)
+        
         let expectation = XCTestExpectation(description: "Successfully Created TravelItemViewModel")
         var createdItemViewModel: TravelItemViewModel?
         
@@ -144,6 +159,8 @@ class TravelViewModelTests: XCTestCase {
     }
 
     func test_travelListViewModel_updateTravel() {
+        wait(for: [countriesExpectation], timeout: 5.0)
+        
         let expectation = XCTestExpectation(description: "Successfully Created TravelItemViewModel")
         var createdItemViewModel: TravelItemViewModel?
         
