@@ -145,4 +145,17 @@ class HistoryViewModelTests: XCTestCase {
         XCTAssertEqual(travelItemViewModel.histories, [])
     }
 
+    func test_travelItemViewModel_numberOfItem() {
+        wait(for: [countriesExpectation, travelExpectation], timeout: 5.0)
+        
+        XCTAssertEqual(travelItemViewModel.numberOfItem(), 0)
+        
+        var createdHistoryItemViewModel: HistoryItemViewModel?
+        travelItemViewModel.createHistory(id: id, isIncome: isIncome, title: title, memo: memo, date: date, image: image, amount: amount, category: category, isPrepare: isPrepare, isCard: isCard) { historyItemViewModel in
+            createdHistoryItemViewModel = historyItemViewModel
+        }
+        XCTAssertNotNil(createdHistoryItemViewModel)
+        
+        XCTAssertEqual(travelItemViewModel.numberOfItem(), 1)
+    }
 }
