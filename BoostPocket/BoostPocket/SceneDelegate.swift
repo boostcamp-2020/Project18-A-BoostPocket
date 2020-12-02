@@ -28,8 +28,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let travelProvider = TravelProvider(persistenceManager: persistenceManager)
 
         persistenceManager.createCountriesWithAPIRequest { (result) in
-            if result { print("국가 생성 성공") }
-            else { print("국가 생성 실패") }
+            if result {
+                print("국가 생성 성공")
+            } else {
+                print("국가 생성 실패")
+            }
         }
         
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
