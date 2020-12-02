@@ -25,7 +25,6 @@ class TravelListViewModel: TravelListPresentable {
     
     var travels: [TravelItemViewModel] = [] {
         willSet {
-            
             DispatchQueue.main.async { [weak self] in
                 self?.didFetch?(newValue)
             }
