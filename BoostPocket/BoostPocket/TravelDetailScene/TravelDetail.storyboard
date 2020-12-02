@@ -14,26 +14,29 @@
         <!--RecordList-->
         <scene sceneID="CeV-ga-obw">
             <objects>
-                <viewController title="RecordList" id="fmi-ND-nuS" sceneMemberID="viewController">
+                <viewController title="RecordList" id="fmi-ND-nuS" customClass="HistoryListViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oSf-dj-s8a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아직 준비중이에요💁‍♂️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA7-O4-NF8">
-                                <rect key="frame" x="134.5" y="437.5" width="145" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7Iu-bN-RtM">
+                                <rect key="frame" x="0.0" y="144" width="414" height="569"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gwU-vf-3l1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="nA7-O4-NF8" firstAttribute="centerY" secondItem="oSf-dj-s8a" secondAttribute="centerY" id="lCR-yy-TRh"/>
-                            <constraint firstItem="nA7-O4-NF8" firstAttribute="centerX" secondItem="oSf-dj-s8a" secondAttribute="centerX" id="rOk-kI-ODB"/>
+                            <constraint firstItem="gwU-vf-3l1" firstAttribute="bottom" secondItem="7Iu-bN-RtM" secondAttribute="bottom" constant="100" id="g1q-aq-Xa8"/>
+                            <constraint firstItem="7Iu-bN-RtM" firstAttribute="leading" secondItem="gwU-vf-3l1" secondAttribute="leading" id="jzl-Mx-ETc"/>
+                            <constraint firstItem="gwU-vf-3l1" firstAttribute="trailing" secondItem="7Iu-bN-RtM" secondAttribute="trailing" id="wEg-GL-uo8"/>
+                            <constraint firstItem="7Iu-bN-RtM" firstAttribute="top" secondItem="gwU-vf-3l1" secondAttribute="top" constant="100" id="zCT-YS-CIn"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="지출목록" image="list.bullet" catalog="system" id="wRC-jA-Szt"/>
+                    <connections>
+                        <outlet property="HistoryListTableView" destination="7Iu-bN-RtM" id="Ezw-Jg-mt0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Asu-oD-cZV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
