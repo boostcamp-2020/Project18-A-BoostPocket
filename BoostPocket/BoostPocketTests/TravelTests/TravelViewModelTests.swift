@@ -58,9 +58,15 @@ class TravelViewModelTests: XCTestCase {
     }
     
     func test_travelItemViewModel_createInstance() throws {
+        wait(for: [countriesExpectation], timeout: 5.0)
+        let fetchedCountries = countryProvider.fetchCountries()
+        let firstCountry = fetchedCountries.first
+        XCTAssertNotNil(fetchedCountries)
+        XCTAssertNotNil(firstCountry)
+        
         let travel = TravelStub(id: id, title: title, memo: memo, exchangeRate: exchangeRate,
                                 budget: budget, coverImage: coverImage, startDate: startDate,
-                                endDate: endDate, country: country)
+                                endDate: endDate, country: firstCountry)
         let travelItemViewModel = TravelItemViewModel(travel: travel)
         
         XCTAssertNotNil(travel)
@@ -72,9 +78,9 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertEqual(travelItemViewModel.coverImage, coverImage)
         XCTAssertEqual(travelItemViewModel.startDate, startDate)
         XCTAssertEqual(travelItemViewModel.endDate, endDate)
-        XCTAssertEqual(travelItemViewModel.currencyCode, country?.currencyCode)
-        XCTAssertEqual(travelItemViewModel.flagImage, country?.flagImage)
-        XCTAssertEqual(travelItemViewModel.countryName, country?.name)
+        XCTAssertEqual(travelItemViewModel.currencyCode, firstCountry?.currencyCode)
+        XCTAssertEqual(travelItemViewModel.flagImage, firstCountry?.flagImage)
+        XCTAssertEqual(travelItemViewModel.countryName, firstCountry?.name)
     }
     
     func test_travelListViewModel_createTravel() {

@@ -61,6 +61,7 @@
 		A99E063E257766DC0014C29F /* HistoryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E063D257766DC0014C29F /* HistoryListViewModel.swift */; };
 		A99E0646257766F50014C29F /* HistoryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0645257766F50014C29F /* HistoryItemViewModel.swift */; };
 		A99E064C257773430014C29F /* HistoryProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E064B257773430014C29F /* HistoryProviderTests.swift */; };
+		A99E065425778B130014C29F /* HistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E065325778B130014C29F /* HistoryViewModelTests.swift */; };
 		A9BF7A37256D496C00496CD8 /* String+firstConsonant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */; };
 		A9BF7A50256E293F00496CD8 /* TravelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */; };
 		A9BF7A71256E2D5900496CD8 /* Travel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */; };
@@ -178,6 +179,7 @@
 		A99E063D257766DC0014C29F /* HistoryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListViewModel.swift; sourceTree = "<group>"; };
 		A99E0645257766F50014C29F /* HistoryItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItemViewModel.swift; sourceTree = "<group>"; };
 		A99E064B257773430014C29F /* HistoryProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProviderTests.swift; sourceTree = "<group>"; };
+		A99E065325778B130014C29F /* HistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModelTests.swift; sourceTree = "<group>"; };
 		A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+firstConsonant.swift"; sourceTree = "<group>"; };
 		A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProvider.swift; sourceTree = "<group>"; };
 		A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Travel+CoreDataClass.swift"; path = "BoostPocket/CoreDataModels/Travel+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -448,6 +450,7 @@
 			isa = PBXGroup;
 			children = (
 				A99E064B257773430014C29F /* HistoryProviderTests.swift */,
+				A99E065325778B130014C29F /* HistoryViewModelTests.swift */,
 			);
 			path = HistoryTests;
 			sourceTree = "<group>";
@@ -801,6 +804,7 @@
 				5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */,
 				5C8C91AD256E8F0F008C3919 /* TravelViewModelTests.swift in Sources */,
 				9572F9B3256B974C003049CB /* PersistenceManagerStub.swift in Sources */,
+				A99E065425778B130014C29F /* HistoryViewModelTests.swift in Sources */,
 				5C89619E256E917300575677 /* TravelStub.swift in Sources */,
 				A99E064C257773430014C29F /* HistoryProviderTests.swift in Sources */,
 				95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */,
