@@ -31,6 +31,10 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         hasher.combine(id)
     }
     
+    var historyProvider: HistoryProvidable?
+    var histories: [HistoryItemViewModel] = []
+    var didFetch: (([HistoryItemViewModel]) -> Void)?
+    
     var id: UUID?
     var title: String?
     var memo: String?
@@ -55,5 +59,40 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         self.countryName = travel.country?.name
         self.flagImage = travel.country?.flagImage
         self.currencyCode = travel.country?.currencyCode
+        
+//        self.historyProvider = historyProvider
+    }
+}
+
+extension TravelItemViewModel: HistoryListPresentable {
+    
+    func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double, category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void) {
+        
+        let historyInfo = HistoryInfo(travelId: self.id ?? UUID(), id: id, isIncome: isIncome, title: title, memo: memo, date: date ?? Date(), category: category, amount: amount, image: image, isPrepare: isPrepare, isCard: isCard)
+        historyProvider?.createHistory(createdHistoryInfo: historyInfo) { history in
+            guard let createdHistory = history else {
+                completion(nil)
+                return
+            }
+            let createdHistoryItemViewModel = HistoryItemViewModel(history: createdHistory)
+            self.histories.append(createdHistoryItemViewModel)
+            completion(createdHistoryItemViewModel)
+        }
+    }
+    
+    func needFetchItems() {
+        //
+    }
+    
+    func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double, category: HistoryCategory, isPrepare: Bool, isCard: Bool) -> Bool {
+        return false
+    }
+    
+    func deleteHistory(id: UUID) -> Bool {
+        return false
+    }
+    
+    func numberOfItem() -> Int {
+        return 0
     }
 }

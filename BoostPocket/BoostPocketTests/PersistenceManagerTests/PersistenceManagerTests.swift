@@ -15,6 +15,7 @@ class PersistenceManagerTests: XCTestCase {
     var persistenceManagerStub: PersistenceManagable!
     var countryInfo: CountryInfo!
     var travelInfo: TravelInfo!
+    var historyInfo: HistoryInfo!
     var dataLoader: DataLoader?
     
     let id = UUID()
@@ -28,6 +29,7 @@ class PersistenceManagerTests: XCTestCase {
     let lastUpdated = "2019-08-23".convertToDate()
     let flagImage = Data()
     let currencyCode = "KRW"
+    let historyId = UUID()
     
     override func setUpWithError() throws {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
@@ -35,6 +37,7 @@ class PersistenceManagerTests: XCTestCase {
         persistenceManagerStub = PersistenceManagerStub(dataLoader: dataLoader)
         countryInfo = CountryInfo(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
         travelInfo = TravelInfo(countryName: countryName, id: id, title: countryName, memo: memo, startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate)
+        historyInfo = HistoryInfo(travelId: id, id: historyId, isIncome: false, title: "식당", memo: nil, date: Date(), category: .food, amount: Double(), image: nil, isPrepare: nil, isCard: nil)
         
         self.dataLoader = dataLoader
     }
@@ -43,6 +46,7 @@ class PersistenceManagerTests: XCTestCase {
         persistenceManagerStub = nil
         countryInfo = nil
         travelInfo = nil
+        historyInfo = nil
     }
     
     func test_persistenceManager_filterCountries() {
@@ -54,6 +58,7 @@ class PersistenceManagerTests: XCTestCase {
     }
     
     func test_persistenceManager_createObject() {
+        
         let countryExpectation = XCTestExpectation(description: "Successfully Created Country")
         var createdCountry: Country?
         
@@ -74,6 +79,13 @@ class PersistenceManagerTests: XCTestCase {
         
         wait(for: [countryExpectation, travelExpectation], timeout: 5.0)
         
+        var createdHistory: History?
+        persistenceManagerStub.createObject(newObjectInfo: historyInfo) {
+            (createdObject) in
+            createdHistory = createdObject as? History
+            XCTAssertNotNil(createdHistory)
+        }
+        
         let fetchedCounties = persistenceManagerStub.fetchAll(request: Country.fetchRequest())
         XCTAssertNotEqual(fetchedCounties, [])
         XCTAssertEqual(fetchedCounties.first, createdCountry)
@@ -81,6 +93,11 @@ class PersistenceManagerTests: XCTestCase {
         let fetchedTravels = persistenceManagerStub.fetchAll(request: Travel.fetchRequest())
         XCTAssertNotEqual(fetchedTravels, [])
         XCTAssertEqual(fetchedTravels.first, createdTravel)
+        
+        let fetchedHistories = persistenceManagerStub.fetchAll(request: History.fetchRequest())
+        XCTAssertNotEqual(fetchedHistories, [])
+        XCTAssertEqual(fetchedHistories.first, createdHistory)
+        XCTAssertEqual(createdHistory?.travel, createdTravel)
     }
     
     func test_persistenceManager_isExchangeRateOutdated() {

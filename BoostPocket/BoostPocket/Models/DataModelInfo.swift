@@ -47,3 +47,46 @@ struct TravelInfo {
         self.exchangeRate = exchangeRate
     }
 }
+
+enum HistoryCategory: Int16 {
+    case income = 0
+    case food
+    case shopping
+    case transportation
+    case tourism
+    case accommodation
+    case etc
+    
+    var name: String {
+        switch self {
+        case .income:
+            return "예산 금액 추가"
+        case .food:
+            return "식비"
+        case .shopping:
+            return "쇼핑"
+        case .transportation:
+            return "교통"
+        case .tourism:
+            return "관광"
+        case .accommodation:
+            return "숙박"
+        case .etc:
+            return "기타"
+        }
+    }
+}
+
+struct HistoryInfo {
+    private(set) var travelId: UUID
+    private(set) var id: UUID
+    private(set) var isIncome: Bool
+    private(set) var title: String
+    private(set) var memo: String?
+    private(set) var date: Date
+    private(set) var category: HistoryCategory
+    private(set) var amount: Double
+    private(set) var image: Data?
+    private(set) var isPrepare: Bool?
+    private(set) var isCard: Bool?
+}

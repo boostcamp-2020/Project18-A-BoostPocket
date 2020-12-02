@@ -147,7 +147,38 @@ extension PersistenceManager {
                 self?.saveContext()
                 completion(createdObject)
             }
+        } else if let newHistoryInfo = newObjectInfo as? HistoryInfo {
+            createdObject = setupHistoryInfo(historyInfo: newHistoryInfo)
+            saveContext()
+            completion(createdObject)
         }
+    }
+    
+    private func setupHistoryInfo(historyInfo: HistoryInfo) -> History? {
+        guard let entity = NSEntityDescription.entity(forEntityName: History.entityName, in: self.context) else { return nil }
+        
+        let newHistory = History(entity: entity, insertInto: context)
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Travel.entityName)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", historyInfo.travelId as CVarArg)
+        
+        guard let travels = fetch(fetchRequest) as? [Travel],
+              
+              let fetchedTravel = travels.first else { return nil }
+        
+        newHistory.travel = fetchedTravel
+        newHistory.id = historyInfo.id
+        newHistory.isIncome = historyInfo.isIncome
+        newHistory.title = historyInfo.title
+        newHistory.memo = historyInfo.memo
+        newHistory.amount = historyInfo.amount
+        newHistory.categoryState = historyInfo.category
+        newHistory.date = historyInfo.date
+        newHistory.image = historyInfo.image
+        newHistory.isPrepare = historyInfo.isPrepare ?? false
+        newHistory.isCard = historyInfo.isCard ?? false
+        
+        return newHistory
     }
 
     private func setupCountryInfo(countryInfo: CountryInfo) -> Country? {
