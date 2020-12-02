@@ -59,6 +59,12 @@ class HistoryProvider: HistoryProvidable {
     }
     
     func updateHistory(updatedHistoryInfo: HistoryInfo) -> History? {
-        return nil
+        guard let persistenceManager = persistenceManager,
+            let updatedHistory = persistenceManager.updateObject(updatedObjectInfo: updatedHistoryInfo) as? History,
+            let indexToUpdate = histories.indices.filter({ histories[$0].id == updatedHistory.id }).first
+            else { return nil }
+        
+        self.histories[indexToUpdate] = updatedHistory
+        return updatedHistory
     }
 }

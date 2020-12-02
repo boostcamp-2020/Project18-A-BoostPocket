@@ -121,6 +121,7 @@ class HistoryProviderTests: XCTestCase {
         let updatedHistory = historyProvider.updateHistory(updatedHistoryInfo: updatingHistoryInfo)
         
         XCTAssertNotNil(updatedHistory)
+        XCTAssertEqual(updatedHistory, createdHistory)
         XCTAssertEqual(updatedHistory?.travel?.id, historyInfo.travelId)
         XCTAssertEqual(updatedHistory?.id, historyInfo.id)
         XCTAssertEqual(updatedHistory?.title, "변경한 제목")

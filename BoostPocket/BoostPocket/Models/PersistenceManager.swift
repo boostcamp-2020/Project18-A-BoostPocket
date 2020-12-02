@@ -294,15 +294,50 @@ extension PersistenceManager {
     func updateObject<T>(updatedObjectInfo: T) -> DataModelProtocol? {
         var updatedObject: DataModelProtocol?
         
-        if let updatedTravelInfo = updatedObjectInfo as? TravelInfo, let updatedTravel =  updateTravel(travelInfo: updatedTravelInfo) {
+        if let updatedTravelInfo = updatedObjectInfo as? TravelInfo,
+            let updatedTravel =  updateTravel(travelInfo: updatedTravelInfo) {
             updatedObject = updatedTravel
-        } else if let updatedCountryInfo = updatedObjectInfo as? CountryInfo, let updatedCountry = updateCountry(countryInfo: updatedCountryInfo) {
+        } else if let updatedCountryInfo = updatedObjectInfo as? CountryInfo,
+            let updatedCountry = updateCountry(countryInfo: updatedCountryInfo) {
             updatedObject = updatedCountry
+        } else if let updatedHistoryInfo = updatedObjectInfo as? HistoryInfo,
+            let updatedHistory = updateHistory(historyInfo: updatedHistoryInfo) {
+            updatedObject = updatedHistory
         }
         
         return updatedObject
     }
 
+    private func updateHistory(historyInfo: HistoryInfo) -> History? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: History.entityName)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", historyInfo.id as CVarArg)
+        
+        do {
+            let anys = try self.context.fetch(fetchRequest)
+            let objectUpdate = anys[0] as? NSManagedObject
+            
+            objectUpdate?.setValue(historyInfo.amount, forKey: "amount")
+            objectUpdate?.setValue(historyInfo.category.rawValue, forKey: "category")
+            objectUpdate?.setValue(historyInfo.date, forKey: "date")
+            objectUpdate?.setValue(historyInfo.image, forKey: "image")
+            objectUpdate?.setValue(historyInfo.isCard, forKey: "isCard")
+            objectUpdate?.setValue(historyInfo.isPrepare, forKey: "isPrepare")
+            objectUpdate?.setValue(historyInfo.memo, forKey: "memo")
+            objectUpdate?.setValue(historyInfo.title, forKey: "title")
+            
+            try self.context.save()
+            
+            let histories = fetch(fetchRequest) as? [History]
+            let updatedHistory = histories?.first
+            
+            return updatedHistory
+        } catch {
+            print("updateHistory Error")
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
     private func updateTravel(travelInfo: TravelInfo) -> Travel? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Travel.entityName)
         fetchRequest.predicate = NSPredicate(format: "id == %@", travelInfo.id as CVarArg)
@@ -310,7 +345,7 @@ extension PersistenceManager {
         do {
             let anys = try self.context.fetch(fetchRequest)
             let objectUpdate = anys[0] as? NSManagedObject
-            
+
             objectUpdate?.setValue(travelInfo.title, forKey: "title")
             objectUpdate?.setValue(travelInfo.memo, forKey: "memo")
             objectUpdate?.setValue(travelInfo.startDate, forKey: "startDate")
