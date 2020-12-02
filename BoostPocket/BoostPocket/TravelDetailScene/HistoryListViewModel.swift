@@ -9,6 +9,7 @@
 import Foundation
 
 protocol HistoryListPresentable {
+    var historyProvider: HistoryProvidable? { get set }
     var histories: [HistoryItemViewModel] { get }
     var didFetch: (([HistoryItemViewModel]) -> Void)? { get set }
     func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double,

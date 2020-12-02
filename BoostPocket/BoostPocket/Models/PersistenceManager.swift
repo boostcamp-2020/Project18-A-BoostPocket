@@ -162,7 +162,9 @@ extension PersistenceManager {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Travel.entityName)
         fetchRequest.predicate = NSPredicate(format: "id == %@", historyInfo.travelId as CVarArg)
         
-        guard let travels = fetch(fetchRequest) as? [Travel], let fetchedTravel = travels.first else { return nil }
+        guard let travels = fetch(fetchRequest) as? [Travel],
+              
+              let fetchedTravel = travels.first else { return nil }
         
         newHistory.travel = fetchedTravel
         newHistory.id = historyInfo.id
