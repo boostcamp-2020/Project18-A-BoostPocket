@@ -114,6 +114,13 @@ extension TravelItemViewModel: HistoryListPresentable {
     }
     
     func deleteHistory(id: UUID) -> Bool {
+        if let historyProvider = historyProvider,
+            historyProvider.deleteHistory(id: id),
+            let indexToDelete = histories.indices.filter({ histories[$0].id == id }).first {
+            histories.remove(at: indexToDelete)
+            return true
+        }
+        
         return false
     }
     
