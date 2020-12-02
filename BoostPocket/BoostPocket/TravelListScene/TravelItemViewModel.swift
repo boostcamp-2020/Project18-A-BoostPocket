@@ -82,7 +82,15 @@ extension TravelItemViewModel: HistoryListPresentable {
     }
     
     func needFetchItems() {
-        //
+        guard let fetchedHistories = historyProvider?.fetchHistories() else { return }
+        
+        histories.removeAll()
+        var newHistoryItemViewModels: [HistoryItemViewModel] = []
+        fetchedHistories.forEach { history in
+            newHistoryItemViewModels.append(HistoryItemViewModel(history: history))
+        }
+        
+        histories = newHistoryItemViewModels
     }
     
     func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double, category: HistoryCategory, isPrepare: Bool, isCard: Bool) -> Bool {
