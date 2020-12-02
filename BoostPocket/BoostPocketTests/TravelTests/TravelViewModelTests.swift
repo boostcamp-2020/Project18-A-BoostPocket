@@ -16,6 +16,7 @@ class TravelViewModelTests: XCTestCase {
     var persistenceManagerStub: PersistenceManagable!
     var countryProvider: CountryProvidable!
     var travelProvider: TravelProvidable!
+    var historyProvider: HistoryProvider!
     var dataLoader: DataLoader?
     let countriesExpectation = XCTestExpectation(description: "Successfully Created Countries")
     
@@ -45,7 +46,9 @@ class TravelViewModelTests: XCTestCase {
         
         countryProvider = CountryProvider(persistenceManager: persistenceManagerStub)
         travelProvider = TravelProvider(persistenceManager: persistenceManagerStub)
-        travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider)
+        historyProvider = HistoryProvider(persistenceManager: persistenceManagerStub)
+        
+        travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider, historyProvider: historyProvider)
 
         self.dataLoader = dataLoader
     }
@@ -66,7 +69,7 @@ class TravelViewModelTests: XCTestCase {
         let travel = TravelStub(id: id, title: title, memo: memo, exchangeRate: exchangeRate,
                                 budget: budget, coverImage: coverImage, startDate: startDate,
                                 endDate: endDate, country: firstCountry)
-        let travelItemViewModel = TravelItemViewModel(travel: travel)
+        let travelItemViewModel = TravelItemViewModel(travel: travel, historyProvider: historyProvider)
         
         XCTAssertNotNil(travel)
         XCTAssertEqual(travelItemViewModel.id, id)

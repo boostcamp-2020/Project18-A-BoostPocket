@@ -28,11 +28,14 @@ class HistoryViewModelTests: XCTestCase {
     var persistenceManagerStub: PersistenceManagable!
     var travelItemViewModel: HistoryListPresentable!
     var travelListViewModel: TravelListPresentable!
+    
     var dataLoader: DataLoader?
     var countryProvider: CountryProvidable!
     var travelProvider: TravelProvidable!
     var historyProvider: HistoryProvidable!
+    
     let countriesExpectation = XCTestExpectation(description: "Successfully Created Countries")
+    let travelExpectation = XCTestExpectation(description: "Successfully create travel")
 
     override func setUpWithError() throws {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
@@ -43,21 +46,18 @@ class HistoryViewModelTests: XCTestCase {
         travelProvider = TravelProvider(persistenceManager: persistenceManagerStub)
         historyProvider = HistoryProvider(persistenceManager: persistenceManagerStub)
         
-        travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider)
+        travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider, historyProvider: historyProvider)
         
-        persistenceManagerStub.createCountriesWithAPIRequest { [weak self] (result) in
-            if result {
-//                let fetchedCountries = self.countryProvider.fetchCountries()
-//                let firstCountry = fetchedCountries.first
-//                XCTAssertNotNil(fetchedCountries)
-//                XCTAssertNotNil(firstCountry)
-                
-//                let travel = TravelStub(id: self.id, title: self.title, memo: self.memo, exchangeRate: self.exchangeRate,
-//                                        budget: self.budget, coverImage: self.coverImage, startDate: self.startDate,
-//                                        endDate: self.endDate, country: firstCountry)
-//
-//                self.travelItemViewModel = TravelItemViewModel(travel: travel)
-                self?.countriesExpectation.fulfill()
+        persistenceManagerStub.createCountriesWithAPIRequest { [weak self] result in
+            if let self = self, result {
+                self.countriesExpectation.fulfill()
+                self.travelProvider.createTravel(countryName: self.countryName) { travel in
+                    if let createdTravel = travel {
+                        self.travelItemViewModel = TravelItemViewModel(travel: createdTravel, historyProvider: self.historyProvider)
+                        self.travelExpectation.fulfill()
+                    }
+                }
+
             }
         }
         self.dataLoader = dataLoader
@@ -68,21 +68,13 @@ class HistoryViewModelTests: XCTestCase {
         travelItemViewModel = nil
         countryProvider = nil
         travelProvider = nil
+        historyProvider = nil
         dataLoader = nil
     }
 
     func test_travelItemViewModel_createHistory() {
-        wait(for: [countriesExpectation], timeout: 5.0)
-        let travelExpectation = XCTestExpectation(description: "Successfully create travel")
-        
-        travelListViewModel.createTravel(countryName: countryName) { [weak self] travelItemViewModel in
-            self?.travelItemViewModel = travelItemViewModel
-            XCTAssertNotNil(self?.travelItemViewModel)
-            travelExpectation.fulfill()
-        }
-        
-        wait(for: [travelExpectation], timeout: 5.0)
-        travelItemViewModel.historyProvider = historyProvider
+        wait(for: [countriesExpectation, travelExpectation], timeout: 5.0)
+
         var createdHistoryItemViewModel: HistoryItemViewModel?
         travelItemViewModel.createHistory(id: UUID(), isIncome: false, title: "title", memo: "memo", date: Date(), image: Data(), amount: Double(), category: .etc, isPrepare: false, isCard: false) { historyItemViewModel in
             createdHistoryItemViewModel = historyItemViewModel
