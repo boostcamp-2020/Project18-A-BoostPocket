@@ -10,7 +10,6 @@
 import Foundation
 import CoreData
 
-
 extension History {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<History> {
@@ -31,6 +30,6 @@ extension History {
 
 }
 
-extension History : Identifiable {
+extension History: Identifiable {
 
 }

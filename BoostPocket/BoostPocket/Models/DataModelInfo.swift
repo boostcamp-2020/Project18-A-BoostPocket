@@ -47,3 +47,26 @@ struct TravelInfo {
         self.exchangeRate = exchangeRate
     }
 }
+
+enum HistoryCategory {
+    case income
+    case food
+    case shopping
+    case transportation
+    case tourism
+    case accommodation
+    case etc
+}
+
+struct HistoryInfo {
+    private(set) var id: UUID
+    private(set) var isIncome: Bool
+    private(set) var title: String
+    private(set) var memo: String?
+    private(set) var date: Date
+    private(set) var category: HistoryCategory
+    private(set) var amount: Double
+    private(set) var image: Data?
+    private(set) var isPrepare: Bool?
+    private(set) var isCard: Bool?
+}

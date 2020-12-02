@@ -57,6 +57,9 @@
 		A99E0613257534F10014C29F /* TitleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0612257534F10014C29F /* TitleEditViewController.swift */; };
 		A99E062F257762520014C29F /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E062D257762520014C29F /* History+CoreDataClass.swift */; };
 		A99E0630257762520014C29F /* History+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E062E257762520014C29F /* History+CoreDataProperties.swift */; };
+		A99E0639257763B90014C29F /* HistoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0638257763B90014C29F /* HistoryProvider.swift */; };
+		A99E063E257766DC0014C29F /* HistoryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E063D257766DC0014C29F /* HistoryListViewModel.swift */; };
+		A99E0646257766F50014C29F /* HistoryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0645257766F50014C29F /* HistoryItemViewModel.swift */; };
 		A9BF7A37256D496C00496CD8 /* String+firstConsonant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */; };
 		A9BF7A50256E293F00496CD8 /* TravelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */; };
 		A9BF7A71256E2D5900496CD8 /* Travel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */; };
@@ -170,6 +173,9 @@
 		A99E0612257534F10014C29F /* TitleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleEditViewController.swift; sourceTree = "<group>"; };
 		A99E062D257762520014C29F /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A99E062E257762520014C29F /* History+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A99E0638257763B90014C29F /* HistoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProvider.swift; sourceTree = "<group>"; };
+		A99E063D257766DC0014C29F /* HistoryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListViewModel.swift; sourceTree = "<group>"; };
+		A99E0645257766F50014C29F /* HistoryItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItemViewModel.swift; sourceTree = "<group>"; };
 		A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+firstConsonant.swift"; sourceTree = "<group>"; };
 		A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProvider.swift; sourceTree = "<group>"; };
 		A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Travel+CoreDataClass.swift"; path = "BoostPocket/CoreDataModels/Travel+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -289,6 +295,9 @@
 				95747A66256FAF6B0065C419 /* TravelDetailTabbarController.swift */,
 				5CF409472575239200351F4B /* MemoEditViewController.swift */,
 				A99E0612257534F10014C29F /* TitleEditViewController.swift */,
+				A99E0638257763B90014C29F /* HistoryProvider.swift */,
+				A99E063D257766DC0014C29F /* HistoryListViewModel.swift */,
+				A99E0645257766F50014C29F /* HistoryItemViewModel.swift */,
 			);
 			path = TravelDetailScene;
 			sourceTree = "<group>";
@@ -746,10 +755,13 @@
 				5CB682E5256C03F800830373 /* CountryListViewModel.swift in Sources */,
 				A9BF7A72256E2D5900496CD8 /* Travel+CoreDataProperties.swift in Sources */,
 				9572F9A9256B902C003049CB /* PersistenceManager.swift in Sources */,
+				A99E0639257763B90014C29F /* HistoryProvider.swift in Sources */,
 				A9BF7AA5256F9B8800496CD8 /* Date+ConvertToString.swift in Sources */,
 				5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */,
+				A99E0646257766F50014C29F /* HistoryItemViewModel.swift in Sources */,
 				5CD76EB7256C933C00BD6CE3 /* Country+CoreDataClass.swift in Sources */,
 				5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */,
+				A99E063E257766DC0014C29F /* HistoryListViewModel.swift in Sources */,
 				A9BF7A37256D496C00496CD8 /* String+firstConsonant.swift in Sources */,
 				95747A69256FCEEA0065C419 /* Data+ImageData.swift in Sources */,
 				5C797493256FD263007CB1ED /* TravelHeaderCell.swift in Sources */,
