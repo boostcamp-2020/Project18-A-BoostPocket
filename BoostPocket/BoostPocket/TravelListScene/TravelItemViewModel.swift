@@ -31,7 +31,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         hasher.combine(id)
     }
     
-    var historyProvider: HistoryProvidable?
+    private weak var historyProvider: HistoryProvidable?
     var histories: [HistoryItemViewModel] = []
     var didFetch: (([HistoryItemViewModel]) -> Void)?
     
@@ -47,7 +47,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     var flagImage: Data?
     var currencyCode: String?
     
-    init(travel: TravelProtocol) {
+    init(travel: TravelProtocol, historyProvider: HistoryProvidable) {
         self.id = travel.id
         self.title = travel.title
         self.memo = travel.memo
@@ -60,7 +60,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         self.flagImage = travel.country?.flagImage
         self.currencyCode = travel.country?.currencyCode
         
-//        self.historyProvider = historyProvider
+        self.historyProvider = historyProvider
     }
 }
 

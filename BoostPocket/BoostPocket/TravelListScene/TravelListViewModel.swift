@@ -32,34 +32,42 @@ class TravelListViewModel: TravelListPresentable {
         }
     }
     var didFetch: (([TravelItemViewModel]) -> Void)?
+    private weak var historyProvider: HistoryProvidable?
     private weak var countryProvider: CountryProvidable?
     private weak var travelProvider: TravelProvidable?
     
-    init(countryProvider: CountryProvidable?, travelProvider: TravelProvidable?) {
+    init(countryProvider: CountryProvidable?, travelProvider: TravelProvidable?, historyProvider: HistoryProvidable?) {
         self.countryProvider = countryProvider
         self.travelProvider = travelProvider
+        self.historyProvider = historyProvider
     }
     
     func createTravel(countryName: String, completion: @escaping (TravelItemViewModel?) -> Void) {
         travelProvider?.createTravel(countryName: countryName) { [weak self] (createdTravel) in
-            guard let createdTravel = createdTravel else {
+            guard let self = self,
+                let historyProvider = self.historyProvider,
+                let createdTravel = createdTravel else {
                 completion(nil)
                 return
             }
             
-            let createdTravelItemViewModel = TravelItemViewModel(travel: createdTravel)
-            self?.travels.append(createdTravelItemViewModel)
+            let createdTravelItemViewModel = TravelItemViewModel(travel: createdTravel, historyProvider: historyProvider)
+            self.travels.append(createdTravelItemViewModel)
             completion(createdTravelItemViewModel)
         }
         
     }
     
     func needFetchItems() {
-        guard let fetchedTravels = travelProvider?.fetchTravels() else { return }
+        guard let fetchedTravels = travelProvider?.fetchTravels(),
+            let historyProvider = self.historyProvider
+            else { return }
+        
         travels.removeAll()
         var newTravelItemViewModels: [TravelItemViewModel] = []
+        
         fetchedTravels.forEach { travel in
-            newTravelItemViewModels.append(TravelItemViewModel(travel: travel))
+            newTravelItemViewModels.append(TravelItemViewModel(travel: travel, historyProvider: historyProvider))
         }
         travels = newTravelItemViewModels
     }
