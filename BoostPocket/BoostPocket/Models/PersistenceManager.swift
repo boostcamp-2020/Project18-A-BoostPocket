@@ -267,6 +267,9 @@ extension PersistenceManager {
         } else if T.self == Travel.self {
             let startDateSort = NSSortDescriptor(key: "startDate", ascending: true)
             request.sortDescriptors = [startDateSort]
+        } else if T.self == History.self {
+            let dateSort = NSSortDescriptor(key: "date", ascending: true)
+            request.sortDescriptors = [dateSort]
         }
         
         do {
