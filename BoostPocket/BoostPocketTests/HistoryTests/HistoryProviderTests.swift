@@ -87,13 +87,24 @@ class HistoryProviderTests: XCTestCase {
         historyProvider.createHistory(createdHistoryInfo: historyInfo) { (history) in
             createdHistory = history
         }
-        
         XCTAssertNotNil(createdHistory)
         
         let firstHistory = historyProvider.fetchHistories().first
         XCTAssertNotNil(firstHistory)
         XCTAssertEqual(firstHistory, createdHistory)
+    }
+    
+    func test_historyProvider_deleteHistory() {
+        wait(for: [countriesExpectation, travelExpectation], timeout: 5.0)
         
+        var createdHistory: History?
+        historyProvider.createHistory(createdHistoryInfo: historyInfo) { (history) in
+            createdHistory = history
+        }
+        XCTAssertNotNil(createdHistory)
+        
+        XCTAssertTrue(historyProvider.deleteHistory(id: createdHistory?.id ?? UUID()))
+        XCTAssertEqual(historyProvider.fetchHistories(), [])
     }
 
 }
