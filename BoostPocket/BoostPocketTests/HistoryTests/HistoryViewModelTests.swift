@@ -114,5 +114,17 @@ class HistoryViewModelTests: XCTestCase {
         travelItemViewModel.needFetchItems()
         XCTAssertNotEqual(travelItemViewModel.histories, [])
     }
+    
+    func test_travelItemViewModel_updateHistory() {
+        wait(for: [countriesExpectation, travelExpectation], timeout: 5.0)
+        
+        var createdHistoryItemViewModel: HistoryItemViewModel?
+        travelItemViewModel.createHistory(id: id, isIncome: isIncome, title: title, memo: memo, date: date, image: image, amount: amount, category: category, isPrepare: isPrepare, isCard: isCard) { historyItemViewModel in
+            createdHistoryItemViewModel = historyItemViewModel
+        }
+        XCTAssertNotNil(createdHistoryItemViewModel)
+        
+        XCTAssertTrue(travelItemViewModel.updateHistory(id: createdHistoryItemViewModel?.id ?? UUID(), isIncome: createdHistoryItemViewModel!.isIncome, title: "변경한 타이틀", memo: "변경한 메모", date: nil, image: Data(), amount: 10.0, category: HistoryCategory.food, isPrepare: false, isCard: false))
+    }
 
 }

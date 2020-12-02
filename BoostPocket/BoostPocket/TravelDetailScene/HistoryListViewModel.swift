@@ -14,8 +14,7 @@ protocol HistoryListPresentable {
     func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double,
                        category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void)
     func needFetchItems()
-    func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double,
-                       category: HistoryCategory, isPrepare: Bool, isCard: Bool) -> Bool
+    func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool?, isCard: Bool?) -> Bool
     func deleteHistory(id: UUID) -> Bool
     func numberOfItem() -> Int
 }

@@ -93,7 +93,7 @@ extension TravelItemViewModel: HistoryListPresentable {
         histories = newHistoryItemViewModels
     }
     
-    func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double, category: HistoryCategory, isPrepare: Bool, isCard: Bool) -> Bool {
+    func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool?, isCard: Bool?) -> Bool {
         return false
     }
     
