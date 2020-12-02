@@ -48,7 +48,7 @@ class CountryListViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(doneButtonTapped))
         title = "여행할 나라를 선택해주세요"
     }
     
