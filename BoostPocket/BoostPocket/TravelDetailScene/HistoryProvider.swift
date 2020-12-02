@@ -37,7 +37,10 @@ class HistoryProvider: HistoryProvidable {
     }
     
     func fetchHistories() -> [History] {
-        return []
+        guard let persistenceManager = persistenceManager else { return [] }
+        histories = persistenceManager.fetchAll(request: History.fetchRequest())
+        
+        return histories
     }
     
     func deleteHistory(id: UUID) -> Bool {
