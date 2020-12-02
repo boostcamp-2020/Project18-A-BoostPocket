@@ -12,22 +12,35 @@ import NetworkManager
 
 class HistoryViewModelTests: XCTestCase {
     
-    let id = UUID()
-    let title = "test title"
-    let memo = "memo"
-    let budget = 3.29
-    let coverImage = Data()
-    let startDate = Date()
-    let endDate = Date()
-    let exchangeRate = 12.1
+//    let id = UUID()
+//    let title = "test title"
+//    let memo = "memo"
+//    let budget = 3.29
+//    let coverImage = Data()
+//    let startDate = Date()
+//    let endDate = Date()
+//    let exchangeRate = 12.1
+
+//    let lastUpdated = "2019-08-23".convertToDate()
+//    let flagImage = Data()
+//    let currencyCode = "KRW"
+    
     let countryName = "대한민국"
-    let lastUpdated = "2019-08-23".convertToDate()
-    let flagImage = Data()
-    let currencyCode = "KRW"
+    let id = UUID()
+    let isIncome = false
+    let title = "테스트지출"
+    let memo = "테스트메모"
+    let date = "2020-12-21".convertToDate()
+    let category = HistoryCategory.shopping
+    let amount = Double()
+    let image = Data()
+    let isPrepare = true
+    let isCard = true
 
     var persistenceManagerStub: PersistenceManagable!
     var travelItemViewModel: HistoryListPresentable!
     var travelListViewModel: TravelListPresentable!
+    var createdTravel: Travel!
     
     var dataLoader: DataLoader?
     var countryProvider: CountryProvidable!
@@ -52,10 +65,10 @@ class HistoryViewModelTests: XCTestCase {
             if let self = self, result {
                 self.countriesExpectation.fulfill()
                 self.travelProvider.createTravel(countryName: self.countryName) { travel in
-                    if let createdTravel = travel {
-                        self.travelItemViewModel = TravelItemViewModel(travel: createdTravel, historyProvider: self.historyProvider)
-                        self.travelExpectation.fulfill()
-                    }
+                    self.createdTravel = travel
+                    XCTAssertNotNil(self.createdTravel)
+                    self.travelItemViewModel = TravelItemViewModel(travel: self.createdTravel, historyProvider: self.historyProvider)
+                    self.travelExpectation.fulfill()
                 }
 
             }
@@ -70,6 +83,7 @@ class HistoryViewModelTests: XCTestCase {
         travelProvider = nil
         historyProvider = nil
         dataLoader = nil
+        createdTravel = nil
     }
 
     func test_travelItemViewModel_createHistory() {
@@ -81,6 +95,24 @@ class HistoryViewModelTests: XCTestCase {
         }
         XCTAssertNotNil(createdHistoryItemViewModel)
         XCTAssertEqual(createdHistoryItemViewModel?.title, "title")
+    }
+    
+    func test_travelItemViewModel_needFetchItems() {
+        wait(for: [countriesExpectation, travelExpectation], timeout: 5.0)
+        
+        travelItemViewModel.needFetchItems()
+        XCTAssertEqual(travelItemViewModel.histories, [])
+        
+        let historyInfo = HistoryInfo(travelId: (createdTravel?.id)!, id: id, isIncome: isIncome, title: title, memo: memo, date: date, category: category, amount: amount, image: image, isPrepare: isPrepare, isCard: isCard)
+        
+        var createdHistory: History?
+        historyProvider.createHistory(createdHistoryInfo: historyInfo) { history in
+            createdHistory = history
+        }
+        XCTAssertNotNil(createdHistory)
+
+        travelItemViewModel.needFetchItems()
+        XCTAssertNotEqual(travelItemViewModel.histories, [])
     }
 
 }
