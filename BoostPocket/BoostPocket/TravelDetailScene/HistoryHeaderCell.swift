@@ -27,7 +27,7 @@ class HistoryHeaderCell: UITableViewHeaderFooterView {
             dayLabel.text = ""
         }
         dateLabel.text = date.convertToString(format: .korean)
-        amountLabel.text = "\(amount)"
+        amountLabel.text = amount.insertComma
     }
     
     static func getNib() -> UINib {
