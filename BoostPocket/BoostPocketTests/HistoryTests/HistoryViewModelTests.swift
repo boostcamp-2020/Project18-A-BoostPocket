@@ -130,7 +130,19 @@ class HistoryViewModelTests: XCTestCase {
         XCTAssertNotNil(updatedHistoryItemViewModel)
         XCTAssertEqual(updatedHistoryItemViewModel?.title, "변경한 타이틀")
         XCTAssertEqual(createdHistoryItemViewModel, updatedHistoryItemViewModel)
+    }
+    
+    func test_travelItemViewModel_deleteHistory() {
+        wait(for: [countriesExpectation, travelExpectation], timeout: 5.0)
         
+        var createdHistoryItemViewModel: HistoryItemViewModel?
+        travelItemViewModel.createHistory(id: id, isIncome: isIncome, title: title, memo: memo, date: date, image: image, amount: amount, category: category, isPrepare: isPrepare, isCard: isCard) { historyItemViewModel in
+            createdHistoryItemViewModel = historyItemViewModel
+        }
+        XCTAssertNotNil(createdHistoryItemViewModel)
+        
+        XCTAssertTrue(travelItemViewModel.deleteHistory(id: createdHistoryItemViewModel?.id ?? UUID()))
+        XCTAssertEqual(travelItemViewModel.histories, [])
     }
 
 }
