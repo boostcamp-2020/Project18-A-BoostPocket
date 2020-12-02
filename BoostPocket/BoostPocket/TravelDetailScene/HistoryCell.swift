@@ -10,15 +10,20 @@ import UIKit
 
 class HistoryCell: UITableViewCell {
 
+    @IBOutlet weak var categoryImageView: UIImageView!
+    @IBOutlet weak var costLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func configure(with history: HistoryItemViewModel) {
+        categoryImageView.image = UIImage(named: history.category.name)
+        costLabel.text = "\(history.amount)"
+        titleLabel.text = history.title
+        dateLabel.text = history.date.convertToString(format: .dotted)
     }
     
 }

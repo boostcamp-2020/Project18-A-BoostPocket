@@ -59,6 +59,12 @@
                 <constraint firstItem="pF6-0v-9CD" firstAttribute="centerY" secondItem="njF-e1-oar" secondAttribute="centerY" multiplier="0.8" id="KSH-ys-CP4"/>
                 <constraint firstItem="NFJ-ir-T7d" firstAttribute="height" secondItem="njF-e1-oar" secondAttribute="height" multiplier="0.3" id="afy-89-rbK"/>
             </constraints>
+            <connections>
+                <outlet property="categoryImageView" destination="NFJ-ir-T7d" id="ABm-2F-UMe"/>
+                <outlet property="costLabel" destination="pF6-0v-9CD" id="X7x-by-orV"/>
+                <outlet property="dateLabel" destination="gU8-NF-FGt" id="5Kf-69-BN0"/>
+                <outlet property="titleLabel" destination="Rkm-Sy-yRT" id="3sJ-4I-x3G"/>
+            </connections>
             <point key="canvasLocation" x="-702.17391304347836" y="108.81696428571428"/>
         </tableViewCell>
     </objects>
