@@ -26,7 +26,14 @@ class HistoryProvider: HistoryProvidable {
     }
     
     func createHistory(createdHistoryInfo: HistoryInfo, completion: @escaping (History?) -> Void) {
-        
+        persistenceManager?.createObject(newObjectInfo: createdHistoryInfo) { [weak self] createdObject in
+            guard let createdHistory = createdObject as? History else {
+                completion(nil)
+                return
+            }
+            self?.histories.append(createdHistory)
+            completion(createdHistory)
+        }
     }
     
     func fetchHistories() -> [History] {
