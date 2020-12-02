@@ -16,19 +16,38 @@ class HistoryProviderTests: XCTestCase {
     var travelProvider: TravelProvidable!
     var historyProvider: HistoryProvidable!
     var dataLoader: DataLoader!
+    var createdTravel: Travel!
+    var historyInfo: HistoryInfo!
     
     let countryName = "대한민국"
-    
     let countriesExpectation = XCTestExpectation(description: "Successfully created country")
+    let travelExpectation = XCTestExpectation(description: "Successfully create travel")
+    
+    let id = UUID()
+    let isIncome = false
+    let title = "기록테스트"
+    let memo = "메모테스트"
+    let date = Date()
+    let category = HistoryCategory.food
+    let amount = Double()
+    let image = Data()
+    let isPrepare = false
+    let isCard = false
 
     override func setUpWithError() throws {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
         let dataLoader = DataLoader(session: session)
-        
         persistenceManagerStub = PersistenceManagerStub(dataLoader: dataLoader)
+        
         persistenceManagerStub.createCountriesWithAPIRequest { [weak self] result in
-            if result {
-                self?.countriesExpectation.fulfill()
+            if let self = self, result {
+                self.countriesExpectation.fulfill()
+                self.travelProvider.createTravel(countryName: self.countryName) { travel in
+                    self.createdTravel = travel
+                    XCTAssertNotNil(self.createdTravel)
+                    self.historyInfo = HistoryInfo(travelId: self.createdTravel.id!, id: self.id, isIncome: self.isIncome, title: self.title, memo: self.memo, date: self.date, category: self.category, amount: self.amount, image: self.image, isPrepare: self.isPrepare, isCard: self.isCard)
+                    self.travelExpectation.fulfill()
+                }
             }
         }
         
@@ -43,30 +62,37 @@ class HistoryProviderTests: XCTestCase {
         travelProvider = nil
         historyProvider = nil
         dataLoader = nil
+        createdTravel = nil
     }
     
     func test_historyProvider_createHistory() {
-        wait(for: [countriesExpectation], timeout: 5.0)
-        let travelExpectation = XCTestExpectation(description: "Successfully create travel")
-        var createdTravel: Travel?
-        travelProvider.createTravel(countryName: countryName) { travel in
-            createdTravel = travel
-            XCTAssertNotNil(createdTravel)
-            travelExpectation.fulfill()
-        }
-        
-        wait(for: [travelExpectation], timeout: 5.0)
-        
-        let historyInfo = HistoryInfo(travelId: (createdTravel?.id)!, id: UUID(), isIncome: false, title: "식비", memo: nil, date: Date(), category: .food, amount: Double(), image: nil, isPrepare: nil, isCard: nil)
+        wait(for: [countriesExpectation, travelExpectation], timeout: 5.0)
+
         var createdHistory: History?
         historyProvider.createHistory(createdHistoryInfo: historyInfo) { history in
             createdHistory = history
         }
+        
         XCTAssertNotNil(createdHistory)
         XCTAssertEqual(createdHistory?.travel, createdTravel)
     }
     
     func test_historyProvider_fetchHistories() {
+        wait(for: [countriesExpectation, travelExpectation], timeout: 5.0)
+        
+        let fetchedHistories = historyProvider.fetchHistories()
+        XCTAssertEqual(fetchedHistories, [])
+        
+        var createdHistory: History?
+        historyProvider.createHistory(createdHistoryInfo: historyInfo) { (history) in
+            createdHistory = history
+        }
+        
+        XCTAssertNotNil(createdHistory)
+        
+        let firstHistory = historyProvider.fetchHistories().first
+        XCTAssertNotNil(firstHistory)
+        XCTAssertEqual(firstHistory, createdHistory)
         
     }
 
