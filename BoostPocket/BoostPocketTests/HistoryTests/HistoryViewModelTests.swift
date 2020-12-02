@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import NetworkManager
 @testable import BoostPocket
 
 class HistoryViewModelTests: XCTestCase {
@@ -23,31 +24,65 @@ class HistoryViewModelTests: XCTestCase {
     let lastUpdated = "2019-08-23".convertToDate()
     let flagImage = Data()
     let currencyCode = "KRW"
-    
-    var country: Country!
+
+    var persistenceManagerStub: PersistenceManagable!
     var travelItemViewModel: HistoryListPresentable!
+    var dataLoader: DataLoader?
+    var countryProvider: CountryProvidable!
+    var travelProvider: TravelProvidable!
+    let countriesExpectation = XCTestExpectation(description: "Successfully Created Countries")
 
     override func setUpWithError() throws {
-        let travel = TravelStub(id: id, title: title, memo: memo, exchangeRate: exchangeRate,
-                                budget: budget, coverImage: coverImage, startDate: startDate,
-                                endDate: endDate, country: country)
-        travelItemViewModel = TravelItemViewModel(travel: travel)
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
+        let dataLoader = DataLoader(session: session)
+        persistenceManagerStub = PersistenceManagerStub(dataLoader: dataLoader)
+        
+        countryProvider = CountryProvider(persistenceManager: persistenceManagerStub)
+        travelProvider = TravelProvider(persistenceManager: persistenceManagerStub)
+        
+        persistenceManagerStub.createCountriesWithAPIRequest { [weak self] (result) in
+            if let self = self, result {
+                let fetchedCountries = self.countryProvider.fetchCountries()
+                let firstCountry = fetchedCountries.first
+                XCTAssertNotNil(fetchedCountries)
+                XCTAssertNotNil(firstCountry)
+                
+                let travel = TravelStub(id: self.id, title: self.title, memo: self.memo, exchangeRate: self.exchangeRate,
+                                        budget: self.budget, coverImage: self.coverImage, startDate: self.startDate,
+                                        endDate: self.endDate, country: firstCountry)
+
+                self.travelItemViewModel = TravelItemViewModel(travel: travel)
+                self.countriesExpectation.fulfill()
+            }
+        }
+        self.dataLoader = dataLoader
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        persistenceManagerStub = nil
+        travelItemViewModel = nil
+        countryProvider = nil
+        travelProvider = nil
+        dataLoader = nil
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func test_travelItemViewModel_createHistory() {
+        wait(for: [countriesExpectation], timeout: 5.0)
+        let travelExpectation = XCTestExpectation(description: "Successfully create travel")
+        var createdTravel: Travel?
+        travelProvider.createTravel(countryName: countryName) { travel in
+            createdTravel = travel
+            XCTAssertNotNil(createdTravel)
+            travelExpectation.fulfill()
         }
+        
+        wait(for: [travelExpectation], timeout: 5.0)
+        var createdHistoryItemViewModel: HistoryItemViewModel?
+        travelItemViewModel.createHistory(id: UUID(), isIncome: false, title: "title", memo: "memo", date: Date(), image: Data(), amount: Double(), category: .etc, isPrepare: false, isCard: false) { historyItemViewModel in
+            createdHistoryItemViewModel = historyItemViewModel
+        }
+        XCTAssertNotNil(createdHistoryItemViewModel)
+        XCTAssertEqual(createdHistoryItemViewModel?.title, "title")
     }
 
 }

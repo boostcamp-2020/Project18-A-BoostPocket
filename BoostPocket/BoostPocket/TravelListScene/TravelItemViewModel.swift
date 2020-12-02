@@ -68,6 +68,8 @@ extension TravelItemViewModel: HistoryListPresentable {
     
     func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double, category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void) {
         
+        
+        
     }
     
     func needFetchItems() {

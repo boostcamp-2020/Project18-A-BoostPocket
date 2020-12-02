@@ -16,7 +16,6 @@ class TravelViewModelTests: XCTestCase {
     var persistenceManagerStub: PersistenceManagable!
     var countryProvider: CountryProvidable!
     var travelProvider: TravelProvidable!
-    var country: Country!
     var dataLoader: DataLoader?
     let countriesExpectation = XCTestExpectation(description: "Successfully Created Countries")
     
