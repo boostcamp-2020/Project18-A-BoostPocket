@@ -13,10 +13,24 @@ struct DummyHistory: Hashable {
     var date: Date
 }
 
-struct HistoryListSectionHeader: Hashable {
+class HistoryListSectionHeader: Hashable {
+    static func == (lhs: HistoryListSectionHeader, rhs: HistoryListSectionHeader) -> Bool {
+        return lhs.dayNumber == rhs.dayNumber
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(dayNumber)
+    }
+    
     var dayNumber: Int?
     var date: Date
     var amount: Double
+    
+    init(dayNumber: Int?, date: Date, amount: Double) {
+        self.dayNumber = dayNumber
+        self.date = date
+        self.amount = amount
+    }
 }
 
 import UIKit
@@ -26,12 +40,13 @@ class HistoryListViewController: UIViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<HistoryListSectionHeader, DummyHistory>
     
     @IBOutlet weak var historyListTableView: UITableView!
+    
     private let dummyVM = [
-        DummyHistory(category: .income, title: "수입", amount: 100000, date: Date()),
-        DummyHistory(category: .food, title: "마라탕", amount: 18000, date: Date()),
-        DummyHistory(category: .accommodation, title: "qweqwe", amount: 2000, date:  Date()),
-        DummyHistory(category: .food, title: "파스타", amount: 12000, date: Date()),
-        DummyHistory(category: .food, title: "김치찌개", amount: 10000, date: Date())
+        DummyHistory(category: .income, title: "수입", amount: 100000, date: "2020-11-01".convertToDate()),
+        DummyHistory(category: .food, title: "마라탕", amount: 18000, date: "2020-11-02".convertToDate()),
+        DummyHistory(category: .accommodation, title: "qweqwe", amount: 2000, date: "2020-11-02".convertToDate()),
+        DummyHistory(category: .food, title: "파스타", amount: 12000, date: "2020-11-11".convertToDate()),
+        DummyHistory(category: .food, title: "김치찌개", amount: 10000, date: "2020-12-01".convertToDate())
     ]
     private lazy var dataSource = configureDatasource()
     private lazy var headers = setupSection(with: dummyVM)
@@ -73,7 +88,7 @@ class HistoryListViewController: UIViewController {
             let amount = history.amount
             let date = history.date
             // TODO: daynumber는 현재 날짜 - travelItemViewModel의 시작 날짜 + 1, 만약 음수면 prepare로 들어감
-            if var day = days.filter({ Calendar.current.isDate(date, inSameDayAs: $0.date) }).first {
+            if let day = days.filter({ Calendar.current.isDate(date, inSameDayAs: $0.date) }).first {
                 day.amount += amount
             } else {
                 days.insert(HistoryListSectionHeader(dayNumber: dayNumber, date: date, amount: amount))
