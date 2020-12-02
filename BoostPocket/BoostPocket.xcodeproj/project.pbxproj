@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3725D4AFE6D2AE5B6A21D483 /* Pods_BoostPocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B97464333E742D61CD6648 /* Pods_BoostPocket.framework */; };
 		470EEBDB802C6552ECB4E189 /* Pods_BoostPocketTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */; };
+		5C15AB3E2577C32000244C6C /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C15AB3C2577C32000244C6C /* HistoryCell.swift */; };
+		5C15AB3F2577C32000244C6C /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C15AB3D2577C32000244C6C /* HistoryCell.xib */; };
 		5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */; };
 		5C3DAF302566576000178EA0 /* CountryListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */; };
 		5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3325665F0200178EA0 /* CountryCell.swift */; };
@@ -122,6 +124,8 @@
 		05B97464333E742D61CD6648 /* Pods_BoostPocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		460E2B0DBA1F49A0D275F156 /* Pods-BoostPocketTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocketTests.release.xcconfig"; path = "Target Support Files/Pods-BoostPocketTests/Pods-BoostPocketTests.release.xcconfig"; sourceTree = "<group>"; };
 		57F756558017352589C6CED3 /* Pods-BoostPocket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.release.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.release.xcconfig"; sourceTree = "<group>"; };
+		5C15AB3C2577C32000244C6C /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		5C15AB3D2577C32000244C6C /* HistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryCell.xib; sourceTree = "<group>"; };
 		5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewController.swift; sourceTree = "<group>"; };
 		5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryListViewController.xib; sourceTree = "<group>"; };
 		5C3DAF3325665F0200178EA0 /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
@@ -302,6 +306,8 @@
 				A99E0638257763B90014C29F /* HistoryProvider.swift */,
 				A99E063D257766DC0014C29F /* HistoryListViewModel.swift */,
 				A99E0645257766F50014C29F /* HistoryItemViewModel.swift */,
+				5C15AB3C2577C32000244C6C /* HistoryCell.swift */,
+				5C15AB3D2577C32000244C6C /* HistoryCell.xib */,
 			);
 			path = TravelDetailScene;
 			sourceTree = "<group>";
@@ -632,6 +638,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C15AB3F2577C32000244C6C /* HistoryCell.xib in Resources */,
 				5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */,
 				95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */,
 				5C797494256FD263007CB1ED /* TravelHeaderCell.xib in Resources */,
@@ -785,6 +792,7 @@
 				9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */,
 				5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
 				95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */,
+				5C15AB3E2577C32000244C6C /* HistoryCell.swift in Sources */,
 				5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */,
 				A99E0630257762520014C29F /* History+CoreDataProperties.swift in Sources */,
 				A9BF7A86256F420D00496CD8 /* TravelCell.swift in Sources */,
