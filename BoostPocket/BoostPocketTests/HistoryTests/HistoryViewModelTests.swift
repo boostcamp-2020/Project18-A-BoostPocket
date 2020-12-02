@@ -125,6 +125,12 @@ class HistoryViewModelTests: XCTestCase {
         XCTAssertNotNil(createdHistoryItemViewModel)
         
         XCTAssertTrue(travelItemViewModel.updateHistory(id: createdHistoryItemViewModel?.id ?? UUID(), isIncome: createdHistoryItemViewModel!.isIncome, title: "변경한 타이틀", memo: "변경한 메모", date: nil, image: Data(), amount: 10.0, category: HistoryCategory.food, isPrepare: false, isCard: false))
+        
+        let updatedHistoryItemViewModel = travelItemViewModel.histories.first
+        XCTAssertNotNil(updatedHistoryItemViewModel)
+        XCTAssertEqual(updatedHistoryItemViewModel?.title, "변경한 타이틀")
+        XCTAssertEqual(createdHistoryItemViewModel, updatedHistoryItemViewModel)
+        
     }
 
 }

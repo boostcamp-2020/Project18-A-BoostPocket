@@ -94,7 +94,23 @@ extension TravelItemViewModel: HistoryListPresentable {
     }
     
     func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool?, isCard: Bool?) -> Bool {
-        return false
+        
+        let historyInfo = HistoryInfo(travelId: self.id ?? UUID(), id: id, isIncome: isIncome, title: title, memo: memo, date: date ?? Date(), category: category, amount: amount, image: image, isPrepare: isPrepare, isCard: isCard)
+        
+        guard let updatedHistory = historyProvider?.updateHistory(updatedHistoryInfo: historyInfo),
+            let indexToUpdate = histories.indices.filter({ histories[$0].id == updatedHistory.id }).first
+            else { return false }
+        
+        histories[indexToUpdate].amount = updatedHistory.amount
+        histories[indexToUpdate].category = updatedHistory.categoryState
+        histories[indexToUpdate].date = updatedHistory.date ?? Date()
+        histories[indexToUpdate].image = updatedHistory.image
+        histories[indexToUpdate].isCard = updatedHistory.isCard
+        histories[indexToUpdate].isPrepare = updatedHistory.isPrepare
+        histories[indexToUpdate].memo = updatedHistory.memo
+        histories[indexToUpdate].title = updatedHistory.title ?? updatedHistory.categoryState.name
+        
+        return true
     }
     
     func deleteHistory(id: UUID) -> Bool {
