@@ -31,7 +31,9 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         hasher.combine(id)
     }
     
-    private weak var historyProvider: HistoryProvidable?
+    weak var historyProvider: HistoryProvidable?
+    var histories: [HistoryItemViewModel] = []
+    var didFetch: (([HistoryItemViewModel]) -> Void)?
     
     var id: UUID?
     var title: String?
@@ -45,7 +47,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     var flagImage: Data?
     var currencyCode: String?
     
-    init(travel: TravelProtocol, historyProvider: HistoryProvidable) {
+    init(travel: TravelProtocol) {
         self.id = travel.id
         self.title = travel.title
         self.memo = travel.memo
@@ -58,11 +60,16 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         self.flagImage = travel.country?.flagImage
         self.currencyCode = travel.country?.currencyCode
         
-        self.historyProvider = historyProvider
+//        self.historyProvider = historyProvider
     }
 }
 
 extension TravelItemViewModel: HistoryListPresentable {
+    
+    func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double, category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void) {
+        
+    }
+    
     func needFetchItems() {
         //
     }

@@ -16,3 +16,28 @@ protocol HistoryProvidable: AnyObject {
     func updateHistory(updatedHistoryInfo: HistoryInfo) -> History?
 }
 
+class HistoryProvider: HistoryProvidable {
+    
+    var histories: [History] = []
+    private weak var persistenceManager: PersistenceManagable?
+    
+    init(persistenceManager: PersistenceManagable) {
+        self.persistenceManager = persistenceManager
+    }
+    
+    func createHistory(createdHistoryInfo: HistoryInfo, completion: @escaping (History?) -> Void) {
+        
+    }
+    
+    func fetchHistories() -> [History] {
+        return []
+    }
+    
+    func deleteHistory(id: UUID) -> Bool {
+        return false
+    }
+    
+    func updateHistory(updatedHistoryInfo: HistoryInfo) -> History? {
+        return nil
+    }
+}
