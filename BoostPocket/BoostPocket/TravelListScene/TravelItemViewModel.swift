@@ -125,6 +125,6 @@ extension TravelItemViewModel: HistoryListPresentable {
     }
     
     func numberOfItem() -> Int {
-        return 0
+        return histories.count
     }
 }
