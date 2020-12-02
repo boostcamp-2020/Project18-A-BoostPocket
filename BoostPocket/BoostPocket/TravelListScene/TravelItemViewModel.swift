@@ -64,6 +64,17 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     }
 }
 
+protocol HistoryListPresentable {
+    var histories: [HistoryItemViewModel] { get }
+    var didFetch: (([HistoryItemViewModel]) -> Void)? { get set }
+    func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double,
+                       category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void)
+    func needFetchItems()
+    func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool?, isCard: Bool?) -> Bool
+    func deleteHistory(id: UUID) -> Bool
+    func numberOfItem() -> Int
+}
+
 extension TravelItemViewModel: HistoryListPresentable {
     
     func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double, category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void) {
