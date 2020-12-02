@@ -9,6 +9,8 @@
 import UIKit
 
 class HistoryCell: UITableViewCell {
+    
+    static let identifier = "HistoryCell"
 
     @IBOutlet weak var categoryImageView: UIImageView!
     @IBOutlet weak var costLabel: UILabel!
@@ -19,11 +21,14 @@ class HistoryCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func configure(with history: HistoryItemViewModel) {
+    func configure(with history: DummyHistory) {
         categoryImageView.image = UIImage(named: history.category.name)
         costLabel.text = "\(history.amount)"
         titleLabel.text = history.title
         dateLabel.text = history.date.convertToString(format: .dotted)
     }
     
+    static func getNib() -> UINib {
+        return UINib(nibName: HistoryCell.identifier, bundle: nil)
+    }
 }

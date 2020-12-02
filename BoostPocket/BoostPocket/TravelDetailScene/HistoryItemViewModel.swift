@@ -21,7 +21,15 @@ protocol HistoryItemPresentable: AnyObject {
     var isPrepare: Bool? { get }
 }
 
-class HistoryItemViewModel: HistoryItemPresentable {
+class HistoryItemViewModel: HistoryItemPresentable, Hashable {
+    static func == (lhs: HistoryItemViewModel, rhs: HistoryItemViewModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     
     var id: UUID?
     var isIncome: Bool
