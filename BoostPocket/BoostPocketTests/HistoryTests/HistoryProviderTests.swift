@@ -106,5 +106,25 @@ class HistoryProviderTests: XCTestCase {
         XCTAssertTrue(historyProvider.deleteHistory(id: createdHistory?.id ?? UUID()))
         XCTAssertEqual(historyProvider.fetchHistories(), [])
     }
+    
+    func test_historyProvider_updateHistory() {
+        wait(for: [countriesExpectation, travelExpectation], timeout: 5.0)
+        
+        var createdHistory: History?
+        historyProvider.createHistory(createdHistoryInfo: historyInfo) { (history) in
+            createdHistory = history
+        }
+        XCTAssertNotNil(createdHistory)
+        
+        let updatingHistoryInfo = HistoryInfo(travelId: historyInfo.travelId, id: historyInfo.id, isIncome: true, title: "변경한 제목", memo: nil, date: "2019-11-30".convertToDate(), category: .income, amount: 13.4, image: nil, isPrepare: false, isCard: true)
+        
+        let updatedHistory = historyProvider.updateHistory(updatedHistoryInfo: updatingHistoryInfo)
+        
+        XCTAssertNotNil(updatedHistory)
+        XCTAssertEqual(updatedHistory?.travel?.id, historyInfo.travelId)
+        XCTAssertEqual(updatedHistory?.id, historyInfo.id)
+        XCTAssertEqual(updatedHistory?.title, "변경한 제목")
+        XCTAssertEqual(updatedHistory?.categoryState, HistoryCategory.income)
+    }
 
 }
