@@ -16,7 +16,8 @@ protocol PersistenceManagable: AnyObject {
     var persistentContainer: NSPersistentContainer { get }
     var context: NSManagedObjectContext { get }
     
-    func filterCountries(_ identifiers: [String], rates: [String : Double]) -> [String: String]
+    func createCountriesWithAPIRequest(completion: @escaping (Bool) -> Void)
+    func filterCountries(_ identifiers: [String], rates: [String: Double]) -> [String: String]
     func createObject<T>(newObjectInfo: T, completion: @escaping (DataModelProtocol?) -> Void)
     func fetchAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]?
@@ -52,21 +53,24 @@ class PersistenceManager: PersistenceManagable {
         self.dataLoader = dataLoader
     }
     
-    func createCountriesWithAPIRequest() {
+    func createCountriesWithAPIRequest(completion: @escaping (Bool) -> Void) {
         dataLoader?.requestExchangeRate(url: exchangeRateAPIurl) { [weak self] (result) in
-            guard let self = self,
-                let numberOfCountries = self.count(request: Country.fetchRequest())
-                else { return }
+            guard let self = self, let numberOfCountries = self.count(request: Country.fetchRequest()) else {
+                completion(false)
+                return
+            }
             
             switch result {
             case .success(let data):
                 if numberOfCountries <= 0 {
                     print("setup countries")
                     self.setupCountries(with: data)
+                    completion(true)
                 }
             case .failure(let error):
                 print("Network Error")
                 print(error.localizedDescription)
+                completion(false)
             }
         }
     }

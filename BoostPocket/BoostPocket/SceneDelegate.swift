@@ -27,7 +27,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let countryProvider = CountryProvider(persistenceManager: persistenceManager)
         let travelProvider = TravelProvider(persistenceManager: persistenceManager)
 
-        persistenceManager.createCountriesWithAPIRequest()
+        persistenceManager.createCountriesWithAPIRequest { (result) in
+            if result { print("국가 생성 성공") }
+            else { print("국가 생성 실패") }
+        }
         
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         guard let mainNavigationController = storyboard.instantiateViewController(identifier: "MainNavigationViewController") as? UINavigationController,
