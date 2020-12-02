@@ -12,6 +12,8 @@
 		5C15AB3E2577C32000244C6C /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C15AB3C2577C32000244C6C /* HistoryCell.swift */; };
 		5C15AB3F2577C32000244C6C /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C15AB3D2577C32000244C6C /* HistoryCell.xib */; };
 		5C15AB442577C96E00244C6C /* HistoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C15AB432577C96E00244C6C /* HistoryListViewController.swift */; };
+		5C15AB492577DED700244C6C /* HistoryHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C15AB482577DED700244C6C /* HistoryHeaderCell.swift */; };
+		5C15AB4E2577DEE900244C6C /* HistoryHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C15AB4D2577DEE900244C6C /* HistoryHeaderCell.xib */; };
 		5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */; };
 		5C3DAF302566576000178EA0 /* CountryListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */; };
 		5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3325665F0200178EA0 /* CountryCell.swift */; };
@@ -128,6 +130,8 @@
 		5C15AB3C2577C32000244C6C /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		5C15AB3D2577C32000244C6C /* HistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryCell.xib; sourceTree = "<group>"; };
 		5C15AB432577C96E00244C6C /* HistoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListViewController.swift; sourceTree = "<group>"; };
+		5C15AB482577DED700244C6C /* HistoryHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryHeaderCell.swift; sourceTree = "<group>"; };
+		5C15AB4D2577DEE900244C6C /* HistoryHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryHeaderCell.xib; sourceTree = "<group>"; };
 		5C3DAF2D2566576000178EA0 /* CountryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewController.swift; sourceTree = "<group>"; };
 		5C3DAF2E2566576000178EA0 /* CountryListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryListViewController.xib; sourceTree = "<group>"; };
 		5C3DAF3325665F0200178EA0 /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
@@ -311,6 +315,8 @@
 				5C15AB3C2577C32000244C6C /* HistoryCell.swift */,
 				5C15AB3D2577C32000244C6C /* HistoryCell.xib */,
 				5C15AB432577C96E00244C6C /* HistoryListViewController.swift */,
+				5C15AB482577DED700244C6C /* HistoryHeaderCell.swift */,
+				5C15AB4D2577DEE900244C6C /* HistoryHeaderCell.xib */,
 			);
 			path = TravelDetailScene;
 			sourceTree = "<group>";
@@ -641,6 +647,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C15AB4E2577DEE900244C6C /* HistoryHeaderCell.xib in Resources */,
 				5C15AB3F2577C32000244C6C /* HistoryCell.xib in Resources */,
 				5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */,
 				95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */,
@@ -792,6 +799,7 @@
 				954F7019256D1C4B00B2E48B /* TravelListViewModel.swift in Sources */,
 				A9BF7A71256E2D5900496CD8 /* Travel+CoreDataClass.swift in Sources */,
 				A99E062F257762520014C29F /* History+CoreDataClass.swift in Sources */,
+				5C15AB492577DED700244C6C /* HistoryHeaderCell.swift in Sources */,
 				9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */,
 				5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
 				95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */,

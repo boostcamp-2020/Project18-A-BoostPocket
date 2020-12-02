@@ -6,10 +6,6 @@
 //  Copyright © 2020 BoostPocket. All rights reserved.
 //
 
-enum HistoryListSection {
-    case main
-}
-
 struct DummyHistory: Hashable {
     var category: HistoryCategory
     var title: String
@@ -18,7 +14,7 @@ struct DummyHistory: Hashable {
 }
 
 struct HistoryListSectionHeader: Hashable {
-    var dayNumber: Int
+    var dayNumber: Int?
     var date: Date
     var amount: Double
 }
@@ -28,21 +24,23 @@ import UIKit
 class HistoryListViewController: UIViewController {
     typealias DataSource = UITableViewDiffableDataSource<HistoryListSectionHeader, DummyHistory>
     typealias Snapshot = NSDiffableDataSourceSnapshot<HistoryListSectionHeader, DummyHistory>
-
-    @IBOutlet weak var historyListTableView: UITableView!
     
+    @IBOutlet weak var historyListTableView: UITableView!
+    private let dummyVM = [
+        DummyHistory(category: .income, title: "수입", amount: 100000, date: Date()),
+        DummyHistory(category: .food, title: "마라탕", amount: 18000, date: Date()),
+        DummyHistory(category: .accommodation, title: "qweqwe", amount: 2000, date:  Date()),
+        DummyHistory(category: .food, title: "파스타", amount: 12000, date: Date()),
+        DummyHistory(category: .food, title: "김치찌개", amount: 10000, date: Date())
+    ]
     private lazy var dataSource = configureDatasource()
+    private lazy var headers = setupSection(with: dummyVM)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         historyListTableView.delegate = self
         historyListTableView.register(HistoryCell.getNib(), forCellReuseIdentifier: HistoryCell.identifier)
-        let dummyVM = [
-            DummyHistory(category: .income, title: "수입", amount: 100000, date: "2020-10-23".convertToDate()),
-            DummyHistory(category: .food, title: "마라탕", amount: 18000, date: "2020-11-23".convertToDate()),
-            DummyHistory(category: .food, title: "파스타", amount: 12000, date: "2020-11-25".convertToDate()),
-            DummyHistory(category: .food, title: "김치찌개", amount: 10000, date: "2020-12-01".convertToDate())
-        ]
+        historyListTableView.register(HistoryHeaderCell.getNib(), forHeaderFooterViewReuseIdentifier: HistoryHeaderCell.identifier)
         applySnapshot(with: dummyVM)
     }
     
@@ -74,6 +72,7 @@ class HistoryListViewController: UIViewController {
         histories.forEach { history in
             let amount = history.amount
             let date = history.date
+            // TODO: daynumber는 현재 날짜 - travelItemViewModel의 시작 날짜 + 1, 만약 음수면 prepare로 들어감
             if var day = days.filter({ Calendar.current.isDate(date, inSameDayAs: $0.date) }).first {
                 day.amount += amount
             } else {
@@ -90,5 +89,11 @@ class HistoryListViewController: UIViewController {
 extension HistoryListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return view.bounds.height * 0.1
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HistoryHeaderCell.identifier) as? HistoryHeaderCell else { return UIView() }
+        headerView.configure(with: headers[section].dayNumber, date: headers[section].date, amount: headers[section].amount)
+        return headerView
     }
 }
