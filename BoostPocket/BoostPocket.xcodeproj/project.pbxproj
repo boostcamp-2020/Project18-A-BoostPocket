@@ -64,7 +64,6 @@
 		A99E062F257762520014C29F /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E062D257762520014C29F /* History+CoreDataClass.swift */; };
 		A99E0630257762520014C29F /* History+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E062E257762520014C29F /* History+CoreDataProperties.swift */; };
 		A99E0639257763B90014C29F /* HistoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0638257763B90014C29F /* HistoryProvider.swift */; };
-		A99E063E257766DC0014C29F /* HistoryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E063D257766DC0014C29F /* HistoryListViewModel.swift */; };
 		A99E0646257766F50014C29F /* HistoryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0645257766F50014C29F /* HistoryItemViewModel.swift */; };
 		A99E064C257773430014C29F /* HistoryProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E064B257773430014C29F /* HistoryProviderTests.swift */; };
 		A99E065425778B130014C29F /* HistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E065325778B130014C29F /* HistoryViewModelTests.swift */; };
@@ -188,7 +187,6 @@
 		A99E062D257762520014C29F /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A99E062E257762520014C29F /* History+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A99E0638257763B90014C29F /* HistoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProvider.swift; sourceTree = "<group>"; };
-		A99E063D257766DC0014C29F /* HistoryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListViewModel.swift; sourceTree = "<group>"; };
 		A99E0645257766F50014C29F /* HistoryItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItemViewModel.swift; sourceTree = "<group>"; };
 		A99E064B257773430014C29F /* HistoryProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProviderTests.swift; sourceTree = "<group>"; };
 		A99E065325778B130014C29F /* HistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModelTests.swift; sourceTree = "<group>"; };
@@ -312,7 +310,6 @@
 				5CF409472575239200351F4B /* MemoEditViewController.swift */,
 				A99E0612257534F10014C29F /* TitleEditViewController.swift */,
 				A99E0638257763B90014C29F /* HistoryProvider.swift */,
-				A99E063D257766DC0014C29F /* HistoryListViewModel.swift */,
 				A99E0645257766F50014C29F /* HistoryItemViewModel.swift */,
 				5C15AB3C2577C32000244C6C /* HistoryCell.swift */,
 				5C15AB3D2577C32000244C6C /* HistoryCell.xib */,
@@ -796,7 +793,6 @@
 				A99E0646257766F50014C29F /* HistoryItemViewModel.swift in Sources */,
 				5CD76EB7256C933C00BD6CE3 /* Country+CoreDataClass.swift in Sources */,
 				5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */,
-				A99E063E257766DC0014C29F /* HistoryListViewModel.swift in Sources */,
 				A9BF7A37256D496C00496CD8 /* String+firstConsonant.swift in Sources */,
 				95747A69256FCEEA0065C419 /* Data+ImageData.swift in Sources */,
 				5C797493256FD263007CB1ED /* TravelHeaderCell.swift in Sources */,

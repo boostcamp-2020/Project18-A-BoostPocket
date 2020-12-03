@@ -31,7 +31,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         hasher.combine(id)
     }
     
-    var historyProvider: HistoryProvidable?
+    private weak var historyProvider: HistoryProvidable?
     var histories: [HistoryItemViewModel] = []
     var didFetch: (([HistoryItemViewModel]) -> Void)?
     
@@ -47,7 +47,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     var flagImage: Data?
     var currencyCode: String?
     
-    init(travel: TravelProtocol) {
+    init(travel: TravelProtocol, historyProvider: HistoryProvidable) {
         self.id = travel.id
         self.title = travel.title
         self.memo = travel.memo
@@ -60,8 +60,19 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         self.flagImage = travel.country?.flagImage
         self.currencyCode = travel.country?.currencyCode
         
-//        self.historyProvider = historyProvider
+        self.historyProvider = historyProvider
     }
+}
+
+protocol HistoryListPresentable {
+    var histories: [HistoryItemViewModel] { get }
+    var didFetch: (([HistoryItemViewModel]) -> Void)? { get set }
+    func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double,
+                       category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void)
+    func needFetchItems()
+    func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool?, isCard: Bool?) -> Bool
+    func deleteHistory(id: UUID) -> Bool
+    func numberOfItem() -> Int
 }
 
 extension TravelItemViewModel: HistoryListPresentable {
@@ -69,6 +80,7 @@ extension TravelItemViewModel: HistoryListPresentable {
     func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double, category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void) {
         
         let historyInfo = HistoryInfo(travelId: self.id ?? UUID(), id: id, isIncome: isIncome, title: title, memo: memo, date: date ?? Date(), category: category, amount: amount, image: image, isPrepare: isPrepare, isCard: isCard)
+        
         historyProvider?.createHistory(createdHistoryInfo: historyInfo) { history in
             guard let createdHistory = history else {
                 completion(nil)
@@ -81,18 +93,49 @@ extension TravelItemViewModel: HistoryListPresentable {
     }
     
     func needFetchItems() {
-        //
+        guard let fetchedHistories = historyProvider?.fetchHistories() else { return }
+        
+        histories.removeAll()
+        var newHistoryItemViewModels: [HistoryItemViewModel] = []
+        fetchedHistories.forEach { history in
+            newHistoryItemViewModels.append(HistoryItemViewModel(history: history))
+        }
+        
+        histories = newHistoryItemViewModels
     }
     
-    func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double, category: HistoryCategory, isPrepare: Bool, isCard: Bool) -> Bool {
-        return false
+    func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool?, isCard: Bool?) -> Bool {
+        
+        let historyInfo = HistoryInfo(travelId: self.id ?? UUID(), id: id, isIncome: isIncome, title: title, memo: memo, date: date ?? Date(), category: category, amount: amount, image: image, isPrepare: isPrepare, isCard: isCard)
+        
+        guard let updatedHistory = historyProvider?.updateHistory(updatedHistoryInfo: historyInfo),
+            let indexToUpdate = histories.indices.filter({ histories[$0].id == updatedHistory.id }).first
+            else { return false }
+        
+        histories[indexToUpdate].amount = updatedHistory.amount
+        histories[indexToUpdate].category = updatedHistory.categoryState
+        histories[indexToUpdate].date = updatedHistory.date ?? Date()
+        histories[indexToUpdate].image = updatedHistory.image
+        histories[indexToUpdate].isCard = updatedHistory.isCard
+        histories[indexToUpdate].isPrepare = updatedHistory.isPrepare
+        histories[indexToUpdate].memo = updatedHistory.memo
+        histories[indexToUpdate].title = updatedHistory.title ?? updatedHistory.categoryState.name
+        
+        return true
     }
     
     func deleteHistory(id: UUID) -> Bool {
+        if let historyProvider = historyProvider,
+            historyProvider.deleteHistory(id: id),
+            let indexToDelete = histories.indices.filter({ histories[$0].id == id }).first {
+            histories.remove(at: indexToDelete)
+            return true
+        }
+        
         return false
     }
     
     func numberOfItem() -> Int {
-        return 0
+        return histories.count
     }
 }

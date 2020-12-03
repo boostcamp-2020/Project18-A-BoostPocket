@@ -21,15 +21,7 @@ class TravelListViewController: UIViewController {
     
     var layout: Layout = .defaultLayout
     lazy var dataSource: DataSource = configureDataSource()
-    var travelListViewModel: TravelListPresentable? {
-        didSet {
-            
-            travelListViewModel?.didFetch = { [weak self] fetchedTravels in
-                self?.travelListCollectionView.reloadData()
-                self?.applySnapShot(with: fetchedTravels)
-            }
-        }
-    }
+    var travelListViewModel: TravelListPresentable?
     
     @IBOutlet weak var travelListCollectionView: UICollectionView!
     @IBOutlet var layoutButtons: [UIButton]!
@@ -43,6 +35,10 @@ class TravelListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         travelListViewModel?.needFetchItems()
+        travelListViewModel?.didFetch = { [weak self] fetchedTravels in
+            self?.travelListCollectionView.reloadData()
+            self?.applySnapShot(with: fetchedTravels)
+        }
     }
     
     private func configureCollectionView() {

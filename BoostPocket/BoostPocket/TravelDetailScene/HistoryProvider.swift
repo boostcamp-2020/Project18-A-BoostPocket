@@ -37,14 +37,34 @@ class HistoryProvider: HistoryProvidable {
     }
     
     func fetchHistories() -> [History] {
-        return []
+        guard let persistenceManager = persistenceManager else { return [] }
+        histories = persistenceManager.fetchAll(request: History.fetchRequest())
+        
+        return histories
     }
     
     func deleteHistory(id: UUID) -> Bool {
+        guard let indexToDelete = histories.indices.filter({ histories[$0].id == id }).first,
+            let persistenceManager = persistenceManager
+            else { return false }
+        
+        let deletingHistory = histories[indexToDelete]
+        if persistenceManager.delete(deletingObject: deletingHistory) {
+            
+            self.histories.remove(at: indexToDelete)
+            return true
+        }
+        
         return false
     }
     
     func updateHistory(updatedHistoryInfo: HistoryInfo) -> History? {
-        return nil
+        guard let persistenceManager = persistenceManager,
+            let updatedHistory = persistenceManager.updateObject(updatedObjectInfo: updatedHistoryInfo) as? History,
+            let indexToUpdate = histories.indices.filter({ histories[$0].id == updatedHistory.id }).first
+            else { return nil }
+        
+        self.histories[indexToUpdate] = updatedHistory
+        return updatedHistory
     }
 }
