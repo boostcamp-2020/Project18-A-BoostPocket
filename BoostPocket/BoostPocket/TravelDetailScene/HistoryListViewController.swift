@@ -37,6 +37,12 @@ class HistoryListViewController: UIViewController {
     @IBOutlet weak var moneySegmentedControl: UISegmentedControl!
     
     weak var travelItemViewModel: HistoryListPresentable?
+    
+    // 필터 조건 저장
+    private var isPrepare: Bool? = false
+    private var date: Date?
+    private var isCard: Bool?
+    
     private lazy var dataSource = configureDatasource()
     private lazy var headers = setupSection(with: travelItemViewModel?.histories ?? [])
     private lazy var refresher: UIRefreshControl = {
@@ -56,6 +62,7 @@ class HistoryListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        moneySegmentedControl.selectedSegmentIndex = 0
         travelItemViewModel?.needFetchItems()
         travelItemViewModel?.didFetch = { [weak self] fetchedHistories in
             self?.historyListTableView.reloadData()
@@ -142,45 +149,40 @@ class HistoryListViewController: UIViewController {
         view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/7).isActive = true
     }
     
-    @IBAction func indexChanged(_ sender: UISegmentedControl) {
-        let histories = travelItemViewModel?.histories ?? []
+    private func filterHistories(isPrepare: Bool?, date: Date?, isCard: Bool?) -> [HistoryItemViewModel] {
+        var histories = travelItemViewModel?.histories ?? []
+        if let card = isCard {
+            histories = histories.filter { $0.isCard == card }
+        }
+        if let prepare = isPrepare, prepare {
+            // date가 아님
+            histories = histories.filter { $0.isPrepare == prepare }
+        } else if let date = date {
+            histories = histories.filter { $0.date == date }
+        }
+        return histories
+    }
+    
+    @IBAction func moneySegmentedControlChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            applySnapshot(with: histories)
+            isCard = nil
         case 1:
-            let cashOnly = histories.filter { $0.isCard == false }
-            applySnapshot(with: cashOnly)
+            isCard = false
         default:
-            let cardOnly = histories.filter { $0.isCard == true }
-            applySnapshot(with: cardOnly)
+            isCard = true
         }
+        applySnapshot(with: filterHistories(isPrepare: isPrepare, date: date, isCard: isCard))
     }
+    
     @IBAction func allButtonTapped(_ sender: UIButton) {
-        let segmentedControlIndex = moneySegmentedControl.selectedSegmentIndex
-        guard var filteredHistories: [HistoryItemViewModel] = travelItemViewModel?.histories else { return }
-        switch segmentedControlIndex {
-        case 1:
-            filteredHistories = filteredHistories.filter { $0.isCard == false }
-        case 2:
-            filteredHistories = filteredHistories.filter { $0.isCard == false }
-        default:
-            break
-        }
-        applySnapshot(with: filteredHistories)
+        isPrepare = false
+        applySnapshot(with: filterHistories(isPrepare: isPrepare, date: date, isCard: isCard))
     }
     
     @IBAction func prepareButtonTapped(_ sender: UIButton) {
-        let segmentedControlIndex = moneySegmentedControl.selectedSegmentIndex
-        guard var filteredHistories: [HistoryItemViewModel] = travelItemViewModel?.histories.filter({ $0.isPrepare == true }) else { return }
-        switch segmentedControlIndex {
-        case 1:
-            filteredHistories = filteredHistories.filter { $0.isCard == false }
-        case 2:
-            filteredHistories = filteredHistories.filter { $0.isCard == false }
-        default:
-            break
-        }
-        applySnapshot(with: filteredHistories)
+        isPrepare = true
+        applySnapshot(with: filterHistories(isPrepare: isPrepare, date: date, isCard: isCard))
     }
     
 }
