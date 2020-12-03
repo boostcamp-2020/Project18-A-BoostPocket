@@ -21,7 +21,7 @@ class HistoryHeaderCell: UITableViewHeaderFooterView {
     @IBOutlet weak var amountLabel: UILabel!
     
     func configure(with day: Int?, date: Date, amount: Double) {
-        if let day = day {
+        if let day = day, day > 0 {
             dayLabel.text = "DAY \(day)"
         } else {
             dayLabel.text = ""
