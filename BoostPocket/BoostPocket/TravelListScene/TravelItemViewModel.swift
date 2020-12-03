@@ -104,7 +104,9 @@ extension TravelItemViewModel: HistoryListPresentable {
         histories.removeAll()
         var newHistoryItemViewModels: [HistoryItemViewModel] = []
         fetchedHistories.forEach { history in
-            newHistoryItemViewModels.append(HistoryItemViewModel(history: history))
+            if history.travel?.id == self.id {
+                newHistoryItemViewModels.append(HistoryItemViewModel(history: history))
+            }
         }
         
         histories = newHistoryItemViewModels

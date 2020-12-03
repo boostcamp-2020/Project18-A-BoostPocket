@@ -80,8 +80,7 @@ class PersistenceManagerTests: XCTestCase {
         wait(for: [countryExpectation, travelExpectation], timeout: 5.0)
         
         var createdHistory: History?
-        persistenceManagerStub.createObject(newObjectInfo: historyInfo) {
-            (createdObject) in
+        persistenceManagerStub.createObject(newObjectInfo: historyInfo) { createdObject in
             createdHistory = createdObject as? History
             XCTAssertNotNil(createdHistory)
         }

@@ -53,6 +53,8 @@
 		9572F9B3256B974C003049CB /* PersistenceManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */; };
 		95747A67256FAF6B0065C419 /* TravelDetailTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95747A66256FAF6B0065C419 /* TravelDetailTabbarController.swift */; };
 		95747A69256FCEEA0065C419 /* Data+ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95747A68256FCEEA0065C419 /* Data+ImageData.swift */; };
+		9574ACD02578B4C10072C578 /* AddHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9574ACCE2578B4C10072C578 /* AddHistoryViewController.swift */; };
+		9574ACD12578B4C10072C578 /* AddHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9574ACCF2578B4C10072C578 /* AddHistoryViewController.xib */; };
 		9579CBB7256E46A900E74A61 /* DataModelInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9579CBB6256E46A900E74A61 /* DataModelInfo.swift */; };
 		9581C709256E34AC006ABA8E /* PersistenceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9581C708256E34AC006ABA8E /* PersistenceManagerTests.swift */; };
 		95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E7925664DBE0007810C /* AppDelegate.swift */; };
@@ -173,6 +175,8 @@
 		9572F9B2256B974C003049CB /* PersistenceManagerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManagerStub.swift; sourceTree = "<group>"; };
 		95747A66256FAF6B0065C419 /* TravelDetailTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDetailTabbarController.swift; sourceTree = "<group>"; };
 		95747A68256FCEEA0065C419 /* Data+ImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+ImageData.swift"; sourceTree = "<group>"; };
+		9574ACCE2578B4C10072C578 /* AddHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHistoryViewController.swift; sourceTree = "<group>"; };
+		9574ACCF2578B4C10072C578 /* AddHistoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddHistoryViewController.xib; sourceTree = "<group>"; };
 		9579CBB6256E46A900E74A61 /* DataModelInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelInfo.swift; sourceTree = "<group>"; };
 		9581C708256E34AC006ABA8E /* PersistenceManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManagerTests.swift; sourceTree = "<group>"; };
 		95A42E7625664DBE0007810C /* BoostPocket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoostPocket.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -321,6 +325,8 @@
 				5C15AB482577DED700244C6C /* HistoryHeaderCell.swift */,
 				5C15AB4D2577DEE900244C6C /* HistoryHeaderCell.xib */,
 				5C7F83622578B40400A58112 /* DayCell.swift */,
+				9574ACCE2578B4C10072C578 /* AddHistoryViewController.swift */,
+				9574ACCF2578B4C10072C578 /* AddHistoryViewController.xib */,
 			);
 			path = TravelDetailScene;
 			sourceTree = "<group>";
@@ -656,6 +662,7 @@
 				5C15AB4E2577DEE900244C6C /* HistoryHeaderCell.xib in Resources */,
 				5C15AB3F2577C32000244C6C /* HistoryCell.xib in Resources */,
 				5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */,
+				9574ACD12578B4C10072C578 /* AddHistoryViewController.xib in Resources */,
 				95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */,
 				5C797494256FD263007CB1ED /* TravelHeaderCell.xib in Resources */,
 				A9BF7A87256F420D00496CD8 /* TravelCell.xib in Resources */,
@@ -783,6 +790,7 @@
 				5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */,
 				5C7F83632578B40400A58112 /* DayCell.swift in Sources */,
 				95747A67256FAF6B0065C419 /* TravelDetailTabbarController.swift in Sources */,
+				9574ACD02578B4C10072C578 /* AddHistoryViewController.swift in Sources */,
 				9579CBB7256E46A900E74A61 /* DataModelInfo.swift in Sources */,
 				5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */,
 				5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */,
