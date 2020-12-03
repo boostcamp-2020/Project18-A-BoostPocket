@@ -97,6 +97,7 @@ class HistoryListViewController: UIViewController {
     
     private func applySnapshot(with histories: [HistoryItemViewModel]) {
         var snapshot = Snapshot()
+        headers = setupSection(with: histories)
         snapshot.appendSections(headers)
         histories.forEach { history in
             if let section = headers.filter({ Calendar.current.isDate(history.date, inSameDayAs: $0.date) }).first {
@@ -154,6 +155,34 @@ class HistoryListViewController: UIViewController {
             applySnapshot(with: cardOnly)
         }
     }
+    @IBAction func allButtonTapped(_ sender: UIButton) {
+        let segmentedControlIndex = moneySegmentedControl.selectedSegmentIndex
+        guard var filteredHistories: [HistoryItemViewModel] = travelItemViewModel?.histories else { return }
+        switch segmentedControlIndex {
+        case 1:
+            filteredHistories = filteredHistories.filter { $0.isCard == false }
+        case 2:
+            filteredHistories = filteredHistories.filter { $0.isCard == false }
+        default:
+            break
+        }
+        applySnapshot(with: filteredHistories)
+    }
+    
+    @IBAction func prepareButtonTapped(_ sender: UIButton) {
+        let segmentedControlIndex = moneySegmentedControl.selectedSegmentIndex
+        guard var filteredHistories: [HistoryItemViewModel] = travelItemViewModel?.histories.filter({ $0.isPrepare == true }) else { return }
+        switch segmentedControlIndex {
+        case 1:
+            filteredHistories = filteredHistories.filter { $0.isCard == false }
+        case 2:
+            filteredHistories = filteredHistories.filter { $0.isCard == false }
+        default:
+            break
+        }
+        applySnapshot(with: filteredHistories)
+    }
+    
 }
 
 extension HistoryListViewController: UITableViewDelegate {
@@ -166,7 +195,6 @@ extension HistoryListViewController: UITableViewDelegate {
             // TODO: - 더 효율적으로 빈 headers 처리하는 방법 고민하기
             !headers.isEmpty
             else { return nil }
-        
         headerView.configure(with: headers[section].dayNumber, date: headers[section].date, amount: headers[section].amount)
         return headerView
     }
