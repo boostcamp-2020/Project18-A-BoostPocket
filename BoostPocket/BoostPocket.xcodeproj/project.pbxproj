@@ -23,6 +23,8 @@
 		5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */; };
 		5C797493256FD263007CB1ED /* TravelHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C797491256FD263007CB1ED /* TravelHeaderCell.swift */; };
 		5C797494256FD263007CB1ED /* TravelHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C797492256FD263007CB1ED /* TravelHeaderCell.xib */; };
+		5C7F83632578B40400A58112 /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F83622578B40400A58112 /* DayCell.swift */; };
+		5C7F83682578C77A00A58112 /* Date+PeriodOfDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F83672578C77A00A58112 /* Date+PeriodOfDates.swift */; };
 		5C89619E256E917300575677 /* TravelStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C89619D256E917300575677 /* TravelStub.swift */; };
 		5C8C9196256E8436008C3919 /* TravelItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */; };
 		5C8C91AD256E8F0F008C3919 /* TravelViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C91AC256E8F0F008C3919 /* TravelViewModelTests.swift */; };
@@ -141,6 +143,8 @@
 		5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryItemViewModel.swift; sourceTree = "<group>"; };
 		5C797491256FD263007CB1ED /* TravelHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelHeaderCell.swift; sourceTree = "<group>"; };
 		5C797492256FD263007CB1ED /* TravelHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravelHeaderCell.xib; sourceTree = "<group>"; };
+		5C7F83622578B40400A58112 /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
+		5C7F83672578C77A00A58112 /* Date+PeriodOfDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+PeriodOfDates.swift"; sourceTree = "<group>"; };
 		5C89619D256E917300575677 /* TravelStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelStub.swift; path = BoostPocketTests/TravelTests/TravelStub.swift; sourceTree = SOURCE_ROOT; };
 		5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelItemViewModel.swift; sourceTree = "<group>"; };
 		5C8C91AC256E8F0F008C3919 /* TravelViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelViewModelTests.swift; path = BoostPocketTests/TravelTests/TravelViewModelTests.swift; sourceTree = SOURCE_ROOT; };
@@ -316,6 +320,7 @@
 				5C15AB432577C96E00244C6C /* HistoryListViewController.swift */,
 				5C15AB482577DED700244C6C /* HistoryHeaderCell.swift */,
 				5C15AB4D2577DEE900244C6C /* HistoryHeaderCell.xib */,
+				5C7F83622578B40400A58112 /* DayCell.swift */,
 			);
 			path = TravelDetailScene;
 			sourceTree = "<group>";
@@ -476,6 +481,7 @@
 				95747A68256FCEEA0065C419 /* Data+ImageData.swift */,
 				A9BF7AA4256F9B8800496CD8 /* Date+ConvertToString.swift */,
 				5CAE96652577FC6300FD7F05 /* Double+Comma.swift */,
+				5C7F83672578C77A00A58112 /* Date+PeriodOfDates.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -775,6 +781,7 @@
 			files = (
 				95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */,
 				5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */,
+				5C7F83632578B40400A58112 /* DayCell.swift in Sources */,
 				95747A67256FAF6B0065C419 /* TravelDetailTabbarController.swift in Sources */,
 				9579CBB7256E46A900E74A61 /* DataModelInfo.swift in Sources */,
 				5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */,
@@ -797,6 +804,7 @@
 				95747A69256FCEEA0065C419 /* Data+ImageData.swift in Sources */,
 				5C797493256FD263007CB1ED /* TravelHeaderCell.swift in Sources */,
 				954F7019256D1C4B00B2E48B /* TravelListViewModel.swift in Sources */,
+				5C7F83682578C77A00A58112 /* Date+PeriodOfDates.swift in Sources */,
 				A9BF7A71256E2D5900496CD8 /* Travel+CoreDataClass.swift in Sources */,
 				A99E062F257762520014C29F /* History+CoreDataClass.swift in Sources */,
 				5C15AB492577DED700244C6C /* HistoryHeaderCell.swift in Sources */,

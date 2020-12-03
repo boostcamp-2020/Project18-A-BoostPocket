@@ -36,27 +36,25 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NrH-bA-9YK">
                                         <rect key="frame" x="0.0" y="0.0" width="295.5" height="59"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jFB-Ve-ziB">
-                                                <rect key="frame" x="0.0" y="0.0" width="256" height="59"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="jFB-Ve-ziB">
+                                                <rect key="frame" x="0.0" y="0.0" width="46" height="59"/>
                                             </stackView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="lHP-6R-CKr" firstAttribute="top" secondItem="jFB-Ve-ziB" secondAttribute="top" id="5Ad-qv-LHB"/>
-                                            <constraint firstItem="jFB-Ve-ziB" firstAttribute="leading" secondItem="lHP-6R-CKr" secondAttribute="leading" id="F8E-XE-UQf"/>
-                                            <constraint firstItem="jFB-Ve-ziB" firstAttribute="bottom" secondItem="lHP-6R-CKr" secondAttribute="bottom" id="Rou-Bu-QSI"/>
-                                            <constraint firstItem="jFB-Ve-ziB" firstAttribute="height" secondItem="y6O-TN-FIF" secondAttribute="height" id="ddH-Lb-l6Z"/>
-                                            <constraint firstItem="jFB-Ve-ziB" firstAttribute="trailing" secondItem="lHP-6R-CKr" secondAttribute="trailing" id="s2k-qv-GkZ"/>
+                                            <constraint firstItem="jFB-Ve-ziB" firstAttribute="top" secondItem="NrH-bA-9YK" secondAttribute="top" id="ca3-um-G55"/>
+                                            <constraint firstAttribute="bottom" secondItem="jFB-Ve-ziB" secondAttribute="bottom" id="jNu-X7-Ccr"/>
+                                            <constraint firstItem="jFB-Ve-ziB" firstAttribute="leading" secondItem="NrH-bA-9YK" secondAttribute="leading" id="kyV-Xz-j2m"/>
+                                            <constraint firstAttribute="trailing" secondItem="jFB-Ve-ziB" secondAttribute="trailing" id="vQu-LW-R1X"/>
                                         </constraints>
-                                        <viewLayoutGuide key="contentLayoutGuide" id="lHP-6R-CKr"/>
-                                        <viewLayoutGuide key="frameLayoutGuide" id="y6O-TN-FIF"/>
                                     </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="NrH-bA-9YK" firstAttribute="top" secondItem="Z3N-xh-feq" secondAttribute="top" id="0nW-eS-1rR"/>
-                                    <constraint firstItem="NrH-bA-9YK" firstAttribute="leading" secondItem="Z3N-xh-feq" secondAttribute="leading" id="dsc-4d-jzP"/>
-                                    <constraint firstAttribute="trailing" secondItem="NrH-bA-9YK" secondAttribute="trailing" id="jbg-vM-CgG"/>
-                                    <constraint firstAttribute="bottom" secondItem="NrH-bA-9YK" secondAttribute="bottom" id="k7e-he-gWq"/>
+                                    <constraint firstAttribute="bottom" secondItem="NrH-bA-9YK" secondAttribute="bottom" id="BeG-kR-7Bc"/>
+                                    <constraint firstItem="jFB-Ve-ziB" firstAttribute="height" secondItem="Z3N-xh-feq" secondAttribute="height" id="Uxo-A3-1Jj"/>
+                                    <constraint firstAttribute="trailing" secondItem="NrH-bA-9YK" secondAttribute="trailing" id="XBf-J0-QjP"/>
+                                    <constraint firstItem="NrH-bA-9YK" firstAttribute="leading" secondItem="Z3N-xh-feq" secondAttribute="leading" id="atY-98-Z4f"/>
+                                    <constraint firstItem="NrH-bA-9YK" firstAttribute="top" secondItem="Z3N-xh-feq" secondAttribute="top" id="nYt-WQ-L5c"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TlZ-ef-Dwf">
@@ -88,6 +86,7 @@
                     <tabBarItem key="tabBarItem" title="지출목록" image="list.bullet" catalog="system" id="wRC-jA-Szt"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="dayStackView" destination="jFB-Ve-ziB" id="i3D-iC-EMT"/>
                         <outlet property="historyListTableView" destination="7Iu-bN-RtM" id="Ezw-Jg-mt0"/>
                     </connections>
                 </viewController>
