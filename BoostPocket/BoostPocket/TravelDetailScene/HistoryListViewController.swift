@@ -59,7 +59,6 @@ class HistoryListViewController: UIViewController {
             self?.historyListTableView.reloadData()
             self?.applySnapshot(with: fetchedHistories)
         }
-        
     }
 
     @objc private func addHistory() {
@@ -79,7 +78,6 @@ class HistoryListViewController: UIViewController {
     
     private func configureDatasource() -> DataSource {
         let datasource = DataSource(tableView: historyListTableView) { (tableview, indexPath, item) -> UITableViewCell? in
-            print(item.category.name)
             guard let cell = tableview.dequeueReusableCell(withIdentifier: HistoryCell.identifier, for: indexPath) as? HistoryCell else { return UITableViewCell() }
             cell.configure(with: item)
             
@@ -101,17 +99,16 @@ class HistoryListViewController: UIViewController {
     }
     
     private func setupSection(with histories: [HistoryItemViewModel]) -> [HistoryListSectionHeader] {
-        var dayNumber = 1
+        guard let startDate = travelItemViewModel?.startDate else { return [] }
         var days = Set<HistoryListSectionHeader>()
         histories.forEach { history in
+            let day = startDate.interval(ofComponent: .day, fromDate: history.date)
             let amount = history.amount
             let date = history.date
-            // TODO: daynumber는 현재 날짜 - travelItemViewModel의 시작 날짜 + 1, 만약 음수면 prepare로 들어감
             if let day = days.filter({ Calendar.current.isDate(date, inSameDayAs: $0.date) }).first {
                 day.amount += amount
             } else {
-                days.insert(HistoryListSectionHeader(dayNumber: dayNumber, date: date, amount: amount))
-                dayNumber += 1
+                days.insert(HistoryListSectionHeader(dayNumber: day + 1, date: date, amount: amount))
             }
         }
         var sections = [HistoryListSectionHeader](days)

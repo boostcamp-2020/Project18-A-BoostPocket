@@ -108,7 +108,6 @@ extension TravelItemViewModel: HistoryListPresentable {
                 newHistoryItemViewModels.append(HistoryItemViewModel(history: history))
             }
         }
-        
         histories = newHistoryItemViewModels
     }
     
