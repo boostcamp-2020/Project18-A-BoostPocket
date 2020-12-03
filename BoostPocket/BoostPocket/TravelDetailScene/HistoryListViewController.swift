@@ -38,18 +38,12 @@ class HistoryListViewController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureSegmentedControl()
-        setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
-        
-//        travelItemViewModel?.createHistory(id: UUID(), isIncome: true, title: "수입", memo: nil, date: "2020-12-03".convertToDate(), image: Data(), amount: 5000, category: .income, isPrepare: false, isCard: false) { _ in
-//            print("생성")
-//        }
-//        travelItemViewModel?.createHistory(id: UUID(), isIncome: false, title: "지출",memo: nil, date: "2020-12-03".convertToDate(), image: Data(), amount: 5000, category: .food, isPrepare: false, isCard: false) { _ in
-//            print("생성")
-//        }
+        // setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
         moneySegmentedControl.selectedSegmentIndex = 0
         travelItemViewModel?.needFetchItems()
         travelItemViewModel?.didFetch = { [weak self] fetchedHistories in
@@ -133,6 +127,7 @@ class HistoryListViewController: UIViewController {
     }
     
     private func setupDays(from startDate: Date?, to endDate: Date?) {
+        dayStackView.removeAllArrangedSubviews()
         guard let startDate = travelItemViewModel?.startDate,
             let endDate = travelItemViewModel?.endDate else { return }
         let days = startDate.getPeriodOfDates(with: endDate)
@@ -226,4 +221,17 @@ extension HistoryListViewController: DayButtonDelegate {
         applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: self.date, isCard: isCard))
     }
     
+}
+
+extension UIStackView {
+    func removeAllArrangedSubviews() {
+        let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
+            self.removeArrangedSubview(subview)
+            return allSubviews + [subview]
+        }
+        // Deactivate all constraints
+        NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
+        // Remove the views from self
+        removedSubviews.forEach({ $0.removeFromSuperview() })
+    }
 }
