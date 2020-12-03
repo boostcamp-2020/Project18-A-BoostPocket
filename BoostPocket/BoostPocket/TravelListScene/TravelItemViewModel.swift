@@ -32,7 +32,13 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     }
     
     private weak var historyProvider: HistoryProvidable?
-    var histories: [HistoryItemViewModel] = []
+    var histories: [HistoryItemViewModel] = [] {
+        willSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.didFetch?(newValue)
+            }
+        }
+    }
     var didFetch: (([HistoryItemViewModel]) -> Void)?
     
     var id: UUID?
@@ -64,7 +70,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     }
 }
 
-protocol HistoryListPresentable {
+protocol HistoryListPresentable: TravelItemPresentable {
     var histories: [HistoryItemViewModel] { get }
     var didFetch: (([HistoryItemViewModel]) -> Void)? { get set }
     func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double,
