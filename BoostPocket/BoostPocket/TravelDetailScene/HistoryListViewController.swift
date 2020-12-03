@@ -147,9 +147,10 @@ extension HistoryListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        guard let selectedHistoryViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
         if let historyDetailVC = self.storyboard?.instantiateViewController(identifier: "HistoryDetailViewController") as? HistoryDetailViewController {
             self.present(historyDetailVC, animated: true, completion: nil)
-            historyDetailVC.initDetailView(state: false)
+            historyDetailVC.initDetailView(history: selectedHistoryViewModel)
         }
     }
     
