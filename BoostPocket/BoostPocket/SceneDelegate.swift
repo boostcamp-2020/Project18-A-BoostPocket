@@ -16,6 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var persistenceManager: PersistenceManagable?
     var countryProvider: CountryProvidable?
     var travelProvider: TravelProvidable?
+    var historyProvider: HistoryProvidable?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -26,6 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let persistenceManager = PersistenceManager(dataLoader: dataLoader)
         let countryProvider = CountryProvider(persistenceManager: persistenceManager)
         let travelProvider = TravelProvider(persistenceManager: persistenceManager)
+        let historyProvider = HistoryProvider(persistenceManager: persistenceManager)
 
         persistenceManager.createCountriesWithAPIRequest { (result) in
             if result {
@@ -39,7 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let mainNavigationController = storyboard.instantiateViewController(identifier: "MainNavigationViewController") as? UINavigationController,
             let travelListVC = mainNavigationController.topViewController as? TravelListViewController else { return }
         
-        travelListVC.travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider)
+        travelListVC.travelListViewModel = TravelListViewModel(countryProvider: countryProvider, travelProvider: travelProvider, historyProvider: historyProvider)
         
         self.window?.rootViewController = mainNavigationController
         self.window?.makeKeyAndVisible()
@@ -48,6 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.persistenceManager = persistenceManager
         self.countryProvider = countryProvider
         self.travelProvider = travelProvider
+        self.historyProvider = historyProvider
     }
     
     func sceneDidDisconnect(_ scene: UIScene) { }

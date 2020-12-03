@@ -16,15 +16,7 @@ class CountryListViewController: UIViewController {
     
     var dataSource: DataSource!
     var doneButtonHandler: ((CountryItemViewModel) -> Void)?
-    var countryListViewModel: CountryListPresentable? {
-        didSet {
-            countryListViewModel?.didFetch = { [weak self] fetchedCountries in
-                guard let self = self else { return }
-                
-                self.applySnapShot(with: fetchedCountries)
-            }
-        }
-    }
+    var countryListViewModel: CountryListPresentable?
     
     @IBOutlet weak var countryListTableView: UITableView!
     @IBOutlet weak var countrySearchBar: UISearchBar!
@@ -40,6 +32,9 @@ class CountryListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         countryListViewModel?.needFetchItems()
+        countryListViewModel?.didFetch = { [weak self] fetchedCountries in
+            self?.applySnapShot(with: fetchedCountries)
+        }
     }
     
     private func configureTableView() {
@@ -48,7 +43,7 @@ class CountryListViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(doneButtonTapped))
         title = "여행할 나라를 선택해주세요"
     }
     
