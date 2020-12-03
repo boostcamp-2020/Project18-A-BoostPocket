@@ -6,29 +6,10 @@
 //  Copyright © 2020 BoostPocket. All rights reserved.
 //
 
-class HistoryListSectionHeader: Hashable {
-    static func == (lhs: HistoryListSectionHeader, rhs: HistoryListSectionHeader) -> Bool {
-        return lhs.dayNumber == rhs.dayNumber
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(dayNumber)
-    }
-    
-    var dayNumber: Int?
-    var date: Date
-    var amount: Double
-    
-    init(dayNumber: Int?, date: Date, amount: Double) {
-        self.dayNumber = dayNumber
-        self.date = date
-        self.amount = amount
-    }
-}
-
 import UIKit
 
 class HistoryListViewController: UIViewController {
+    
     typealias DataSource = UITableViewDiffableDataSource<HistoryListSectionHeader, HistoryItemViewModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<HistoryListSectionHeader, HistoryItemViewModel>
     
@@ -39,7 +20,7 @@ class HistoryListViewController: UIViewController {
     weak var travelItemViewModel: HistoryListPresentable?
     
     // 필터 조건 저장
-    private var isPrepare: Bool? = false
+    private var isPrepareOnly: Bool? = false
     private var date: Date?
     private var isCard: Bool?
     
@@ -69,7 +50,7 @@ class HistoryListViewController: UIViewController {
             self?.applySnapshot(with: fetchedHistories)
         }
     }
-
+    
     @objc private func addHistory() {
         let addHistoryVC = AddHistoryViewController(nibName: AddHistoryViewController.identifier, bundle: nil)
         addHistoryVC.travelItemViewModel = self.travelItemViewModel
@@ -144,6 +125,7 @@ class HistoryListViewController: UIViewController {
     
     private func setupDayCell(with date: Date) {
         let view = DayCell(frame: CGRect(), date: date)
+        view.delegate = self
         dayStackView.addArrangedSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/7).isActive = true
@@ -155,10 +137,9 @@ class HistoryListViewController: UIViewController {
             histories = histories.filter { $0.isCard == card }
         }
         if let prepare = isPrepare, prepare {
-            // date가 아님
             histories = histories.filter { $0.isPrepare == prepare }
         } else if let date = date {
-            histories = histories.filter { $0.date == date }
+            histories = histories.filter { Calendar.current.isDate(date, inSameDayAs: $0.date) }
         }
         return histories
     }
@@ -172,17 +153,17 @@ class HistoryListViewController: UIViewController {
         default:
             isCard = true
         }
-        applySnapshot(with: filterHistories(isPrepare: isPrepare, date: date, isCard: isCard))
+        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: date, isCard: isCard))
     }
     
     @IBAction func allButtonTapped(_ sender: UIButton) {
-        isPrepare = false
-        applySnapshot(with: filterHistories(isPrepare: isPrepare, date: date, isCard: isCard))
+        isPrepareOnly = false
+        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: date, isCard: isCard))
     }
     
     @IBAction func prepareButtonTapped(_ sender: UIButton) {
-        isPrepare = true
-        applySnapshot(with: filterHistories(isPrepare: isPrepare, date: date, isCard: isCard))
+        isPrepareOnly = true
+        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: date, isCard: isCard))
     }
     
 }
@@ -194,10 +175,27 @@ extension HistoryListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HistoryHeaderCell.identifier) as? HistoryHeaderCell,
-            // TODO: - 더 효율적으로 빈 headers 처리하는 방법 고민하기
-            !headers.isEmpty
-            else { return nil }
+              // TODO: - 더 효율적으로 빈 headers 처리하는 방법 고민하기
+              !headers.isEmpty
+        else { return nil }
         headerView.configure(with: headers[section].dayNumber, date: headers[section].date, amount: headers[section].amount)
         return headerView
     }
+}
+
+extension HistoryListViewController: DayButtonDelegate {
+    func dayButtonTapped(_ sender: UIButton) {
+        let subviews = dayStackView.subviews
+        for index in 0..<subviews.count {
+            if let _ = subviews[index].subviews.filter({ $0 == sender }).first as? UIButton {
+                guard let startDate = travelItemViewModel?.startDate,
+                      let tappedDate = Calendar.current.date(byAdding: .day, value: index, to: startDate) else { return }
+                date = tappedDate
+                isPrepareOnly = nil
+                break
+            }
+        }
+        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: self.date, isCard: isCard))
+    }
+    
 }

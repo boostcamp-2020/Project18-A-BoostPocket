@@ -21,6 +21,7 @@ class TravelProfileViewController: UIViewController {
     @IBOutlet weak var travelMemoLabel: UILabel!
     @IBOutlet weak var travelTitleLabel: UILabel!
     @IBOutlet weak var flagImage: UIImageView!
+    @IBOutlet weak var countryNameLabel: UILabel!
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
     @IBOutlet weak var coverImage: UIImageView!
@@ -54,6 +55,7 @@ class TravelProfileViewController: UIViewController {
         } else {
             travelMemoLabel.text = "여행을 위한 메모를 입력해보세요"
         }
+        self.countryNameLabel.text = travelItemViewModel?.countryName
         self.flagImage.image = UIImage(data: travelItemViewModel?.flagImage ?? Data())
         self.startDatePicker.date = travelItemViewModel?.startDate ?? Date()
         self.endDatePicker.date = travelItemViewModel?.endDate ?? Date()

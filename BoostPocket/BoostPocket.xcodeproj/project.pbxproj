@@ -25,6 +25,7 @@
 		5C797494256FD263007CB1ED /* TravelHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C797492256FD263007CB1ED /* TravelHeaderCell.xib */; };
 		5C7F83632578B40400A58112 /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F83622578B40400A58112 /* DayCell.swift */; };
 		5C7F83682578C77A00A58112 /* Date+PeriodOfDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F83672578C77A00A58112 /* Date+PeriodOfDates.swift */; };
+		5C7F8373257902A100A58112 /* HistoryListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F8372257902A000A58112 /* HistoryListSectionHeader.swift */; };
 		5C89619E256E917300575677 /* TravelStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C89619D256E917300575677 /* TravelStub.swift */; };
 		5C8C9196256E8436008C3919 /* TravelItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */; };
 		5C8C91AD256E8F0F008C3919 /* TravelViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C91AC256E8F0F008C3919 /* TravelViewModelTests.swift */; };
@@ -147,6 +148,7 @@
 		5C797492256FD263007CB1ED /* TravelHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravelHeaderCell.xib; sourceTree = "<group>"; };
 		5C7F83622578B40400A58112 /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		5C7F83672578C77A00A58112 /* Date+PeriodOfDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+PeriodOfDates.swift"; sourceTree = "<group>"; };
+		5C7F8372257902A000A58112 /* HistoryListSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListSectionHeader.swift; sourceTree = "<group>"; };
 		5C89619D256E917300575677 /* TravelStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelStub.swift; path = BoostPocketTests/TravelTests/TravelStub.swift; sourceTree = SOURCE_ROOT; };
 		5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelItemViewModel.swift; sourceTree = "<group>"; };
 		5C8C91AC256E8F0F008C3919 /* TravelViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelViewModelTests.swift; path = BoostPocketTests/TravelTests/TravelViewModelTests.swift; sourceTree = SOURCE_ROOT; };
@@ -327,6 +329,7 @@
 				5C7F83622578B40400A58112 /* DayCell.swift */,
 				9574ACCE2578B4C10072C578 /* AddHistoryViewController.swift */,
 				9574ACCF2578B4C10072C578 /* AddHistoryViewController.xib */,
+				5C7F8372257902A000A58112 /* HistoryListSectionHeader.swift */,
 			);
 			path = TravelDetailScene;
 			sourceTree = "<group>";
@@ -815,6 +818,7 @@
 				5C7F83682578C77A00A58112 /* Date+PeriodOfDates.swift in Sources */,
 				A9BF7A71256E2D5900496CD8 /* Travel+CoreDataClass.swift in Sources */,
 				A99E062F257762520014C29F /* History+CoreDataClass.swift in Sources */,
+				5C7F8373257902A100A58112 /* HistoryListSectionHeader.swift in Sources */,
 				5C15AB492577DED700244C6C /* HistoryHeaderCell.swift in Sources */,
 				9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */,
 				5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
