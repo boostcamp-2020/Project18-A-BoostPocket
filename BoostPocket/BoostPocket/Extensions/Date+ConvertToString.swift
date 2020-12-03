@@ -12,6 +12,8 @@ enum DateFormats: String {
     case dotted = "yyyy. MM. dd."
     case dashed = "yyyy-MM-dd."
     case korean = "yyyy년 MM월 dd일"
+    case month = "MM월"
+    case day = "dd"
     case time = "hh:mm"
 }
 
