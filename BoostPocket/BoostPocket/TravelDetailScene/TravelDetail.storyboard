@@ -14,26 +14,29 @@
         <!--RecordList-->
         <scene sceneID="CeV-ga-obw">
             <objects>
-                <viewController title="RecordList" id="fmi-ND-nuS" sceneMemberID="viewController">
+                <viewController title="RecordList" id="fmi-ND-nuS" customClass="HistoryListViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oSf-dj-s8a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아직 준비중이에요💁‍♂️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA7-O4-NF8">
-                                <rect key="frame" x="134.5" y="437.5" width="145" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7Iu-bN-RtM">
+                                <rect key="frame" x="0.0" y="144" width="414" height="569"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gwU-vf-3l1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="nA7-O4-NF8" firstAttribute="centerY" secondItem="oSf-dj-s8a" secondAttribute="centerY" id="lCR-yy-TRh"/>
-                            <constraint firstItem="nA7-O4-NF8" firstAttribute="centerX" secondItem="oSf-dj-s8a" secondAttribute="centerX" id="rOk-kI-ODB"/>
+                            <constraint firstItem="gwU-vf-3l1" firstAttribute="bottom" secondItem="7Iu-bN-RtM" secondAttribute="bottom" constant="100" id="g1q-aq-Xa8"/>
+                            <constraint firstItem="7Iu-bN-RtM" firstAttribute="leading" secondItem="gwU-vf-3l1" secondAttribute="leading" id="jzl-Mx-ETc"/>
+                            <constraint firstItem="gwU-vf-3l1" firstAttribute="trailing" secondItem="7Iu-bN-RtM" secondAttribute="trailing" id="wEg-GL-uo8"/>
+                            <constraint firstItem="7Iu-bN-RtM" firstAttribute="top" secondItem="gwU-vf-3l1" secondAttribute="top" constant="100" id="zCT-YS-CIn"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="지출목록" image="list.bullet" catalog="system" id="wRC-jA-Szt"/>
+                    <connections>
+                        <outlet property="historyListTableView" destination="7Iu-bN-RtM" id="Ezw-Jg-mt0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Asu-oD-cZV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -180,7 +183,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="769"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6aw-iA-A5G" userLabel="ContentView">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="1399.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="1067.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Ma0-RF-0Rk" userLabel="super stackview">
                                                         <rect key="frame" x="20" y="20" width="374" height="1027.5"/>
@@ -258,7 +261,7 @@
                                                                         <rect key="frame" x="0.0" y="28" width="374" height="50"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시작일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9t-4a-9gb">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="44.5" height="216"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="44.5" height="50"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44.5" id="9Dm-PT-CdL"/>
                                                                                 </constraints>
@@ -284,7 +287,7 @@
                                                                         <rect key="frame" x="0.0" y="86" width="374" height="50"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="종료일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tze-CV-1hb">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="44.5" height="216"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="44.5" height="50"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44.5" id="dgj-Wt-Pjt"/>
                                                                                 </constraints>
@@ -368,13 +371,13 @@
                                                                         <rect key="frame" x="0.0" y="104" width="374" height="16"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="₩ 25,000 사용" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5d-JZ-sid">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="185" height="16"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="185.5" height="16"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KRW 15,000 남음/₩ 23,000 초과" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmn-Fr-kXg">
-                                                                                <rect key="frame" x="185" y="0.0" width="189" height="16"/>
+                                                                                <rect key="frame" x="185.5" y="0.0" width="188.5" height="16"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
