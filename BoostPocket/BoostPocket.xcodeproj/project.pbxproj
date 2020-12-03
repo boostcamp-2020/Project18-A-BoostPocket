@@ -21,6 +21,7 @@
 		5C3DAF3A25666A8000178EA0 /* TravelDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */; };
 		5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */; };
 		5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */; };
+		5C77958D257965B400A685FB /* UIStackView+RemoveAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C77958C257965B400A685FB /* UIStackView+RemoveAll.swift */; };
 		5C797493256FD263007CB1ED /* TravelHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C797491256FD263007CB1ED /* TravelHeaderCell.swift */; };
 		5C797494256FD263007CB1ED /* TravelHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C797492256FD263007CB1ED /* TravelHeaderCell.xib */; };
 		5C7F83632578B40400A58112 /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F83622578B40400A58112 /* DayCell.swift */; };
@@ -145,6 +146,7 @@
 		5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TravelDetail.storyboard; sourceTree = "<group>"; };
 		5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProfileViewController.swift; sourceTree = "<group>"; };
 		5C4E1B0B256BD7CD006760EF /* CountryItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryItemViewModel.swift; sourceTree = "<group>"; };
+		5C77958C257965B400A685FB /* UIStackView+RemoveAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+RemoveAll.swift"; sourceTree = "<group>"; };
 		5C797491256FD263007CB1ED /* TravelHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelHeaderCell.swift; sourceTree = "<group>"; };
 		5C797492256FD263007CB1ED /* TravelHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravelHeaderCell.xib; sourceTree = "<group>"; };
 		5C7F83622578B40400A58112 /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 				A9BF7AA4256F9B8800496CD8 /* Date+ConvertToString.swift */,
 				5CAE96652577FC6300FD7F05 /* Double+Comma.swift */,
 				5C7F83672578C77A00A58112 /* Date+PeriodOfDates.swift */,
+				5C77958C257965B400A685FB /* UIStackView+RemoveAll.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -799,6 +802,7 @@
 				9574ACD02578B4C10072C578 /* AddHistoryViewController.swift in Sources */,
 				9579CBB7256E46A900E74A61 /* DataModelInfo.swift in Sources */,
 				5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */,
+				5C77958D257965B400A685FB /* UIStackView+RemoveAll.swift in Sources */,
 				5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */,
 				5CAE96662577FC6300FD7F05 /* Double+Comma.swift in Sources */,
 				5C8C9196256E8436008C3919 /* TravelItemViewModel.swift in Sources */,

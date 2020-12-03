@@ -9,8 +9,9 @@
 import Foundation
 
 enum DateFormats: String {
+    case fullDated = "yyyy-MM-dd-hh-mm-ss"
     case dotted = "yyyy. MM. dd."
-    case dashed = "yyyy-MM-dd."
+    case dashed = "yyyy-MM-dd"
     case korean = "yyyy년 MM월 dd일"
     case month = "MM월"
     case day = "dd"
@@ -24,13 +25,17 @@ extension Date {
         formatter.dateFormat = format.rawValue
         return formatter.string(from: self)
     }
+    
+    func convertToCurrentTime() -> Date {
+        return self.convertToString(format: .fullDated).convertToDate()
+    }
 }
 
 extension String {
     func convertToDate() -> Date {
         let dateString: String = self
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = DateFormats.fullDated.rawValue
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
 
         let date: Date = dateFormatter.date(from: dateString)!
