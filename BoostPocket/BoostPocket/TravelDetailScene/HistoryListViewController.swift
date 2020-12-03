@@ -29,7 +29,7 @@ class HistoryListViewController: UIViewController {
     private lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .clear
-        refreshControl.addTarget(self, action: #selector(addHistory), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(addExpenseHistory), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "새 지출 입력하기")
         return refreshControl
     }()
@@ -38,18 +38,12 @@ class HistoryListViewController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureSegmentedControl()
-        setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
-        
-//        travelItemViewModel?.createHistory(id: UUID(), isIncome: true, title: "수입", memo: nil, date: "2020-12-03".convertToDate(), image: Data(), amount: 5000, category: .income, isPrepare: false, isCard: false) { _ in
-//            print("생성")
-//        }
-//        travelItemViewModel?.createHistory(id: UUID(), isIncome: false, title: "지출",memo: nil, date: "2020-12-03".convertToDate(), image: Data(), amount: 5000, category: .food, isPrepare: false, isCard: false) { _ in
-//            print("생성")
-//        }
+        // setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
         moneySegmentedControl.selectedSegmentIndex = 0
         travelItemViewModel?.needFetchItems()
         travelItemViewModel?.didFetch = { [weak self] fetchedHistories in
@@ -57,10 +51,20 @@ class HistoryListViewController: UIViewController {
             self?.applySnapshot(with: fetchedHistories)
         }
     }
-    
-    @objc private func addHistory() {
+
+    @objc private func addExpenseHistory() {
         let addHistoryVC = AddHistoryViewController(nibName: AddHistoryViewController.identifier, bundle: nil)
-        addHistoryVC.travelItemViewModel = self.travelItemViewModel
+        
+        let baseData = BaseDataForAddingHistory(isIncome: false,
+                                                flagImage: self.travelItemViewModel?.flagImage ?? Data(),
+                                                currencyCode: self.travelItemViewModel?.currencyCode ?? "",
+                                                exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
+        
+        addHistoryVC.baseData = baseData
+        addHistoryVC.saveButtonHandler = { [weak self] newExpenseData in
+            // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
+            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: false, title: newExpenseData.title, memo: newExpenseData.memo, date: newExpenseData.date, image: newExpenseData.image ?? Data(), amount: newExpenseData.amount, category: newExpenseData.category, isPrepare: false, isCard: newExpenseData.isCard ?? false) { _ in }
+        }
         self.present(addHistoryVC, animated: true) { [weak self] in
             self?.refresher.endRefreshing()
         }
@@ -123,8 +127,9 @@ class HistoryListViewController: UIViewController {
     }
     
     private func setupDays(from startDate: Date?, to endDate: Date?) {
+        dayStackView.removeAllArrangedSubviews()
         guard let startDate = travelItemViewModel?.startDate,
-              let endDate = travelItemViewModel?.endDate else { return }
+            let endDate = travelItemViewModel?.endDate else { return }
         let days = startDate.getPeriodOfDates(with: endDate)
         days.forEach { day in
             setupDayCell(with: day)
@@ -216,4 +221,17 @@ extension HistoryListViewController: DayButtonDelegate {
         applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: self.date, isCard: isCard))
     }
     
+}
+
+extension UIStackView {
+    func removeAllArrangedSubviews() {
+        let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
+            self.removeArrangedSubview(subview)
+            return allSubviews + [subview]
+        }
+        // Deactivate all constraints
+        NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
+        // Remove the views from self
+        removedSubviews.forEach({ $0.removeFromSuperview() })
+    }
 }

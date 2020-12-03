@@ -8,85 +8,229 @@
 
 import UIKit
 
+struct BaseDataForAddingHistory {
+    var isIncome: Bool
+    var flagImage: Data
+    var currencyCode: String
+    var exchangeRate: Double
+}
+
+struct NewHistoryData {
+    var title: String
+    var memo: String?
+    var date: Date
+    var image: Data?
+    var amount: Double
+    var category: HistoryCategory
+    var isCard: Bool?
+}
+
 class AddHistoryViewController: UIViewController {
     static let identifier = "AddHistoryViewController"
     
-    var saveButtonHandler: ((HistoryItemViewModel) -> Void)?
-    weak var travelItemViewModel: HistoryListPresentable?
+    var saveButtonHandler: ((NewHistoryData) -> Void)?
+    var baseData: BaseDataForAddingHistory?
+    private var isAddingIncome: Bool = false
+    private var historyTitle: String?
+    private var memo: String?
+    private var date: Date = Date()
+    private var image: Data?
+    private var amount: Double = 0
+    private var category: HistoryCategory = .etc
+    private var isCard: Bool = false
+    private var imagePicker = UIImagePickerController()
+    private let historyTitlePlaceholder = "항목명을 입력해주세요 (선택)"
     
+    @IBOutlet weak var historyTitleLabel: UILabel!
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var historyTypeLabel: UILabel!
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var currencyCodeLabel: UILabel!
-    
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var calculatorExpressionLabel: UILabel!
+    @IBOutlet weak var calculatedAmountLabel: UILabel!
+    @IBOutlet weak var currencyConvertedAmountLabel: UILabel!
+    @IBOutlet var coloredButtons: [UIButton]!
+     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePicker.delegate = self
         configureViews()
     }
  
     private func configureViews() {
-        flagImageView.image = UIImage(data: travelItemViewModel?.flagImage ?? Data())
-        currencyCodeLabel.text = travelItemViewModel?.currencyCode
+        guard let baseData = baseData else { return }
+        
+        isAddingIncome = baseData.isIncome
+        
+        let color = isAddingIncome ? .systemGreen : UIColor(named: "DeleteButtonColor")
+        
+        headerView.backgroundColor = color
+        coloredButtons.forEach { button in
+            button.setTitleColor(color, for: .normal)
+            button.tintColor = color
+        }
+        
+        
+        historyTypeLabel.text = isAddingIncome ? "수입" : "지출"
+        flagImageView.image = UIImage(data: baseData.flagImage)
+        currencyCodeLabel.text = baseData.currencyCode
+        calculatorExpressionLabel.text = ""
+        calculatedAmountLabel.text = "0"
+        currencyConvertedAmountLabel.text = "KRW"
+        
+        let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
+        historyTitleLabel.text = historyTitlePlaceholder
+        historyTitleLabel.addGestureRecognizer(titleTap)
+        
+        let dateLabelText = Date().convertToString(format: .dotted)
+        dateLabel.text = dateLabelText
+    }
+    
+    private func changeCalculatedAmountLabel() {
+        // TODO: - NSExpression Invalid 에러 핸들링
+        guard let stringWithMathematicalOperation = calculatorExpressionLabel.text else { return }
+        let exp: NSExpression = NSExpression(format: stringWithMathematicalOperation)
+        if let amount = exp.expressionValue(with: nil, context: nil) as? Double, let exchangeRate = baseData?.exchangeRate {
+
+            calculatedAmountLabel.text = "\(amount.insertComma)"
+            
+            let convertedAmount = amount / exchangeRate
+            currencyConvertedAmountLabel.text = "KRW " + convertedAmount.insertComma
+            
+            self.amount = amount
+        }
+    }
+    
+    @objc func titleLabelTapped() {
+        let previousTitle = historyTitleLabel.text == historyTitlePlaceholder ? "" : historyTitleLabel.text
+        
+        TitleEditViewController.present(at: self, previousTitle: previousTitle ?? "") { [weak self] (newTitle) in
+            guard let self = self else { return }
+            if self.isAddingIncome {
+                self.historyTitle = newTitle.isEmpty ? HistoryCategory.income.name : newTitle
+            } else {
+                self.historyTitle = newTitle.isEmpty ? HistoryCategory.etc.name : newTitle
+            }
+            
+            self.historyTitleLabel.text = self.historyTitle
+        }
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        // saveButtonHandler?()
+        if isAddingIncome {
+            let newIncome = NewHistoryData(title: historyTitle ?? HistoryCategory.income.name, memo: memo, date: date, image: nil, amount: amount, category: .income, isCard: nil)
+            saveButtonHandler?(newIncome)
+        } else {
+            let newExpense = NewHistoryData(title: historyTitle ?? HistoryCategory.etc.name, memo: memo, date: date, image: image, amount: amount, category: category, isCard: isCard)
+            saveButtonHandler?(newExpense)
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func addImageButtonTapped(_ sender: Any) {
+        openPhotoLibrary()
+    }
+    
+    private func openPhotoLibrary() {
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: false, completion: nil)
+    }
+    
+    @IBAction func addMemoButtonTapped(_ sender: Any) {
+        MemoEditViewController.present(at: self, memoType: .expenseMemo) { [weak self] newMemo in
+            // TODO: - 메모 입력확인 toaster
+            self?.memo = newMemo
+        }
+    }
+    
+}
+
+extension AddHistoryViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        
+        if let newImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.image = newImage.pngData()
+        }
+        
+        dismiss(animated: true) {
+            // TODO: - 이미지 추가확인 toaster
+        }
+    }
 }
 
 // MARK: - Calculator IBActions
 
 extension AddHistoryViewController {
     
-    @IBAction func oneTapped(_ sender: Any) {
+    @IBAction func btnNumber(sender: UIButton) {
+        guard let buttonText = sender.titleLabel?.text else { return }
+        
+        if buttonText == ".", let lastCharacter = calculatorExpressionLabel.text?.last, lastCharacter.isOperation() {
+            calculatorExpressionLabel.text?.removeLast()
+        }
+        
+        calculatorExpressionLabel.text! += buttonText
+        
+        if buttonText != "." {
+            changeCalculatedAmountLabel()
+        }
     }
     
-    @IBAction func twoTapped(_ sender: Any) {
-    }
-    
-    @IBAction func threeTapped(_ sender: Any) {
-    }
-    
-    @IBAction func fourTapped(_ sender: Any) {
-    }
-    
-    @IBAction func fiveTapped(_ sender: Any) {
-    }
-    
-    @IBAction func sixTapped(_ sender: Any) {
-    }
-    
-    @IBAction func sevenTapped(_ sender: Any) {
-    }
-    
-    @IBAction func eightTapped(_ sender: Any) {
-    }
-    
-    @IBAction func nineTapped(_ sender: Any) {
-    }
-    
-    @IBAction func zeroTapped(_ sender: Any) {
-    }
-    
-    @IBAction func dotTapped(_ sender: Any) {
+    @IBAction func btnOperator(sender: UIButton) {
+        let buttonText = sender.titleLabel?.text
+        
+        if let lastCharacter = calculatorExpressionLabel.text?.last, lastCharacter.isOperation() {
+            calculatorExpressionLabel.text?.removeLast()
+        }
+        
+        calculatorExpressionLabel.text! += buttonText!
     }
     
     @IBAction func backTapped(_ sender: Any) {
+        guard let length = calculatorExpressionLabel.text?.count, length > 0 else { return }
+        calculatorExpressionLabel.text?.removeLast()
+        
+        if let lastCharacter = calculatorExpressionLabel.text?.last,
+            !lastCharacter.isOperation() {
+            changeCalculatedAmountLabel()
+        } else if calculatorExpressionLabel.text?.count == 0 {
+            calculatedAmountLabel.text = "0"
+            currencyConvertedAmountLabel.text = "KRW"
+        }
     }
     
-    @IBAction func divisionTapped(_ sender: Any) {
+}
+
+extension Character {
+    
+    func isOperation() -> Bool {
+        return self == "+" || self == "-" || self == "*" || self == "/" || self == "."
     }
     
-    @IBAction func multiplyTapped(_ sender: Any) {
-    }
+}
+
+// TODO: - 지출/수입 present 디벨롭하기
+extension AddHistoryViewController {
     
-    @IBAction func additionTapped(_ sender: Any) {
-    }
+    static let nibName = "AddHistoryViewController"
     
-    @IBAction func subtractionTapped(_ sender: Any) {
+    static func presentModally(at viewController: UIViewController,
+                               baseData: BaseDataForAddingHistory,
+                               saveButtonHandler: ((NewHistoryData) -> Void)?,
+                               completion: @escaping () -> Void
+                               ) {
+        
+        let vc = AddHistoryViewController(nibName: nibName, bundle: nil)
+        
+        vc.baseData = baseData
+        vc.saveButtonHandler = saveButtonHandler
     }
     
 }

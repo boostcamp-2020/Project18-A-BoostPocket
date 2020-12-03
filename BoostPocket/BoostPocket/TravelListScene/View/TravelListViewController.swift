@@ -189,11 +189,12 @@ extension TravelListViewController: UICollectionViewDelegate {
             return CGSize(width: self.view.bounds.width, height: 100)
         }
         return CGSize(width: self.view.bounds.width, height: 50)
-        
     }
+    
 }
 
 extension TravelListViewController: TravelProfileDelegate {
+    
     func deleteTravel(id: UUID?) {
         if let travelListViewModel = travelListViewModel,
             let deletingId = id,

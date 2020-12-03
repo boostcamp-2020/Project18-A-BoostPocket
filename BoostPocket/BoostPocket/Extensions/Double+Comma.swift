@@ -12,7 +12,7 @@ extension Double {
     var insertComma: String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        guard let result = numberFormatter.string(from: NSNumber(value:self)) else { return "" }
+        guard let result = numberFormatter.string(from: NSNumber(value: self)) else { return "" }
         return result
     }
 }
