@@ -6,13 +6,6 @@
 //  Copyright © 2020 BoostPocket. All rights reserved.
 //
 
-struct DummyHistory: Hashable {
-    var category: HistoryCategory
-    var title: String
-    var amount: Double
-    var date: Date
-}
-
 class HistoryListSectionHeader: Hashable {
     static func == (lhs: HistoryListSectionHeader, rhs: HistoryListSectionHeader) -> Bool {
         return lhs.dayNumber == rhs.dayNumber
@@ -36,20 +29,14 @@ class HistoryListSectionHeader: Hashable {
 import UIKit
 
 class HistoryListViewController: UIViewController {
-    typealias DataSource = UITableViewDiffableDataSource<HistoryListSectionHeader, DummyHistory>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<HistoryListSectionHeader, DummyHistory>
+    typealias DataSource = UITableViewDiffableDataSource<HistoryListSectionHeader, HistoryItemViewModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<HistoryListSectionHeader, HistoryItemViewModel>
     
     @IBOutlet weak var historyListTableView: UITableView!
-    
-    private let dummyVM = [
-        DummyHistory(category: .income, title: "수입", amount: 100000, date: "2020-11-01".convertToDate()),
-        DummyHistory(category: .food, title: "마라탕", amount: 18000, date: "2020-11-02".convertToDate()),
-        DummyHistory(category: .accommodation, title: "qweqwe", amount: 2000, date: "2020-11-02".convertToDate()),
-        DummyHistory(category: .food, title: "파스타", amount: 12000, date: "2020-11-11".convertToDate()),
-        DummyHistory(category: .food, title: "김치찌개", amount: 10000, date: "2020-12-01".convertToDate())
-    ]
+
     private lazy var dataSource = configureDatasource()
-    private lazy var headers = setupSection(with: dummyVM)
+    private lazy var headers = setupSection(with: travelItemViewModel?.histories ?? [])
+    weak var travelItemViewModel: HistoryListPresentable?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +45,12 @@ class HistoryListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        applySnapshot(with: dummyVM)
+        travelItemViewModel?.needFetchItems()
+        travelItemViewModel?.didFetch = { [weak self] fetchedHistories in
+            self?.historyListTableView.reloadData()
+            self?.applySnapshot(with: fetchedHistories)
+        }
+        
     }
 
     private func configureTableView() {
@@ -69,6 +61,7 @@ class HistoryListViewController: UIViewController {
     
     private func configureDatasource() -> DataSource {
         let datasource = DataSource(tableView: historyListTableView) { (tableview, indexPath, item) -> UITableViewCell? in
+            print(item.category.name)
             guard let cell = tableview.dequeueReusableCell(withIdentifier: HistoryCell.identifier, for: indexPath) as? HistoryCell else { return UITableViewCell() }
             cell.configure(with: item)
             
@@ -77,7 +70,7 @@ class HistoryListViewController: UIViewController {
         return datasource
     }
     
-    private func applySnapshot(with histories: [DummyHistory]) {
+    private func applySnapshot(with histories: [HistoryItemViewModel]) {
         var snapshot = Snapshot()
         snapshot.appendSections(headers)
         histories.forEach { history in
@@ -89,7 +82,7 @@ class HistoryListViewController: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
-    private func setupSection(with histories: [DummyHistory]) -> [HistoryListSectionHeader] {
+    private func setupSection(with histories: [HistoryItemViewModel]) -> [HistoryListSectionHeader] {
         var dayNumber = 1
         var days = Set<HistoryListSectionHeader>()
         histories.forEach { history in

@@ -16,8 +16,10 @@ class TravelDetailTabbarController: UITabBarController {
     }
     
     func setupChildViewControllers(with travelItemViewModel: TravelItemViewModel) {
-        guard let profileVC = self.viewControllers?[0] as? TravelProfileViewController else { return }
+        guard let profileVC = self.viewControllers?[0] as? TravelProfileViewController,
+              let historyListVC = self.viewControllers?[1] as? HistoryListViewController else { return }
         profileVC.travelItemViewModel = travelItemViewModel
+        historyListVC.travelItemViewModel = travelItemViewModel
     }
 }
 

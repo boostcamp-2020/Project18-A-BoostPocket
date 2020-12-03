@@ -21,7 +21,7 @@ class HistoryCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func configure(with history: DummyHistory) {
+    func configure(with history: HistoryItemViewModel) {
         categoryImageView.image = UIImage(named: history.category.name)
         costLabel.text = history.amount.insertComma
         costLabel.textColor = history.category.name == "예산 금액 추가" ? UIColor(named: "mainColor") : UIColor(named: "deleteButtonColor")
