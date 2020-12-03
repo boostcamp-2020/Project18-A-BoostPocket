@@ -61,6 +61,7 @@ class HistoryListViewController: UIViewController {
     
     private func configureSegmentedControl() {
         moneySegmentedControl.selectedSegmentTintColor = .clear
+        moneySegmentedControl.backgroundColor = .none
         moneySegmentedControl.layer.backgroundColor = UIColor.clear.cgColor
         moneySegmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "AvenirNextCondensed-Medium", size: 12)!, NSAttributedString.Key.foregroundColor: UIColor.lightGray], for: .normal)
         moneySegmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "AvenirNextCondensed-Medium", size: 16)!, NSAttributedString.Key.foregroundColor: UIColor(named: "mainColor")], for: .selected)
