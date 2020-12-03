@@ -50,6 +50,13 @@ class HistoryListViewController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
+        
+//        travelItemViewModel?.createHistory(id: UUID(), isIncome: true, title: "수입", memo: nil, date: "2020-12-03".convertToDate(), image: Data(), amount: 5000, category: .income, isPrepare: false, isCard: false) { _ in
+//            print("생성")
+//        }
+//        travelItemViewModel?.createHistory(id: UUID(), isIncome: false, title: "지출",memo: nil, date: "2020-12-03".convertToDate(), image: Data(), amount: 5000, category: .food, isPrepare: false, isCard: false) { _ in
+//            print("생성")
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -137,6 +144,16 @@ class HistoryListViewController: UIViewController {
 }
 
 extension HistoryListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let selectedHistoryViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
+        if let historyDetailVC = self.storyboard?.instantiateViewController(identifier: "HistoryDetailViewController") as? HistoryDetailViewController {
+            self.present(historyDetailVC, animated: true, completion: nil)
+            historyDetailVC.initDetailView(history: selectedHistoryViewModel)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return view.bounds.height * 0.1
     }

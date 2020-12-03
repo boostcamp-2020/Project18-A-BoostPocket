@@ -71,6 +71,7 @@
 		A99E0646257766F50014C29F /* HistoryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0645257766F50014C29F /* HistoryItemViewModel.swift */; };
 		A99E064C257773430014C29F /* HistoryProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E064B257773430014C29F /* HistoryProviderTests.swift */; };
 		A99E065425778B130014C29F /* HistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E065325778B130014C29F /* HistoryViewModelTests.swift */; };
+		A99E06652578D6480014C29F /* HistoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E06642578D6480014C29F /* HistoryDetailViewController.swift */; };
 		A9BF7A37256D496C00496CD8 /* String+firstConsonant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */; };
 		A9BF7A50256E293F00496CD8 /* TravelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */; };
 		A9BF7A71256E2D5900496CD8 /* Travel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */; };
@@ -198,6 +199,7 @@
 		A99E0645257766F50014C29F /* HistoryItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItemViewModel.swift; sourceTree = "<group>"; };
 		A99E064B257773430014C29F /* HistoryProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProviderTests.swift; sourceTree = "<group>"; };
 		A99E065325778B130014C29F /* HistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModelTests.swift; sourceTree = "<group>"; };
+		A99E06642578D6480014C29F /* HistoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailViewController.swift; sourceTree = "<group>"; };
 		A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+firstConsonant.swift"; sourceTree = "<group>"; };
 		A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProvider.swift; sourceTree = "<group>"; };
 		A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Travel+CoreDataClass.swift"; path = "BoostPocket/CoreDataModels/Travel+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -327,6 +329,7 @@
 				5C7F83622578B40400A58112 /* DayCell.swift */,
 				9574ACCE2578B4C10072C578 /* AddHistoryViewController.swift */,
 				9574ACCF2578B4C10072C578 /* AddHistoryViewController.xib */,
+				A99E06642578D6480014C29F /* HistoryDetailViewController.swift */,
 			);
 			path = TravelDetailScene;
 			sourceTree = "<group>";
@@ -823,6 +826,7 @@
 				5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */,
 				A99E0630257762520014C29F /* History+CoreDataProperties.swift in Sources */,
 				A9BF7A86256F420D00496CD8 /* TravelCell.swift in Sources */,
+				A99E06652578D6480014C29F /* HistoryDetailViewController.swift in Sources */,
 				95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */,
 				A99E0613257534F10014C29F /* TitleEditViewController.swift in Sources */,
 				5C15AB442577C96E00244C6C /* HistoryListViewController.swift in Sources */,
