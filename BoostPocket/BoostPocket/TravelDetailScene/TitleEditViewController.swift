@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum EditTitleType: String {
+    case travelTitle = "여행 입력해보세요"
+    case expenseTitle = "지출에 대한 메모를 입력해보세요"
+    case incomeTitle = "수입에 대한 메모를 입력해보세요"
+}
+
 class TitleEditViewController: UIViewController {
     static let identifier = "TitleEditViewController"
  

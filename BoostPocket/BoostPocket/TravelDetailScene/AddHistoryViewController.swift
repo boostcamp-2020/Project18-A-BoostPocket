@@ -15,12 +15,33 @@ struct BaseDataForAddingHistory {
     var exchangeRate: Double
 }
 
+struct NewHistoryData {
+    var title: String
+    var memo: String?
+    var date: Date
+    var image: Data?
+    var amount: Double
+    var category: HistoryCategory
+    var isCard: Bool?
+}
+
 class AddHistoryViewController: UIViewController {
     static let identifier = "AddHistoryViewController"
     
-    var saveButtonHandler: ((HistoryItemViewModel) -> Void)?
+    var saveButtonHandler: ((NewHistoryData) -> Void)?
     var baseData: BaseDataForAddingHistory?
+    private var isAddingIncome: Bool = false
+    private var historyTitle: String?
+    private var memo: String?
+    private var date: Date = Date()
+    private var image: Data?
+    private var amount: Double = 0
+    private var category: HistoryCategory = .etc
+    private var isCard: Bool = false
+    private var imagePicker = UIImagePickerController()
+    private let historyTitlePlaceholder = "항목명을 입력해주세요 (선택)"
     
+    @IBOutlet weak var historyTitleLabel: UILabel!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var historyTypeLabel: UILabel!
     @IBOutlet weak var flagImageView: UIImageView!
@@ -29,22 +50,38 @@ class AddHistoryViewController: UIViewController {
     @IBOutlet weak var calculatorExpressionLabel: UILabel!
     @IBOutlet weak var calculatedAmountLabel: UILabel!
     @IBOutlet weak var currencyConvertedAmountLabel: UILabel!
-    
+    @IBOutlet var coloredButtons: [UIButton]!
+     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePicker.delegate = self
         configureViews()
-        
     }
  
     private func configureViews() {
         guard let baseData = baseData else { return }
-        headerView.backgroundColor = baseData.isIncome ? .systemGreen : UIColor(named: "DeleteButtonColor")
-        historyTypeLabel.text = baseData.isIncome ? "수입" : "지출"
+        
+        isAddingIncome = baseData.isIncome
+        
+        let color = isAddingIncome ? .systemGreen : UIColor(named: "DeleteButtonColor")
+        
+        headerView.backgroundColor = color
+        coloredButtons.forEach { button in
+            button.setTitleColor(color, for: .normal)
+            button.tintColor = color
+        }
+        
+        
+        historyTypeLabel.text = isAddingIncome ? "수입" : "지출"
         flagImageView.image = UIImage(data: baseData.flagImage)
         currencyCodeLabel.text = baseData.currencyCode
         calculatorExpressionLabel.text = ""
         calculatedAmountLabel.text = "0"
         currencyConvertedAmountLabel.text = "KRW"
+        
+        let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
+        historyTitleLabel.text = historyTitlePlaceholder
+        historyTitleLabel.addGestureRecognizer(titleTap)
         
         let dateLabelText = Date().convertToString(format: .dotted)
         dateLabel.text = dateLabelText
@@ -56,12 +93,27 @@ class AddHistoryViewController: UIViewController {
         let exp: NSExpression = NSExpression(format: stringWithMathematicalOperation)
         if let amount = exp.expressionValue(with: nil, context: nil) as? Double, let exchangeRate = baseData?.exchangeRate {
 
-            // let roundedAmount = String(format: "%.2f", amount)
             calculatedAmountLabel.text = "\(amount.insertComma)"
             
             let convertedAmount = amount / exchangeRate
-            // let roundedConvertedAmount = String(format: "%.3f", convertedAmount)
             currencyConvertedAmountLabel.text = "KRW " + convertedAmount.insertComma
+            
+            self.amount = amount
+        }
+    }
+    
+    @objc func titleLabelTapped() {
+        let previousTitle = historyTitleLabel.text == historyTitlePlaceholder ? "" : historyTitleLabel.text
+        
+        TitleEditViewController.present(at: self, previousTitle: previousTitle ?? "") { [weak self] (newTitle) in
+            guard let self = self else { return }
+            if self.isAddingIncome {
+                self.historyTitle = newTitle.isEmpty ? HistoryCategory.income.name : newTitle
+            } else {
+                self.historyTitle = newTitle.isEmpty ? HistoryCategory.etc.name : newTitle
+            }
+            
+            self.historyTitleLabel.text = self.historyTitle
         }
     }
     
@@ -70,10 +122,47 @@ class AddHistoryViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        // saveButtonHandler?()
-        // amount, date, image?, title?, memo?
+        if isAddingIncome {
+            let newIncome = NewHistoryData(title: historyTitle ?? HistoryCategory.income.name, memo: memo, date: date, image: nil, amount: amount, category: .income, isCard: nil)
+            saveButtonHandler?(newIncome)
+        } else {
+            let newExpense = NewHistoryData(title: historyTitle ?? HistoryCategory.etc.name, memo: memo, date: date, image: image, amount: amount, category: category, isCard: isCard)
+            saveButtonHandler?(newExpense)
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func addImageButtonTapped(_ sender: Any) {
+        openPhotoLibrary()
+    }
+    
+    private func openPhotoLibrary() {
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: false, completion: nil)
+    }
+    
+    @IBAction func addMemoButtonTapped(_ sender: Any) {
+        MemoEditViewController.present(at: self, memoType: .expenseMemo) { [weak self] newMemo in
+            // TODO: - 메모 입력확인 toaster
+            self?.memo = newMemo
+        }
+    }
+    
+}
+
+extension AddHistoryViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        
+        if let newImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.image = newImage.pngData()
+        }
+        
+        dismiss(animated: true) {
+            // TODO: - 이미지 추가확인 toaster
+        }
+    }
 }
 
 // MARK: - Calculator IBActions
@@ -123,6 +212,25 @@ extension Character {
     
     func isOperation() -> Bool {
         return self == "+" || self == "-" || self == "*" || self == "/" || self == "."
+    }
+    
+}
+
+// TODO: - 지출/수입 present 디벨롭하기
+extension AddHistoryViewController {
+    
+    static let nibName = "AddHistoryViewController"
+    
+    static func presentModally(at viewController: UIViewController,
+                               baseData: BaseDataForAddingHistory,
+                               saveButtonHandler: ((NewHistoryData) -> Void)?,
+                               completion: @escaping () -> Void
+                               ) {
+        
+        let vc = AddHistoryViewController(nibName: nibName, bundle: nil)
+        
+        vc.baseData = baseData
+        vc.saveButtonHandler = saveButtonHandler
     }
     
 }

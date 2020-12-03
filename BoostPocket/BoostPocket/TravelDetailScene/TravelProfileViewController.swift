@@ -91,7 +91,7 @@ class TravelProfileViewController: UIViewController {
     }
     
     @objc func memoLabelTapped() {
-        MemoEditViewController.present(at: self, previousMemo: travelMemoLabel.text ?? "") { [weak self] (newMemo) in
+        MemoEditViewController.present(at: self, memoType: .travelMemo) { [weak self] (newMemo) in
             self?.travelMemoLabel.text = newMemo.isEmpty ? "여행을 위한 메모를 입력해보세요" : newMemo
             self?.profileDelegate?.updateTravel(id: self?.travelItemViewModel?.id, newTitle: self?.travelItemViewModel?.title, newMemo: newMemo, newStartDate: self?.travelItemViewModel?.startDate, newEndDate: self?.travelItemViewModel?.endDate, newCoverImage: self?.travelItemViewModel?.coverImage, newBudget: self?.travelItemViewModel?.budget, newExchangeRate: self?.travelItemViewModel?.exchangeRate)
         }

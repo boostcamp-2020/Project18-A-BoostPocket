@@ -8,12 +8,17 @@
 
 import UIKit
 
+enum EditMemoType: String {
+    case travelMemo = "여행을 위한 메모를 입력해보세요"
+    case expenseMemo = "지출에 대한 메모를 입력해보세요"
+    case incomeMemo = "수입에 대한 메모를 입력해보세요"
+}
+
 class MemoEditViewController: UIViewController {
     static let identifier = "MemoEditViewController"
     
     var saveButtonHandler: ((String) -> Void)?
-    private var previousMemo: String?
-    private let placeholder = "여행을 위한 메모를 입력해보세요"
+    private var memoType: EditMemoType?
     @IBOutlet weak var memoView: UIView!
     @IBOutlet weak var memoTextView: UITextView!
     
@@ -47,18 +52,18 @@ class MemoEditViewController: UIViewController {
     }
     
     private func setInitialTextviewPlaceholder() {
-        self.memoTextView.text = previousMemo
-        if previousMemo == placeholder {
+        self.memoTextView.text = memoType?.rawValue
+        if memoTextView.text.isPlaceholder() {
             memoTextView.textColor = .lightGray
         }
     }
     
     private func setTextViewPlaceholder() {
-        if memoTextView.text == placeholder {
+        if memoTextView.text.isPlaceholder() {
             memoTextView.text = ""
             memoTextView.textColor = .black
-        } else if memoTextView.text.isEmpty {
-            memoTextView.text = placeholder
+        } else {
+            memoTextView.text = memoType?.rawValue
             memoTextView.textColor = .lightGray
         }
     }
@@ -81,14 +86,14 @@ extension MemoEditViewController {
     static let storyboardName = "TravelDetail"
     
     static func present(at viewController: UIViewController,
-                        previousMemo: String,
+                        memoType: EditMemoType,
                         onDismiss: ((String) -> Void)?) {
         
         let storyBoard = UIStoryboard(name: storyboardName, bundle: Bundle.main)
         
         guard let vc = storyBoard.instantiateViewController(withIdentifier: MemoEditViewController.identifier) as? MemoEditViewController else { return }
         
-        vc.previousMemo = previousMemo
+        vc.memoType = memoType
         vc.saveButtonHandler = onDismiss
         
         vc.modalPresentationStyle = .overFullScreen
@@ -121,5 +126,13 @@ extension MemoEditViewController {
         UIView.animate(withDuration: 0.3, animations: {
             self.memoView.transform = .identity
         })
+    }
+}
+
+extension String {
+    func isPlaceholder() -> Bool {
+        return self == EditMemoType.travelMemo.rawValue
+            || self == EditMemoType.expenseMemo.rawValue
+            || self == EditMemoType.incomeMemo.rawValue
     }
 }
