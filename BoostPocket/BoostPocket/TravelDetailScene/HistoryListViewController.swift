@@ -53,10 +53,18 @@ class HistoryListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        applySnapshot(with: dummyVM)
+    }
+
+    private func configureTableView() {
         historyListTableView.delegate = self
         historyListTableView.register(HistoryCell.getNib(), forCellReuseIdentifier: HistoryCell.identifier)
         historyListTableView.register(HistoryHeaderCell.getNib(), forHeaderFooterViewReuseIdentifier: HistoryHeaderCell.identifier)
-        applySnapshot(with: dummyVM)
     }
     
     private func configureDatasource() -> DataSource {
@@ -77,6 +85,7 @@ class HistoryListViewController: UIViewController {
                 snapshot.appendItems([history], toSection: section)
             }
         }
+        
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
