@@ -7,13 +7,13 @@
 //
 
 import Foundation
-import CoreData
 
 protocol TravelProvidable: AnyObject {
     var travels: [Travel] { get }
-    func createTravel(countryName: String) -> Travel?
+    func createTravel(countryName: String, completion: @escaping (Travel?) -> Void)
     func fetchTravels() -> [Travel]
     func deleteTravel(id: UUID) -> Bool
+    func updateTravel(updatedTravelInfo: TravelInfo) -> Travel?
 }
 
 class TravelProvider: TravelProvidable {
@@ -24,15 +24,18 @@ class TravelProvider: TravelProvidable {
         self.persistenceManager = persistenceManager
     }
     
-    func createTravel(countryName: String) -> Travel? {
-        let newTravelInfo = TravelInfo(countryName: countryName)
+    func createTravel(countryName: String, completion: @escaping (Travel?) -> Void) {
+        let newTravelInfo = TravelInfo(countryName: countryName, id: UUID(), title: countryName, memo: nil, startDate: nil, endDate: nil, coverImage: Data().getCoverImage() ?? Data(), budget: Double(), exchangeRate: Double())
         
-        guard let createdObject = persistenceManager?.createObject(newObjectInfo: newTravelInfo),
-            let createdTravel = createdObject as? Travel
-            else { return nil }
-        
-        travels.append(createdTravel)
-        return createdTravel
+        persistenceManager?.createObject(newObjectInfo: newTravelInfo) { [weak self] (createdObject) in
+            guard let createdTravel = createdObject as? Travel else {
+                completion(nil)
+                return
+            }
+            
+            self?.travels.append(createdTravel)
+            completion(createdTravel)
+        }
     }
     
     func fetchTravels() -> [Travel] {
@@ -40,6 +43,16 @@ class TravelProvider: TravelProvidable {
         travels = persistenceManager.fetchAll(request: Travel.fetchRequest())
         
         return travels
+    }
+    
+    func updateTravel(updatedTravelInfo: TravelInfo) -> Travel? {
+        guard let persistenceManager = persistenceManager,
+            let updatedTravel = persistenceManager.updateObject(updatedObjectInfo: updatedTravelInfo) as? Travel,
+            let indexToUpdate = travels.indices.filter({ travels[$0].id == updatedTravel.id }).first
+            else { return nil }
+        
+        self.travels[indexToUpdate] = updatedTravel
+        return updatedTravel
     }
     
     func deleteTravel(id: UUID) -> Bool {

@@ -12,6 +12,9 @@ enum DateFormats: String {
     case dotted = "yyyy. MM. dd."
     case dashed = "yyyy-MM-dd."
     case korean = "yyyy년 MM월 dd일"
+    case month = "MM월"
+    case day = "dd"
+    case time = "hh:mm"
 }
 
 extension Date {
@@ -20,5 +23,17 @@ extension Date {
         let formatter = DateFormatter()
         formatter.dateFormat = format.rawValue
         return formatter.string(from: self)
+    }
+}
+
+extension String {
+    func convertToDate() -> Date {
+        let dateString: String = self
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+
+        let date: Date = dateFormatter.date(from: dateString)!
+        return date
     }
 }

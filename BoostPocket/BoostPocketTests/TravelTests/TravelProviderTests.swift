@@ -7,69 +7,118 @@
 //
 
 import XCTest
+import NetworkManager
 @testable import BoostPocket
 
 class TravelProviderTests: XCTestCase {
     
     var persistenceManagerStub: PersistenceManagable!
-    var countryProvider: CountryProvidable!
     var travelProvider: TravelProvidable!
-    var country: Country!
-    
+    var dataLoader: DataLoader?
+    let countriesExpectation = XCTestExpectation(description: "Successfully Created Countries")
     let countryName = "대한민국"
-    let lastUpdated = Date()
-    let flagImage = Data()
-    let exchangeRate = 1.5
-    let currencyCode = "test code"
-
+    
     override func setUpWithError() throws {
-        persistenceManagerStub = PersistenceManagerStub()
-        countryProvider = CountryProvider(persistenceManager: persistenceManagerStub)
-        travelProvider = TravelProvider(persistenceManager: persistenceManagerStub)
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
+        let dataLoader = DataLoader(session: session)
         
-        country = countryProvider.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+        persistenceManagerStub = PersistenceManagerStub(dataLoader: dataLoader)
+        
+        persistenceManagerStub.createCountriesWithAPIRequest { [weak self] (result) in
+            if result {
+                self?.countriesExpectation.fulfill()
+            }
+        }
+        
+        travelProvider = TravelProvider(persistenceManager: persistenceManagerStub)
+        self.dataLoader = dataLoader
     }
-
+    
     override func tearDownWithError() throws {
         persistenceManagerStub = nil
-        countryProvider = nil
         travelProvider = nil
     }
 
     func test_travelProvider_createTravel() {
-        let createdTravel = travelProvider.createTravel(countryName: countryName)
+        wait(for: [countriesExpectation], timeout: 5.0)
         
-        XCTAssertNotNil(createdTravel)
+        let expectation = XCTestExpectation(description: "Successfully Created Travel")
+        var createdTravel: Travel?
+        
+        travelProvider.createTravel(countryName: countryName) { (travel) in
+            XCTAssertNotNil(travel)
+            createdTravel = travel
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5.0)
+        
         XCTAssertEqual(createdTravel?.title, countryName)
         XCTAssertEqual(createdTravel?.country?.name, countryName)
     }
-    
+
     func test_travelProvider_fetchTravels() {
-        let createdTravel = travelProvider.createTravel(countryName: countryName)
-        XCTAssertNotNil(createdTravel)
+        wait(for: [countriesExpectation], timeout: 5.0)
+        
+        let expectation = XCTestExpectation(description: "Successfully Created Travel")
+        var createdTravel: Travel?
+        
+        travelProvider.createTravel(countryName: countryName) { (travel) in
+            createdTravel = travel
+            XCTAssertNotNil(createdTravel)
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5.0)
         
         let fetchedTravels = travelProvider.fetchTravels()
-        XCTAssertNotEqual(fetchedTravels, [])
+        let firstTravel = travelProvider.fetchTravels().first
         
-        let fetchedTravel = travelProvider.fetchTravels().first
-        XCTAssertNotNil(fetchedTravel)
-        XCTAssertEqual(fetchedTravel?.title, countryName)
-        XCTAssertEqual(fetchedTravel?.exchangeRate, exchangeRate)
+        XCTAssertNotEqual(fetchedTravels, [])
+        XCTAssertNotNil(firstTravel)
+        XCTAssertEqual(firstTravel, createdTravel)
+    }
+
+    func test_travelPrpvider_updateTravel() {
+        wait(for: [countriesExpectation], timeout: 5.0)
+        
+        let expectation = XCTestExpectation(description: "Successfully Created Travel")
+        var createdTravel: Travel?
+        
+        travelProvider.createTravel(countryName: countryName) { (travel) in
+            XCTAssertNotNil(travel)
+            createdTravel = travel
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5.0)
+        
+        let travelInfo = TravelInfo(countryName: countryName, id: createdTravel?.id ?? UUID(), title: "updated title", memo: createdTravel?.memo ?? "", startDate: createdTravel?.startDate ?? Date(), endDate: createdTravel?.endDate ?? Date(), coverImage: createdTravel?.coverImage ?? Data(), budget: createdTravel?.budget ?? Double(), exchangeRate: createdTravel?.exchangeRate ?? Double())
+        let updatedTravel = travelProvider.updateTravel(updatedTravelInfo: travelInfo)
+        
+        XCTAssertNotNil(updatedTravel)
+        XCTAssertEqual(updatedTravel?.title, "updated title")
+        XCTAssertEqual(createdTravel, updatedTravel)
+        XCTAssertEqual(travelProvider.fetchTravels().first, createdTravel)
     }
     
     func test_travelProvider_deleteTravel() {
+        wait(for: [countriesExpectation], timeout: 5.0)
+        
         XCTAssertEqual(travelProvider.fetchTravels(), [])
         
-        let createdTravel = travelProvider.createTravel(countryName: countryName)
-        XCTAssertNotNil(createdTravel)
+        let expectation = XCTestExpectation(description: "Successfully Created Travel")
+        var createdTravel: Travel?
         
-        let fetchedTravels = travelProvider.fetchTravels()
-        XCTAssertNotEqual(fetchedTravels, [])
-        
-        let fetchedTravel = travelProvider.fetchTravels().first
-        XCTAssertNotNil(fetchedTravel)
-        
-        let isDeleted = travelProvider.deleteTravel(id: fetchedTravel?.id ?? UUID())
+        travelProvider.createTravel(countryName: countryName) { (travel) in
+            createdTravel = travel
+            XCTAssertNotNil(createdTravel)
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5.0)
+
+        let isDeleted = travelProvider.deleteTravel(id: createdTravel?.id ?? UUID())
         XCTAssertTrue(isDeleted)
         XCTAssertEqual(travelProvider.fetchTravels(), [])
     }
