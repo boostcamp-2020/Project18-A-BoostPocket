@@ -664,10 +664,10 @@
             </objects>
             <point key="canvasLocation" x="-1232" y="1203"/>
         </scene>
-        <!--History Detail View Controller-->
+        <!--HistoryDetailViewController-->
         <scene sceneID="tCP-We-dmt">
             <objects>
-                <viewController id="n0l-Qt-t7z" customClass="HistoryDetailViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HistoryDetailViewController" title="HistoryDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="n0l-Qt-t7z" customClass="HistoryDetailViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qdh-T6-Pz0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -678,14 +678,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nEJ-zQ-SvF">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nEJ-zQ-SvF">
                                 <rect key="frame" x="0.0" y="94.5" width="414" height="726.5"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p69-4J-mh8" userLabel="ContentView">
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p69-4J-mh8" userLabel="ContentView">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="957.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3iv-Zv-NJB">
                                                 <rect key="frame" x="186.5" y="10" width="41" height="41.5"/>
+                                                <color key="backgroundColor" name="mainColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="3iv-Zv-NJB" secondAttribute="height" multiplier="1:1" id="1YK-tv-VEG"/>
                                                 </constraints>
@@ -720,6 +721,7 @@
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iI5-n4-Lon">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="374"/>
+                                                        <color key="backgroundColor" red="0.73527641909999997" green="0.91955979929999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="iI5-n4-Lon" secondAttribute="height" multiplier="1:1" id="i8r-8d-JGo"/>
                                                         </constraints>
@@ -750,7 +752,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Oia-M9-qWF" userLabel="Income Stack View">
-                                                <rect key="frame" x="20" y="214" width="374" height="120"/>
+                                                <rect key="frame" x="20" y="214" width="374" height="115"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ypW-bz-98p">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="49"/>
@@ -792,14 +794,14 @@
                                                         </subviews>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이곳에는 간단한 메모를 남길 수 있습니다. 여기를 눌러 메모해보세요" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJN-sX-QuR">
-                                                        <rect key="frame" x="0.0" y="79" width="374" height="41"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <rect key="frame" x="0.0" y="79" width="374" height="36"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="uOJ-NV-xEH" userLabel="Button Stack View">
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="uOJ-NV-xEH" userLabel="Button Stack View">
                                                 <rect key="frame" x="124" y="776.5" width="166" height="81"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Qv-Go-eCZ">
@@ -837,7 +839,6 @@
                                             <constraint firstItem="4wV-KP-wum" firstAttribute="centerX" secondItem="p69-4J-mh8" secondAttribute="centerX" id="6Kw-9G-1Re"/>
                                             <constraint firstItem="3iv-Zv-NJB" firstAttribute="top" secondItem="p69-4J-mh8" secondAttribute="top" constant="10" id="92Y-E5-fWA"/>
                                             <constraint firstItem="3iv-Zv-NJB" firstAttribute="width" secondItem="p69-4J-mh8" secondAttribute="width" multiplier="0.1" id="9FM-2C-SVm"/>
-                                            <constraint firstItem="uOJ-NV-xEH" firstAttribute="top" secondItem="MT0-vv-bR4" secondAttribute="bottom" constant="70" id="9Gh-Q0-JHA"/>
                                             <constraint firstAttribute="bottom" secondItem="uOJ-NV-xEH" secondAttribute="bottom" constant="100" id="9hk-wq-U0S"/>
                                             <constraint firstItem="MT0-vv-bR4" firstAttribute="leading" secondItem="p69-4J-mh8" secondAttribute="leading" constant="20" id="B5c-cV-yuw"/>
                                             <constraint firstItem="z3f-Ho-BOK" firstAttribute="centerX" secondItem="p69-4J-mh8" secondAttribute="centerX" id="IL7-ld-AM4"/>
@@ -898,6 +899,11 @@
                             <constraint firstItem="qNU-nu-0oe" firstAttribute="trailing" secondItem="eHk-JU-XwN" secondAttribute="trailing" id="zc8-mA-Vls"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="buttonStackView" destination="uOJ-NV-xEH" id="uBs-0M-9ut"/>
+                        <outlet property="expanseStackView" destination="MT0-vv-bR4" id="Lbt-cn-dNH"/>
+                        <outlet property="incomeStackView" destination="Oia-M9-qWF" id="tkE-Ga-SUc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Po-sX-wnw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
