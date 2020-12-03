@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -34,7 +33,6 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="tintColor" name="lightMainColor"/>
             <constraints>
                 <constraint firstItem="BD7-cd-uDW" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="8xJ-pV-Y1J"/>
@@ -45,6 +43,7 @@
                 <constraint firstItem="Yvy-Qo-Nav" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="x6s-pZ-Wjb"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="amountLabel" destination="utG-0z-L8D" id="jcB-Sv-682"/>
                 <outlet property="dateLabel" destination="Yvy-Qo-Nav" id="E1S-HI-rsU"/>
@@ -55,7 +54,7 @@
     </objects>
     <resources>
         <namedColor name="lightMainColor">
-            <color red="0.45899999141693115" green="0.75700002908706665" blue="0.9570000171661377" alpha="0.23999999463558197" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.92000001668930054" green="0.9570000171661377" blue="0.99500000476837158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

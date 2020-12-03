@@ -64,7 +64,10 @@ class HistoryListViewController: UIViewController {
 
     @objc private func addHistory() {
         let addHistoryVC = AddHistoryViewController(nibName: AddHistoryViewController.identifier, bundle: nil)
-        addHistoryVC.travelItemViewModel = self.travelItemViewModel
+        
+        let baseData = BaseDataForAddingHistory(isIncome: false, flagImage: self.travelItemViewModel?.flagImage ?? Data(), currencyCode: self.travelItemViewModel?.currencyCode ?? "")
+        
+        addHistoryVC.baseData = baseData
         self.present(addHistoryVC, animated: true) { [weak self] in
             self?.refresher.endRefreshing()
         }

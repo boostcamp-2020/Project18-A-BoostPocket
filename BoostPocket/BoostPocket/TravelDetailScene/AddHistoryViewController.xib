@@ -10,7 +10,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddHistoryViewController" customModule="BoostPocket" customModuleProvider="target">
             <connections>
+                <outlet property="calculatedAmountLabel" destination="4pe-9q-UpJ" id="9OQ-vp-wPU"/>
+                <outlet property="calculatorExpressionLabel" destination="tkA-TC-4Rx" id="Tq9-d7-qIx"/>
                 <outlet property="currencyCodeLabel" destination="qEf-JD-335" id="nB3-XZ-Ovi"/>
+                <outlet property="currencyConvertedAmountLabel" destination="aLb-EL-GfB" id="hn2-4P-kkK"/>
+                <outlet property="dateLabel" destination="OXX-qQ-6DH" id="4MH-oH-CvO"/>
                 <outlet property="flagImageView" destination="3WX-Mq-2i1" id="udC-nC-cHA"/>
                 <outlet property="historyTypeLabel" destination="X8B-Q2-jmd" id="vNd-sq-bhB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -89,21 +93,21 @@
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="78.5"/>
                                     <state key="normal" title="1"/>
                                     <connections>
-                                        <action selector="oneTapped:" destination="-1" eventType="touchUpInside" id="5BC-CP-uUa"/>
+                                        <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="U5M-Pv-OdA"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blA-Xr-rfk">
                                     <rect key="frame" x="103.5" y="0.0" width="103.5" height="78.5"/>
                                     <state key="normal" title="2"/>
                                     <connections>
-                                        <action selector="twoTapped:" destination="-1" eventType="touchUpInside" id="utx-Gh-bXJ"/>
+                                        <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="nDh-so-2N8"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o0M-UP-Rk5">
                                     <rect key="frame" x="207" y="0.0" width="103.5" height="78.5"/>
                                     <state key="normal" title="3"/>
                                     <connections>
-                                        <action selector="threeTapped:" destination="-1" eventType="touchUpInside" id="1Cb-AK-rNc"/>
+                                        <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="uU4-PZ-XuC"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yad-QF-DSb">
@@ -122,21 +126,21 @@
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="78"/>
                                     <state key="normal" title="4"/>
                                     <connections>
-                                        <action selector="fourTapped:" destination="-1" eventType="touchUpInside" id="yaW-Ta-KhX"/>
+                                        <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="v2S-OL-bKc"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqZ-Zx-Nzq">
                                     <rect key="frame" x="103.5" y="0.0" width="103.5" height="78"/>
                                     <state key="normal" title="5"/>
                                     <connections>
-                                        <action selector="fiveTapped:" destination="-1" eventType="touchUpInside" id="uf4-rq-IvF"/>
+                                        <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="OwG-6A-30c"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEQ-Wv-51m">
                                     <rect key="frame" x="207" y="0.0" width="103.5" height="78"/>
                                     <state key="normal" title="6"/>
                                     <connections>
-                                        <action selector="sixTapped:" destination="-1" eventType="touchUpInside" id="EiM-iK-2dM"/>
+                                        <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="n0L-7g-9nc"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpW-m6-gJK">
@@ -155,21 +159,21 @@
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="78.5"/>
                                     <state key="normal" title="7"/>
                                     <connections>
-                                        <action selector="sevenTapped:" destination="-1" eventType="touchUpInside" id="P9q-gW-gqd"/>
+                                        <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="6qK-ZD-ZHw"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDc-72-ZGQ">
                                     <rect key="frame" x="103.5" y="0.0" width="103.5" height="78.5"/>
                                     <state key="normal" title="8"/>
                                     <connections>
-                                        <action selector="eightTapped:" destination="-1" eventType="touchUpInside" id="AZJ-N6-Bsx"/>
+                                        <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="uq3-yZ-VsB"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dO6-ES-U6p">
                                     <rect key="frame" x="207" y="0.0" width="103.5" height="78.5"/>
                                     <state key="normal" title="9"/>
                                     <connections>
-                                        <action selector="nineTapped:" destination="-1" eventType="touchUpInside" id="2IZ-nz-Qtu"/>
+                                        <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="Drk-Pm-02K"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gMU-9A-ueg">
@@ -188,14 +192,14 @@
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="78.5"/>
                                     <state key="normal" title="."/>
                                     <connections>
-                                        <action selector="dotTapped:" destination="-1" eventType="touchUpInside" id="CXa-jw-B1g"/>
+                                        <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="g1B-hj-p7H"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZL6-uO-xEa">
                                     <rect key="frame" x="103.5" y="0.0" width="103.5" height="78.5"/>
                                     <state key="normal" title="0"/>
                                     <connections>
-                                        <action selector="zeroTapped:" destination="-1" eventType="touchUpInside" id="HTC-wu-uR5"/>
+                                        <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="fI0-MQ-HAj"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eQy-eq-OGT">

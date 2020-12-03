@@ -8,15 +8,26 @@
 
 import UIKit
 
+struct BaseDataForAddingHistory {
+    var isIncome: Bool
+    var flagImage: Data
+    var currencyCode: String
+}
+
 class AddHistoryViewController: UIViewController {
     static let identifier = "AddHistoryViewController"
     
     var saveButtonHandler: ((HistoryItemViewModel) -> Void)?
-    weak var travelItemViewModel: HistoryListPresentable?
+    var baseData: BaseDataForAddingHistory?
+    // weak var travelItemViewModel: HistoryListPresentable?
     
     @IBOutlet weak var historyTypeLabel: UILabel!
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var currencyCodeLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var calculatorExpressionLabel: UILabel!
+    @IBOutlet weak var calculatedAmountLabel: UILabel!
+    @IBOutlet weak var currencyConvertedAmountLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +35,16 @@ class AddHistoryViewController: UIViewController {
     }
  
     private func configureViews() {
-        flagImageView.image = UIImage(data: travelItemViewModel?.flagImage ?? Data())
-        currencyCodeLabel.text = travelItemViewModel?.currencyCode
+        guard let baseData = baseData else { return }
+        historyTypeLabel.text = baseData.isIncome ? "수입" : "지출"
+        flagImageView.image = UIImage(data: baseData.flagImage)
+        currencyCodeLabel.text = baseData.currencyCode
+        calculatorExpressionLabel.text = ""
+        calculatedAmountLabel.text = "0"
+        currencyConvertedAmountLabel.text = "KRW "
+        
+        let dateLabelText = Date().convertToString(format: .dotted)
+        dateLabel.text = dateLabelText
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
@@ -41,52 +60,29 @@ class AddHistoryViewController: UIViewController {
 
 extension AddHistoryViewController {
     
-    @IBAction func oneTapped(_ sender: Any) {
-    }
-    
-    @IBAction func twoTapped(_ sender: Any) {
-    }
-    
-    @IBAction func threeTapped(_ sender: Any) {
-    }
-    
-    @IBAction func fourTapped(_ sender: Any) {
-    }
-    
-    @IBAction func fiveTapped(_ sender: Any) {
-    }
-    
-    @IBAction func sixTapped(_ sender: Any) {
-    }
-    
-    @IBAction func sevenTapped(_ sender: Any) {
-    }
-    
-    @IBAction func eightTapped(_ sender: Any) {
-    }
-    
-    @IBAction func nineTapped(_ sender: Any) {
-    }
-    
-    @IBAction func zeroTapped(_ sender: Any) {
-    }
-    
-    @IBAction func dotTapped(_ sender: Any) {
+    @IBAction func btnNumber(sender: UIButton) {
+        let buttonText = sender.titleLabel?.text
+        calculatorExpressionLabel.text = calculatorExpressionLabel.text! + buttonText!
     }
     
     @IBAction func backTapped(_ sender: Any) {
+        
     }
     
     @IBAction func divisionTapped(_ sender: Any) {
+        
     }
     
     @IBAction func multiplyTapped(_ sender: Any) {
+        
     }
     
     @IBAction func additionTapped(_ sender: Any) {
+        
     }
     
     @IBAction func subtractionTapped(_ sender: Any) {
+        
     }
     
 }
