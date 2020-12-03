@@ -33,6 +33,7 @@ class HistoryListViewController: UIViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<HistoryListSectionHeader, HistoryItemViewModel>
     
     @IBOutlet weak var historyListTableView: UITableView!
+    @IBOutlet weak var dayStackView: UIStackView!
 
     weak var travelItemViewModel: HistoryListPresentable?
     private lazy var dataSource = configureDatasource()
@@ -48,6 +49,7 @@ class HistoryListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+        setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,6 +117,22 @@ class HistoryListViewController: UIViewController {
         var sections = [HistoryListSectionHeader](days)
         sections = sections.sorted(by: {$0.date < $1.date})
         return sections
+    }
+    
+    private func setupDays(from startDate: Date?, to endDate: Date?) {
+        guard let startDate = travelItemViewModel?.startDate,
+              let endDate = travelItemViewModel?.endDate else { return }
+        let days = startDate.getPeriodOfDates(with: endDate)
+        days.forEach { day in
+            setupDayCell(with: day)
+        }
+    }
+    
+    private func setupDayCell(with date: Date) {
+        let view = DayCell(frame: CGRect(), date: date)
+        dayStackView.addArrangedSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/7).isActive = true
     }
 }
 
