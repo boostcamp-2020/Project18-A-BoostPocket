@@ -34,9 +34,16 @@ class HistoryListViewController: UIViewController {
     
     @IBOutlet weak var historyListTableView: UITableView!
 
+    weak var travelItemViewModel: HistoryListPresentable?
     private lazy var dataSource = configureDatasource()
     private lazy var headers = setupSection(with: travelItemViewModel?.histories ?? [])
-    weak var travelItemViewModel: HistoryListPresentable?
+    private lazy var refresher: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .black
+        refreshControl.addTarget(self, action: #selector(addHistory), for: .valueChanged)
+        
+        return refreshControl
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +60,15 @@ class HistoryListViewController: UIViewController {
         
     }
 
+    @objc private func addHistory() {
+        let addHistoryVC = AddHistoryViewController(nibName: AddHistoryViewController.identifier, bundle: nil)
+        self.present(addHistoryVC, animated: true) {
+            print("pull to refresh")
+        }
+    }
+    
     private func configureTableView() {
+        historyListTableView.refreshControl = refresher
         historyListTableView.delegate = self
         historyListTableView.register(HistoryCell.getNib(), forCellReuseIdentifier: HistoryCell.identifier)
         historyListTableView.register(HistoryHeaderCell.getNib(), forHeaderFooterViewReuseIdentifier: HistoryHeaderCell.identifier)
@@ -108,7 +123,11 @@ extension HistoryListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HistoryHeaderCell.identifier) as? HistoryHeaderCell else { return UIView() }
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HistoryHeaderCell.identifier) as? HistoryHeaderCell,
+            // TODO: - 더 효율적으로 빈 headers 처리하는 방법 고민하기
+            !headers.isEmpty
+            else { return nil }
+        
         headerView.configure(with: headers[section].dayNumber, date: headers[section].date, amount: headers[section].amount)
         return headerView
     }
