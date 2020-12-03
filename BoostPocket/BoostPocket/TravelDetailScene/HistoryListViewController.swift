@@ -41,13 +41,6 @@ class HistoryListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
-        travelItemViewModel?.createHistory(id: UUID(), isIncome: true, title: "새 히스토리", memo: "ㅁㄴㅇㄹ", date: Date(), image: Data(), amount: 12000, category: .etc, isPrepare: false, isCard: true) { _ in
-            print("성공")
-        }
-        
-        travelItemViewModel?.createHistory(id: UUID(), isIncome: true, title: "새 히스토리2", memo: "ㅁㄴㅇㄹ2", date: Date(), image: Data(), amount: 14000, category: .etc, isPrepare: false, isCard: true) { _ in
-            print("성공")
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +50,7 @@ class HistoryListViewController: UIViewController {
             self?.historyListTableView.reloadData()
             self?.applySnapshot(with: fetchedHistories)
         }
+        
     }
 
     private func configureTableView() {
