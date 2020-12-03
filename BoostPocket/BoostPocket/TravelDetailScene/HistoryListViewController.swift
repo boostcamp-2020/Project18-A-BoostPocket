@@ -39,9 +39,9 @@ class HistoryListViewController: UIViewController {
     private lazy var headers = setupSection(with: travelItemViewModel?.histories ?? [])
     private lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .black
+        refreshControl.tintColor = .clear
         refreshControl.addTarget(self, action: #selector(addHistory), for: .valueChanged)
-        
+        refreshControl.attributedTitle = NSAttributedString(string: "새 지출 입력하기")
         return refreshControl
     }()
     
@@ -62,8 +62,9 @@ class HistoryListViewController: UIViewController {
 
     @objc private func addHistory() {
         let addHistoryVC = AddHistoryViewController(nibName: AddHistoryViewController.identifier, bundle: nil)
-        self.present(addHistoryVC, animated: true) {
-            print("pull to refresh")
+        addHistoryVC.travelItemViewModel = self.travelItemViewModel
+        self.present(addHistoryVC, animated: true) { [weak self] in
+            self?.refresher.endRefreshing()
         }
     }
     
