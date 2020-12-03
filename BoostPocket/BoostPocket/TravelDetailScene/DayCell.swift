@@ -10,7 +10,7 @@ import UIKit
 
 class DayCell: UIView {
     
-    var dayLabel: UILabel = UILabel()
+    var dayButton: UIButton = UIButton()
     var monthLabel: UILabel = UILabel()
     
     init(frame: CGRect, date: Date) {
@@ -24,20 +24,21 @@ class DayCell: UIView {
     }
     
     func configure(with date: Date) {
-        dayLabel.font = dayLabel.font.withSize(17)
+        dayButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+        dayButton.setTitleColor(.black, for: .normal)
         monthLabel.font = monthLabel.font.withSize(10)
         monthLabel.textColor = UIColor.lightGray
-        
-        dayLabel.text = date.convertToString(format: .day)
+
+        dayButton.setTitle(date.convertToString(format: .day), for: .normal)
         monthLabel.text = date.convertToString(format: .month)
-        addSubview(dayLabel)
+        addSubview(dayButton)
         addSubview(monthLabel)
         
-        dayLabel.translatesAutoresizingMaskIntoConstraints = false
+        dayButton.translatesAutoresizingMaskIntoConstraints = false
         monthLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dayLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            dayLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -8)
+            dayButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            dayButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -8)
         ])
         
         NSLayoutConstraint.activate([

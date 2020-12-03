@@ -62,8 +62,66 @@
                                     <constraint firstItem="NrH-bA-9YK" firstAttribute="top" secondItem="Z3N-xh-feq" secondAttribute="top" id="nYt-WQ-L5c"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TlZ-ef-Dwf">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="TlZ-ef-Dwf">
                                 <rect key="frame" x="0.0" y="44" width="118.5" height="59"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nhk-Y4-RcI">
+                                        <rect key="frame" x="0.0" y="0.0" width="59" height="59"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ALL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJt-Ce-JhI">
+                                                <rect key="frame" x="20.5" y="35.5" width="18.5" height="12"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4RM-9s-J1O">
+                                                <rect key="frame" x="14.5" y="5" width="30" height="33"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <state key="normal" title="A">
+                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="allButtonTapped:" destination="fmi-ND-nuS" eventType="touchUpInside" id="8rQ-qE-lg7"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="PJt-Ce-JhI" firstAttribute="centerY" secondItem="Nhk-Y4-RcI" secondAttribute="centerY" constant="12" id="KgW-aM-uUT"/>
+                                            <constraint firstItem="PJt-Ce-JhI" firstAttribute="centerX" secondItem="Nhk-Y4-RcI" secondAttribute="centerX" id="LhR-Wv-3lf"/>
+                                            <constraint firstItem="4RM-9s-J1O" firstAttribute="centerX" secondItem="Nhk-Y4-RcI" secondAttribute="centerX" id="Pnv-PG-EnY"/>
+                                            <constraint firstItem="4RM-9s-J1O" firstAttribute="centerY" secondItem="Nhk-Y4-RcI" secondAttribute="centerY" constant="-8" id="SNa-Vd-1Mk"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lNX-mS-vBO">
+                                        <rect key="frame" x="59" y="0.0" width="59.5" height="59"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="준비" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qe2-4r-xSf">
+                                                <rect key="frame" x="21" y="35.5" width="17.5" height="12"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TGX-v2-Of4">
+                                                <rect key="frame" x="14.5" y="5" width="30" height="33"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <state key="normal" title="P">
+                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="prepareButtonTapped:" destination="fmi-ND-nuS" eventType="touchUpInside" id="bO8-Sa-Bie"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="TGX-v2-Of4" firstAttribute="centerX" secondItem="lNX-mS-vBO" secondAttribute="centerX" id="6ut-c0-tre"/>
+                                            <constraint firstItem="Qe2-4r-xSf" firstAttribute="centerX" secondItem="lNX-mS-vBO" secondAttribute="centerX" id="dy3-f6-lkz"/>
+                                            <constraint firstItem="TGX-v2-Of4" firstAttribute="centerY" secondItem="lNX-mS-vBO" secondAttribute="centerY" constant="-8" id="vxb-AY-u9q"/>
+                                            <constraint firstItem="Qe2-4r-xSf" firstAttribute="centerY" secondItem="lNX-mS-vBO" secondAttribute="centerY" constant="12" id="yW1-GM-h57"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="TlZ-ef-Dwf" secondAttribute="height" multiplier="2:1" id="2Zr-ib-qcs"/>
                                 </constraints>
