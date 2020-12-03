@@ -34,7 +34,8 @@ class HistoryListViewController: UIViewController {
     
     @IBOutlet weak var historyListTableView: UITableView!
     @IBOutlet weak var dayStackView: UIStackView!
-
+    @IBOutlet weak var moneySegmentedControl: UISegmentedControl!
+    
     weak var travelItemViewModel: HistoryListPresentable?
     private lazy var dataSource = configureDatasource()
     private lazy var headers = setupSection(with: travelItemViewModel?.histories ?? [])
@@ -49,6 +50,7 @@ class HistoryListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+        configureSegmentedControl()
         setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
     }
     
@@ -67,6 +69,13 @@ class HistoryListViewController: UIViewController {
         self.present(addHistoryVC, animated: true) { [weak self] in
             self?.refresher.endRefreshing()
         }
+    }
+    
+    private func configureSegmentedControl() {
+        moneySegmentedControl.selectedSegmentTintColor = .clear
+        moneySegmentedControl.layer.backgroundColor = UIColor.clear.cgColor
+        moneySegmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "AvenirNextCondensed-Medium", size: 12)!, NSAttributedString.Key.foregroundColor: UIColor.lightGray], for: .normal)
+        moneySegmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "AvenirNextCondensed-Medium", size: 16)!, NSAttributedString.Key.foregroundColor: UIColor(named: "mainColor")], for: .selected)
     }
     
     private func configureTableView() {
@@ -130,6 +139,20 @@ class HistoryListViewController: UIViewController {
         dayStackView.addArrangedSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/7).isActive = true
+    }
+    
+    @IBAction func indexChanged(_ sender: UISegmentedControl) {
+        let histories = travelItemViewModel?.histories ?? []
+        switch sender.selectedSegmentIndex {
+        case 0:
+            applySnapshot(with: histories)
+        case 1:
+            let cashOnly = histories.filter { $0.isCard == false }
+            applySnapshot(with: cashOnly)
+        default:
+            let cardOnly = histories.filter { $0.isCard == true }
+            applySnapshot(with: cardOnly)
+        }
     }
 }
 

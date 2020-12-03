@@ -26,9 +26,14 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jDJ-DO-0v7">
                                 <rect key="frame" x="0.0" y="103" width="414" height="32"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="모두 보기"/>
+                                    <segment title="현금만 보기"/>
+                                    <segment title="카드만 보기"/>
                                 </segments>
+                                <color key="tintColor" name="lightMainColor"/>
+                                <connections>
+                                    <action selector="indexChanged:" destination="fmi-ND-nuS" eventType="valueChanged" id="Wc6-7m-6WG"/>
+                                </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z3N-xh-feq">
                                 <rect key="frame" x="118.5" y="44" width="295.5" height="59"/>
@@ -88,6 +93,7 @@
                     <connections>
                         <outlet property="dayStackView" destination="jFB-Ve-ziB" id="i3D-iC-EMT"/>
                         <outlet property="historyListTableView" destination="7Iu-bN-RtM" id="Ezw-Jg-mt0"/>
+                        <outlet property="moneySegmentedControl" destination="jDJ-DO-0v7" id="ile-mk-azo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Asu-oD-cZV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -674,6 +680,9 @@
         </namedColor>
         <namedColor name="deleteTextColor">
             <color red="0.43500000238418579" green="0.17800000309944153" blue="0.18299999833106995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="lightMainColor">
+            <color red="0.92000001668930054" green="0.9570000171661377" blue="0.99500000476837158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="mainColor">
             <color red="0.45899999141693115" green="0.75700002908706665" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
