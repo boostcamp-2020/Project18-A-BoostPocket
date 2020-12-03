@@ -63,14 +63,13 @@ class AddHistoryViewController: UIViewController {
         
         isAddingIncome = baseData.isIncome
         
-        let color = isAddingIncome ? .systemGreen : UIColor(named: "DeleteButtonColor")
+        let color = isAddingIncome ? .systemGreen : UIColor(named: "deleteButtonColor")
         
         headerView.backgroundColor = color
         coloredButtons.forEach { button in
             button.setTitleColor(color, for: .normal)
             button.tintColor = color
         }
-        
         
         historyTypeLabel.text = isAddingIncome ? "수입" : "지출"
         flagImageView.image = UIImage(data: baseData.flagImage)
