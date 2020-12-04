@@ -12,6 +12,7 @@ struct BaseDataForAddingHistory {
     var isIncome: Bool
     var flagImage: Data
     var currencyCode: String
+    var currentDate: Date
     var exchangeRate: Double
 }
 
@@ -82,7 +83,8 @@ class AddHistoryViewController: UIViewController {
         historyTitleLabel.text = historyTitlePlaceholder
         historyTitleLabel.addGestureRecognizer(titleTap)
         
-        let dateLabelText = Date().convertToString(format: .dotted)
+        date = baseData.currentDate
+        let dateLabelText = date.convertToString(format: .dotted)
         dateLabel.text = dateLabelText
     }
     
