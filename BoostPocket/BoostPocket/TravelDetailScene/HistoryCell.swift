@@ -22,7 +22,7 @@ class HistoryCell: UITableViewCell {
     }
     
     func configure(with history: HistoryItemViewModel) {
-        categoryImageView.image = UIImage(named: history.category.name)
+        categoryImageView.image = UIImage(named: history.category.imageName)
         costLabel.text = history.amount.insertComma
         costLabel.textColor = history.category.name == "예산 금액 추가" ? UIColor(named: "mainColor") : UIColor(named: "deleteButtonColor")
         titleLabel.text = history.title

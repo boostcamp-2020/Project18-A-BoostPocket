@@ -52,7 +52,7 @@ class HistoryListViewController: UIViewController {
         setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
         moneySegmentedControl.selectedSegmentIndex = 0
     }
-
+    
     @objc private func addExpenseHistory() {
         let addHistoryVC = AddHistoryViewController(nibName: AddHistoryViewController.identifier, bundle: nil)
         
@@ -91,7 +91,6 @@ class HistoryListViewController: UIViewController {
         let datasource = DataSource(tableView: historyListTableView) { (tableview, indexPath, item) -> UITableViewCell? in
             guard let cell = tableview.dequeueReusableCell(withIdentifier: HistoryCell.identifier, for: indexPath) as? HistoryCell else { return UITableViewCell() }
             cell.configure(with: item)
-            
             return cell
         }
         
@@ -103,11 +102,10 @@ class HistoryListViewController: UIViewController {
         headers = setupSection(with: histories)
         snapshot.appendSections(headers)
         histories.forEach { history in
-            if let section = headers.filter({ Calendar.current.isDate(history.date, inSameDayAs: $0.date) }).first {
+            if let section = headers.filter({ history.date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted)}).first {
                 snapshot.appendItems([history], toSection: section)
             }
         }
-        
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
@@ -118,7 +116,7 @@ class HistoryListViewController: UIViewController {
             let day = startDate.interval(ofComponent: .day, fromDate: history.date)
             let amount = history.amount
             let date = history.date
-            if let day = days.filter({ Calendar.current.isDate(date, inSameDayAs: $0.date) }).first {
+            if let day = days.filter({ date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted)}).first {
                 day.amount += amount
             } else {
                 days.insert(HistoryListSectionHeader(dayNumber: day + 1, date: date, amount: amount))
@@ -132,7 +130,7 @@ class HistoryListViewController: UIViewController {
     private func setupDays(from startDate: Date?, to endDate: Date?) {
         dayStackView.removeAllArrangedSubviews()
         guard let startDate = travelItemViewModel?.startDate,
-            let endDate = travelItemViewModel?.endDate else { return }
+              let endDate = travelItemViewModel?.endDate else { return }
         let days = startDate.getPeriodOfDates(with: endDate)
         days.forEach { day in
             setupDayCell(with: day)
@@ -155,7 +153,7 @@ class HistoryListViewController: UIViewController {
         if let prepare = isPrepare, prepare {
             histories = histories.filter { $0.isPrepare == prepare }
         } else if let date = date {
-            histories = histories.filter { Calendar.current.isDate(date, inSameDayAs: $0.date) }
+            histories = histories.filter { date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted)}
         }
         return histories
     }
@@ -183,7 +181,6 @@ class HistoryListViewController: UIViewController {
         selectedDate = nil
         applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: selectedDate, isCard: isCardOnly))
     }
-    
 }
 
 extension HistoryListViewController: UITableViewDelegate {
@@ -224,19 +221,5 @@ extension HistoryListViewController: DayButtonDelegate {
             }
         }
         applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: self.selectedDate, isCard: isCardOnly))
-    }
-    
-}
-
-extension UIStackView {
-    func removeAllArrangedSubviews() {
-        let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
-            self.removeArrangedSubview(subview)
-            return allSubviews + [subview]
-        }
-        // Deactivate all constraints
-        NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
-        // Remove the views from self
-        removedSubviews.forEach({ $0.removeFromSuperview() })
     }
 }

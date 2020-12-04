@@ -30,7 +30,7 @@ class HistoryViewModelTests: XCTestCase {
     let isIncome = false
     let title = "테스트지출"
     let memo = "테스트메모"
-    let date = "2020-12-21".convertToDate()
+    let date = "2020-12-21-12-01-33".convertToDate()
     let category = HistoryCategory.shopping
     let amount = Double()
     let image = Data()
