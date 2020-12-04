@@ -22,7 +22,7 @@ class HistoryListViewController: UIViewController {
     // 필터 조건 저장
     private var isPrepareOnly: Bool? = false
     private var date: Date?
-    private var isCard: Bool?
+    private var isCardOnly: Bool?
     
     private lazy var dataSource = configureDatasource()
     private lazy var headers = setupSection(with: travelItemViewModel?.histories ?? [])
@@ -46,6 +46,7 @@ class HistoryListViewController: UIViewController {
         setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
         moneySegmentedControl.selectedSegmentIndex = 0
         travelItemViewModel?.needFetchItems()
+        
         travelItemViewModel?.didFetch = { [weak self] fetchedHistories in
             self?.historyListTableView.reloadData()
             self?.applySnapshot(with: fetchedHistories)
@@ -92,6 +93,7 @@ class HistoryListViewController: UIViewController {
             
             return cell
         }
+        
         return datasource
     }
     
@@ -160,23 +162,25 @@ class HistoryListViewController: UIViewController {
     @IBAction func moneySegmentedControlChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            isCard = nil
+            isCardOnly = nil
         case 1:
-            isCard = false
+            isCardOnly = false
         default:
-            isCard = true
+            isCardOnly = true
         }
-        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: date, isCard: isCard))
+        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: date, isCard: isCardOnly))
     }
     
     @IBAction func allButtonTapped(_ sender: UIButton) {
         isPrepareOnly = false
-        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: date, isCard: isCard))
+        date = nil
+        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: date, isCard: isCardOnly))
     }
     
     @IBAction func prepareButtonTapped(_ sender: UIButton) {
         isPrepareOnly = true
-        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: date, isCard: isCard))
+        date = nil
+        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: date, isCard: isCardOnly))
     }
     
 }
@@ -218,7 +222,7 @@ extension HistoryListViewController: DayButtonDelegate {
                 break
             }
         }
-        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: self.date, isCard: isCard))
+        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: self.date, isCard: isCardOnly))
     }
     
 }

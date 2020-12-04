@@ -87,8 +87,8 @@ class AddHistoryViewController: UIViewController {
     }
     
     private func changeCalculatedAmountLabel() {
-        // TODO: - NSExpression Invalid 에러 핸들링
-        guard let stringWithMathematicalOperation = calculatorExpressionLabel.text else { return }
+        guard let stringWithMathematicalOperation = calculatorExpressionLabel.text, isValidExpression(stringWithMathematicalOperation) else { return }
+        
         let exp: NSExpression = NSExpression(format: stringWithMathematicalOperation)
         if let amount = exp.expressionValue(with: nil, context: nil) as? Double, let exchangeRate = baseData?.exchangeRate {
 
@@ -99,6 +99,23 @@ class AddHistoryViewController: UIViewController {
             
             self.amount = amount
         }
+    }
+    
+    private func isValidExpression(_ exp: String) -> Bool {
+        // operators 기준으로 separate
+        let operators = CharacterSet(charactersIn: "+_*/")
+        let numbersOnly = exp.components(separatedBy: operators)
+        
+        print(numbersOnly)
+        for str in numbersOnly {
+            let pieces = str.components(separatedBy: ".")
+            if pieces.count > 2 {
+                print("invalid!")
+                return false
+            }
+        }
+        // separated된 숫자들의 string이 floating point를 1개 이하로 포함하는지 여부 검사
+        return true
     }
     
     @objc func titleLabelTapped() {
