@@ -9,6 +9,16 @@
         <relationship name="travels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Travel" inverseName="country" inverseEntity="Travel"/>
     </entity>
     <entity name="History" representedClassName="History" syncable="YES">
+        <attribute name="amount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="category" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="isCard" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isIncome" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isPrepare" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="memo" optional="YES" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
         <relationship name="travel" maxCount="1" deletionRule="Nullify" destinationEntity="Travel" inverseName="history" inverseEntity="Travel"/>
     </entity>
     <entity name="Travel" representedClassName="Travel" syncable="YES">
@@ -25,7 +35,7 @@
     </entity>
     <elements>
         <element name="Country" positionX="139.05078125" positionY="-38.7421875" width="128" height="133"/>
+        <element name="History" positionX="145.828125" positionY="167.3515625" width="128" height="208"/>
         <element name="Travel" positionX="-63" positionY="-18" width="128" height="193"/>
-        <element name="History" positionX="145.828125" positionY="167.3515625" width="128" height="58"/>
     </elements>
 </model>

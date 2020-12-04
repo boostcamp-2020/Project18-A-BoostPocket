@@ -20,3 +20,5 @@ jobs:
     - name: Run BoostPocketTests
       run: xcodebuild test -workspace BoostPocket/BoostPocket.xcworkspace -scheme BoostPocketTests -destination 'platform=iOS Simulator,name=iPhone 11'
 
+    - name: Run NetworkManagerTests
+      run: xcodebuild test -workspace BoostPocket/BoostPocket.xcworkspace -scheme NetworkManagerTests -destination 'platform=iOS Simulator,name=iPhone 11'

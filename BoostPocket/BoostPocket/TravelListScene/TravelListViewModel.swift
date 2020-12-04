@@ -13,11 +13,12 @@ protocol TravelListPresentable {
     func createCountryListViewModel() -> CountryListViewModel?
     var didFetch: (([TravelItemViewModel]) -> Void)? { get set }
 
+    func createTravel(countryName: String, completion: @escaping (TravelItemViewModel?) -> Void)
     func needFetchItems()
-    @discardableResult func createTravel(countryName: String) -> TravelItemViewModel?
-    func cellForItemAt(path: IndexPath) -> TravelItemViewModel?
-    func numberOfItem() -> Int
+    func cellForItemAt(id: UUID) -> TravelItemViewModel?
+    func updateTravel(countryName: String, id: UUID, title: String, memo: String?, startDate: Date?, endDate: Date?, coverImage: Data, budget: Double, exchangeRate: Double) -> Bool
     func deleteTravel(id: UUID) -> Bool
+    func numberOfItem() -> Int
 }
 
 class TravelListViewModel: TravelListPresentable {
@@ -30,29 +31,66 @@ class TravelListViewModel: TravelListPresentable {
         }
     }
     var didFetch: (([TravelItemViewModel]) -> Void)?
+    private weak var historyProvider: HistoryProvidable?
     private weak var countryProvider: CountryProvidable?
     private weak var travelProvider: TravelProvidable?
     
-    init(countryProvider: CountryProvidable?, travelProvider: TravelProvidable?) {
+    init(countryProvider: CountryProvidable?, travelProvider: TravelProvidable?, historyProvider: HistoryProvidable?) {
         self.countryProvider = countryProvider
         self.travelProvider = travelProvider
+        self.historyProvider = historyProvider
+    }
+    
+    func createTravel(countryName: String, completion: @escaping (TravelItemViewModel?) -> Void) {
+        travelProvider?.createTravel(countryName: countryName) { [weak self] (createdTravel) in
+            guard let self = self,
+                let historyProvider = self.historyProvider,
+                let createdTravel = createdTravel else {
+                completion(nil)
+                return
+            }
+            
+            let createdTravelItemViewModel = TravelItemViewModel(travel: createdTravel, historyProvider: historyProvider)
+            self.travels.append(createdTravelItemViewModel)
+            completion(createdTravelItemViewModel)
+        }
+        
     }
     
     func needFetchItems() {
-        guard let fetchedTravels = travelProvider?.fetchTravels() else { return }
+        guard let fetchedTravels = travelProvider?.fetchTravels(),
+            let historyProvider = self.historyProvider
+            else { return }
+        
         travels.removeAll()
         var newTravelItemViewModels: [TravelItemViewModel] = []
+        
         fetchedTravels.forEach { travel in
-            newTravelItemViewModels.append(TravelItemViewModel(travel: travel))
+            newTravelItemViewModels.append(TravelItemViewModel(travel: travel, historyProvider: historyProvider))
         }
         travels = newTravelItemViewModels
     }
     
-    func createTravel(countryName: String) -> TravelItemViewModel? {
-        guard let createdTravel = travelProvider?.createTravel(countryName: countryName) else { return nil }
-        let createdTravelItemViewModel = TravelItemViewModel(travel: createdTravel)
-        travels.append(createdTravelItemViewModel)
-        return createdTravelItemViewModel
+    func cellForItemAt(id: UUID) -> TravelItemViewModel? {
+        return travels.filter({ $0.id == id }).first
+    }
+    
+    func updateTravel(countryName: String, id: UUID, title: String, memo: String?, startDate: Date?, endDate: Date?, coverImage: Data, budget: Double, exchangeRate: Double) -> Bool {
+        let travelInfo = TravelInfo(countryName: countryName, id: id, title: title, memo: memo, startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate)
+        
+        guard let updatedTravel = travelProvider?.updateTravel(updatedTravelInfo: travelInfo),
+            let indexToUpdate = travels.indices.filter({ travels[$0].id == updatedTravel.id }).first
+            else { return false }
+
+        travels[indexToUpdate].title = updatedTravel.title
+        travels[indexToUpdate].memo = updatedTravel.memo
+        travels[indexToUpdate].startDate = updatedTravel.startDate
+        travels[indexToUpdate].endDate = updatedTravel.endDate
+        travels[indexToUpdate].coverImage = updatedTravel.coverImage
+        travels[indexToUpdate].budget = updatedTravel.budget
+        travels[indexToUpdate].exchangeRate = updatedTravel.exchangeRate
+        
+        return true
     }
     
     func deleteTravel(id: UUID) -> Bool {
@@ -63,10 +101,6 @@ class TravelListViewModel: TravelListPresentable {
             return true
         }
         return false
-    }
-    
-    func cellForItemAt(path: IndexPath) -> TravelItemViewModel? {
-        return travels[path.row]
     }
     
     func numberOfItem() -> Int {

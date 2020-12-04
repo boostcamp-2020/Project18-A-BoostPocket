@@ -8,11 +8,12 @@
 
 import Foundation
 import CoreData
+import NetworkManager
 @testable import BoostPocket
 
 class PersistenceManagerStub: PersistenceManager {
-    override init() {
-        super.init()
+    override init(dataLoader: DataLoader) {
+        super.init(dataLoader: dataLoader)
         
         let persistentStoreDescription = NSPersistentStoreDescription()
         persistentStoreDescription.type = NSInMemoryStoreType

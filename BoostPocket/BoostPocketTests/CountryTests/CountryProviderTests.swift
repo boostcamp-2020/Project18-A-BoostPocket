@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import NetworkManager
 @testable import BoostPocket
 
 class CountryProviderTests: XCTestCase {
@@ -15,13 +16,15 @@ class CountryProviderTests: XCTestCase {
     var countryProviderStub: CountryProvidable!
     
     let countryName = "test name"
-    let lastUpdated = Date()
+    let lastUpdated = "2019-08-23-12-01-33".convertToDate()
     let flagImage = Data()
     let exchangeRate = 1.5
     let currencyCode = "test code"
     
     override func setUpWithError() throws {
-        persistenceManagerStub = PersistenceManagerStub()
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
+        let dataLoader = DataLoader(session: session)
+        persistenceManagerStub = PersistenceManagerStub(dataLoader: dataLoader)
         countryProviderStub = CountryProvider(persistenceManager: persistenceManagerStub)
     }
 
@@ -29,29 +32,32 @@ class CountryProviderTests: XCTestCase {
         persistenceManagerStub = nil
         countryProviderStub = nil
     }
-    
+
     func test_countryProvider_fetchCountries() {
+        let expectation = XCTestExpectation(description: "Successfully Created Country")
+        
         XCTAssertEqual(countryProviderStub.fetchCountries(), [])
         
-        let createdCountry = countryProviderStub.createCountry(name: countryName,
-                                                               lastUpdated: lastUpdated,
-                                                               flagImage: flagImage,
-                                                               exchangeRate: exchangeRate,
-                                                               currencyCode: currencyCode)
+        countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) { (country) in
+            XCTAssertNotNil(country)
+            expectation.fulfill()
+        }
         
-        XCTAssertNotNil(createdCountry)
+        wait(for: [expectation], timeout: 5.0)
         XCTAssertNotEqual(countryProviderStub.fetchCountries(), [])
-        
-        XCTAssertEqual(countryProviderStub.fetchCountries().first?.name, countryName)
-        XCTAssertEqual(countryProviderStub.fetchCountries().first?.lastUpdated, lastUpdated)
-        XCTAssertEqual(countryProviderStub.fetchCountries().first?.flagImage, flagImage)
-        XCTAssertEqual(countryProviderStub.fetchCountries().first?.exchangeRate, exchangeRate)
-        XCTAssertEqual(countryProviderStub.fetchCountries().first?.currencyCode, currencyCode)
     }
     
     func test_countryProvider_createCountry() {
-        let createdCountry = countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+        let expectation = XCTestExpectation(description: "Successfully Created Country")
+        var createdCountry: Country?
         
+        countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) { (country) in
+            XCTAssertNotNil(country)
+            createdCountry = country
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 5.0)
         XCTAssertNotNil(createdCountry)
         XCTAssertEqual(createdCountry?.name, countryName)
         XCTAssertEqual(createdCountry?.lastUpdated, lastUpdated)
