@@ -17,7 +17,7 @@ class CountryViewModelTests: XCTestCase {
     var countryProvider: CountryProvidable!
     
     let countryName = "test name"
-    let lastUpdated = "2019-08-23".convertToDate()
+    let lastUpdated = "2019-08-23-12-01-33".convertToDate()
     let flagImage = Data()
     let exchangeRate = 1.5
     let currencyCode = "test code"

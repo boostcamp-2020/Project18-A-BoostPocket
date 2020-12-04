@@ -26,7 +26,7 @@ class PersistenceManagerTests: XCTestCase {
     let budget = Double()
     let exchangeRate = 1.5
     let countryName = "대한민국"
-    let lastUpdated = "2019-08-23".convertToDate()
+    let lastUpdated = "2019-08-23-12-01-33".convertToDate()
     let flagImage = Data()
     let currencyCode = "KRW"
     let historyId = UUID()
@@ -176,7 +176,7 @@ class PersistenceManagerTests: XCTestCase {
         
         wait(for: [countryExpectation, travelExpectation], timeout: 5.0)
         
-        let newLastUpdated = "2020-12-25".convertToDate()
+        let newLastUpdated = "2020-12-25-12-01-00".convertToDate()
         let newExchagneRate = 12.0
         countryInfo = CountryInfo(name: countryName, lastUpdated: newLastUpdated, flagImage: flagImage, exchangeRate: newExchagneRate, currencyCode: currencyCode)
         
