@@ -63,6 +63,34 @@ class HistoryListViewController: UIViewController {
         moneySegmentedControl.selectedSegmentIndex = 0
     }
     
+    // MARK: - Configuration
+    
+    private func configureSegmentedControl() {
+        moneySegmentedControl.selectedSegmentTintColor = .clear
+        moneySegmentedControl.backgroundColor = .none
+        moneySegmentedControl.layer.backgroundColor = UIColor.clear.cgColor
+        moneySegmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "AvenirNextCondensed-Medium", size: 12)!, NSAttributedString.Key.foregroundColor: UIColor.lightGray], for: .normal)
+        moneySegmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "AvenirNextCondensed-Medium", size: 16)!, NSAttributedString.Key.foregroundColor: UIColor(named: "mainColor") ?? UIColor.systemBlue], for: .selected)
+    }
+    
+    private func configureTableView() {
+        historyListTableView.delegate = self
+        historyListTableView.register(HistoryCell.getNib(), forCellReuseIdentifier: HistoryCell.identifier)
+        historyListTableView.register(HistoryHeaderCell.getNib(), forHeaderFooterViewReuseIdentifier: HistoryHeaderCell.identifier)
+    }
+    
+    private func configureDatasource() -> DataSource {
+        let datasource = DataSource(tableView: historyListTableView) { (tableview, indexPath, item) -> UITableViewCell? in
+            guard let cell = tableview.dequeueReusableCell(withIdentifier: HistoryCell.identifier, for: indexPath) as? HistoryCell else { return UITableViewCell() }
+            
+            cell.selectionStyle = .none
+            cell.configure(with: item)
+            return cell
+        }
+        
+        return datasource
+    }
+    
     private func configureFloatingActionButton() {
         let buttonWidth = self.view.bounds.width * 0.1
         
@@ -79,6 +107,8 @@ class HistoryListViewController: UIViewController {
         addExpenseButton.clipsToBounds = true
         
     }
+    
+    // MARK: - Floating Action Button
     
     @IBAction func floatingActionButtonTapped(_ sender: UIButton) {
         switch isFloatingButtonOpend {
@@ -135,37 +165,23 @@ class HistoryListViewController: UIViewController {
     }
     
     @IBAction func addExpenseButtonTapped(_ sender: Any) {
-        let baseData = BaseDataForAddingHistory(isIncome: false,
-                                                flagImage: self.travelItemViewModel?.flagImage ?? Data(),
-                                                currencyCode: self.travelItemViewModel?.currencyCode ?? "",
-                                                currentDate: self.selectedDate ?? Date(),
-                                                exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
-        
-        let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newExpenseData in
-            // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
-            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: false, title: newExpenseData.title, memo: newExpenseData.memo, date: newExpenseData.date, image: newExpenseData.image ?? Data(), amount: newExpenseData.amount, category: newExpenseData.category, isPrepare: self?.isPrepareOnly ?? false, isCard: newExpenseData.isCard ?? false) { _ in }
-        }
-        
-        let onPresent: (() -> Void)  = { [weak self] in
-            self?.closeFloatingActions()
-        }
-        
-        AddHistoryViewController.present(at: self,
-                                         baseData: baseData,
-                                         saveButtonHandler: saveButtonHandler,
-                                         onPresent: onPresent)
+        addNewHistory(isIncome: false)
     }
     
     @IBAction func addIncomeButtonTapped(_ sender: Any) {
-        let baseData = BaseDataForAddingHistory(isIncome: true,
+        addNewHistory(isIncome: true)
+    }
+    
+    private func addNewHistory(isIncome: Bool) {
+        let newHistoryViewModel = NewHistoryViewModel(isIncome: isIncome,
                                                 flagImage: self.travelItemViewModel?.flagImage ?? Data(),
                                                 currencyCode: self.travelItemViewModel?.currencyCode ?? "",
                                                 currentDate: self.selectedDate ?? Date(),
                                                 exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
         
-        let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newExpenseData in
+        let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newHistoryData in
             // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
-            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: true, title: newExpenseData.title, memo: newExpenseData.memo, date: newExpenseData.date, image: newExpenseData.image ?? Data(), amount: newExpenseData.amount, category: newExpenseData.category, isPrepare: false, isCard: newExpenseData.isCard ?? false) { _ in }
+            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image ?? Data(), amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: self?.isPrepareOnly ?? false, isCard: newHistoryData.isCard ?? false) { _ in }
         }
         
         let onPresent: (() -> Void)  = { [weak self] in
@@ -173,35 +189,9 @@ class HistoryListViewController: UIViewController {
         }
         
         AddHistoryViewController.present(at: self,
-                                         baseData: baseData,
+                                         newHistoryViewModel: newHistoryViewModel,
                                          saveButtonHandler: saveButtonHandler,
                                          onPresent: onPresent)
-    }
-    
-    private func configureSegmentedControl() {
-        moneySegmentedControl.selectedSegmentTintColor = .clear
-        moneySegmentedControl.backgroundColor = .none
-        moneySegmentedControl.layer.backgroundColor = UIColor.clear.cgColor
-        moneySegmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "AvenirNextCondensed-Medium", size: 12)!, NSAttributedString.Key.foregroundColor: UIColor.lightGray], for: .normal)
-        moneySegmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "AvenirNextCondensed-Medium", size: 16)!, NSAttributedString.Key.foregroundColor: UIColor(named: "mainColor") ?? UIColor.systemBlue], for: .selected)
-    }
-    
-    private func configureTableView() {
-        historyListTableView.delegate = self
-        historyListTableView.register(HistoryCell.getNib(), forCellReuseIdentifier: HistoryCell.identifier)
-        historyListTableView.register(HistoryHeaderCell.getNib(), forHeaderFooterViewReuseIdentifier: HistoryHeaderCell.identifier)
-    }
-    
-    private func configureDatasource() -> DataSource {
-        let datasource = DataSource(tableView: historyListTableView) { (tableview, indexPath, item) -> UITableViewCell? in
-            guard let cell = tableview.dequeueReusableCell(withIdentifier: HistoryCell.identifier, for: indexPath) as? HistoryCell else { return UITableViewCell() }
-            
-            cell.selectionStyle = .none
-            cell.configure(with: item)
-            return cell
-        }
-        
-        return datasource
     }
     
     private func applySnapshot(with histories: [HistoryItemViewModel]) {

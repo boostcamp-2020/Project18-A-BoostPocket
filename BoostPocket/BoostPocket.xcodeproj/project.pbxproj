@@ -40,6 +40,7 @@
 		5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF409472575239200351F4B /* MemoEditViewController.swift */; };
 		954F7019256D1C4B00B2E48B /* TravelListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */; };
 		954F701B256D3E7700B2E48B /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954F701A256D3E7700B2E48B /* Sections.swift */; };
+		9564EE9A257BBE3F00AD85AC /* Character+isOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9564EE99257BBE3F00AD85AC /* Character+isOperation.swift */; };
 		956BBC58256B9CCC007803B1 /* CountryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BBC57256B9CCC007803B1 /* CountryStub.swift */; };
 		9572F977256B5397003049CB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9572F976256B5397003049CB /* .swiftlint.yml */; };
 		9572F986256B54E4003049CB /* NetworkManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9572F97D256B54E4003049CB /* NetworkManager.framework */; };
@@ -163,6 +164,7 @@
 		9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.debug.xcconfig"; sourceTree = "<group>"; };
 		954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewModel.swift; sourceTree = "<group>"; };
 		954F701A256D3E7700B2E48B /* Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
+		9564EE99257BBE3F00AD85AC /* Character+isOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+isOperation.swift"; sourceTree = "<group>"; };
 		956BBC57256B9CCC007803B1 /* CountryStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryStub.swift; sourceTree = "<group>"; };
 		9572F976256B5397003049CB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		9572F97D256B54E4003049CB /* NetworkManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -492,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */,
+				9564EE99257BBE3F00AD85AC /* Character+isOperation.swift */,
 				95747A68256FCEEA0065C419 /* Data+ImageData.swift */,
 				A9BF7AA4256F9B8800496CD8 /* Date+ConvertToString.swift */,
 				5CAE96652577FC6300FD7F05 /* Double+Comma.swift */,
@@ -804,6 +807,7 @@
 				5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */,
 				5C77958D257965B400A685FB /* UIStackView+RemoveAll.swift in Sources */,
 				5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */,
+				9564EE9A257BBE3F00AD85AC /* Character+isOperation.swift in Sources */,
 				5CAE96662577FC6300FD7F05 /* Double+Comma.swift in Sources */,
 				5C8C9196256E8436008C3919 /* TravelItemViewModel.swift in Sources */,
 				A9BF7AAB256F9CBF00496CD8 /* PaddedLabel.swift in Sources */,
