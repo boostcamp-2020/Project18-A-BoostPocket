@@ -54,22 +54,25 @@ class HistoryListViewController: UIViewController {
     }
     
     @objc private func addExpenseHistory() {
-        let addHistoryVC = AddHistoryViewController(nibName: AddHistoryViewController.identifier, bundle: nil)
-        
         let baseData = BaseDataForAddingHistory(isIncome: false,
                                                 flagImage: self.travelItemViewModel?.flagImage ?? Data(),
                                                 currencyCode: self.travelItemViewModel?.currencyCode ?? "",
                                                 currentDate: self.selectedDate ?? Date(),
                                                 exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
         
-        addHistoryVC.baseData = baseData
-        addHistoryVC.saveButtonHandler = { [weak self] newExpenseData in
-            // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
-            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: false, title: newExpenseData.title, memo: newExpenseData.memo, date: newExpenseData.date, image: newExpenseData.image ?? Data(), amount: newExpenseData.amount, category: newExpenseData.category, isPrepare: false, isCard: newExpenseData.isCard ?? false) { _ in }
-        }
-        self.present(addHistoryVC, animated: true) { [weak self] in
+        let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newExpenseData in
+               // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
+               self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: false, title: newExpenseData.title, memo: newExpenseData.memo, date: newExpenseData.date, image: newExpenseData.image ?? Data(), amount: newExpenseData.amount, category: newExpenseData.category, isPrepare: false, isCard: newExpenseData.isCard ?? false) { _ in }
+           }
+        
+        let onPresent: (() -> Void)  = { [weak self] in
             self?.refresher.endRefreshing()
         }
+        
+        AddHistoryViewController.present(at: self,
+                                         baseData: baseData,
+                                         saveButtonHandler: saveButtonHandler,
+                                         completion: onPresent)
     }
     
     private func configureSegmentedControl() {

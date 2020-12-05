@@ -52,13 +52,13 @@ class AddHistoryViewController: UIViewController {
     @IBOutlet weak var calculatedAmountLabel: UILabel!
     @IBOutlet weak var currencyConvertedAmountLabel: UILabel!
     @IBOutlet var coloredButtons: [UIButton]!
-     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
         configureViews()
     }
- 
+    
     private func configureViews() {
         guard let baseData = baseData else { return }
         
@@ -74,9 +74,6 @@ class AddHistoryViewController: UIViewController {
         
         historyTypeLabel.text = isAddingIncome ? "수입" : "지출"
         historyTypeLabel.textColor = .white
-//        historyTypeLabel.layer.borderWidth = 1
-//        historyTypeLabel.layer.borderColor = UIColor.white.cgColor
-//        historyTypeLabel.layer.cornerRadius = 2
         
         flagImageView.image = UIImage(data: baseData.flagImage)
         currencyCodeLabel.text = baseData.currencyCode
@@ -98,7 +95,7 @@ class AddHistoryViewController: UIViewController {
         
         let exp: NSExpression = NSExpression(format: stringWithMathematicalOperation)
         if let amount = exp.expressionValue(with: nil, context: nil) as? Double, let exchangeRate = baseData?.exchangeRate {
-
+            
             calculatedAmountLabel.text = "\(amount.insertComma)"
             
             let convertedAmount = amount / exchangeRate
@@ -119,7 +116,7 @@ class AddHistoryViewController: UIViewController {
                 return false
             }
         }
-
+        
         return true
     }
     
@@ -242,16 +239,18 @@ extension AddHistoryViewController {
     
     static let nibName = "AddHistoryViewController"
     
-    static func presentModally(at viewController: UIViewController,
-                               baseData: BaseDataForAddingHistory,
-                               saveButtonHandler: ((NewHistoryData) -> Void)?,
-                               completion: @escaping () -> Void
-                               ) {
+    static func present(at viewController: UIViewController,
+                        baseData: BaseDataForAddingHistory,
+                        saveButtonHandler: ((NewHistoryData) -> Void)?,
+                        completion: @escaping (() -> Void)) {
         
         let vc = AddHistoryViewController(nibName: nibName, bundle: nil)
         
         vc.baseData = baseData
         vc.saveButtonHandler = saveButtonHandler
+        viewController.present(vc, animated: true) {
+            completion()
+        }
     }
     
 }
