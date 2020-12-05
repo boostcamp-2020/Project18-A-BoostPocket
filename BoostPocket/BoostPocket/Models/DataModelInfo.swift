@@ -75,6 +75,25 @@ enum HistoryCategory: Int16 {
             return "기타"
         }
     }
+    
+    var imageName: String {
+        switch self {
+        case .income:
+            return "income"
+        case .food:
+            return "food"
+        case .shopping:
+            return "shopping"
+        case .transportation:
+            return "transportation"
+        case .tourism:
+            return "tourism"
+        case .accommodation:
+            return "accommodation"
+        case .etc:
+            return "etc"
+        }
+    }
 }
 
 struct HistoryInfo {

@@ -21,8 +21,8 @@ class HistoryListViewController: UIViewController {
     
     // 필터 조건 저장
     private var isPrepareOnly: Bool? = false
-    private var date: Date?
-    private var isCard: Bool?
+    private var selectedDate: Date?
+    private var isCardOnly: Bool?
     
     private lazy var dataSource = configureDatasource()
     private lazy var headers = setupSection(with: travelItemViewModel?.histories ?? [])
@@ -38,26 +38,28 @@ class HistoryListViewController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureSegmentedControl()
-        // setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
+        
+        travelItemViewModel?.needFetchItems()
+        travelItemViewModel?.didFetch = { [weak self] _ in
+            guard let self = self else { return }
+            self.historyListTableView.reloadData()
+            self.applySnapshot(with: self.filterHistories(isPrepare: self.isPrepareOnly, date: self.selectedDate, isCard: self.isCardOnly))
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
         moneySegmentedControl.selectedSegmentIndex = 0
-        travelItemViewModel?.needFetchItems()
-        travelItemViewModel?.didFetch = { [weak self] fetchedHistories in
-            self?.historyListTableView.reloadData()
-            self?.applySnapshot(with: fetchedHistories)
-        }
     }
-
+    
     @objc private func addExpenseHistory() {
         let addHistoryVC = AddHistoryViewController(nibName: AddHistoryViewController.identifier, bundle: nil)
         
         let baseData = BaseDataForAddingHistory(isIncome: false,
                                                 flagImage: self.travelItemViewModel?.flagImage ?? Data(),
                                                 currencyCode: self.travelItemViewModel?.currencyCode ?? "",
+                                                currentDate: self.selectedDate ?? Date(),
                                                 exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
         
         addHistoryVC.baseData = baseData
@@ -89,9 +91,9 @@ class HistoryListViewController: UIViewController {
         let datasource = DataSource(tableView: historyListTableView) { (tableview, indexPath, item) -> UITableViewCell? in
             guard let cell = tableview.dequeueReusableCell(withIdentifier: HistoryCell.identifier, for: indexPath) as? HistoryCell else { return UITableViewCell() }
             cell.configure(with: item)
-            
             return cell
         }
+        
         return datasource
     }
     
@@ -100,11 +102,10 @@ class HistoryListViewController: UIViewController {
         headers = setupSection(with: histories)
         snapshot.appendSections(headers)
         histories.forEach { history in
-            if let section = headers.filter({ Calendar.current.isDate(history.date, inSameDayAs: $0.date) }).first {
+            if let section = headers.filter({ history.date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted)}).first {
                 snapshot.appendItems([history], toSection: section)
             }
         }
-        
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
@@ -115,7 +116,7 @@ class HistoryListViewController: UIViewController {
             let day = startDate.interval(ofComponent: .day, fromDate: history.date)
             let amount = history.amount
             let date = history.date
-            if let day = days.filter({ Calendar.current.isDate(date, inSameDayAs: $0.date) }).first {
+            if let day = days.filter({ date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted)}).first {
                 day.amount += amount
             } else {
                 days.insert(HistoryListSectionHeader(dayNumber: day + 1, date: date, amount: amount))
@@ -129,7 +130,7 @@ class HistoryListViewController: UIViewController {
     private func setupDays(from startDate: Date?, to endDate: Date?) {
         dayStackView.removeAllArrangedSubviews()
         guard let startDate = travelItemViewModel?.startDate,
-            let endDate = travelItemViewModel?.endDate else { return }
+              let endDate = travelItemViewModel?.endDate else { return }
         let days = startDate.getPeriodOfDates(with: endDate)
         days.forEach { day in
             setupDayCell(with: day)
@@ -152,7 +153,7 @@ class HistoryListViewController: UIViewController {
         if let prepare = isPrepare, prepare {
             histories = histories.filter { $0.isPrepare == prepare }
         } else if let date = date {
-            histories = histories.filter { Calendar.current.isDate(date, inSameDayAs: $0.date) }
+            histories = histories.filter { date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted)}
         }
         return histories
     }
@@ -160,25 +161,26 @@ class HistoryListViewController: UIViewController {
     @IBAction func moneySegmentedControlChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            isCard = nil
+            isCardOnly = nil
         case 1:
-            isCard = false
+            isCardOnly = false
         default:
-            isCard = true
+            isCardOnly = true
         }
-        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: date, isCard: isCard))
+        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: selectedDate, isCard: isCardOnly))
     }
     
     @IBAction func allButtonTapped(_ sender: UIButton) {
         isPrepareOnly = false
-        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: date, isCard: isCard))
+        selectedDate = nil
+        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: selectedDate, isCard: isCardOnly))
     }
     
     @IBAction func prepareButtonTapped(_ sender: UIButton) {
         isPrepareOnly = true
-        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: date, isCard: isCard))
+        selectedDate = nil
+        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: selectedDate, isCard: isCardOnly))
     }
-    
 }
 
 extension HistoryListViewController: UITableViewDelegate {
@@ -213,25 +215,11 @@ extension HistoryListViewController: DayButtonDelegate {
             if let _ = subviews[index].subviews.filter({ $0 == sender }).first as? UIButton {
                 guard let startDate = travelItemViewModel?.startDate,
                       let tappedDate = Calendar.current.date(byAdding: .day, value: index, to: startDate) else { return }
-                date = tappedDate
+                selectedDate = tappedDate
                 isPrepareOnly = nil
                 break
             }
         }
-        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: self.date, isCard: isCard))
-    }
-    
-}
-
-extension UIStackView {
-    func removeAllArrangedSubviews() {
-        let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
-            self.removeArrangedSubview(subview)
-            return allSubviews + [subview]
-        }
-        // Deactivate all constraints
-        NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
-        // Remove the views from self
-        removedSubviews.forEach({ $0.removeFromSuperview() })
+        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: self.selectedDate, isCard: isCardOnly))
     }
 }

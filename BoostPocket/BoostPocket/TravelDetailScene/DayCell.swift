@@ -41,13 +41,15 @@ class DayCell: UIView {
     private func configureDayButton(with date: Date) {
         dayButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         dayButton.setTitleColor(.black, for: .normal)
-        dayButton.setTitle(date.convertToString(format: .day), for: .normal)
+        guard let dayInt = Int(date.convertToString(format: .day)) else { return }
+        dayButton.setTitle(String(dayInt), for: .normal)
     }
     
     private func configureMonthLabel(with date: Date) {
         monthLabel.font = monthLabel.font.withSize(10)
         monthLabel.textColor = UIColor.lightGray
-        monthLabel.text = date.convertToString(format: .month)
+        guard let monthInt = Int(date.convertToString(format: .month)) else { return }
+        monthLabel.text = String(monthInt) + "월"
     }
     
     private func addConstraint() {

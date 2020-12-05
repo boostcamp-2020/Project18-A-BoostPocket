@@ -45,7 +45,7 @@ class HistoryDetailViewController: UIViewController {
     
     private func setAttributes() {
         guard let history = historyItemVieModel else { return }
-        categoryImageView.image = UIImage(named: history.category.name)
+        categoryImageView.image = UIImage(named: history.category.imageName)
         amountLabel.text = "US$ \(history.amount)"
         titleLabel.text = history.title
     }
