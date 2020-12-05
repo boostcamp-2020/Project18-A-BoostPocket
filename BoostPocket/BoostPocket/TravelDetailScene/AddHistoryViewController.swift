@@ -52,6 +52,10 @@ class AddHistoryViewController: UIViewController {
     @IBOutlet weak var calculatedAmountLabel: UILabel!
     @IBOutlet weak var currencyConvertedAmountLabel: UILabel!
     @IBOutlet var coloredButtons: [UIButton]!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var imageButton: UIButton!
+    @IBOutlet weak var memoButton: UIButton!
+    @IBOutlet weak var saveButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +69,10 @@ class AddHistoryViewController: UIViewController {
         self.isAddingIncome = newHistoryViewModel.isIncome
         
         let color = isAddingIncome ? .systemGreen : UIColor(named: "deleteButtonColor")
+        
+        segmentedControl.isHidden = isAddingIncome
+        imageButton.isHidden = isAddingIncome
+        memoButton.isHidden = isAddingIncome
         
         // 상단 뷰 색상
         headerView.backgroundColor = color
@@ -96,10 +104,12 @@ class AddHistoryViewController: UIViewController {
         historyTitleLabel.textColor = .systemGray2
         
         // 날짜
-        // TODO: - DatePicker로 변경해서 사용자가 날짜를 바꿀 수 있도록 하는 기능 구현
+        // TODO: DatePicker로 변경해서 사용자가 날짜를 바꿀 수 있도록 하는 기능 구현
         date = newHistoryViewModel.currentDate
         let dateLabelText = date.convertToString(format: .dotted)
         dateLabel.text = dateLabelText
+        
+        // 이미지, 메모 버튼
         
         // 계산기 버튼 색상
         coloredButtons.forEach { button in
