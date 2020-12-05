@@ -73,6 +73,11 @@ class AddHistoryViewController: UIViewController {
         }
         
         historyTypeLabel.text = isAddingIncome ? "수입" : "지출"
+        historyTypeLabel.textColor = .white
+//        historyTypeLabel.layer.borderWidth = 1
+//        historyTypeLabel.layer.borderColor = UIColor.white.cgColor
+//        historyTypeLabel.layer.cornerRadius = 2
+        
         flagImageView.image = UIImage(data: baseData.flagImage)
         currencyCodeLabel.text = baseData.currencyCode
         calculatorExpressionLabel.text = ""
@@ -104,11 +109,9 @@ class AddHistoryViewController: UIViewController {
     }
     
     private func isValidExpression(_ exp: String) -> Bool {
-        // operators 기준으로 separate
         let operators = CharacterSet(charactersIn: "+_*/")
         let numbersOnly = exp.components(separatedBy: operators)
         
-        print(numbersOnly)
         for str in numbersOnly {
             let pieces = str.components(separatedBy: ".")
             if pieces.count > 2 {
@@ -116,7 +119,7 @@ class AddHistoryViewController: UIViewController {
                 return false
             }
         }
-        // separated된 숫자들의 string이 floating point를 1개 이하로 포함하는지 여부 검사
+
         return true
     }
     
