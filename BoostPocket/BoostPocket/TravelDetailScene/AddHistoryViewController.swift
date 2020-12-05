@@ -242,14 +242,14 @@ extension AddHistoryViewController {
     static func present(at viewController: UIViewController,
                         baseData: BaseDataForAddingHistory,
                         saveButtonHandler: ((NewHistoryData) -> Void)?,
-                        completion: @escaping (() -> Void)) {
+                        onPresent: @escaping (() -> Void)) {
         
         let vc = AddHistoryViewController(nibName: nibName, bundle: nil)
         
         vc.baseData = baseData
         vc.saveButtonHandler = saveButtonHandler
         viewController.present(vc, animated: true) {
-            completion()
+            onPresent()
         }
     }
     

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import JJFloatingActionButton
 
 class HistoryListViewController: UIViewController {
     
@@ -43,13 +42,6 @@ class HistoryListViewController: UIViewController {
     
     private lazy var dataSource = configureDatasource()
     private lazy var headers = setupSection(with: travelItemViewModel?.histories ?? [])
-    //    private lazy var refresher: UIRefreshControl = {
-    //        let refreshControl = UIRefreshControl()
-    //        refreshControl.tintColor = .clear
-    //        refreshControl.addTarget(self, action: #selector(addExpenseHistory), for: .valueChanged)
-    //        refreshControl.attributedTitle = NSAttributedString(string: "새 지출 입력하기")
-    //        return refreshControl
-    //    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,7 +143,7 @@ class HistoryListViewController: UIViewController {
         
         let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newExpenseData in
             // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
-            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: false, title: newExpenseData.title, memo: newExpenseData.memo, date: newExpenseData.date, image: newExpenseData.image ?? Data(), amount: newExpenseData.amount, category: newExpenseData.category, isPrepare: false, isCard: newExpenseData.isCard ?? false) { _ in }
+            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: false, title: newExpenseData.title, memo: newExpenseData.memo, date: newExpenseData.date, image: newExpenseData.image ?? Data(), amount: newExpenseData.amount, category: newExpenseData.category, isPrepare: self?.isPrepareOnly ?? false, isCard: newExpenseData.isCard ?? false) { _ in }
         }
         
         let onPresent: (() -> Void)  = { [weak self] in
@@ -161,38 +153,30 @@ class HistoryListViewController: UIViewController {
         AddHistoryViewController.present(at: self,
                                          baseData: baseData,
                                          saveButtonHandler: saveButtonHandler,
-                                         completion: onPresent)
+                                         onPresent: onPresent)
     }
     
     @IBAction func addIncomeButtonTapped(_ sender: Any) {
+        let baseData = BaseDataForAddingHistory(isIncome: true,
+                                                flagImage: self.travelItemViewModel?.flagImage ?? Data(),
+                                                currencyCode: self.travelItemViewModel?.currencyCode ?? "",
+                                                currentDate: self.selectedDate ?? Date(),
+                                                exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
         
-    }
-    
-    @objc private func addIncomdHistory() {
+        let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newExpenseData in
+            // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
+            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: true, title: newExpenseData.title, memo: newExpenseData.memo, date: newExpenseData.date, image: newExpenseData.image ?? Data(), amount: newExpenseData.amount, category: newExpenseData.category, isPrepare: false, isCard: newExpenseData.isCard ?? false) { _ in }
+        }
         
+        let onPresent: (() -> Void)  = { [weak self] in
+            self?.closeFloatingActions()
+        }
+        
+        AddHistoryViewController.present(at: self,
+                                         baseData: baseData,
+                                         saveButtonHandler: saveButtonHandler,
+                                         onPresent: onPresent)
     }
-    
-    //    @objc private func addExpenseHistory() {
-    //        let baseData = BaseDataForAddingHistory(isIncome: false,
-    //                                                flagImage: self.travelItemViewModel?.flagImage ?? Data(),
-    //                                                currencyCode: self.travelItemViewModel?.currencyCode ?? "",
-    //                                                currentDate: self.selectedDate ?? Date(),
-    //                                                exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
-    //
-    //        let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newExpenseData in
-    //               // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
-    //               self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: false, title: newExpenseData.title, memo: newExpenseData.memo, date: newExpenseData.date, image: newExpenseData.image ?? Data(), amount: newExpenseData.amount, category: newExpenseData.category, isPrepare: false, isCard: newExpenseData.isCard ?? false) { _ in }
-    //           }
-    //
-    //        let onPresent: (() -> Void)  = { [weak self] in
-    //            self?.refresher.endRefreshing()
-    //        }
-    //
-    //        AddHistoryViewController.present(at: self,
-    //                                         baseData: baseData,
-    //                                         saveButtonHandler: saveButtonHandler,
-    //                                         completion: onPresent)
-    //    }
     
     private func configureSegmentedControl() {
         moneySegmentedControl.selectedSegmentTintColor = .clear
@@ -203,7 +187,6 @@ class HistoryListViewController: UIViewController {
     }
     
     private func configureTableView() {
-        // historyListTableView.refreshControl = refresher
         historyListTableView.delegate = self
         historyListTableView.register(HistoryCell.getNib(), forCellReuseIdentifier: HistoryCell.identifier)
         historyListTableView.register(HistoryHeaderCell.getNib(), forHeaderFooterViewReuseIdentifier: HistoryHeaderCell.identifier)
