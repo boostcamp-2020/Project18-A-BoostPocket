@@ -135,9 +135,9 @@ class HistoryListViewController: UIViewController {
             }
         }
         
-        UIView.animate(withDuration: 0.5, animations: { self.floatingDimView.alpha = 0 }) { _ in
-            self.floatingDimView.isHidden = true
-        }
+//        UIView.animate(withDuration: 0.5, animations: { self.floatingDimView.alpha = 0 }) { _ in
+//            self.floatingDimView.isHidden = true
+//        }
         
         isFloatingButtonOpend = false
         rotateFloatingActionButton()
@@ -145,12 +145,12 @@ class HistoryListViewController: UIViewController {
     
     private func openFloatingActions() {
         self.floatingDimView.isHidden = false
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
-        self.tabBarController?.tabBar.barTintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+        // self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+        // self.tabBarController?.tabBar.barTintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
         
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.floatingDimView.alpha = 1
-        }
+//        UIView.animate(withDuration: 0.5) { [weak self] in
+//            self?.floatingDimView.alpha = 1
+//        }
         
         buttons.forEach { [weak self] button in
             button?.isHidden = false
@@ -291,7 +291,7 @@ class HistoryListViewController: UIViewController {
 }
 
 extension HistoryListViewController: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedHistoryViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
         
@@ -328,7 +328,13 @@ extension HistoryListViewController: UITableViewDelegate {
             completion(true)
         }
         
-        return UISwipeActionsConfiguration(actions: [deleteAction])
+        let editAction = UIContextualAction(style: .normal, title: "수정") { (_, _, completion) in
+            print("수정")
+            completion(true)
+        }
+        editAction.backgroundColor = .systemBlue
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
 }
 
