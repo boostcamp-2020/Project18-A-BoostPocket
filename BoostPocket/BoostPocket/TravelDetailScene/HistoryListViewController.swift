@@ -125,9 +125,6 @@ class HistoryListViewController: UIViewController {
     }
     
     private func closeFloatingActions() {
-        //        self.navigationController?.navigationBar.barTintColor = .clear
-        //        self.tabBarController?.tabBar.barTintColor = .clear
-        
         buttons.reversed().forEach { [weak self] button in
             UIView.animate(withDuration: 0.2) {
                 button?.isHidden = true
@@ -145,8 +142,6 @@ class HistoryListViewController: UIViewController {
     
     private func openFloatingActions() {
         self.floatingDimView.isHidden = false
-        // self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
-        // self.tabBarController?.tabBar.barTintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
         
 //        UIView.animate(withDuration: 0.5) { [weak self] in
 //            self?.floatingDimView.alpha = 1
@@ -200,6 +195,47 @@ class HistoryListViewController: UIViewController {
         
         AddHistoryViewController.present(at: self,
                                          newHistoryViewModel: newHistoryViewModel,
+                                         saveButtonHandler: saveButtonHandler,
+                                         onPresent: onPresent)
+    }
+    
+    private func updateHistory(at indexPath: IndexPath) {
+        guard let travelItemViewModel = self.travelItemViewModel,
+            let currentHistoryItemViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
+        
+        let editHistoryViewModel = NewHistoryViewModel(isIncome: currentHistoryItemViewModel.isIncome,
+                                                       flagImage: travelItemViewModel.flagImage ?? Data(),
+                                                       currencyCode: travelItemViewModel.currencyCode ?? "",
+                                                       currentDate: currentHistoryItemViewModel.date,
+                                                       exchangeRate: travelItemViewModel.exchangeRate,
+                                                       isCard: currentHistoryItemViewModel.isCard,
+                                                       category: currentHistoryItemViewModel.category,
+                                                       title: currentHistoryItemViewModel.title,
+                                                       memo: currentHistoryItemViewModel.memo,
+                                                       image: currentHistoryItemViewModel.image,
+                                                       amount: currentHistoryItemViewModel.amount)
+        
+        let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newHistoryData in
+            guard self?.travelItemViewModel?.updateHistory(id: currentHistoryItemViewModel.id ?? UUID(),
+                                                    isIncome: currentHistoryItemViewModel.isIncome,
+                                                    title: newHistoryData.title,
+                                                    memo: newHistoryData.memo,
+                                                    date: newHistoryData.date,
+                                                    image: newHistoryData.image,
+                                                    amount: newHistoryData.amount,
+                                                    category: newHistoryData.category,
+                                                    isPrepare: currentHistoryItemViewModel.isPrepare,
+                                                    isCard: newHistoryData.isCard) == true
+                else { return }
+            print("지출/예산 업데이트 성공")
+        }
+        
+        let onPresent: (() -> Void)  = { [weak self] in
+            self?.closeFloatingActions()
+        }
+        
+        AddHistoryViewController.present(at: self,
+                                         newHistoryViewModel: editHistoryViewModel,
                                          saveButtonHandler: saveButtonHandler,
                                          onPresent: onPresent)
     }
@@ -328,8 +364,8 @@ extension HistoryListViewController: UITableViewDelegate {
             completion(true)
         }
         
-        let editAction = UIContextualAction(style: .normal, title: "수정") { (_, _, completion) in
-            print("수정")
+        let editAction = UIContextualAction(style: .normal, title: "수정") { [weak self] (_, _, completion) in
+            self?.updateHistory(at: indexPath)
             completion(true)
         }
         editAction.backgroundColor = .systemBlue
