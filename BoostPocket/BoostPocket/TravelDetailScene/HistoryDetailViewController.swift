@@ -8,9 +8,14 @@
 
 import UIKit
 
+protocol HistoryDetailDelegate: AnyObject {
+    func deleteHistory(id: UUID?)
+}
+
 class HistoryDetailViewController: UIViewController {
     
     static let identifier = "HistoryDetailViewController"
+    weak var delegate: HistoryDetailDelegate?
     
     @IBOutlet weak var historyDateLabel: UILabel!
     @IBOutlet weak var categoryImageView: UIImageView!
@@ -71,9 +76,9 @@ class HistoryDetailViewController: UIViewController {
     private func configureAttributes(history: BaseHistoryViewModel) {
         // 공통
         historyDateLabel.text = history.currentDate.convertToString(format: .fullKoreanDated)
-        if let category = history.category, let title = history.title, let amount = history.amount, let indentifier = history.countryIdentifier {
-            amountLabel.text = "\(indentifier.currencySymbol) \(amount.getCurrencyFormat(indentifier: indentifier))"
-            exchangedMoneyLabel.text = "KRW \((amount / history.exchangeRate).getCurrencyFormat(indentifier: indentifier))"
+        if let category = history.category, let title = history.title, let amount = history.amount, let identifier = history.countryIdentifier {
+            amountLabel.text = "\(identifier.currencySymbol) \(amount.getCurrencyFormat(identifier: identifier))"
+            exchangedMoneyLabel.text = "KRW \((amount / history.exchangeRate).getCurrencyFormat(identifier: identifier))"
             categoryImageView.image = UIImage(named: category.imageName)
             titleLabel.text = title.isEmpty ? category.name : title
         }
@@ -96,7 +101,7 @@ class HistoryDetailViewController: UIViewController {
             amountLabel.textColor = UIColor(named: "incomeColor")
             currencyCodeLabel.text = history.currencyCode
             let exchangedKoreanCurrency = 1.00 / history.exchangeRate
-            exchangeRateLabel.text = "\(history.currencyCode) 1.00 = KRW \(exchangedKoreanCurrency.getCurrencyFormat(indentifier: "ko_KR"))"
+            exchangeRateLabel.text = "\(history.currencyCode) 1.00 = KRW \(exchangedKoreanCurrency.getCurrencyFormat(identifier: "ko_KR"))"
             if let memo = history.memo {
                 incomeMemoLabel.text = memo
             }
@@ -105,6 +110,14 @@ class HistoryDetailViewController: UIViewController {
     
     @IBAction func closeButtonTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func deleteButtonTapped(_ sender: UIButton) {
+        delegate?.deleteHistory(id: baseHistoryViewModel?.id)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func editButtonTapped(_ sender: UIButton) {
     }
     
     @objc func historyImageTapped() {
@@ -154,6 +167,10 @@ extension HistoryDetailViewController {
         let storyBoard = UIStoryboard(name: storyboardName, bundle: Bundle.main)
         
         guard let vc = storyBoard.instantiateViewController(withIdentifier: HistoryDetailViewController.identifier) as? HistoryDetailViewController else { return }
+        
+        if let historyListViewController = viewController as? HistoryListViewController {
+            vc.delegate = historyListViewController
+        }
         
         vc.baseHistoryViewModel = historyViewModel
         viewController.present(vc, animated: true, completion: nil)
