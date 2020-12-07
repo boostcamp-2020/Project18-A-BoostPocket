@@ -45,9 +45,9 @@ class HistoryDetailViewController: UIViewController {
     private func configureViews() {
         imagePicker.delegate = self
         
-        let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
         let isPrepareTap = UITapGestureRecognizer(target: self, action: #selector(isPrepareTapped))
         let historyImageTap = UITapGestureRecognizer(target: self, action: #selector(historyImageTapped))
+        
         isPrepareImageView.addGestureRecognizer(isPrepareTap)
         historyImageView.addGestureRecognizer(historyImageTap)
         
@@ -105,10 +105,6 @@ class HistoryDetailViewController: UIViewController {
     
     @IBAction func closeButtonTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func titleLabelTapped() {
-        
     }
     
     @objc func historyImageTapped() {
