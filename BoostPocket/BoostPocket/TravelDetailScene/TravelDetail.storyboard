@@ -81,7 +81,7 @@
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="allButtonTapped:" destination="fmi-ND-nuS" eventType="touchUpInside" id="8rQ-qE-lg7"/>
+                                                    <action selector="isPrepareButtonTapped:" destination="fmi-ND-nuS" eventType="touchUpInside" id="0Xs-Hi-ViN"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -113,7 +113,7 @@
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="prepareButtonTapped:" destination="fmi-ND-nuS" eventType="touchUpInside" id="bO8-Sa-Bie"/>
+                                                    <action selector="isPrepareButtonTapped:" destination="fmi-ND-nuS" eventType="touchUpInside" id="pAP-qG-aBh"/>
                                                 </connections>
                                             </button>
                                         </subviews>

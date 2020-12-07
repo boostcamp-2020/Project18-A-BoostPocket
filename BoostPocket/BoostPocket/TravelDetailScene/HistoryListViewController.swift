@@ -325,19 +325,10 @@ class HistoryListViewController: UIViewController {
         setTotalAmountView()
     }
     
-    @IBAction func allButtonTapped(_ sender: UIButton) {
+    @IBAction func isPrepareButtonTapped(_ sender: UIButton) {
         DeselectAllButtons()
         sender.configureSelectedButton()
-        historyFilter.isPrepareOnly = false
-        historyFilter.selectedDate = nil
-        applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
-        setTotalAmountView()
-    }
-    
-    @IBAction func prepareButtonTapped(_ sender: UIButton) {
-        DeselectAllButtons()
-        sender.configureSelectedButton()
-        historyFilter.isPrepareOnly = true
+        historyFilter.isPrepareOnly = sender == prepareButton ? false : true
         historyFilter.selectedDate = nil
         applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
         setTotalAmountView()
