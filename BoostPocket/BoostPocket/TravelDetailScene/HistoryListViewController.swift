@@ -324,7 +324,7 @@ extension HistoryListViewController: UITableViewDelegate {
             let detailhistoryViewModel = BaseHistoryViewModel(isIncome: selectedHistoryViewModel.isIncome,
                                                         flagImage: self.travelItemViewModel?.flagImage ?? Data(),
                                                         currencyCode: self.travelItemViewModel?.currencyCode ?? "",
-                                                        currentDate: self.historyFilter.selectedDate ?? Date(),
+                                                        currentDate: selectedHistoryViewModel.date,
                                                         exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0,
                                                         isCard: selectedHistoryViewModel.isCard,
                                                         category: selectedHistoryViewModel.category,
