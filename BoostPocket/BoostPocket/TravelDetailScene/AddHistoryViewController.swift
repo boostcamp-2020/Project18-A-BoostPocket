@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct NewHistoryViewModel {
+struct BaseHistoryViewModel {
     // new, edit 모두 필요한 정보
     var isIncome: Bool
     var flagImage: Data
@@ -38,7 +38,7 @@ class AddHistoryViewController: UIViewController {
     static let identifier = "AddHistoryViewController"
     
     private var saveButtonHandler: ((NewHistoryData) -> Void)?
-    private var newHistoryViewModel: NewHistoryViewModel?
+    private var baseHistoryViewModel: BaseHistoryViewModel?
     private var isAddingIncome: Bool = false
     private var historyTitle: String?
     private var memo: String?
@@ -72,7 +72,7 @@ class AddHistoryViewController: UIViewController {
     }
     
     private func configureViews() {
-        guard let newHistoryViewModel = self.newHistoryViewModel else { return }
+        guard let newHistoryViewModel = self.baseHistoryViewModel else { return }
         
         self.isAddingIncome = newHistoryViewModel.isIncome
         
@@ -151,7 +151,7 @@ class AddHistoryViewController: UIViewController {
         guard let stringWithMathematicalOperation = calculatorExpressionLabel.text, isValidExpression(stringWithMathematicalOperation) else { return }
         
         let exp: NSExpression = NSExpression(format: stringWithMathematicalOperation)
-        if let amount = exp.expressionValue(with: nil, context: nil) as? Double, let exchangeRate = newHistoryViewModel?.exchangeRate {
+        if let amount = exp.expressionValue(with: nil, context: nil) as? Double, let exchangeRate = baseHistoryViewModel?.exchangeRate {
             
             calculatedAmountLabel.text = "\(amount.insertComma)"
             
@@ -301,13 +301,13 @@ extension AddHistoryViewController {
     static let nibName = "AddHistoryViewController"
     
     static func present(at viewController: UIViewController,
-                        newHistoryViewModel: NewHistoryViewModel,
+                        newHistoryViewModel: BaseHistoryViewModel,
                         saveButtonHandler: ((NewHistoryData) -> Void)?,
                         onPresent: @escaping (() -> Void)) {
         
         let vc = AddHistoryViewController(nibName: nibName, bundle: nil)
         
-        vc.newHistoryViewModel = newHistoryViewModel
+        vc.baseHistoryViewModel = newHistoryViewModel
         vc.saveButtonHandler = saveButtonHandler
         viewController.present(vc, animated: true) {
             onPresent()

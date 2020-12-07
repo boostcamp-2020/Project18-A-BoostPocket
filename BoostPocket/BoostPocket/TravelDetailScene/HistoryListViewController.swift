@@ -178,7 +178,7 @@ class HistoryListViewController: UIViewController {
     }
     
     private func addNewHistory(isIncome: Bool) {
-        let newHistoryViewModel = NewHistoryViewModel(isIncome: isIncome,
+        let newHistoryViewModel = BaseHistoryViewModel(isIncome: isIncome,
                                                       flagImage: self.travelItemViewModel?.flagImage ?? Data(),
                                                       currencyCode: self.travelItemViewModel?.currencyCode ?? "",
                                                       currentDate: self.selectedDate ?? Date(),
@@ -203,7 +203,7 @@ class HistoryListViewController: UIViewController {
         guard let travelItemViewModel = self.travelItemViewModel,
             let currentHistoryItemViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
         
-        let editHistoryViewModel = NewHistoryViewModel(isIncome: currentHistoryItemViewModel.isIncome,
+        let editHistoryViewModel = BaseHistoryViewModel(isIncome: currentHistoryItemViewModel.isIncome,
                                                        flagImage: travelItemViewModel.flagImage ?? Data(),
                                                        currencyCode: travelItemViewModel.currencyCode ?? "",
                                                        currentDate: currentHistoryItemViewModel.date,
