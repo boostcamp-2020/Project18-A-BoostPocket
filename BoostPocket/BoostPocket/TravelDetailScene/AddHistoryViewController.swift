@@ -8,12 +8,20 @@
 
 import UIKit
 
-struct NewHistoryViewModel {
+struct BaseHistoryViewModel {
+    // new, edit 모두 필요한 정보
     var isIncome: Bool
     var flagImage: Data
     var currencyCode: String
     var currentDate: Date
     var exchangeRate: Double
+    // edit 시 필요한 정보
+    var isCard: Bool?
+    var category: HistoryCategory?
+    var title: String?
+    var memo: String?
+    var image: Data?
+    var amount: Double?
 }
 
 struct NewHistoryData {
@@ -29,8 +37,8 @@ struct NewHistoryData {
 class AddHistoryViewController: UIViewController {
     static let identifier = "AddHistoryViewController"
     
-    var saveButtonHandler: ((NewHistoryData) -> Void)?
-    var newHistoryViewModel: NewHistoryViewModel?
+    private var saveButtonHandler: ((NewHistoryData) -> Void)?
+    private var baseHistoryViewModel: BaseHistoryViewModel?
     private var isAddingIncome: Bool = false
     private var historyTitle: String?
     private var memo: String?
@@ -64,7 +72,7 @@ class AddHistoryViewController: UIViewController {
     }
     
     private func configureViews() {
-        guard let newHistoryViewModel = self.newHistoryViewModel else { return }
+        guard let newHistoryViewModel = self.baseHistoryViewModel else { return }
         
         self.isAddingIncome = newHistoryViewModel.isIncome
         
@@ -87,26 +95,47 @@ class AddHistoryViewController: UIViewController {
         // 환율코드
         currencyCodeLabel.text = newHistoryViewModel.currencyCode
         
-        // 계산식 레이블
-        calculatorExpressionLabel.text = ""
-        
-        // 계산된 금액 레이블
-        calculatedAmountLabel.text = "0"
+        // 계산식 레이블, 계산된 금액 레이블, 환율을 적용하여 변환한 금액 레이블
         calculatedAmountLabel.textColor = .white
+        if let previousAmount = newHistoryViewModel.amount {
+            self.amount = previousAmount
+            calculatorExpressionLabel.text = "\(previousAmount)"
+            calculatedAmountLabel.text = "\(previousAmount)"
+            currencyConvertedAmountLabel.text = "KRW \(previousAmount / newHistoryViewModel.exchangeRate)"
+        } else {
+            calculatorExpressionLabel.text = ""
+            calculatedAmountLabel.text = "0"
+            currencyConvertedAmountLabel.text = "KRW"
+        }
         
-        // 환율을 적용하여 변환한 금액 레이블
-        currencyConvertedAmountLabel.text = "KRW"
+        // 카드/현금 여부
+        if let previousIsCard = newHistoryViewModel.isCard, previousIsCard {
+            segmentedControl.selectedSegmentIndex = 1
+            self.isCard = true
+        } else {
+            segmentedControl.selectedSegmentIndex = 0
+        }
         
         // 항목명
         let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
         historyTitleLabel.addGestureRecognizer(titleTap)
-        historyTitleLabel.text = historyTitlePlaceholder
-        historyTitleLabel.textColor = .systemGray2
+        if let previousTitle = newHistoryViewModel.title {
+            self.historyTitle = previousTitle
+            historyTitleLabel.text = self.historyTitle
+            historyTitleLabel.textColor = .black
+        } else {
+            historyTitleLabel.text = historyTitlePlaceholder
+            historyTitleLabel.textColor = .systemGray2
+        }
+        
+        // 메모
+        if let previousMemo = newHistoryViewModel.memo {
+            self.memo = previousMemo
+        }
         
         // 날짜
-        // TODO: DatePicker로 변경해서 사용자가 날짜를 바꿀 수 있도록 하는 기능 구현
-        date = newHistoryViewModel.currentDate
-        let dateLabelText = date.convertToString(format: .dotted)
+        // TODO: DatePicker로 변경해서 사용자가 날짜를 바꿀 수 있도록 하는 기능 구현하기
+        let dateLabelText = newHistoryViewModel.currentDate.convertToString(format: .dotted)
         dateLabel.text = dateLabelText
         
         // 이미지, 메모 버튼
@@ -122,7 +151,7 @@ class AddHistoryViewController: UIViewController {
         guard let stringWithMathematicalOperation = calculatorExpressionLabel.text, isValidExpression(stringWithMathematicalOperation) else { return }
         
         let exp: NSExpression = NSExpression(format: stringWithMathematicalOperation)
-        if let amount = exp.expressionValue(with: nil, context: nil) as? Double, let exchangeRate = newHistoryViewModel?.exchangeRate {
+        if let amount = exp.expressionValue(with: nil, context: nil) as? Double, let exchangeRate = baseHistoryViewModel?.exchangeRate {
             
             calculatedAmountLabel.text = "\(amount.insertComma)"
             
@@ -148,8 +177,19 @@ class AddHistoryViewController: UIViewController {
         return true
     }
     
+    @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            self.isCard = false
+        case 1:
+            self.isCard = true
+        default:
+            break
+        }
+    }
+    
     @objc func titleLabelTapped() {
-        let previousTitle = historyTitleLabel.text == historyTitlePlaceholder ? "" : historyTitleLabel.text
+        let previousTitle = historyTitleLabel.text == historyTitlePlaceholder ? "" : historyTitle
         
         TitleEditViewController.present(at: self, previousTitle: previousTitle ?? "") { [weak self] (newTitle) in
             guard let self = self else { return }
@@ -190,6 +230,7 @@ class AddHistoryViewController: UIViewController {
     }
     
     @IBAction func addMemoButtonTapped(_ sender: Any) {
+        // TODO: - 기존 메모내용 가져갈 수 있도록 present 함수 개선하기
         MemoEditViewController.present(at: self, memoType: .expenseMemo) { [weak self] newMemo in
             // TODO: - 메모 입력확인 toaster
             self?.memo = newMemo
@@ -260,13 +301,13 @@ extension AddHistoryViewController {
     static let nibName = "AddHistoryViewController"
     
     static func present(at viewController: UIViewController,
-                        newHistoryViewModel: NewHistoryViewModel,
+                        newHistoryViewModel: BaseHistoryViewModel,
                         saveButtonHandler: ((NewHistoryData) -> Void)?,
                         onPresent: @escaping (() -> Void)) {
         
         let vc = AddHistoryViewController(nibName: nibName, bundle: nil)
         
-        vc.newHistoryViewModel = newHistoryViewModel
+        vc.baseHistoryViewModel = newHistoryViewModel
         vc.saveButtonHandler = saveButtonHandler
         viewController.present(vc, animated: true) {
             onPresent()

@@ -88,6 +88,9 @@
                                 <segment title="현금"/>
                                 <segment title="카드"/>
                             </segments>
+                            <connections>
+                                <action selector="segmentDidChange:" destination="-1" eventType="valueChanged" id="Qf4-O2-cFF"/>
+                            </connections>
                         </segmentedControl>
                     </subviews>
                     <constraints>

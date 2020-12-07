@@ -128,6 +128,11 @@ extension TravelItemViewModel: HistoryListPresentable {
         histories[indexToUpdate].memo = updatedHistory.memo
         histories[indexToUpdate].title = updatedHistory.title ?? updatedHistory.categoryState.name
         
+        // update 함수는 willSet이 안불리기 때문에 따로 didFetch 처리
+        DispatchQueue.main.async { [weak self] in
+            self?.didFetch?(self?.histories ?? [])
+        }
+        
         return true
     }
     
