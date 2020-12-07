@@ -24,8 +24,8 @@ class HistoryListViewController: UIViewController {
     @IBOutlet weak var floatingButton: UIButton!
     @IBOutlet weak var addExpenseButton: UIButton!
     @IBOutlet weak var addIncomeButton: UIButton!
-    private var isFloatingButtonOpend: Bool = false
     @IBOutlet weak var floatingStackView: UIStackView!
+    
     lazy var buttons = [self.addExpenseButton, self.addIncomeButton]
     lazy var floatingDimView: UIView = {
         let view = UIView(frame: self.view.frame)
@@ -45,21 +45,13 @@ class HistoryListViewController: UIViewController {
     private var selectedDate: Date?
     private var isCardOnly: Bool?
     
+    private var isFloatingButtonOpened: Bool = false
     private lazy var dataSource = configureDatasource()
     private lazy var headers = setupSection(with: travelItemViewModel?.histories ?? [])
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
-        configureSegmentedControl()
-        configureFloatingActionButton()
-        
-        travelItemViewModel?.needFetchItems()
-        travelItemViewModel?.didFetch = { [weak self] _ in
-            guard let self = self else { return }
-            self.historyListTableView.reloadData()
-            self.applySnapshot(with: self.filterHistories(isPrepare: self.isPrepareOnly, date: self.selectedDate, isCard: self.isCardOnly))
-        }
+        configure()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +61,13 @@ class HistoryListViewController: UIViewController {
     }
     
     // MARK: - Configuration
+    
+    private func configure() {
+        configureTravelItemViewModel()
+        configureTableView()
+        configureSegmentedControl()
+        configureFloatingActionButton()
+    }
     
     private func configureSegmentedControl() {
         moneySegmentedControl.selectedSegmentTintColor = .clear
@@ -110,13 +109,21 @@ class HistoryListViewController: UIViewController {
         addExpenseButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
         addExpenseButton.layer.cornerRadius = buttonWidth * 0.5
         addExpenseButton.clipsToBounds = true
-        
+    }
+    
+    private func configureTravelItemViewModel() {
+        travelItemViewModel?.needFetchItems()
+        travelItemViewModel?.didFetch = { [weak self] _ in
+            guard let self = self else { return }
+            self.historyListTableView.reloadData()
+            self.applySnapshot(with: self.filterHistories(isPrepare: self.isPrepareOnly, date: self.selectedDate, isCard: self.isCardOnly))
+        }
     }
     
     // MARK: - Floating Action Button
     
     @IBAction func floatingActionButtonTapped(_ sender: UIButton) {
-        switch isFloatingButtonOpend {
+        switch isFloatingButtonOpened {
         case true:
             closeFloatingActions()
         case false:
@@ -136,7 +143,7 @@ class HistoryListViewController: UIViewController {
 //            self.floatingDimView.isHidden = true
 //        }
         
-        isFloatingButtonOpend = false
+        isFloatingButtonOpened = false
         rotateFloatingActionButton()
     }
     
@@ -157,12 +164,12 @@ class HistoryListViewController: UIViewController {
             }
         }
         
-        isFloatingButtonOpend = true
+        isFloatingButtonOpened = true
         rotateFloatingActionButton()
     }
     
     private func rotateFloatingActionButton() {
-        let roatation = isFloatingButtonOpend ? CGAffineTransform(rotationAngle: .pi - (.pi / 4)) : CGAffineTransform.identity
+        let roatation = isFloatingButtonOpened ? CGAffineTransform(rotationAngle: .pi - (.pi / 4)) : CGAffineTransform.identity
         
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.floatingButton.transform = roatation
