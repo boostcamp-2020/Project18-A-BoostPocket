@@ -10,6 +10,8 @@ import UIKit
 
 class HistoryDetailViewController: UIViewController {
     
+    static let identifier = "HistoryDetailViewController"
+    
     @IBOutlet weak var historyDateLabel: UILabel!
     @IBOutlet weak var categoryImageView: UIImageView!
     @IBOutlet weak var amountLabel: UILabel!
@@ -36,6 +38,8 @@ class HistoryDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureViews()
 
         imagePicker.delegate = self
         
@@ -68,12 +72,13 @@ class HistoryDetailViewController: UIViewController {
         // TO-DO : 값 업데이트
     }
     
-    func configureViews(history: BaseHistoryViewModel) {        
+    func configureViews() {
         expanseStackView.translatesAutoresizingMaskIntoConstraints = false
         incomeStackView.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        baseHistoryViewModel = history
+//        baseHistoryViewModel = history
+        guard let history = baseHistoryViewModel else { return }
         
         let trueState = history.isIncome
         expanseStackView.isHidden = trueState
@@ -140,4 +145,21 @@ extension HistoryDetailViewController: UIImagePickerControllerDelegate, UINaviga
         }
         dismiss(animated: true, completion: nil)
     }
+}
+
+extension HistoryDetailViewController {
+    
+    static let storyboardName = "TravelDetail"
+    
+    static func present(at viewController: UIViewController,
+                        historyViewModel: BaseHistoryViewModel) {
+        
+        let storyBoard = UIStoryboard(name: storyboardName, bundle: Bundle.main)
+        
+        guard let vc = storyBoard.instantiateViewController(withIdentifier: HistoryDetailViewController.identifier) as? HistoryDetailViewController else { return }
+        
+        vc.baseHistoryViewModel = historyViewModel
+        viewController.present(vc, animated: true, completion: nil)
+    }
+    
 }

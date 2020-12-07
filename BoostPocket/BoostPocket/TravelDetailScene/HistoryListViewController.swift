@@ -319,25 +319,20 @@ extension HistoryListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedHistoryViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
         
-        if let historyDetailVC = self.storyboard?.instantiateViewController(identifier: "HistoryDetailViewController") as? HistoryDetailViewController {
-            
-            let detailhistoryViewModel = BaseHistoryViewModel(isIncome: selectedHistoryViewModel.isIncome,
-                                                        flagImage: self.travelItemViewModel?.flagImage ?? Data(),
-                                                        currencyCode: self.travelItemViewModel?.currencyCode ?? "",
-                                                        currentDate: self.historyFilter.selectedDate ?? Date(),
-                                                        exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0,
-                                                        isCard: selectedHistoryViewModel.isCard,
-                                                        category: selectedHistoryViewModel.category,
-                                                        title: selectedHistoryViewModel.title,
-                                                        memo: selectedHistoryViewModel.memo,
-                                                        image: selectedHistoryViewModel.image,
-                                                        amount: selectedHistoryViewModel.amount,
-                                                        isPrepare: selectedHistoryViewModel.isPrepare,
-                                                        countryIdentifier: travelItemViewModel?.countryIdentifier)
-            
-            self.present(historyDetailVC, animated: true, completion: nil)
-            historyDetailVC.configureViews(history: detailhistoryViewModel)
-        }
+        let detailhistoryViewModel = BaseHistoryViewModel(isIncome: selectedHistoryViewModel.isIncome,
+                                                    flagImage: self.travelItemViewModel?.flagImage ?? Data(),
+                                                    currencyCode: self.travelItemViewModel?.currencyCode ?? "",
+                                                    currentDate: self.historyFilter.selectedDate ?? Date(),
+                                                    exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0,
+                                                    isCard: selectedHistoryViewModel.isCard,
+                                                    category: selectedHistoryViewModel.category,
+                                                    title: selectedHistoryViewModel.title,
+                                                    memo: selectedHistoryViewModel.memo,
+                                                    image: selectedHistoryViewModel.image,
+                                                    amount: selectedHistoryViewModel.amount,
+                                                    isPrepare: selectedHistoryViewModel.isPrepare,
+                                                    countryIdentifier: travelItemViewModel?.countryIdentifier)
+        HistoryDetailViewController.present(at: self, historyViewModel: detailhistoryViewModel)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
