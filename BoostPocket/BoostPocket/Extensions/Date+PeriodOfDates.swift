@@ -21,12 +21,16 @@ extension Date {
     }
     
     func interval(ofComponent comp: Calendar.Component, fromDate date: Date) -> Int {
-        let currentSelf = self.convertToCurrentTime()
-        let currentDate = date.convertToCurrentTime()
+        let currentSelf = self.toLocalTime()
+        let currentDate = date.toLocalTime()
         let currentCalendar = Calendar.current
         guard let start = currentCalendar.ordinality(of: comp, in: .era, for: currentSelf) else { return 0 }
         guard let end = currentCalendar.ordinality(of: comp, in: .era, for: currentDate) else { return 0 }
         
         return end - start
+    }
+    
+    func isSameDay(with date: Date) -> Bool {
+        return Calendar.current.dateComponents([.day], from: self, to: date).day == 0
     }
 }
