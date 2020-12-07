@@ -393,12 +393,14 @@ extension HistoryListViewController: DayButtonDelegate {
     func dayButtonTapped(_ sender: UIButton) {
         let subviews = dayStackView.subviews
         for index in 0..<subviews.count {
+            if let button = subviews[index].subviews.filter({ $0 is UIButton }).first as? UIButton {
+                button.configureDeselectedButton()
+            }
             if let _ = subviews[index].subviews.filter({ $0 == sender }).first as? UIButton {
                 guard let startDate = travelItemViewModel?.startDate,
                     let tappedDate = Calendar.current.date(byAdding: .day, value: index, to: startDate) else { return }
                 historyFilter.selectedDate = tappedDate
                 historyFilter.isPrepareOnly = nil
-                break
             }
         }
         applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
