@@ -12,22 +12,23 @@ import NetworkManager
 
 class CountryViewModelTests: XCTestCase {
     
-    var countryListViewModel: CountryListPresentable!
+    var countryListViewModel: CountryListViewModelStub!
     var persistenceManager: PersistenceManagable!
-    var countryProvider: CountryProvidable!
+    var countryProvider: CountryProviderStub!
     
     let countryName = "test name"
     let lastUpdated = "2019-08-23-12-01-33".convertToDate()
     let flagImage = Data()
     let exchangeRate = 1.5
     let currencyCode = "test code"
+    let identifier = "ko_KR"
     
     override func setUpWithError() throws {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
         let dataLoader = DataLoader(session: session)
         persistenceManager = PersistenceManagerStub(dataLoader: dataLoader)
-        countryProvider = CountryProvider(persistenceManager: persistenceManager)
-        countryListViewModel = CountryListViewModel(countryProvider: countryProvider)
+        countryProvider = CountryProviderStub(persistenceManager: persistenceManager)
+        countryListViewModel = CountryListViewModelStub(countryProvider: countryProvider)
     }
     
     override func tearDownWithError() throws {
@@ -47,7 +48,7 @@ class CountryViewModelTests: XCTestCase {
     }
     
     func test_countryListViewModel_createCountry() {
-        countryListViewModel.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+        countryListViewModel.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode, identifier: identifier)
         
         let createdCountry = countryListViewModel.countries.first
         XCTAssertNotNil(createdCountry)
@@ -58,7 +59,7 @@ class CountryViewModelTests: XCTestCase {
     
     // 없애는 함수
     func test_countryListViewModel_cellForItemAt() {
-        XCTAssertNotNil(countryListViewModel.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode))
+        XCTAssertNotNil(countryListViewModel.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode, identifier: identifier))
         
         let countryItemViewModel = countryListViewModel.cellForItemAt(path: IndexPath(row: 0, section: 0))
         
@@ -69,9 +70,9 @@ class CountryViewModelTests: XCTestCase {
     }
     
     func test_countryListViewModel_numberOfItem() {
-        countryListViewModel.createCountry(name: "\(countryName)1", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1")
-        countryListViewModel.createCountry(name: "\(countryName)2", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 1.0, currencyCode: "\(currencyCode)2")
-        countryListViewModel.createCountry(name: "\(countryName)3", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 2.0, currencyCode: "\(currencyCode)3")
+        countryListViewModel.createCountry(name: "\(countryName)1", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1", identifier: identifier)
+        countryListViewModel.createCountry(name: "\(countryName)2", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 1.0, currencyCode: "\(currencyCode)2", identifier: identifier)
+        countryListViewModel.createCountry(name: "\(countryName)3", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 2.0, currencyCode: "\(currencyCode)3", identifier: identifier)
         
         XCTAssertEqual(countryListViewModel.numberOfItem(), 3)
     }
@@ -79,7 +80,7 @@ class CountryViewModelTests: XCTestCase {
     func test_countryListViewModel_needFetchItem() {
         let expectation = XCTestExpectation(description: "Successfully Created Country")
         
-        countryProvider.createCountry(name: "\(countryName)가", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1") { (country) in
+        countryProvider.createCountry(name: "\(countryName)가", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1", identifier: identifier) { (country) in
             XCTAssertNotNil(country)
             expectation.fulfill()
         }

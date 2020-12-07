@@ -13,7 +13,7 @@ protocol CountryListPresentable: AnyObject {
     var didFetch: (([CountryItemViewModel]) -> Void)? { get set }
     
     func needFetchItems()
-    func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String)
+    // func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String)
     func cellForItemAt(path: IndexPath) -> CountryItemViewModel
     func numberOfItem() -> Int
 }
@@ -43,6 +43,7 @@ class CountryListViewModel: CountryListPresentable {
         countries = newCountryItemViewModels
     }
     
+    /*
     func createCountry(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String) {
         countryProvider?.createCountry(name: name, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) { [weak self] (createdCountry) in
             guard let createdCountry = createdCountry else { return }
@@ -51,6 +52,7 @@ class CountryListViewModel: CountryListPresentable {
             self?.countries.append(createdCountryItemViewModel)
         }
     }
+     */
     
     func cellForItemAt(path: IndexPath) -> CountryItemViewModel {
         return countries[path.row]
