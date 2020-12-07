@@ -14,12 +14,19 @@ class TotalAmountView: UIView {
     @IBOutlet weak var remainLabel: UILabel!
     @IBOutlet weak var expenseTitleLabel: UILabel!
     @IBOutlet weak var remainTitleLabel: UILabel!
-    
     @IBOutlet weak var divider: UIView!
+    @IBOutlet weak var expenseTitleLabelOriginCenterX: NSLayoutConstraint?
+    weak var expenseTitleLabelCenterX: NSLayoutConstraint?
     
-    // TODO: - expenseTitleLabelCenterX weak 참조 하고 코드로 multiplier constraint 잡아보기
-    @IBOutlet var expenseTitleLabelCenterX: NSLayoutConstraint?
-    weak var expenseTitleLabelCenterX2: NSLayoutConstraint?
+    func configure(withExpense expense: Double, remain: Double) {
+        if remain == 0 {
+            hideRemainLabels()
+        } else {
+            showRemainLabels()
+            remainLabel.text = String(remain)
+        }
+        expenseLabel.text = String(expense)
+    }
     
     func hideRemainLabels() {
         remainLabel.isHidden = true
@@ -27,10 +34,10 @@ class TotalAmountView: UIView {
         divider.isHidden = true
         
         expenseTitleLabelCenterX?.isActive = false
+        expenseTitleLabelOriginCenterX?.isActive = false
         
-        expenseTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        expenseTitleLabelCenterX2 = expenseTitleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-        expenseTitleLabelCenterX2?.isActive = true
+        expenseTitleLabelCenterX = NSLayoutConstraint(item: expenseTitleLabel ?? UILabel(), attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
+        expenseTitleLabelCenterX?.isActive = true
     }
     
     func showRemainLabels() {
@@ -38,8 +45,10 @@ class TotalAmountView: UIView {
         remainTitleLabel.isHidden = false
         divider.isHidden = false
         
-        expenseTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        expenseTitleLabelCenterX2?.isActive = false
-        expenseTitleLabelCenterX?.isActive = true
+        expenseTitleLabelCenterX?.isActive = false
+        expenseTitleLabelOriginCenterX?.isActive = false
+        
+        expenseTitleLabelOriginCenterX = NSLayoutConstraint(item: expenseTitleLabel ?? UILabel(), attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 0.5, constant: 0)
+        expenseTitleLabelOriginCenterX?.isActive = true
     }
 }

@@ -64,6 +64,7 @@ class HistoryListViewController: UIViewController {
         configureTableView()
         configureSegmentedControl()
         configureFloatingActionButton()
+        setTotalAmountView()
     }
     
     private func configureSegmentedControl() {
@@ -106,6 +107,14 @@ class HistoryListViewController: UIViewController {
         addExpenseButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
         addExpenseButton.layer.cornerRadius = buttonWidth * 0.5
         addExpenseButton.clipsToBounds = true
+    }
+    
+    private func setTotalAmountView() {
+        let filteredHistories = historyFilter.filterHistories(with: travelItemViewModel?.histories)
+        let expenses = filteredHistories.filter({ !$0.isIncome }).reduce(0) { $0 + $1.amount }
+        let allAmount = filteredHistories.reduce(0) { $0 + $1.amount }
+        
+        self.totalAmountView.configure(withExpense: expenses, remain: allAmount - 2 * expenses)
     }
     
     private func configureTravelItemViewModel() {
@@ -300,18 +309,21 @@ class HistoryListViewController: UIViewController {
             historyFilter.isCardOnly = true
         }
         applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
+        setTotalAmountView()
     }
     
     @IBAction func allButtonTapped(_ sender: UIButton) {
         historyFilter.isPrepareOnly = false
         historyFilter.selectedDate = nil
         applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
+        setTotalAmountView()
     }
     
     @IBAction func prepareButtonTapped(_ sender: UIButton) {
         historyFilter.isPrepareOnly = true
         historyFilter.selectedDate = nil
         applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
+        setTotalAmountView()
     }
 }
 
@@ -390,5 +402,6 @@ extension HistoryListViewController: DayButtonDelegate {
             }
         }
         applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
+        setTotalAmountView()
     }
 }
