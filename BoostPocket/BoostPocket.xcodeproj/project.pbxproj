@@ -33,10 +33,13 @@
 		5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C96E8E1256BDA4200246590 /* CountryViewModelTests.swift */; };
 		5CAE96662577FC6300FD7F05 /* Double+Comma.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE96652577FC6300FD7F05 /* Double+Comma.swift */; };
 		5CB682E5256C03F800830373 /* CountryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB682E4256C03F800830373 /* CountryListViewModel.swift */; };
+		5CCB1265257DFF1D00C6788E /* HistoryItemViewModelStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCB1264257DFF1D00C6788E /* HistoryItemViewModelStub.swift */; };
 		5CD76E9F256C24DC00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
 		5CD76EB7256C933C00BD6CE3 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A1256B8FBA003049CB /* Country+CoreDataClass.swift */; };
 		5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A2256B8FBA003049CB /* Country+CoreDataProperties.swift */; };
 		5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
+		5CD9A895257DCA2300A7AEFF /* HistoryFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */; };
+		5CD9A89A257DCD6C00A7AEFF /* HistoryFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD9A899257DCD6C00A7AEFF /* HistoryFilterTests.swift */; };
 		5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF409472575239200351F4B /* MemoEditViewController.swift */; };
 		954F7019256D1C4B00B2E48B /* TravelListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */; };
 		954F701B256D3E7700B2E48B /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954F701A256D3E7700B2E48B /* Sections.swift */; };
@@ -161,6 +164,9 @@
 		5C96E8E1256BDA4200246590 /* CountryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewModelTests.swift; sourceTree = "<group>"; };
 		5CAE96652577FC6300FD7F05 /* Double+Comma.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Comma.swift"; sourceTree = "<group>"; };
 		5CB682E4256C03F800830373 /* CountryListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryListViewModel.swift; sourceTree = "<group>"; };
+		5CCB1264257DFF1D00C6788E /* HistoryItemViewModelStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItemViewModelStub.swift; sourceTree = "<group>"; };
+		5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilter.swift; sourceTree = "<group>"; };
+		5CD9A899257DCD6C00A7AEFF /* HistoryFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilterTests.swift; sourceTree = "<group>"; };
 		5CF409472575239200351F4B /* MemoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoEditViewController.swift; sourceTree = "<group>"; };
 		81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.debug.xcconfig"; sourceTree = "<group>"; };
@@ -341,6 +347,7 @@
 				9574ACCF2578B4C10072C578 /* AddHistoryViewController.xib */,
 				5C7F8372257902A000A58112 /* HistoryListSectionHeader.swift */,
 				A99E06642578D6480014C29F /* HistoryDetailViewController.swift */,
+				5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */,
 			);
 			path = TravelDetailScene;
 			sourceTree = "<group>";
@@ -490,6 +497,8 @@
 			children = (
 				A99E064B257773430014C29F /* HistoryProviderTests.swift */,
 				A99E065325778B130014C29F /* HistoryViewModelTests.swift */,
+				5CD9A899257DCD6C00A7AEFF /* HistoryFilterTests.swift */,
+				5CCB1264257DFF1D00C6788E /* HistoryItemViewModelStub.swift */,
 			);
 			path = HistoryTests;
 			sourceTree = "<group>";
@@ -824,6 +833,7 @@
 				9572F9A9256B902C003049CB /* PersistenceManager.swift in Sources */,
 				A99E0682257E02780014C29F /* Double+NumberFormat.swift in Sources */,
 				A99E0639257763B90014C29F /* HistoryProvider.swift in Sources */,
+				5CD9A895257DCA2300A7AEFF /* HistoryFilter.swift in Sources */,
 				A9BF7AA5256F9B8800496CD8 /* Date+ConvertToString.swift in Sources */,
 				5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */,
 				A99E0646257766F50014C29F /* HistoryItemViewModel.swift in Sources */,
@@ -861,6 +871,7 @@
 				5CD76E9F256C24DC00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
 				956BBC58256B9CCC007803B1 /* CountryStub.swift in Sources */,
 				A9BF7A77256E306100496CD8 /* TravelProviderTests.swift in Sources */,
+				5CD9A89A257DCD6C00A7AEFF /* HistoryFilterTests.swift in Sources */,
 				5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */,
 				5C8C91AD256E8F0F008C3919 /* TravelViewModelTests.swift in Sources */,
 				9572F9B3256B974C003049CB /* PersistenceManagerStub.swift in Sources */,
@@ -868,6 +879,7 @@
 				5C89619E256E917300575677 /* TravelStub.swift in Sources */,
 				A99E064C257773430014C29F /* HistoryProviderTests.swift in Sources */,
 				95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */,
+				5CCB1265257DFF1D00C6788E /* HistoryItemViewModelStub.swift in Sources */,
 				9572F9B0256B9703003049CB /* CountryProviderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
