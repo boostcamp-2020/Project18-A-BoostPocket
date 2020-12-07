@@ -25,6 +25,7 @@ class HistoryListViewController: UIViewController {
     @IBOutlet weak var addExpenseButton: UIButton!
     @IBOutlet weak var addIncomeButton: UIButton!
     @IBOutlet weak var floatingStackView: UIStackView!
+    @IBOutlet weak var totalAmountView: TotalAmountView!
     
     lazy var buttons = [self.addExpenseButton, self.addIncomeButton]
     lazy var floatingDimView: UIView = {
