@@ -126,6 +126,7 @@ class HistoryListViewController: UIViewController {
             guard let self = self else { return }
             self.historyListTableView.reloadData()
             self.applySnapshot(with: self.historyFilter.filterHistories(with: self.travelItemViewModel?.histories))
+            self.setTotalAmountView()
         }
     }
     
@@ -276,9 +277,9 @@ class HistoryListViewController: UIViewController {
             let amount = history.amount
             let date = history.date
             if let day = days.filter({ date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted)}).first {
-                day.amount += amount
+                day.amount = history.isIncome ? day.amount + amount : day.amount - amount
             } else {
-                days.insert(HistoryListSectionHeader(dayNumber: day + 1, date: date, amount: amount))
+                days.insert(HistoryListSectionHeader(dayNumber: day + 1, date: date, amount: history.isIncome ? amount : -amount))
             }
         }
         var sections = [HistoryListSectionHeader](days)

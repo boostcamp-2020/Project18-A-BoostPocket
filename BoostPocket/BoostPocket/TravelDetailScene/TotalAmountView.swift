@@ -19,7 +19,7 @@ class TotalAmountView: UIView {
     weak var expenseTitleLabelCenterX: NSLayoutConstraint?
     
     func configure(withExpense expense: Double, remain: Double) {
-        if remain == 0 {
+        if remain == 0, expense == 0 {
             hideRemainLabels()
         } else {
             showRemainLabels()
