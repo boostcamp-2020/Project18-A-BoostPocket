@@ -40,12 +40,6 @@ class HistoryFilter {
         isCardOnly?.toggle()
     }
     
-    func resetIsPrepareOnly() {
-    }
-    
-    func resetIsCardOnly() {
-    }
-    
     func filterHistories(with histories: [HistoryItemViewModel]) -> [HistoryItemViewModel] {
         return []
     }
