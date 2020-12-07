@@ -20,7 +20,6 @@ extension Date {
         return dates
     }
     
-    
     func interval(ofComponent comp: Calendar.Component, fromDate date: Date) -> Int {
         let currentSelf = self.convertToCurrentTime()
         let currentDate = date.convertToCurrentTime()

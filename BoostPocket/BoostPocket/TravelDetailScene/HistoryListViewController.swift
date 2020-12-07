@@ -16,6 +16,22 @@ class HistoryListViewController: UIViewController {
     @IBOutlet weak var historyListTableView: UITableView!
     @IBOutlet weak var dayStackView: UIStackView!
     @IBOutlet weak var moneySegmentedControl: UISegmentedControl!
+    @IBOutlet weak var floatingButton: UIButton!
+    @IBOutlet weak var addExpenseButton: UIButton!
+    @IBOutlet weak var addIncomeButton: UIButton!
+    private var isFloatingButtonOpend: Bool = false
+    @IBOutlet weak var floatingStackView: UIStackView!
+    lazy var buttons = [self.addExpenseButton, self.addIncomeButton]
+    lazy var floatingDimView: UIView = {
+        let view = UIView(frame: self.view.frame)
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        view.alpha = 0
+        view.isHidden = true
+        
+        self.view.insertSubview(view, belowSubview: self.floatingStackView)
+        
+        return view
+    }()
     
     weak var travelItemViewModel: HistoryListPresentable?
     
@@ -26,18 +42,12 @@ class HistoryListViewController: UIViewController {
     
     private lazy var dataSource = configureDatasource()
     private lazy var headers = setupSection(with: travelItemViewModel?.histories ?? [])
-    private lazy var refresher: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .clear
-        refreshControl.addTarget(self, action: #selector(addExpenseHistory), for: .valueChanged)
-        refreshControl.attributedTitle = NSAttributedString(string: "새 지출 입력하기")
-        return refreshControl
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
         configureSegmentedControl()
+        configureFloatingActionButton()
         
         travelItemViewModel?.needFetchItems()
         travelItemViewModel?.didFetch = { [weak self] _ in
@@ -53,24 +63,7 @@ class HistoryListViewController: UIViewController {
         moneySegmentedControl.selectedSegmentIndex = 0
     }
     
-    @objc private func addExpenseHistory() {
-        let addHistoryVC = AddHistoryViewController(nibName: AddHistoryViewController.identifier, bundle: nil)
-        
-        let baseData = BaseDataForAddingHistory(isIncome: false,
-                                                flagImage: self.travelItemViewModel?.flagImage ?? Data(),
-                                                currencyCode: self.travelItemViewModel?.currencyCode ?? "",
-                                                currentDate: self.selectedDate ?? Date(),
-                                                exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
-        
-        addHistoryVC.baseData = baseData
-        addHistoryVC.saveButtonHandler = { [weak self] newExpenseData in
-            // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
-            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: false, title: newExpenseData.title, memo: newExpenseData.memo, date: newExpenseData.date, image: newExpenseData.image ?? Data(), amount: newExpenseData.amount, category: newExpenseData.category, isPrepare: false, isCard: newExpenseData.isCard ?? false) { _ in }
-        }
-        self.present(addHistoryVC, animated: true) { [weak self] in
-            self?.refresher.endRefreshing()
-        }
-    }
+    // MARK: - Configuration
     
     private func configureSegmentedControl() {
         moneySegmentedControl.selectedSegmentTintColor = .clear
@@ -81,7 +74,6 @@ class HistoryListViewController: UIViewController {
     }
     
     private func configureTableView() {
-        historyListTableView.refreshControl = refresher
         historyListTableView.delegate = self
         historyListTableView.register(HistoryCell.getNib(), forCellReuseIdentifier: HistoryCell.identifier)
         historyListTableView.register(HistoryHeaderCell.getNib(), forHeaderFooterViewReuseIdentifier: HistoryHeaderCell.identifier)
@@ -90,11 +82,116 @@ class HistoryListViewController: UIViewController {
     private func configureDatasource() -> DataSource {
         let datasource = DataSource(tableView: historyListTableView) { (tableview, indexPath, item) -> UITableViewCell? in
             guard let cell = tableview.dequeueReusableCell(withIdentifier: HistoryCell.identifier, for: indexPath) as? HistoryCell else { return UITableViewCell() }
+            
+            cell.selectionStyle = .none
             cell.configure(with: item)
             return cell
         }
         
         return datasource
+    }
+    
+    private func configureFloatingActionButton() {
+        let buttonWidth = self.view.bounds.width * 0.1
+        
+        floatingButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
+        floatingButton.layer.cornerRadius = buttonWidth * 0.5
+        floatingButton.clipsToBounds = true
+        
+        addIncomeButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
+        addIncomeButton.layer.cornerRadius = buttonWidth * 0.5
+        addIncomeButton.clipsToBounds = true
+        
+        addExpenseButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
+        addExpenseButton.layer.cornerRadius = buttonWidth * 0.5
+        addExpenseButton.clipsToBounds = true
+        
+    }
+    
+    // MARK: - Floating Action Button
+    
+    @IBAction func floatingActionButtonTapped(_ sender: UIButton) {
+        switch isFloatingButtonOpend {
+        case true:
+            closeFloatingActions()
+        case false:
+            openFloatingActions()
+        }
+    }
+    
+    private func closeFloatingActions() {
+        buttons.reversed().forEach { [weak self] button in
+            UIView.animate(withDuration: 0.2) {
+                button?.isHidden = true
+                self?.view.layoutIfNeeded()
+            }
+        }
+        
+        UIView.animate(withDuration: 0.5, animations: { self.floatingDimView.alpha = 0 }) { _ in
+            self.floatingDimView.isHidden = true
+        }
+        
+        isFloatingButtonOpend = false
+        rotateFloatingActionButton()
+    }
+    
+    private func openFloatingActions() {
+        self.floatingDimView.isHidden = false
+        
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            self?.floatingDimView.alpha = 1
+        }
+        
+        buttons.forEach { [weak self] button in
+            button?.isHidden = false
+            button?.alpha = 0
+            
+            UIView.animate(withDuration: 0.3) {
+                button?.alpha = 1
+                self?.view.layoutIfNeeded()
+            }
+        }
+        
+        isFloatingButtonOpend = true
+        rotateFloatingActionButton()
+    }
+    
+    private func rotateFloatingActionButton() {
+        let roatation = isFloatingButtonOpend ? CGAffineTransform(rotationAngle: .pi - (.pi / 4)) : CGAffineTransform.identity
+        
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.floatingButton.transform = roatation
+        }
+    }
+    
+    @IBAction func addExpenseButtonTapped(_ sender: Any) {
+        addNewHistory(isIncome: false)
+    }
+    
+    @IBAction func addIncomeButtonTapped(_ sender: Any) {
+        addNewHistory(isIncome: true)
+    }
+    
+    private func addNewHistory(isIncome: Bool) {
+        let newHistoryViewModel = NewHistoryViewModel(isIncome: isIncome,
+                                                flagImage: self.travelItemViewModel?.flagImage ?? Data(),
+                                                currencyCode: self.travelItemViewModel?.currencyCode ?? "",
+                                                currentDate: self.selectedDate ?? Date(),
+                                                exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
+        
+        let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newHistoryData in
+            // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
+            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image ?? Data(), amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: self?.isPrepareOnly ?? false, isCard: newHistoryData.isCard ?? false) { _ in }
+        }
+        
+        let onPresent: (() -> Void)  = { [weak self] in
+            self?.closeFloatingActions()
+        }
+        
+        AddHistoryViewController.present(at: self,
+                                         newHistoryViewModel: newHistoryViewModel,
+                                         saveButtonHandler: saveButtonHandler,
+                                         onPresent: onPresent)
     }
     
     private func applySnapshot(with histories: [HistoryItemViewModel]) {
@@ -130,7 +227,7 @@ class HistoryListViewController: UIViewController {
     private func setupDays(from startDate: Date?, to endDate: Date?) {
         dayStackView.removeAllArrangedSubviews()
         guard let startDate = travelItemViewModel?.startDate,
-              let endDate = travelItemViewModel?.endDate else { return }
+            let endDate = travelItemViewModel?.endDate else { return }
         let days = startDate.getPeriodOfDates(with: endDate)
         days.forEach { day in
             setupDayCell(with: day)
@@ -186,8 +283,8 @@ class HistoryListViewController: UIViewController {
 extension HistoryListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         guard let selectedHistoryViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
+        
         if let historyDetailVC = self.storyboard?.instantiateViewController(identifier: "HistoryDetailViewController") as? HistoryDetailViewController {
             self.present(historyDetailVC, animated: true, completion: nil)
             historyDetailVC.initDetailView(history: selectedHistoryViewModel)
@@ -200,9 +297,10 @@ extension HistoryListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HistoryHeaderCell.identifier) as? HistoryHeaderCell,
-              // TODO: - 더 효율적으로 빈 headers 처리하는 방법 고민하기
-              !headers.isEmpty
-        else { return nil }
+            // TODO: - 더 효율적으로 빈 headers 처리하는 방법 고민하기
+            !headers.isEmpty
+            else { return nil }
+        
         headerView.configure(with: headers[section].dayNumber, date: headers[section].date, amount: headers[section].amount)
         return headerView
     }
@@ -214,7 +312,7 @@ extension HistoryListViewController: DayButtonDelegate {
         for index in 0..<subviews.count {
             if let _ = subviews[index].subviews.filter({ $0 == sender }).first as? UIButton {
                 guard let startDate = travelItemViewModel?.startDate,
-                      let tappedDate = Calendar.current.date(byAdding: .day, value: index, to: startDate) else { return }
+                    let tappedDate = Calendar.current.date(byAdding: .day, value: index, to: startDate) else { return }
                 selectedDate = tappedDate
                 isPrepareOnly = nil
                 break
