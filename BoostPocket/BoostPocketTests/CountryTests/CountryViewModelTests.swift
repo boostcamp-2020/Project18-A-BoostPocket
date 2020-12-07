@@ -57,18 +57,6 @@ class CountryViewModelTests: XCTestCase {
         XCTAssertEqual(createdCountry?.currencyCode, currencyCode)
     }
     
-    // 없애는 함수
-    func test_countryListViewModel_cellForItemAt() {
-        XCTAssertNotNil(countryListViewModel.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode, identifier: identifier))
-        
-        let countryItemViewModel = countryListViewModel.cellForItemAt(path: IndexPath(row: 0, section: 0))
-        
-        XCTAssertEqual(countryItemViewModel, countryListViewModel.countries.first)
-        XCTAssertEqual(countryItemViewModel.name, countryName)
-        XCTAssertEqual(countryItemViewModel.flag, flagImage)
-        XCTAssertEqual(countryItemViewModel.currencyCode, currencyCode)
-    }
-    
     func test_countryListViewModel_numberOfItem() {
         countryListViewModel.createCountry(name: "\(countryName)1", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1", identifier: identifier)
         countryListViewModel.createCountry(name: "\(countryName)2", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 1.0, currencyCode: "\(currencyCode)2", identifier: identifier)

@@ -332,7 +332,8 @@ extension HistoryListViewController: UITableViewDelegate {
                                                         memo: selectedHistoryViewModel.memo,
                                                         image: selectedHistoryViewModel.image,
                                                         amount: selectedHistoryViewModel.amount,
-                                                        isPrepare: selectedHistoryViewModel.isPrepare)
+                                                        isPrepare: selectedHistoryViewModel.isPrepare,
+                                                        countryIdentifier: travelItemViewModel?.countryIdentifier)
             
             self.present(historyDetailVC, animated: true, completion: nil)
             historyDetailVC.configureViews(history: detailhistoryViewModel)

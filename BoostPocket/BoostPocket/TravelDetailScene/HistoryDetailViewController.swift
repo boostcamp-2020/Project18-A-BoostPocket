@@ -36,7 +36,7 @@ class HistoryDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         imagePicker.delegate = self
         
         let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
@@ -68,8 +68,7 @@ class HistoryDetailViewController: UIViewController {
         // TO-DO : 값 업데이트
     }
     
-    func configureViews(history: BaseHistoryViewModel) {
-        
+    func configureViews(history: BaseHistoryViewModel) {        
         expanseStackView.translatesAutoresizingMaskIntoConstraints = false
         incomeStackView.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false

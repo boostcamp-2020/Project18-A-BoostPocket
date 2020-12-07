@@ -25,6 +25,7 @@ struct BaseHistoryViewModel {
     var amount: Double?
     // 상세화면
     var isPrepare: Bool?
+    var countryIdentifier: String?
 }
 
 struct NewHistoryData {
