@@ -43,7 +43,6 @@ class HistoryDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureViews()
     }
     
@@ -83,21 +82,26 @@ class HistoryDetailViewController: UIViewController {
             titleLabel.text = title.isEmpty ? category.name : title
         }
         
-        // 지출
         if !history.isIncome {
+            // 지출
             amountLabel.textColor = UIColor(named: "deleteButtonColor")
-            if let historyImage = history.image, let memo = history.memo, let isPrepare = history.isPrepare {
-                historyImageView.image = UIImage(data: historyImage)
-                expanseMemoLabel.text = memo
-                
+            if let previousImage = history.image {
+                historyImageView.image = UIImage(data: previousImage)
+            }
+            
+            if let previousMemo = history.memo {
+                expanseMemoLabel.text = previousMemo
+            }
+            
+            if let isPrepare = history.isPrepare {
                 if isPrepare {
                     isPrepareImageView.image = UIImage(named: "isPrepareTrue")
                 } else {
                     isPrepareImageView.image = UIImage(named: "isPrepareFalse")
                 }
             }
-        // 수입
         } else {
+            // 수입
             amountLabel.textColor = UIColor(named: "incomeColor")
             currencyCodeLabel.text = history.currencyCode
             let exchangedKoreanCurrency = 1.00 / history.exchangeRate
@@ -118,6 +122,7 @@ class HistoryDetailViewController: UIViewController {
     }
     
     @IBAction func editButtonTapped(_ sender: UIButton) {
+        
     }
     
     @objc func historyImageTapped() {
@@ -146,7 +151,7 @@ class HistoryDetailViewController: UIViewController {
 
 extension HistoryDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         if let newImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             historyImageView.image = newImage
