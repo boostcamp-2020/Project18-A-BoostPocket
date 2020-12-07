@@ -26,6 +26,7 @@ class HistoryFilter {
     }
     
     func toggleIsPrepareOnly() {
+        isPrepareOnly?.toggle()
     }
     
     func toggleIsCardOnly() {
