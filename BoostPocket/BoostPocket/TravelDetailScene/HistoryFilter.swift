@@ -32,16 +32,8 @@ class HistoryFilter {
         self.isPrepareOnly = false
     }
     
-    func toggleIsPrepareOnly() {
-        isPrepareOnly?.toggle()
-    }
-    
-    func toggleIsCardOnly() {
-        isCardOnly?.toggle()
-    }
-    
-    func filterHistories(with histories: [HistoryItemViewModel]) -> [HistoryItemViewModel] {
-        var filteredHistories = histories
+    func filterHistories(with histories: [HistoryItemViewModel]?) -> [HistoryItemViewModel] {
+        guard var filteredHistories = histories else { return [] }
         if let card = isCardOnly {
             filteredHistories = filteredHistories.filter { $0.isCard == card }
         }

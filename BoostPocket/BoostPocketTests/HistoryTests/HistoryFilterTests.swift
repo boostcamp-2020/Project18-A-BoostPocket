@@ -16,15 +16,15 @@ class HistoryFilterTests: XCTestCase {
     
     override func setUpWithError() throws {
         historyFilter = HistoryFilter()
-        let history1 = HistoryStub(id: UUID(), isIncome: false, title: "All1", memo: "All1", amount: 11000, image: Data(), date: Date(), category: 0, isCard: nil, isPrepare: false)
+        let history1 = HistoryStub(id: UUID(), isIncome: false, title: "All1", memo: "All1", amount: 11000, image: Data(), date: Date(), category: 0, isCard: true, isPrepare: false)
         let history2 = HistoryStub(id: UUID(), isIncome: false, title: "All2", memo: "Cash1", amount: 12000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: false)
         let history3 = HistoryStub(id: UUID(), isIncome: false, title: "All3", memo: "Card1", amount: 13000, image: Data(), date: Date(), category: 0, isCard: true, isPrepare: false)
-        let history4 = HistoryStub(id: UUID(), isIncome: false, title: "Prepare1", memo: "All2", amount: 14000, image: Data(), date: Date(), category: 0, isCard: nil, isPrepare: true)
+        let history4 = HistoryStub(id: UUID(), isIncome: false, title: "Prepare1", memo: "All2", amount: 14000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: true)
         let history5 = HistoryStub(id: UUID(), isIncome: false, title: "Prepare2", memo: "Cash2", amount: 15000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: true)
         let history6 = HistoryStub(id: UUID(), isIncome: false, title: "Prepare3", memo: "Card2", amount: 16000, image: Data(), date: Date(), category: 0, isCard: true, isPrepare: true)
-        let history7 = HistoryStub(id: UUID(), isIncome: false, title: "Date1", memo: "All3", amount: 17000, image: Data(), date: Date(), category: 0, isCard: nil, isPrepare: nil)
-        let history8 = HistoryStub(id: UUID(), isIncome: false, title: "Date2", memo: "Cash3", amount: 18000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: nil)
-        let history9 = HistoryStub(id: UUID(), isIncome: false, title: "Date3", memo: "Card3", amount: 19000, image: Data(), date: Date(), category: 0, isCard: true, isPrepare: nil)
+        let history7 = HistoryStub(id: UUID(), isIncome: false, title: "Date1", memo: "All3", amount: 17000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: true)
+        let history8 = HistoryStub(id: UUID(), isIncome: false, title: "Date2", memo: "Cash3", amount: 18000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: false)
+        let history9 = HistoryStub(id: UUID(), isIncome: false, title: "Date3", memo: "Card3", amount: 19000, image: Data(), date: Date(), category: 0, isCard: true, isPrepare: false)
 
         histories.append(HistoryItemViewModelStub(history: history1))
         histories.append(HistoryItemViewModelStub(history: history2))
@@ -53,20 +53,6 @@ class HistoryFilterTests: XCTestCase {
         XCTAssertNil(historyFilter.selectedDate)
     }
     
-    func test_toggleIsPrepareOnly() {
-        XCTAssertNotNil(historyFilter.isPrepareOnly)
-        XCTAssertFalse(historyFilter.isPrepareOnly!)
-        historyFilter.toggleIsPrepareOnly()
-        XCTAssertNotNil(historyFilter.isPrepareOnly)
-        XCTAssertTrue(historyFilter.isPrepareOnly!)
-    }
-    
-    func test_toggleIsCardOnly() {
-        historyFilter.isCardOnly = false
-        historyFilter.toggleIsCardOnly()
-        XCTAssertTrue(historyFilter.isCardOnly!)
-    }
-    
     func test_filterHistories_All_All() {
         let castedHistories = histories as [HistoryItemViewModel]
         historyFilter.isPrepareOnly = false
@@ -74,7 +60,7 @@ class HistoryFilterTests: XCTestCase {
         historyFilter.isCardOnly = nil
         let filteredHistories = historyFilter.filterHistories(with: castedHistories)
         XCTAssertNotNil(filteredHistories)
-        XCTAssertEqual(filteredHistories.count, 1)
+        XCTAssertEqual(filteredHistories.count, 9)
     }
     
     func test_filterHistories_All_Card() {
@@ -84,7 +70,7 @@ class HistoryFilterTests: XCTestCase {
         historyFilter.isCardOnly = true
         let filteredHistories = historyFilter.filterHistories(with: castedHistories)
         XCTAssertNotNil(filteredHistories)
-        XCTAssertEqual(filteredHistories.count, 1)
+        XCTAssertEqual(filteredHistories.count, 4)
     }
     
     func test_filterHistories_All_Cash() {
@@ -94,7 +80,7 @@ class HistoryFilterTests: XCTestCase {
         historyFilter.isCardOnly = false
         let filteredHistories = historyFilter.filterHistories(with: castedHistories)
         XCTAssertNotNil(filteredHistories)
-        XCTAssertEqual(filteredHistories.count, 1)
+        XCTAssertEqual(filteredHistories.count, 5)
     }
     
     func test_filterHistories_Prepared_All() {
@@ -104,7 +90,7 @@ class HistoryFilterTests: XCTestCase {
         historyFilter.isCardOnly = nil
         let filteredHistories = historyFilter.filterHistories(with: castedHistories)
         XCTAssertNotNil(filteredHistories)
-        XCTAssertEqual(filteredHistories.count, 1)
+        XCTAssertEqual(filteredHistories.count, 4)
     }
     
     func test_filterHistories_Prepared_Card() {
@@ -124,7 +110,7 @@ class HistoryFilterTests: XCTestCase {
         historyFilter.isCardOnly = false
         let filteredHistories = historyFilter.filterHistories(with: castedHistories)
         XCTAssertNotNil(filteredHistories)
-        XCTAssertEqual(filteredHistories.count, 1)
+        XCTAssertEqual(filteredHistories.count, 3)
     }
     
     func test_filterHistories_Date_All() {
@@ -134,7 +120,7 @@ class HistoryFilterTests: XCTestCase {
         historyFilter.isCardOnly = nil
         let filteredHistories = historyFilter.filterHistories(with: castedHistories)
         XCTAssertNotNil(filteredHistories)
-        XCTAssertEqual(filteredHistories.count, 1)
+        XCTAssertEqual(filteredHistories.count, 9)
     }
     
     func test_filterHistories_Date_Card() {
@@ -144,7 +130,7 @@ class HistoryFilterTests: XCTestCase {
         historyFilter.isCardOnly = true
         let filteredHistories = historyFilter.filterHistories(with: castedHistories)
         XCTAssertNotNil(filteredHistories)
-        XCTAssertEqual(filteredHistories.count, 1)
+        XCTAssertEqual(filteredHistories.count, 4)
     }
     
     func test_filterHistories_Date_Cash() {
@@ -154,6 +140,6 @@ class HistoryFilterTests: XCTestCase {
         historyFilter.isCardOnly = false
         let filteredHistories = historyFilter.filterHistories(with: castedHistories)
         XCTAssertNotNil(filteredHistories)
-        XCTAssertEqual(filteredHistories.count, 1)
+        XCTAssertEqual(filteredHistories.count, 5)
     }
 }
