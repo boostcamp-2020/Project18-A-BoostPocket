@@ -53,6 +53,7 @@ class AddHistoryViewController: UIViewController {
     private var isCard: Bool = false
     private var imagePicker = UIImagePickerController()
     private let historyTitlePlaceholder = "항목명을 입력해주세요 (선택)"
+    private var categories: [HistoryCategory] = [.food, .shopping, .tourism, .transportation, .accommodation, .etc]
     
     @IBOutlet weak var historyTitleLabel: UILabel!
     @IBOutlet weak var headerView: UIView!
@@ -68,6 +69,7 @@ class AddHistoryViewController: UIViewController {
     @IBOutlet weak var imageButton: UIButton!
     @IBOutlet weak var memoButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var categoryCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +86,7 @@ class AddHistoryViewController: UIViewController {
         segmentedControl.isHidden = isAddingIncome
         imageButton.isHidden = isAddingIncome
         memoButton.isHidden = isAddingIncome
+        categoryCollectionView.isHidden = isAddingIncome
         
         // 상단 뷰 색상
         headerView.backgroundColor = color
@@ -119,6 +122,13 @@ class AddHistoryViewController: UIViewController {
             segmentedControl.selectedSegmentIndex = 0
         }
         
+        // 카테고리 CollectionView
+        if !isAddingIncome {
+            categoryCollectionView.delegate = self
+            categoryCollectionView.dataSource = self
+            categoryCollectionView.register(UINib(nibName: CategoryCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
+        }
+        
         // 항목명
         let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
         historyTitleLabel.addGestureRecognizer(titleTap)
@@ -137,7 +147,6 @@ class AddHistoryViewController: UIViewController {
         dateLabel.text = dateLabelText
         
         // 이미지
-        
         if let previousImage = newHistoryViewModel.image {
             self.image = previousImage
             self.imageButton.tintColor = .black
@@ -312,6 +321,28 @@ extension AddHistoryViewController {
             calculatedAmountLabel.text = "0"
             currencyConvertedAmountLabel.text = "KRW"
         }
+    }
+    
+}
+
+extension AddHistoryViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categories.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        cell.configure(with: categories[indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = self.view.frame.width * 0.15
+        return CGSize(width: width, height: width)
     }
     
 }

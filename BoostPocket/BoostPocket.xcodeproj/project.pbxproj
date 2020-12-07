@@ -39,6 +39,8 @@
 		5CD9A895257DCA2300A7AEFF /* HistoryFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */; };
 		5CD9A89A257DCD6C00A7AEFF /* HistoryFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD9A899257DCD6C00A7AEFF /* HistoryFilterTests.swift */; };
 		5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF409472575239200351F4B /* MemoEditViewController.swift */; };
+		954D2CDD257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954D2CDB257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift */; };
+		954D2CDE257E2F4800ECE9D9 /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 954D2CDC257E2F4800ECE9D9 /* CategoryCollectionViewCell.xib */; };
 		954F7019256D1C4B00B2E48B /* TravelListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */; };
 		954F701B256D3E7700B2E48B /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954F701A256D3E7700B2E48B /* Sections.swift */; };
 		955555AA257E18A200CA81C9 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955555A8257E18A200CA81C9 /* Country+CoreDataClass.swift */; };
@@ -170,6 +172,8 @@
 		5CF409472575239200351F4B /* MemoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoEditViewController.swift; sourceTree = "<group>"; };
 		81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.debug.xcconfig"; sourceTree = "<group>"; };
+		954D2CDB257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		954D2CDC257E2F4800ECE9D9 /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewModel.swift; sourceTree = "<group>"; };
 		954F701A256D3E7700B2E48B /* Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
 		955555A8257E18A200CA81C9 /* Country+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Country+CoreDataClass.swift"; path = "BoostPocket/CoreDataModels/Country+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -343,6 +347,8 @@
 				5C15AB482577DED700244C6C /* HistoryHeaderCell.swift */,
 				5C15AB4D2577DEE900244C6C /* HistoryHeaderCell.xib */,
 				5C7F83622578B40400A58112 /* DayCell.swift */,
+				954D2CDB257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift */,
+				954D2CDC257E2F4800ECE9D9 /* CategoryCollectionViewCell.xib */,
 				9574ACCE2578B4C10072C578 /* AddHistoryViewController.swift */,
 				9574ACCF2578B4C10072C578 /* AddHistoryViewController.xib */,
 				5C7F8372257902A000A58112 /* HistoryListSectionHeader.swift */,
@@ -692,6 +698,7 @@
 				9574ACD12578B4C10072C578 /* AddHistoryViewController.xib in Resources */,
 				95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */,
 				5C797494256FD263007CB1ED /* TravelHeaderCell.xib in Resources */,
+				954D2CDE257E2F4800ECE9D9 /* CategoryCollectionViewCell.xib in Resources */,
 				A9BF7A87256F420D00496CD8 /* TravelCell.xib in Resources */,
 				5C3DAF302566576000178EA0 /* CountryListViewController.xib in Resources */,
 				9572F977256B5397003049CB /* .swiftlint.yml in Resources */,
@@ -829,6 +836,7 @@
 				954F701B256D3E7700B2E48B /* Sections.swift in Sources */,
 				5CB682E5256C03F800830373 /* CountryListViewModel.swift in Sources */,
 				A9BF7A72256E2D5900496CD8 /* Travel+CoreDataProperties.swift in Sources */,
+				954D2CDD257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift in Sources */,
 				9572F9A9256B902C003049CB /* PersistenceManager.swift in Sources */,
 				A99E0682257E02780014C29F /* Double+NumberFormat.swift in Sources */,
 				A99E0639257763B90014C29F /* HistoryProvider.swift in Sources */,
