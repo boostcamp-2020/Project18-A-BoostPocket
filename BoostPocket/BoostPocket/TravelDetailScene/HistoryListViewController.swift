@@ -332,8 +332,15 @@ extension HistoryListViewController: UITableViewDelegate {
         guard let selectedHistoryViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
         
         if let historyDetailVC = self.storyboard?.instantiateViewController(identifier: "HistoryDetailViewController") as? HistoryDetailViewController {
+            
+            let newHistoryViewModel = BaseHistoryViewModel(isIncome: selectedHistoryViewModel.isIncome,
+                                                          flagImage: self.travelItemViewModel?.flagImage ?? Data(),
+                                                          currencyCode: self.travelItemViewModel?.currencyCode ?? "",
+                                                          currentDate: self.selectedDate ?? Date(),
+                                                          exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
+            
             self.present(historyDetailVC, animated: true, completion: nil)
-            historyDetailVC.initDetailView(history: selectedHistoryViewModel)
+            historyDetailVC.configureViews(history: selectedHistoryViewModel, travelProfile: newHistoryViewModel)
         }
     }
     
