@@ -20,13 +20,14 @@ class HistoryHeaderCell: UITableViewHeaderFooterView {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     
-    func configure(with day: Int?, date: Date, amount: Double) {
+    func configure(with day: Int?, date: Date, amount: Double?) {
         if let day = day, day > 0 {
             dayLabel.text = "DAY \(day)"
         } else {
             dayLabel.text = ""
         }
         dateLabel.text = date.convertToString(format: .korean)
+        guard let amount = amount else { return }
         amountLabel.text = amount.insertComma
     }
     

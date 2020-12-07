@@ -373,7 +373,8 @@ extension HistoryListViewController: UITableViewDelegate {
             else { return nil }
     
         // TODO: - Index out of range 오류 해결하기
-        headerView.configure(with: headers[section].dayNumber, date: headers[section].date, amount: headers[section].amount)
+        guard let exchangeRate = travelItemViewModel?.exchangeRate else { return UIView() }
+        headerView.configure(with: headers[section].dayNumber, date: headers[section].date, amount: headers[section].amount / exchangeRate)
         return headerView
     }
     

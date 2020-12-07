@@ -24,7 +24,9 @@ class TotalAmountView: UIView {
         } else {
             showRemainLabels()
             remainLabel.text = String(remain)
+            remainLabel.textColor = remain < 0 ? UIColor(named: "deleteTextColor") : UIColor(named: "incomeColor")
         }
+        // TODO: identifier 적용하기!
         expenseLabel.text = String(expense)
     }
     
