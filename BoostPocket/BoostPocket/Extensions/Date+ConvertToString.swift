@@ -9,7 +9,7 @@
 import Foundation
 
 enum DateFormats: String {
-    case fullDated = "yyyy-MM-dd-hh-mm-ss"
+    case fullDated = "yyyy-MM-dd-HH-mm-ss"
     case fullKoreanDated = "yyyy년 MM월 dd일 HH:mm:ss"
     case dotted = "yyyy. MM. dd."
     case dashed = "yyyy-MM-dd"
