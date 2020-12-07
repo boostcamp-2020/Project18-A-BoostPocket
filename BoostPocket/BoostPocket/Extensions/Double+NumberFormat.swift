@@ -12,7 +12,6 @@ extension Double {
     
     func getCurrencyFormat(indentifier: String) -> String {
         let locale = Locale(identifier: indentifier)
-//        let locale = NSLocale(localeIdentifier: indentifier)
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.decimal
         numberFormatter.locale = locale
