@@ -539,13 +539,13 @@
                                                                         <rect key="frame" x="0.0" y="104" width="534" height="16"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="₩ 25,000 사용" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5d-JZ-sid">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="345.5" height="16"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="185.5" height="16"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KRW 15,000 남음/₩ 23,000 초과" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmn-Fr-kXg">
-                                                                                <rect key="frame" x="345.5" y="0.0" width="188.5" height="16"/>
+                                                                                <rect key="frame" x="185.5" y="0.0" width="188.5" height="16"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -581,7 +581,7 @@
                                                                 <rect key="frame" x="0.0" y="1482" width="534" height="53.5"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eIM-lz-bbD" userLabel="여행 삭제하기">
-                                                                        <rect key="frame" x="187" y="0.0" width="160" height="53.5"/>
+                                                                        <rect key="frame" x="131" y="0.0" width="112" height="37.5"/>
                                                                         <color key="backgroundColor" name="DeleteButtonColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                         <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
@@ -790,8 +790,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2020년 11월 17일 4:08:51" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ImO-lf-XQ3">
-                                <rect key="frame" x="113.5" y="54" width="187.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="123" y="59" width="168" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -810,7 +810,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US$ 7.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wV-KP-wum">
                                                 <rect key="frame" x="154.5" y="61.5" width="105.5" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
-                                                <color key="textColor" name="DeleteButtonColor"/>
+                                                <color key="textColor" name="deleteButtonColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KRW 7,675" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z3f-Ho-BOK">
@@ -826,23 +826,28 @@
                                                     <constraint firstAttribute="height" constant="1" id="Fdc-go-kXJ"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2B-71-12i">
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2B-71-12i">
                                                 <rect key="frame" x="190" y="163.5" width="34.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="MT0-vv-bR4" userLabel="Expanse Stack View">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="MT0-vv-bR4" userLabel="Expense Stack View">
                                                 <rect key="frame" x="20" y="214" width="374" height="492.5"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iI5-n4-Lon">
+                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="historyImage" translatesAutoresizingMaskIntoConstraints="NO" id="iI5-n4-Lon">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="374"/>
-                                                        <color key="backgroundColor" red="0.73527641909999997" green="0.91955979929999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="backgroundColor" name="lightMainColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="iI5-n4-Lon" secondAttribute="height" multiplier="1:1" id="i8r-8d-JGo"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="15"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이곳에는 간단한 메모를 남길 수 있습니다. 여기를 눌러 메모해보세요." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jRy-m2-Uvu">
+                                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이곳에는 간단한 메모를 남길 수 있습니다. 여기를 눌러 메모해보세요." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jRy-m2-Uvu">
                                                         <rect key="frame" x="0.0" y="399" width="374" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -851,7 +856,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jnT-Kg-cdp">
                                                         <rect key="frame" x="0.0" y="460" width="374" height="32.5"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q8c-hW-aUc">
+                                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="isPrepareFalse" translatesAutoresizingMaskIntoConstraints="NO" id="q8c-hW-aUc">
                                                                 <rect key="frame" x="0.0" y="0.0" width="32.5" height="32.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="q8c-hW-aUc" secondAttribute="height" multiplier="1:1" id="hNQ-Op-tHw"/>
@@ -860,7 +865,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="준비 비용입니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjt-v8-joN">
                                                                 <rect key="frame" x="42.5" y="0.0" width="331.5" height="32.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <nil key="textColor"/>
+                                                                <color key="textColor" red="0.13711532360000001" green="0.13711532360000001" blue="0.13711532360000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -909,7 +914,7 @@
                                                             </stackView>
                                                         </subviews>
                                                     </stackView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이곳에는 간단한 메모를 남길 수 있습니다. 여기를 눌러 메모해보세요" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJN-sX-QuR">
+                                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이곳에는 간단한 메모를 남길 수 있습니다. 여기를 눌러 메모해보세요" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJN-sX-QuR">
                                                         <rect key="frame" x="0.0" y="79" width="374" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -929,7 +934,7 @@
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="10"/>
+                                                                <integer key="value" value="12"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
@@ -942,7 +947,7 @@
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="10"/>
+                                                                <integer key="value" value="12"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
@@ -1012,7 +1017,7 @@
                             <constraint firstItem="c0t-EW-Dz1" firstAttribute="top" secondItem="eHk-JU-XwN" secondAttribute="bottom" id="ihh-nC-eRz"/>
                             <constraint firstAttribute="bottom" secondItem="c0t-EW-Dz1" secondAttribute="bottom" id="ok8-GU-hQK"/>
                             <constraint firstItem="qNU-nu-0oe" firstAttribute="trailing" secondItem="nEJ-zQ-SvF" secondAttribute="trailing" id="qch-Yq-oyx"/>
-                            <constraint firstItem="ImO-lf-XQ3" firstAttribute="top" secondItem="qNU-nu-0oe" secondAttribute="top" constant="10" id="tpi-eB-7tb"/>
+                            <constraint firstItem="ImO-lf-XQ3" firstAttribute="top" secondItem="qNU-nu-0oe" secondAttribute="top" constant="15" id="tpi-eB-7tb"/>
                             <constraint firstAttribute="trailing" secondItem="c0t-EW-Dz1" secondAttribute="trailing" id="uPQ-x4-bgp"/>
                             <constraint firstItem="eHk-JU-XwN" firstAttribute="leading" secondItem="qNU-nu-0oe" secondAttribute="leading" id="wzq-CE-hr4"/>
                             <constraint firstItem="qNU-nu-0oe" firstAttribute="trailing" secondItem="eHk-JU-XwN" secondAttribute="trailing" id="zc8-mA-Vls"/>
@@ -1022,9 +1027,16 @@
                         <outlet property="amountLabel" destination="4wV-KP-wum" id="ZlA-ef-kD6"/>
                         <outlet property="buttonStackView" destination="uOJ-NV-xEH" id="uBs-0M-9ut"/>
                         <outlet property="categoryImageView" destination="3iv-Zv-NJB" id="Sv3-4B-4SA"/>
+                        <outlet property="currencyCodeLabel" destination="EdU-9L-4nm" id="CNg-aR-MbI"/>
+                        <outlet property="exchangeRateLabel" destination="Khp-bb-Ych" id="KDQ-k1-JQb"/>
                         <outlet property="exchangedMoneyLabel" destination="z3f-Ho-BOK" id="4jZ-PF-He9"/>
+                        <outlet property="expanseMemoLabel" destination="jRy-m2-Uvu" id="ueD-pW-TA3"/>
                         <outlet property="expanseStackView" destination="MT0-vv-bR4" id="Lbt-cn-dNH"/>
+                        <outlet property="historyDateLabel" destination="ImO-lf-XQ3" id="XMc-qK-E9A"/>
+                        <outlet property="historyImageView" destination="iI5-n4-Lon" id="LXa-Li-mXb"/>
+                        <outlet property="incomeMemoLabel" destination="ZJN-sX-QuR" id="zvK-YR-2X1"/>
                         <outlet property="incomeStackView" destination="Oia-M9-qWF" id="tkE-Ga-SUc"/>
+                        <outlet property="isPrepareImageView" destination="q8c-hW-aUc" id="dkE-zs-tkv"/>
                         <outlet property="titleLabel" destination="M2B-71-12i" id="cXl-9G-76Q"/>
                     </connections>
                 </viewController>
@@ -1036,6 +1048,8 @@
     <resources>
         <image name="airplane" catalog="system" width="128" height="115"/>
         <image name="chart.pie.fill" catalog="system" width="128" height="121"/>
+        <image name="historyImage" width="512" height="512"/>
+        <image name="isPrepareFalse" width="64" height="64"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="minus" catalog="system" width="128" height="24"/>
         <image name="plus" catalog="system" width="128" height="113"/>
@@ -1052,7 +1066,7 @@
             <color red="0.92100000381469727" green="0.95599997043609619" blue="0.99500000476837158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="mainColor">
-            <color red="0.45899999141693115" green="0.75700002908706665" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.45882352941176469" green="0.75686274509803919" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

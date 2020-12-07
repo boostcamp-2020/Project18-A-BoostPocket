@@ -189,7 +189,7 @@ class HistoryListViewController: UIViewController {
         
         let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newHistoryData in
             // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
-            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image ?? Data(), amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: self?.historyFilter.isPrepareOnly ?? false, isCard: newHistoryData.isCard ?? false) { _ in }
+            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image, amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: self?.historyFilter.isPrepareOnly ?? false, isCard: newHistoryData.isCard ?? false) { _ in }
         }
         
         let onPresent: (() -> Void)  = { [weak self] in
@@ -320,8 +320,22 @@ extension HistoryListViewController: UITableViewDelegate {
         guard let selectedHistoryViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
         
         if let historyDetailVC = self.storyboard?.instantiateViewController(identifier: "HistoryDetailViewController") as? HistoryDetailViewController {
+            
+            let detailhistoryViewModel = BaseHistoryViewModel(isIncome: selectedHistoryViewModel.isIncome,
+                                                        flagImage: self.travelItemViewModel?.flagImage ?? Data(),
+                                                        currencyCode: self.travelItemViewModel?.currencyCode ?? "",
+                                                        currentDate: self.selectedDate ?? Date(),
+                                                        exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0,
+                                                        isCard: selectedHistoryViewModel.isCard,
+                                                        category: selectedHistoryViewModel.category,
+                                                        title: selectedHistoryViewModel.title,
+                                                        memo: selectedHistoryViewModel.memo,
+                                                        image: selectedHistoryViewModel.image,
+                                                        amount: selectedHistoryViewModel.amount,
+                                                        isPrepare: selectedHistoryViewModel.isPrepare)
+            
             self.present(historyDetailVC, animated: true, completion: nil)
-            historyDetailVC.initDetailView(history: selectedHistoryViewModel)
+            historyDetailVC.configureViews(history: detailhistoryViewModel)
         }
     }
     
