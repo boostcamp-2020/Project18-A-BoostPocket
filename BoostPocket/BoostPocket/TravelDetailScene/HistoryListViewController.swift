@@ -192,8 +192,9 @@ class HistoryListViewController: UIViewController {
         }
         
         AddHistoryViewController.present(at: self,
+                                         delegateTarget: self,
                                          newHistoryViewModel: newHistoryViewModel,
-                                         onPresent: onPresent)
+                                         onPresent: onPresent, onDismiss: nil)
     }
     
     private func applySnapshot(with histories: [HistoryItemViewModel]) {
@@ -287,7 +288,7 @@ extension HistoryListViewController: UITableViewDelegate {
                                                     isPrepare: selectedHistoryViewModel.isPrepare,
                                                     countryIdentifier: travelItemViewModel?.countryIdentifier)
         
-        HistoryDetailViewController.present(at: self, historyViewModel: detailhistoryViewModel)
+        HistoryDetailViewController.present(at: self, baseHistoryViewModel: detailhistoryViewModel, historyItemViewModel: selectedHistoryViewModel)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -342,8 +343,9 @@ extension HistoryListViewController: UITableViewDelegate {
             }
             
             AddHistoryViewController.present(at: self,
+                                             delegateTarget: self,
                                              newHistoryViewModel: editHistoryViewModel,
-                                             onPresent: onPresent)
+                                             onPresent: onPresent, onDismiss: nil)
             completion(true)
         }
         editAction.backgroundColor = .systemBlue

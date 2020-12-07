@@ -16,6 +16,9 @@ class HistoryDetailViewController: UIViewController {
     
     static let identifier = "HistoryDetailViewController"
     weak var delegate: HistoryDetailDelegate?
+    weak var historyItemViewModel: HistoryItemPresentable?
+    private var baseHistoryViewModel: BaseHistoryViewModel?
+    private weak var presentingVC: UIViewController?
     
     @IBOutlet weak var historyDateLabel: UILabel!
     @IBOutlet weak var categoryImageView: UIImageView!
@@ -25,7 +28,7 @@ class HistoryDetailViewController: UIViewController {
     
     // Expense
     @IBOutlet weak var historyImageView: UIImageView!
-    @IBOutlet weak var expanseMemoLabel: UILabel!
+    @IBOutlet weak var expenseMemoLabel: UILabel!
     @IBOutlet weak var isPrepareImageView: UIImageView!
     
     // Income
@@ -38,8 +41,6 @@ class HistoryDetailViewController: UIViewController {
     @IBOutlet weak var buttonStackView: UIStackView!
     
     private var imagePicker = UIImagePickerController()
-    
-    var baseHistoryViewModel: BaseHistoryViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +91,7 @@ class HistoryDetailViewController: UIViewController {
             }
             
             if let previousMemo = history.memo {
-                expanseMemoLabel.text = previousMemo
+                expenseMemoLabel.text = previousMemo
             }
             
             if let isPrepare = history.isPrepare {
@@ -122,7 +123,51 @@ class HistoryDetailViewController: UIViewController {
     }
     
     @IBAction func editButtonTapped(_ sender: UIButton) {
+        guard let baseHistoryViewModel = self.baseHistoryViewModel else { return }
+
+        let onDismiss: (() -> Void)? = { [weak self] in
+            guard let self = self,
+                let historyItemViewModel = self.historyItemViewModel,
+                let countryIdentifier = baseHistoryViewModel.countryIdentifier
+                else { return }
+            
+            // date
+            self.baseHistoryViewModel?.currentDate = historyItemViewModel.date
+            self.historyDateLabel.text = historyItemViewModel.date.convertToString(format: .fullKoreanDated)
+            
+            // amount
+            self.baseHistoryViewModel?.amount = historyItemViewModel.amount
+            self.amountLabel.text = "\(countryIdentifier.currencySymbol) \(historyItemViewModel.amount.getCurrencyFormat(identifier: countryIdentifier))"
+            
+            // currency converted amount
+            self.exchangedMoneyLabel.text = "KRW \((historyItemViewModel.amount / baseHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: countryIdentifier))"
+            
+            // category도 해줘야 함
+            
+            // title
+            self.baseHistoryViewModel?.title = self.historyItemViewModel?.title
+            self.titleLabel.text = self.historyItemViewModel?.title
+            
+            // image
+            self.baseHistoryViewModel?.image = historyItemViewModel.image
+            if let image = historyItemViewModel.image {
+                self.historyImageView.image = UIImage(data: image)
+            }
+            
+            // memo
+            self.baseHistoryViewModel?.memo = historyItemViewModel.memo
+            if historyItemViewModel.isIncome {
+                self.incomeMemoLabel.text = historyItemViewModel.memo
+            } else {
+                self.expenseMemoLabel.text = historyItemViewModel.memo
+            }
+        }
         
+        AddHistoryViewController.present(at: self,
+                                         delegateTarget: self.presentingVC ?? UIViewController(),
+                                         newHistoryViewModel: baseHistoryViewModel,
+                                         onPresent: nil,
+                                         onDismiss: onDismiss)
     }
     
     @objc func historyImageTapped() {
@@ -167,17 +212,20 @@ extension HistoryDetailViewController {
     static let storyboardName = "TravelDetail"
     
     static func present(at viewController: UIViewController,
-                        historyViewModel: BaseHistoryViewModel) {
+                        baseHistoryViewModel: BaseHistoryViewModel,
+                        historyItemViewModel: HistoryItemPresentable) {
         
         let storyBoard = UIStoryboard(name: storyboardName, bundle: Bundle.main)
         
         guard let vc = storyBoard.instantiateViewController(withIdentifier: HistoryDetailViewController.identifier) as? HistoryDetailViewController else { return }
         
         if let historyListViewController = viewController as? HistoryListViewController {
+            vc.presentingVC = historyListViewController
             vc.delegate = historyListViewController
         }
         
-        vc.baseHistoryViewModel = historyViewModel
+        vc.historyItemViewModel = historyItemViewModel
+        vc.baseHistoryViewModel = baseHistoryViewModel
         viewController.present(vc, animated: true, completion: nil)
     }
     
