@@ -9,17 +9,24 @@
 import Foundation
 
 class HistoryFilter {
-    private(set) var isPrepareOnly: Bool?
+    private var _isPrepareOnly: Bool?
     private var _selectedDate: Date?
-    var selectedDate: Date? {
-        get {
-            return _selectedDate
-        }
-        set(newValue) {
-            self._selectedDate = newValue
-        }
+    private var _isCardOnly: Bool?
+    
+    var isPrepareOnly: Bool? {
+        get { return _isPrepareOnly }
+        set(newValue) { self._isPrepareOnly = newValue }
     }
-    private(set) var isCardOnly: Bool?
+    
+    var selectedDate: Date? {
+        get { return _selectedDate }
+        set(newValue) { self._selectedDate = newValue }
+    }
+    
+    var isCardOnly: Bool? {
+        get { return _isCardOnly }
+        set(newValue) { self._isCardOnly = newValue }
+    }
     
     init() {
         self.isPrepareOnly = false
