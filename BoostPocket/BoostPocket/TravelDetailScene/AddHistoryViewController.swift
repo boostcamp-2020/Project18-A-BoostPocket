@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 struct BaseHistoryViewModel {
     // new, edit 모두 필요한 정보
@@ -75,7 +76,6 @@ class AddHistoryViewController: UIViewController {
     
     private func configureViews() {
         guard let newHistoryViewModel = self.baseHistoryViewModel else { return }
-        
         self.isAddingIncome = newHistoryViewModel.isIncome
         
         let color = isAddingIncome ? .systemGreen : UIColor(named: "deleteButtonColor")
@@ -130,17 +130,23 @@ class AddHistoryViewController: UIViewController {
             historyTitleLabel.textColor = .systemGray2
         }
         
-        // 메모
-        if let previousMemo = newHistoryViewModel.memo {
-            self.memo = previousMemo
-        }
-        
         // 날짜
         // TODO: DatePicker로 변경해서 사용자가 날짜를 바꿀 수 있도록 하는 기능 구현하기
         let dateLabelText = newHistoryViewModel.currentDate.convertToString(format: .dotted)
         dateLabel.text = dateLabelText
         
-        // 이미지, 메모 버튼
+        // 이미지
+        
+        if let previousImage = newHistoryViewModel.image {
+            self.image = previousImage
+            self.imageButton.tintColor = .black
+        }
+        
+        // 메모
+        if let previousMemo = newHistoryViewModel.memo {
+            self.memo = previousMemo
+            self.memoButton.tintColor = .black
+        }
         
         // 계산기 버튼 색상
         coloredButtons.forEach { button in
@@ -232,27 +238,38 @@ class AddHistoryViewController: UIViewController {
     }
     
     @IBAction func addMemoButtonTapped(_ sender: Any) {
-        // TODO: - 기존 메모내용 가져갈 수 있도록 present 함수 개선하기
-        MemoEditViewController.present(at: self, memoType: .expenseMemo) { [weak self] newMemo in
-            // TODO: - 메모 입력확인 toaster
-            self?.memo = newMemo
+        MemoEditViewController.present(at: self, memoType: .expenseMemo, previousMemo: memo) { [weak self] newMemo in
+            let memoToast = Toast(text: "메모를 입력했습니다", duration: Delay.short)
+            memoToast.show()
+            
+            if newMemo.isEmpty {
+                self?.memo = nil
+                self?.memoButton.tintColor = .lightGray
+            } else {
+                self?.memo = newMemo
+                self?.memoButton.tintColor = .black
+            }
         }
     }
     
 }
 
 extension AddHistoryViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         if let newImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            let imageToast = Toast(text: "사진을 추가했습니다", duration: Delay.short)
+            imageToast.show()
+            
             self.image = newImage.pngData()
+            self.imageButton.tintColor = .black
         }
         
-        dismiss(animated: true) {
-            // TODO: - 이미지 추가확인 toaster
-        }
+        dismiss(animated: true)
     }
+    
 }
 
 // MARK: - Calculator IBActions

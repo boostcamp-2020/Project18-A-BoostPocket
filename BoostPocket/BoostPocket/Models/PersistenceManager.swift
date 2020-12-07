@@ -110,7 +110,7 @@ class PersistenceManager: PersistenceManagable {
                 filteredIdentifiers[countryCode] = identifier
             }
         }
-        
+
         return filteredIdentifiers
     }
 }

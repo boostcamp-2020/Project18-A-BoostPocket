@@ -186,7 +186,7 @@ class HistoryListViewController: UIViewController {
         
         let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newHistoryData in
             // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
-            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image ?? Data(), amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: self?.isPrepareOnly ?? false, isCard: newHistoryData.isCard ?? false) { _ in }
+            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image, amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: self?.isPrepareOnly ?? false, isCard: newHistoryData.isCard ?? false) { _ in }
         }
         
         let onPresent: (() -> Void)  = { [weak self] in
