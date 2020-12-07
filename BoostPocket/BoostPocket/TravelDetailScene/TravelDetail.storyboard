@@ -72,7 +72,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4RM-9s-J1O">
-                                                <rect key="frame" x="14.5" y="5" width="30" height="33"/>
+                                                <rect key="frame" x="15" y="7" width="29.5" height="29.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="4RM-9s-J1O" secondAttribute="height" multiplier="1:1" id="y2f-Gy-RwD"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <state key="normal" title="A">
                                                     <color key="titleColor" systemColor="labelColor"/>
@@ -84,6 +87,7 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
+                                            <constraint firstItem="4RM-9s-J1O" firstAttribute="width" secondItem="Nhk-Y4-RcI" secondAttribute="width" multiplier="0.5" id="AqU-4x-YGi"/>
                                             <constraint firstItem="PJt-Ce-JhI" firstAttribute="centerY" secondItem="Nhk-Y4-RcI" secondAttribute="centerY" constant="12" id="KgW-aM-uUT"/>
                                             <constraint firstItem="PJt-Ce-JhI" firstAttribute="centerX" secondItem="Nhk-Y4-RcI" secondAttribute="centerX" id="LhR-Wv-3lf"/>
                                             <constraint firstItem="4RM-9s-J1O" firstAttribute="centerX" secondItem="Nhk-Y4-RcI" secondAttribute="centerX" id="Pnv-PG-EnY"/>
@@ -100,7 +104,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TGX-v2-Of4">
-                                                <rect key="frame" x="14.5" y="5" width="30" height="33"/>
+                                                <rect key="frame" x="15" y="7" width="29.5" height="29.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="TGX-v2-Of4" secondAttribute="height" multiplier="1:1" id="h58-gb-NIS"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <state key="normal" title="P">
                                                     <color key="titleColor" systemColor="labelColor"/>
@@ -113,6 +120,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="TGX-v2-Of4" firstAttribute="centerX" secondItem="lNX-mS-vBO" secondAttribute="centerX" id="6ut-c0-tre"/>
+                                            <constraint firstItem="TGX-v2-Of4" firstAttribute="width" secondItem="lNX-mS-vBO" secondAttribute="width" multiplier="0.5" id="KuB-dD-SZG"/>
                                             <constraint firstItem="Qe2-4r-xSf" firstAttribute="centerX" secondItem="lNX-mS-vBO" secondAttribute="centerX" id="dy3-f6-lkz"/>
                                             <constraint firstItem="TGX-v2-Of4" firstAttribute="centerY" secondItem="lNX-mS-vBO" secondAttribute="centerY" constant="-8" id="vxb-AY-u9q"/>
                                             <constraint firstItem="Qe2-4r-xSf" firstAttribute="centerY" secondItem="lNX-mS-vBO" secondAttribute="centerY" constant="12" id="yW1-GM-h57"/>
@@ -259,11 +267,13 @@
                     <connections>
                         <outlet property="addExpenseButton" destination="dEF-yF-s6I" id="ja5-oI-4ni"/>
                         <outlet property="addIncomeButton" destination="fQ9-QQ-x6i" id="7yc-sL-9Xe"/>
+                        <outlet property="allButton" destination="4RM-9s-J1O" id="b5W-ch-IzH"/>
                         <outlet property="dayStackView" destination="jFB-Ve-ziB" id="i3D-iC-EMT"/>
                         <outlet property="floatingButton" destination="8s8-Zw-icq" id="bGh-si-yZj"/>
                         <outlet property="floatingStackView" destination="tBh-oz-M9X" id="l9s-7k-cGy"/>
                         <outlet property="historyListTableView" destination="7Iu-bN-RtM" id="Ezw-Jg-mt0"/>
                         <outlet property="moneySegmentedControl" destination="jDJ-DO-0v7" id="ile-mk-azo"/>
+                        <outlet property="prepareButton" destination="TGX-v2-Of4" id="Rbq-L2-HF3"/>
                         <outlet property="totalAmountView" destination="5Pz-Vt-NSM" id="1hJ-nB-Msw"/>
                     </connections>
                 </viewController>

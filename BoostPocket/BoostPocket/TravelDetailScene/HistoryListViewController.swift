@@ -20,6 +20,8 @@ class HistoryListViewController: UIViewController {
     
     @IBOutlet weak var historyListTableView: UITableView!
     @IBOutlet weak var dayStackView: UIStackView!
+    @IBOutlet weak var allButton: UIButton!
+    @IBOutlet weak var prepareButton: UIButton!
     @IBOutlet weak var moneySegmentedControl: UISegmentedControl!
     @IBOutlet weak var floatingButton: UIButton!
     @IBOutlet weak var addExpenseButton: UIButton!
@@ -299,6 +301,17 @@ class HistoryListViewController: UIViewController {
         view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/7).isActive = true
     }
     
+    private func DeselectAllButtons() {
+        allButton.configureDeselectedButton()
+        prepareButton.configureDeselectedButton()
+        let subviews = dayStackView.subviews
+        for view in subviews {
+            if let button = view.subviews.filter({ $0 is UIButton }).first as? UIButton {
+                button.configureDeselectedButton()
+            }
+        }
+    }
+    
     @IBAction func moneySegmentedControlChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -313,6 +326,8 @@ class HistoryListViewController: UIViewController {
     }
     
     @IBAction func allButtonTapped(_ sender: UIButton) {
+        DeselectAllButtons()
+        sender.configureSelectedButton()
         historyFilter.isPrepareOnly = false
         historyFilter.selectedDate = nil
         applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
@@ -320,6 +335,8 @@ class HistoryListViewController: UIViewController {
     }
     
     @IBAction func prepareButtonTapped(_ sender: UIButton) {
+        DeselectAllButtons()
+        sender.configureSelectedButton()
         historyFilter.isPrepareOnly = true
         historyFilter.selectedDate = nil
         applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
@@ -391,11 +408,9 @@ extension HistoryListViewController: UITableViewDelegate {
 
 extension HistoryListViewController: DayButtonDelegate {
     func dayButtonTapped(_ sender: UIButton) {
+        DeselectAllButtons()
         let subviews = dayStackView.subviews
         for index in 0..<subviews.count {
-            if let button = subviews[index].subviews.filter({ $0 is UIButton }).first as? UIButton {
-                button.configureDeselectedButton()
-            }
             if let _ = subviews[index].subviews.filter({ $0 == sender }).first as? UIButton {
                 guard let startDate = travelItemViewModel?.startDate,
                     let tappedDate = Calendar.current.date(byAdding: .day, value: index, to: startDate) else { return }
