@@ -16,25 +16,21 @@ class HistoryFilterTests: XCTestCase {
     
     override func setUpWithError() throws {
         historyFilter = HistoryFilter()
-        let history1 = HistoryStub(id: UUID(), isIncome: false, title: "All1", memo: "All1", amount: 11000, image: Data(), date: Date(), category: 0, isCard: true, isPrepare: false)
-        let history2 = HistoryStub(id: UUID(), isIncome: false, title: "All2", memo: "Cash1", amount: 12000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: false)
-        let history3 = HistoryStub(id: UUID(), isIncome: false, title: "All3", memo: "Card1", amount: 13000, image: Data(), date: Date(), category: 0, isCard: true, isPrepare: false)
-        let history4 = HistoryStub(id: UUID(), isIncome: false, title: "Prepare1", memo: "All2", amount: 14000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: true)
-        let history5 = HistoryStub(id: UUID(), isIncome: false, title: "Prepare2", memo: "Cash2", amount: 15000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: true)
-        let history6 = HistoryStub(id: UUID(), isIncome: false, title: "Prepare3", memo: "Card2", amount: 16000, image: Data(), date: Date(), category: 0, isCard: true, isPrepare: true)
-        let history7 = HistoryStub(id: UUID(), isIncome: false, title: "Date1", memo: "All3", amount: 17000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: true)
-        let history8 = HistoryStub(id: UUID(), isIncome: false, title: "Date2", memo: "Cash3", amount: 18000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: false)
-        let history9 = HistoryStub(id: UUID(), isIncome: false, title: "Date3", memo: "Card3", amount: 19000, image: Data(), date: Date(), category: 0, isCard: true, isPrepare: false)
-
-        histories.append(HistoryItemViewModelStub(history: history1))
-        histories.append(HistoryItemViewModelStub(history: history2))
-        histories.append(HistoryItemViewModelStub(history: history3))
-        histories.append(HistoryItemViewModelStub(history: history4))
-        histories.append(HistoryItemViewModelStub(history: history5))
-        histories.append(HistoryItemViewModelStub(history: history6))
-        histories.append(HistoryItemViewModelStub(history: history7))
-        histories.append(HistoryItemViewModelStub(history: history8))
-        histories.append(HistoryItemViewModelStub(history: history9))
+        let historyStubs = [
+            HistoryStub(id: UUID(), isIncome: false, title: "All1", memo: "All1", amount: 11000, image: Data(), date: Date(), category: 0, isCard: true, isPrepare: false),
+            HistoryStub(id: UUID(), isIncome: false, title: "All2", memo: "Cash1", amount: 12000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: false),
+            HistoryStub(id: UUID(), isIncome: false, title: "All3", memo: "Card1", amount: 13000, image: Data(), date: Date(), category: 0, isCard: true, isPrepare: false),
+            HistoryStub(id: UUID(), isIncome: false, title: "Prepare1", memo: "All2", amount: 14000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: true),
+            HistoryStub(id: UUID(), isIncome: false, title: "Prepare2", memo: "Cash2", amount: 15000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: true),
+            HistoryStub(id: UUID(), isIncome: false, title: "Prepare3", memo: "Card2", amount: 16000, image: Data(), date: Date(), category: 0, isCard: true, isPrepare: true),
+            HistoryStub(id: UUID(), isIncome: false, title: "Date1", memo: "All3", amount: 17000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: true),
+            HistoryStub(id: UUID(), isIncome: false, title: "Date2", memo: "Cash3", amount: 18000, image: Data(), date: Date(), category: 0, isCard: false, isPrepare: false),
+            HistoryStub(id: UUID(), isIncome: false, title: "Date3", memo: "Card3", amount: 19000, image: Data(), date: Date(), category: 0, isCard: true, isPrepare: false)
+        ]
+        
+        historyStubs.forEach { stub in
+            histories.append(HistoryItemViewModelStub(history: stub))
+        }
     }
 
     override func tearDownWithError() throws {
