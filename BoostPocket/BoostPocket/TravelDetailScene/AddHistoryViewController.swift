@@ -9,7 +9,14 @@
 import UIKit
 import Toaster
 
+protocol AddHistoryDelegate: AnyObject {
+    func createHistory(newHistoryData: NewHistoryData)
+    func updateHisotry(at historyId: UUID?, newHistoryData: NewHistoryData)
+}
+
 struct BaseHistoryViewModel {
+    // update, delete 시 필요
+    var id: UUID?
     // new, edit 모두 필요한 정보
     var isIncome: Bool
     var flagImage: Data
@@ -29,6 +36,7 @@ struct BaseHistoryViewModel {
 }
 
 struct NewHistoryData {
+    var isIncome: Bool
     var title: String
     var memo: String?
     var date: Date
@@ -36,10 +44,12 @@ struct NewHistoryData {
     var amount: Double
     var category: HistoryCategory
     var isCard: Bool?
+    var isPrepare: Bool?
 }
 
 class AddHistoryViewController: UIViewController {
     static let identifier = "AddHistoryViewController"
+    weak var delegate: AddHistoryDelegate?
     
     private var saveButtonHandler: ((NewHistoryData) -> Void)?
     private var baseHistoryViewModel: BaseHistoryViewModel?
@@ -54,6 +64,7 @@ class AddHistoryViewController: UIViewController {
     private var imagePicker = UIImagePickerController()
     private let historyTitlePlaceholder = "항목명을 입력해주세요 (선택)"
     private var categories: [HistoryCategory] = [.food, .shopping, .tourism, .transportation, .accommodation, .etc]
+    private var isCreate: Bool = true
     
     @IBOutlet weak var historyTitleLabel: UILabel!
     @IBOutlet weak var headerView: UIView!
@@ -80,6 +91,9 @@ class AddHistoryViewController: UIViewController {
     private func configureViews() {
         guard let newHistoryViewModel = self.baseHistoryViewModel else { return }
         self.isAddingIncome = newHistoryViewModel.isIncome
+        if let _ = newHistoryViewModel.id {
+            self.isCreate = false
+        }
         
         let color = isAddingIncome ? .systemGreen : UIColor(named: "deleteButtonColor")
         
@@ -222,23 +236,29 @@ class AddHistoryViewController: UIViewController {
         }
     }
     
-    @IBAction func cancelButtonTapped(_ sender: Any) {
+    @IBAction func cancelButtonTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func saveButtonTapped(_ sender: Any) {
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
+        var newHistoryData: NewHistoryData
+        
         if isAddingIncome {
-            let newIncome = NewHistoryData(title: historyTitle ?? HistoryCategory.income.name, memo: memo, date: date, image: nil, amount: amount, category: .income, isCard: nil)
-            saveButtonHandler?(newIncome)
+            newHistoryData = NewHistoryData(isIncome: true, title: historyTitle ?? HistoryCategory.income.name, memo: memo, date: date, image: nil, amount: amount, category: .income, isCard: nil)
         } else {
-            let newExpense = NewHistoryData(title: historyTitle ?? HistoryCategory.etc.name, memo: memo, date: date, image: image, amount: amount, category: category, isCard: isCard)
-            saveButtonHandler?(newExpense)
+            newHistoryData = NewHistoryData(isIncome: false, title: historyTitle ?? HistoryCategory.etc.name, memo: memo, date: date, image: image, amount: amount, category: category, isCard: isCard, isPrepare: baseHistoryViewModel?.isPrepare)
+        }
+        
+        if isCreate {
+            delegate?.createHistory(newHistoryData: newHistoryData)
+        } else {
+            delegate?.updateHisotry(at: baseHistoryViewModel?.id, newHistoryData: newHistoryData)
         }
         
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func addImageButtonTapped(_ sender: Any) {
+    @IBAction func addImageButtonTapped(_ sender: UIButton) {
         openPhotoLibrary()
     }
     
@@ -247,7 +267,7 @@ class AddHistoryViewController: UIViewController {
         present(imagePicker, animated: false, completion: nil)
     }
     
-    @IBAction func addMemoButtonTapped(_ sender: Any) {
+    @IBAction func addMemoButtonTapped(_ sender: UIButton) {
         MemoEditViewController.present(at: self, memoType: .expenseMemo, previousMemo: memo) { [weak self] newMemo in
             let memoToast = Toast(text: "메모를 입력했습니다", duration: Delay.short)
             memoToast.show()
@@ -353,13 +373,13 @@ extension AddHistoryViewController {
     
     static func present(at viewController: UIViewController,
                         newHistoryViewModel: BaseHistoryViewModel,
-                        saveButtonHandler: ((NewHistoryData) -> Void)?,
                         onPresent: @escaping (() -> Void)) {
         
         let vc = AddHistoryViewController(nibName: nibName, bundle: nil)
-        
+        if let historyListVC = viewController as? HistoryListViewController {
+            vc.delegate = historyListVC
+        }
         vc.baseHistoryViewModel = newHistoryViewModel
-        vc.saveButtonHandler = saveButtonHandler
         viewController.present(vc, animated: true) {
             onPresent()
         }
