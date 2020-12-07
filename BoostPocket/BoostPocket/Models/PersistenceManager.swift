@@ -93,7 +93,7 @@ class PersistenceManager: PersistenceManagable {
                 dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
                 let date: Date = dateFormatter.date(from: data.date) ?? Date()
                 
-                createObject(newObjectInfo: CountryInfo(name: countryName, lastUpdated: date, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)) { _ in }
+                createObject(newObjectInfo: CountryInfo(name: countryName, lastUpdated: date, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode, identifier: identifier)) { _ in }
             }
         }
     }
@@ -185,6 +185,7 @@ extension PersistenceManager {
         guard let entity = NSEntityDescription.entity(forEntityName: Country.entityName, in: self.context) else { return nil }
         let newCountry = Country(entity: entity, insertInto: context)
         
+        newCountry.identifier = countryInfo.identifier
         newCountry.name = countryInfo.name
         newCountry.lastUpdated = countryInfo.lastUpdated
         newCountry.flagImage = countryInfo.flagImage
@@ -234,8 +235,11 @@ extension PersistenceManager {
                     if let countryName = fetchedCountry.name,
                         let flagImage = fetchedCountry.flagImage,
                         let currencyCode = fetchedCountry.currencyCode,
-                        self?.updateObject(updatedObjectInfo: CountryInfo(name: countryName, lastUpdated: newLastUpdated, flagImage: flagImage, exchangeRate: newExchangeRate, currencyCode: currencyCode)) != nil {
+                        let identifier = fetchedCountry.identifier,
+                        self?.updateObject(updatedObjectInfo: CountryInfo(name: countryName, lastUpdated: newLastUpdated, flagImage: flagImage, exchangeRate: newExchangeRate, currencyCode: currencyCode, identifier: identifier)) != nil {
                         print("환율 정보 업데이트 성공")
+                    } else {
+                        print("환율 정보 업데이트 실패")
                     }
                     
                 case .failure(let error):

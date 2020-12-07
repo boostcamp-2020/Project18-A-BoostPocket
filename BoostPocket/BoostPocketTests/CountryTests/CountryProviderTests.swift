@@ -13,19 +13,20 @@ import NetworkManager
 class CountryProviderTests: XCTestCase {
     
     var persistenceManagerStub: PersistenceManagable!
-    var countryProviderStub: CountryProvidable!
+    var countryProviderStub: CountryProviderStub!
     
     let countryName = "test name"
     let lastUpdated = "2019-08-23-12-01-33".convertToDate()
     let flagImage = Data()
     let exchangeRate = 1.5
     let currencyCode = "test code"
+    let identifier = "ko_KR"
     
     override func setUpWithError() throws {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
         let dataLoader = DataLoader(session: session)
         persistenceManagerStub = PersistenceManagerStub(dataLoader: dataLoader)
-        countryProviderStub = CountryProvider(persistenceManager: persistenceManagerStub)
+        countryProviderStub = CountryProviderStub(persistenceManager: persistenceManagerStub)
     }
 
     override func tearDownWithError() throws {
@@ -38,7 +39,7 @@ class CountryProviderTests: XCTestCase {
         
         XCTAssertEqual(countryProviderStub.fetchCountries(), [])
         
-        countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) { (country) in
+        countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode, identifier: identifier) { (country) in
             XCTAssertNotNil(country)
             expectation.fulfill()
         }
@@ -51,7 +52,7 @@ class CountryProviderTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Successfully Created Country")
         var createdCountry: Country?
         
-        countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) { (country) in
+        countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode, identifier: identifier) { (country) in
             XCTAssertNotNil(country)
             createdCountry = country
             expectation.fulfill()

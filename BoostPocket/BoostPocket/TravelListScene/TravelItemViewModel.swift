@@ -20,6 +20,7 @@ protocol TravelItemPresentable: AnyObject {
     var countryName: String? { get }
     var flagImage: Data? { get }
     var currencyCode: String? { get }
+    var countryIdentifier: String? { get }
 }
 
 class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
@@ -52,6 +53,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     var countryName: String?
     var flagImage: Data?
     var currencyCode: String?
+    var countryIdentifier: String?
     
     init(travel: TravelProtocol, historyProvider: HistoryProvidable) {
         self.id = travel.id
@@ -65,6 +67,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         self.countryName = travel.country?.name
         self.flagImage = travel.country?.flagImage
         self.currencyCode = travel.country?.currencyCode
+        self.countryIdentifier = travel.country?.identifier
         
         self.historyProvider = historyProvider
     }
