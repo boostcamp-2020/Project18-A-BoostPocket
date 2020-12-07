@@ -39,12 +39,8 @@ class HistoryListViewController: UIViewController {
     }()
     
     weak var travelItemViewModel: HistoryListPresentable?
-    
-    // 필터 조건 저장
-    private var isPrepareOnly: Bool? = false
-    private var selectedDate: Date?
-    private var isCardOnly: Bool?
-    
+
+    private var historyFilter = HistoryFilter()
     private var isFloatingButtonOpened: Bool = false
     private lazy var dataSource = configureDatasource()
     private lazy var headers = setupSection(with: travelItemViewModel?.histories ?? [])
@@ -116,7 +112,7 @@ class HistoryListViewController: UIViewController {
         travelItemViewModel?.didFetch = { [weak self] _ in
             guard let self = self else { return }
             self.historyListTableView.reloadData()
-            self.applySnapshot(with: self.filterHistories(isPrepare: self.isPrepareOnly, date: self.selectedDate, isCard: self.isCardOnly))
+            self.applySnapshot(with: self.historyFilter.filterHistories(with: self.travelItemViewModel?.histories))
         }
     }
     
@@ -188,12 +184,12 @@ class HistoryListViewController: UIViewController {
         let newHistoryViewModel = BaseHistoryViewModel(isIncome: isIncome,
                                                       flagImage: self.travelItemViewModel?.flagImage ?? Data(),
                                                       currencyCode: self.travelItemViewModel?.currencyCode ?? "",
-                                                      currentDate: self.selectedDate ?? Date(),
+                                                      currentDate: self.historyFilter.selectedDate ?? Date(),
                                                       exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
         
         let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newHistoryData in
             // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
-            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image ?? Data(), amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: self?.isPrepareOnly ?? false, isCard: newHistoryData.isCard ?? false) { _ in }
+            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image ?? Data(), amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: self?.historyFilter.isPrepareOnly ?? false, isCard: newHistoryData.isCard ?? false) { _ in }
         }
         
         let onPresent: (() -> Void)  = { [weak self] in
@@ -282,9 +278,7 @@ class HistoryListViewController: UIViewController {
         guard let startDate = travelItemViewModel?.startDate,
             let endDate = travelItemViewModel?.endDate else { return }
         let days = startDate.getPeriodOfDates(with: endDate)
-        days.forEach { day in
-            setupDayCell(with: day)
-        }
+        days.forEach { setupDayCell(with: $0) }
     }
     
     private func setupDayCell(with date: Date) {
@@ -295,41 +289,28 @@ class HistoryListViewController: UIViewController {
         view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/7).isActive = true
     }
     
-    private func filterHistories(isPrepare: Bool?, date: Date?, isCard: Bool?) -> [HistoryItemViewModel] {
-        var histories = travelItemViewModel?.histories ?? []
-        if let card = isCard {
-            histories = histories.filter { $0.isCard == card }
-        }
-        if let prepare = isPrepare, prepare {
-            histories = histories.filter { $0.isPrepare == prepare }
-        } else if let date = date {
-            histories = histories.filter { date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted)}
-        }
-        return histories
-    }
-    
     @IBAction func moneySegmentedControlChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            isCardOnly = nil
+            historyFilter.isCardOnly = nil
         case 1:
-            isCardOnly = false
+            historyFilter.isCardOnly = false
         default:
-            isCardOnly = true
+            historyFilter.isCardOnly = true
         }
-        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: selectedDate, isCard: isCardOnly))
+        applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
     }
     
     @IBAction func allButtonTapped(_ sender: UIButton) {
-        isPrepareOnly = false
-        selectedDate = nil
-        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: selectedDate, isCard: isCardOnly))
+        historyFilter.isPrepareOnly = false
+        historyFilter.selectedDate = nil
+        applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
     }
     
     @IBAction func prepareButtonTapped(_ sender: UIButton) {
-        isPrepareOnly = true
-        selectedDate = nil
-        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: selectedDate, isCard: isCardOnly))
+        historyFilter.isPrepareOnly = true
+        historyFilter.selectedDate = nil
+        applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
     }
 }
 
@@ -388,11 +369,11 @@ extension HistoryListViewController: DayButtonDelegate {
             if let _ = subviews[index].subviews.filter({ $0 == sender }).first as? UIButton {
                 guard let startDate = travelItemViewModel?.startDate,
                     let tappedDate = Calendar.current.date(byAdding: .day, value: index, to: startDate) else { return }
-                selectedDate = tappedDate
-                isPrepareOnly = nil
+                historyFilter.selectedDate = tappedDate
+                historyFilter.isPrepareOnly = nil
                 break
             }
         }
-        applySnapshot(with: filterHistories(isPrepare: isPrepareOnly, date: self.selectedDate, isCard: isCardOnly))
+        applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
     }
 }
