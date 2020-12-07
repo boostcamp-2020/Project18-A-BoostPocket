@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 struct BaseHistoryViewModel {
     // new, edit 모두 필요한 정보
@@ -73,7 +74,6 @@ class AddHistoryViewController: UIViewController {
     
     private func configureViews() {
         guard let newHistoryViewModel = self.baseHistoryViewModel else { return }
-        
         self.isAddingIncome = newHistoryViewModel.isIncome
         
         let color = isAddingIncome ? .systemGreen : UIColor(named: "deleteButtonColor")
@@ -134,6 +134,7 @@ class AddHistoryViewController: UIViewController {
         dateLabel.text = dateLabelText
         
         // 이미지
+        
         if let previousImage = newHistoryViewModel.image {
             self.image = previousImage
             self.imageButton.tintColor = .black
@@ -236,7 +237,9 @@ class AddHistoryViewController: UIViewController {
     
     @IBAction func addMemoButtonTapped(_ sender: Any) {
         MemoEditViewController.present(at: self, memoType: .expenseMemo, previousMemo: memo) { [weak self] newMemo in
-            // TODO: - 메모 입력확인 toaster
+            let memoToast = Toast(text: "메모를 입력했습니다", duration: Delay.short)
+            memoToast.show()
+            
             if newMemo.isEmpty {
                 self?.memo = nil
                 self?.memoButton.tintColor = .lightGray
@@ -255,13 +258,14 @@ extension AddHistoryViewController: UIImagePickerControllerDelegate, UINavigatio
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         if let newImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            let imageToast = Toast(text: "사진을 추가했습니다", duration: Delay.short)
+            imageToast.show()
+            
             self.image = newImage.pngData()
             self.imageButton.tintColor = .black
         }
         
-        dismiss(animated: true) {
-            // TODO: - 이미지 추가확인 toaster
-        }
+        dismiss(animated: true)
     }
     
 }

@@ -8,8 +8,9 @@ target 'BoostPocket' do
 
   # Pods for BoostPocket
   pod 'SwiftLint'
-  pod 'FlagKit'  
-
+  pod 'FlagKit'
+  pod 'Toaster', :git => 'https://github.com/devxoul/Toaster.git', :branch => 'master'
+  
   target 'BoostPocketTests' do
     inherit! :search_paths
     # Pods for testing
