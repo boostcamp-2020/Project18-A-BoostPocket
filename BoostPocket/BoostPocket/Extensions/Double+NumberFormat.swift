@@ -10,8 +10,8 @@ import Foundation
 
 extension Double {
     
-    func getCurrencyFormat(currencyCode: String) -> String {
-        let locale = Locale.availableIdentifiers.map { Locale(identifier: $0) }.first { $0.currencyCode == currencyCode }
+    func getCurrencyFormat(indentifier: String) -> String {
+        let locale = Locale(identifier: indentifier)
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.decimal
         numberFormatter.locale = locale

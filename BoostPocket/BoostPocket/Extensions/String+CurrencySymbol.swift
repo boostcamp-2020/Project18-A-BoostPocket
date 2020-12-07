@@ -10,10 +10,8 @@ import Foundation
 
 extension String {
     
-    func getSymbolForCurrencyCode() -> String {
-        let result = Locale.availableIdentifiers.map { Locale(identifier: $0) }.first { $0.currencyCode == self }
-        
-        guard let currencySymbol = result?.currencySymbol else { return self }
-        return currencySymbol
+    var currencySymbol: String {
+        let locale = NSLocale(localeIdentifier: self)
+        return locale.currencySymbol
     }
 }
