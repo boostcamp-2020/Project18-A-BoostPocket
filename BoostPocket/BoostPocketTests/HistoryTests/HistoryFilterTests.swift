@@ -21,6 +21,14 @@ class HistoryFilterTests: XCTestCase {
         historyFilter = nil
     }
 
-    func testExample() throws {
+    func test_init_HistoryFilter() throws {
+        historyFilter = nil
+        XCTAssertNil(historyFilter)
+        historyFilter = HistoryFilter()
+        XCTAssertNotNil(historyFilter)
+        XCTAssertNotNil(historyFilter.isPrepareOnly)
+        XCTAssertFalse(historyFilter.isPrepareOnly!)
+        XCTAssertNil(historyFilter.isCardOnly)
+        XCTAssertNil(historyFilter.selectedDate)
     }
 }

@@ -9,9 +9,9 @@
 import Foundation
 
 class HistoryFilter {
-    private var isPrepareOnly: Bool?
+    private(set) var isPrepareOnly: Bool?
     private var _selectedDate: Date?
-    private var selectedDate: Date? {
+    var selectedDate: Date? {
         get {
             return _selectedDate
         }
@@ -19,7 +19,7 @@ class HistoryFilter {
             self._selectedDate = newValue
         }
     }
-    private var isCardOnly: Bool?
+    private(set) var isCardOnly: Bool?
     
     init() {
         self.isPrepareOnly = false
