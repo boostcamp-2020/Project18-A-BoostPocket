@@ -31,4 +31,12 @@ class HistoryFilterTests: XCTestCase {
         XCTAssertNil(historyFilter.isCardOnly)
         XCTAssertNil(historyFilter.selectedDate)
     }
+    
+    func test_toggleIsPrepareOnly() {
+        XCTAssertNotNil(historyFilter.isPrepareOnly)
+        XCTAssertFalse(historyFilter.isPrepareOnly!)
+        historyFilter.toggleIsPrepareOnly()
+        XCTAssertNotNil(historyFilter.isPrepareOnly)
+        XCTAssertTrue(historyFilter.isPrepareOnly!)
+    }
 }
