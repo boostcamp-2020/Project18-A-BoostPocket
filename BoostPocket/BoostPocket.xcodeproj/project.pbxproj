@@ -75,6 +75,8 @@
 		A99E064C257773430014C29F /* HistoryProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E064B257773430014C29F /* HistoryProviderTests.swift */; };
 		A99E065425778B130014C29F /* HistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E065325778B130014C29F /* HistoryViewModelTests.swift */; };
 		A99E06652578D6480014C29F /* HistoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E06642578D6480014C29F /* HistoryDetailViewController.swift */; };
+		A99E067A257DFC580014C29F /* String+CurrencySymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0679257DFC580014C29F /* String+CurrencySymbol.swift */; };
+		A99E0682257E02780014C29F /* Double+NumberFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0681257E02780014C29F /* Double+NumberFormat.swift */; };
 		A9BF7A37256D496C00496CD8 /* String+firstConsonant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */; };
 		A9BF7A50256E293F00496CD8 /* TravelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */; };
 		A9BF7A71256E2D5900496CD8 /* Travel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */; };
@@ -206,6 +208,8 @@
 		A99E064B257773430014C29F /* HistoryProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProviderTests.swift; sourceTree = "<group>"; };
 		A99E065325778B130014C29F /* HistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModelTests.swift; sourceTree = "<group>"; };
 		A99E06642578D6480014C29F /* HistoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailViewController.swift; sourceTree = "<group>"; };
+		A99E0679257DFC580014C29F /* String+CurrencySymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CurrencySymbol.swift"; sourceTree = "<group>"; };
+		A99E0681257E02780014C29F /* Double+NumberFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+NumberFormat.swift"; sourceTree = "<group>"; };
 		A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+firstConsonant.swift"; sourceTree = "<group>"; };
 		A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProvider.swift; sourceTree = "<group>"; };
 		A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Travel+CoreDataClass.swift"; path = "BoostPocket/CoreDataModels/Travel+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -500,6 +504,8 @@
 				5CAE96652577FC6300FD7F05 /* Double+Comma.swift */,
 				5C7F83672578C77A00A58112 /* Date+PeriodOfDates.swift */,
 				5C77958C257965B400A685FB /* UIStackView+RemoveAll.swift */,
+				A99E0679257DFC580014C29F /* String+CurrencySymbol.swift */,
+				A99E0681257E02780014C29F /* Double+NumberFormat.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -816,6 +822,7 @@
 				5CB682E5256C03F800830373 /* CountryListViewModel.swift in Sources */,
 				A9BF7A72256E2D5900496CD8 /* Travel+CoreDataProperties.swift in Sources */,
 				9572F9A9256B902C003049CB /* PersistenceManager.swift in Sources */,
+				A99E0682257E02780014C29F /* Double+NumberFormat.swift in Sources */,
 				A99E0639257763B90014C29F /* HistoryProvider.swift in Sources */,
 				A9BF7AA5256F9B8800496CD8 /* Date+ConvertToString.swift in Sources */,
 				5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */,
@@ -826,6 +833,7 @@
 				95747A69256FCEEA0065C419 /* Data+ImageData.swift in Sources */,
 				5C797493256FD263007CB1ED /* TravelHeaderCell.swift in Sources */,
 				954F7019256D1C4B00B2E48B /* TravelListViewModel.swift in Sources */,
+				A99E067A257DFC580014C29F /* String+CurrencySymbol.swift in Sources */,
 				5C7F83682578C77A00A58112 /* Date+PeriodOfDates.swift in Sources */,
 				A9BF7A71256E2D5900496CD8 /* Travel+CoreDataClass.swift in Sources */,
 				A99E062F257762520014C29F /* History+CoreDataClass.swift in Sources */,
