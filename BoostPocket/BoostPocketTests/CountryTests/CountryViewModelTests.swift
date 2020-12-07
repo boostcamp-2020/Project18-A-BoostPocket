@@ -12,9 +12,9 @@ import NetworkManager
 
 class CountryViewModelTests: XCTestCase {
     
-    var countryListViewModel: CountryListViewModelStub!
-    var persistenceManager: PersistenceManagable!
-    var countryProvider: CountryProviderStub!
+    var countryListViewModel: CountryListPresentable!
+    var persistenceManagerStub: PersistenceManagable!
+    var countryProvider: CountryProvidable!
     
     let countryName = "test name"
     let lastUpdated = "2019-08-23-12-01-33".convertToDate()
@@ -26,15 +26,15 @@ class CountryViewModelTests: XCTestCase {
     override func setUpWithError() throws {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
         let dataLoader = DataLoader(session: session)
-        persistenceManager = PersistenceManagerStub(dataLoader: dataLoader)
-        countryProvider = CountryProviderStub(persistenceManager: persistenceManager)
-        countryListViewModel = CountryListViewModelStub(countryProvider: countryProvider)
+        persistenceManagerStub = PersistenceManagerStub(dataLoader: dataLoader)
+        countryProvider = CountryProvider(persistenceManager: persistenceManagerStub)
+        countryListViewModel = CountryListViewModel(countryProvider: countryProvider)
     }
     
     override func tearDownWithError() throws {
         countryListViewModel = nil
         countryProvider = nil
-        persistenceManager = nil
+        persistenceManagerStub = nil
     }
     
     func test_countryItemViewModel_createInstance() {
@@ -47,29 +47,26 @@ class CountryViewModelTests: XCTestCase {
         XCTAssertEqual(countryItemViewModel.currencyCode, currencyCode)
     }
     
-    func test_countryListViewModel_createCountry() {
-        countryListViewModel.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode, identifier: identifier)
-        
-        let createdCountry = countryListViewModel.countries.first
-        XCTAssertNotNil(createdCountry)
-        XCTAssertEqual(createdCountry?.name, countryName)
-        XCTAssertEqual(createdCountry?.flag, flagImage)
-        XCTAssertEqual(createdCountry?.currencyCode, currencyCode)
-    }
-    
     func test_countryListViewModel_numberOfItem() {
-        countryListViewModel.createCountry(name: "\(countryName)1", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1", identifier: identifier)
-        countryListViewModel.createCountry(name: "\(countryName)2", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 1.0, currencyCode: "\(currencyCode)2", identifier: identifier)
-        countryListViewModel.createCountry(name: "\(countryName)3", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 2.0, currencyCode: "\(currencyCode)3", identifier: identifier)
+        let expectation = XCTestExpectation(description: "Successfully Created Country")
         
-        XCTAssertEqual(countryListViewModel.numberOfItem(), 3)
+        persistenceManagerStub.createObject(newObjectInfo: CountryInfo(name: countryName+"테스트", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode, identifier: identifier)) { dataModelProtocol in
+            XCTAssertNotNil(dataModelProtocol)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 5.0)
+        
+        countryListViewModel.needFetchItems()
+        XCTAssertEqual(countryListViewModel.numberOfItem(), 1)
+        XCTAssertEqual(countryListViewModel.countries.first?.name, "\(countryName)테스트")
     }
     
     func test_countryListViewModel_needFetchItem() {
         let expectation = XCTestExpectation(description: "Successfully Created Country")
         
-        countryProvider.createCountry(name: "\(countryName)가", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: 0.0, currencyCode: "\(currencyCode)1", identifier: identifier) { (country) in
-            XCTAssertNotNil(country)
+        persistenceManagerStub.createObject(newObjectInfo: CountryInfo(name: countryName+"가", lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode, identifier: identifier)) { dataModelProtocol in
+            XCTAssertNotNil(dataModelProtocol)
             expectation.fulfill()
         }
         
