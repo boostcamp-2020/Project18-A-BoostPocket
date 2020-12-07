@@ -73,7 +73,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
 protocol HistoryListPresentable: TravelItemPresentable {
     var histories: [HistoryItemViewModel] { get }
     var didFetch: (([HistoryItemViewModel]) -> Void)? { get set }
-    func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double,
+    func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double,
                        category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void)
     func needFetchItems()
     func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool?, isCard: Bool?) -> Bool
@@ -83,7 +83,7 @@ protocol HistoryListPresentable: TravelItemPresentable {
 
 extension TravelItemViewModel: HistoryListPresentable {
     
-    func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double, category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void) {
+    func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void) {
         
         let historyInfo = HistoryInfo(travelId: self.id ?? UUID(), id: id, isIncome: isIncome, title: title, memo: memo, date: date ?? Date(), category: category, amount: amount, image: image, isPrepare: isPrepare, isCard: isCard)
         
