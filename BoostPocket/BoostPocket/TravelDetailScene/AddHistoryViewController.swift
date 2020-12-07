@@ -231,7 +231,7 @@ class AddHistoryViewController: UIViewController {
     
     @IBAction func addMemoButtonTapped(_ sender: Any) {
         // TODO: - 기존 메모내용 가져갈 수 있도록 present 함수 개선하기
-        MemoEditViewController.present(at: self, memoType: .expenseMemo) { [weak self] newMemo in
+        MemoEditViewController.present(at: self, memoType: .expenseMemo, previousMemo: memo) { [weak self] newMemo in
             // TODO: - 메모 입력확인 toaster
             self?.memo = newMemo
         }

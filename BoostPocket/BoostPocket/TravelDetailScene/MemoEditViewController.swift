@@ -17,7 +17,8 @@ enum EditMemoType: String {
 class MemoEditViewController: UIViewController {
     static let identifier = "MemoEditViewController"
     
-    var saveButtonHandler: ((String) -> Void)?
+    private var saveButtonHandler: ((String) -> Void)?
+    private var memo: String?
     private var memoType: EditMemoType?
     @IBOutlet weak var memoView: UIView!
     @IBOutlet weak var memoTextView: UITextView!
@@ -43,7 +44,7 @@ class MemoEditViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         dismiss(animated: true) { [weak self] in
-            self?.saveButtonHandler?(self?.memoTextView.text ?? "")
+            self?.saveButtonHandler?(self?.memo ?? "")
         }
     }
     
@@ -52,8 +53,13 @@ class MemoEditViewController: UIViewController {
     }
     
     private func setInitialTextviewPlaceholder() {
-        self.memoTextView.text = memoType?.rawValue
-        if memoTextView.text.isPlaceholder() {
+        if let previousMemo = memo, !previousMemo.isEmpty {
+            // 기존의 메모가 nil이 아니고 빈 문자열이 아닐 때
+            memoTextView.text = previousMemo
+            memoTextView.textColor = .black
+        } else {
+            // 기존의 메모가 없을 때 (Nil)
+            memoTextView.text = memoType?.rawValue
             memoTextView.textColor = .lightGray
         }
     }
@@ -62,9 +68,6 @@ class MemoEditViewController: UIViewController {
         if memoTextView.text.isPlaceholder() {
             memoTextView.text = ""
             memoTextView.textColor = .black
-        } else {
-            memoTextView.text = memoType?.rawValue
-            memoTextView.textColor = .lightGray
         }
     }
 }
@@ -75,6 +78,7 @@ extension MemoEditViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        memo = textView.text.isPlaceholder() ? "" : textView.text
         if textView.text.isEmpty {
             setTextViewPlaceholder()
         }
@@ -87,12 +91,14 @@ extension MemoEditViewController {
     
     static func present(at viewController: UIViewController,
                         memoType: EditMemoType,
+                        previousMemo: String?,
                         onDismiss: ((String) -> Void)?) {
         
         let storyBoard = UIStoryboard(name: storyboardName, bundle: Bundle.main)
         
         guard let vc = storyBoard.instantiateViewController(withIdentifier: MemoEditViewController.identifier) as? MemoEditViewController else { return }
         
+        vc.memo = previousMemo
         vc.memoType = memoType
         vc.saveButtonHandler = onDismiss
         
