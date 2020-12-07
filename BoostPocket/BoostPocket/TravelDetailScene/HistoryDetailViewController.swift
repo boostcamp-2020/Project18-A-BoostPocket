@@ -30,13 +30,42 @@ class HistoryDetailViewController: UIViewController {
     @IBOutlet weak var incomeStackView: UIStackView!
     @IBOutlet weak var buttonStackView: UIStackView!
     
-//    var historyItemViewModel: HistoryItemPresentable?
+    private var imagePicker = UIImagePickerController()
+    
     var baseHistoryViewModel: BaseHistoryViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        imagePicker.delegate = self
+        
+        let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
+        let isPrepareTap = UITapGestureRecognizer(target: self, action: #selector(isPrepareTapped))
+        let historyImageTap = UITapGestureRecognizer(target: self, action: #selector(historyImageTapped))
+        isPrepareImageView.addGestureRecognizer(isPrepareTap)
+        historyImageView.addGestureRecognizer(historyImageTap)
+    }
+    
+    @objc func titleLabelTapped() {
+        
+    }
+    
+    @objc func historyImageTapped() {
+        openPhotoLibrary()
+    }
+    
+    @objc func isPrepareTapped() {
+        
+        guard let history = baseHistoryViewModel, let isPrepare = history.isPrepare else { return }
+    
+        if isPrepare {
+            isPrepareImageView.image = UIImage(named: "isPrepareTrue")
+        } else {
+            isPrepareImageView.image = UIImage(named: "isPrepareFalse")
+        }
+        
+        baseHistoryViewModel?.isPrepare = !isPrepare
+        // TO-DO : 값 업데이트
     }
     
     func configureViews(history: BaseHistoryViewModel) {
@@ -45,7 +74,6 @@ class HistoryDetailViewController: UIViewController {
         incomeStackView.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         
-//        historyItemViewModel = history
         baseHistoryViewModel = history
         
         let trueState = history.isIncome
@@ -96,4 +124,21 @@ class HistoryDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    private func openPhotoLibrary() {
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: false, completion: nil)
+    }
+}
+
+extension HistoryDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let newImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            historyImageView.image = newImage
+            
+            // TO-DO : update
+        }
+        dismiss(animated: true, completion: nil)
+    }
 }
