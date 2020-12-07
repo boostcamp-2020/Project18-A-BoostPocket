@@ -8,6 +8,12 @@
 
 import Foundation
 
-extension NSLocale {
+extension String {
     
+    func getSymbolForCurrencyCode() -> String {
+        let result = Locale.availableIdentifiers.map { Locale(identifier: $0) }.first { $0.currencyCode == self }
+        
+        guard let currencySymbol = result?.currencySymbol else { return self }
+        return currencySymbol
+    }
 }

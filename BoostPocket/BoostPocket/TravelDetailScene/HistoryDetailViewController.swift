@@ -30,8 +30,8 @@ class HistoryDetailViewController: UIViewController {
     @IBOutlet weak var incomeStackView: UIStackView!
     @IBOutlet weak var buttonStackView: UIStackView!
     
-    var historyItemViewModel: HistoryItemPresentable?
-    var travelProfileViewModel: BaseHistoryViewModel?
+//    var historyItemViewModel: HistoryItemPresentable?
+    var baseHistoryViewModel: BaseHistoryViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,14 +39,14 @@ class HistoryDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    func configureViews(history: HistoryItemViewModel, travelProfile: BaseHistoryViewModel) {
+    func configureViews(history: BaseHistoryViewModel) {
         
         expanseStackView.translatesAutoresizingMaskIntoConstraints = false
         incomeStackView.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        historyItemViewModel = history
-        travelProfileViewModel = travelProfile
+//        historyItemViewModel = history
+        baseHistoryViewModel = history
         
         let trueState = history.isIncome
         expanseStackView.isHidden = trueState
@@ -58,17 +58,15 @@ class HistoryDetailViewController: UIViewController {
     }
     
     private func setAttributes() {
-        guard let history = historyItemViewModel, let travelInfo = travelProfileViewModel else { return }
+        guard let history = baseHistoryViewModel else { return }
         
         // 공통
-        historyDateLabel.text = history.date.convertToString(format: .fullKoreanDated)
-        categoryImageView.image = UIImage(named: history.category.imageName)
-        amountLabel.text = "\(travelInfo.currencyCode) \(history.amount)"
+        historyDateLabel.text = history.currentDate.convertToString(format: .fullKoreanDated)
         // TO-DO : 환율 적용된 금액
-        if history.title == "" {
-            titleLabel.text = history.category.name
-        } else {
-            titleLabel.text = history.title
+        if let category = history.category, let title = history.title, let amount = history.amount {
+            amountLabel.text = "\(history.currencyCode.getSymbolForCurrencyCode()) \(amount.getCurrencyFormat(currencyCode: history.currencyCode))"
+            categoryImageView.image = UIImage(named: category.imageName)
+            titleLabel.text = title.isEmpty ? category.name : title
         }
         
         // 지출
@@ -83,6 +81,13 @@ class HistoryDetailViewController: UIViewController {
                 } else {
                     isPrepareImageView.image = UIImage(named: "isPrepareFalse")
                 }
+            }
+        } else {
+            amountLabel.textColor = UIColor(named: "incomeColor")
+            currencyCodeLabel.text = history.currencyCode
+            // exchangeRateLabel
+            if let memo = history.memo {
+                incomeMemoLabel.text = memo
             }
         }
     }

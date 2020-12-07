@@ -22,6 +22,8 @@ struct BaseHistoryViewModel {
     var memo: String?
     var image: Data?
     var amount: Double?
+    // 상세화면
+    var isPrepare: Bool?
 }
 
 struct NewHistoryData {

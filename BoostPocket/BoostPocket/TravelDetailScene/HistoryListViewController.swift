@@ -333,14 +333,21 @@ extension HistoryListViewController: UITableViewDelegate {
         
         if let historyDetailVC = self.storyboard?.instantiateViewController(identifier: "HistoryDetailViewController") as? HistoryDetailViewController {
             
-            let newHistoryViewModel = BaseHistoryViewModel(isIncome: selectedHistoryViewModel.isIncome,
-                                                          flagImage: self.travelItemViewModel?.flagImage ?? Data(),
-                                                          currencyCode: self.travelItemViewModel?.currencyCode ?? "",
-                                                          currentDate: self.selectedDate ?? Date(),
-                                                          exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
+            let detailhistoryViewModel = BaseHistoryViewModel(isIncome: selectedHistoryViewModel.isIncome,
+                                                        flagImage: self.travelItemViewModel?.flagImage ?? Data(),
+                                                        currencyCode: self.travelItemViewModel?.currencyCode ?? "",
+                                                        currentDate: self.selectedDate ?? Date(),
+                                                        exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0,
+                                                        isCard: selectedHistoryViewModel.isCard,
+                                                        category: selectedHistoryViewModel.category,
+                                                        title: selectedHistoryViewModel.title,
+                                                        memo: selectedHistoryViewModel.memo,
+                                                        image: selectedHistoryViewModel.image,
+                                                        amount: selectedHistoryViewModel.amount,
+                                                        isPrepare: selectedHistoryViewModel.isPrepare)
             
             self.present(historyDetailVC, animated: true, completion: nil)
-            historyDetailVC.configureViews(history: selectedHistoryViewModel, travelProfile: newHistoryViewModel)
+            historyDetailVC.configureViews(history: detailhistoryViewModel)
         }
     }
     
