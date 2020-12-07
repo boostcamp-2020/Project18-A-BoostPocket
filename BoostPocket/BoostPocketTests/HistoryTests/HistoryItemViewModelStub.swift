@@ -7,6 +7,7 @@
 //
 
 import Foundation
+@testable import BoostPocket
 
 class HistoryItemViewModelStub: HistoryItemViewModel {
     override init(history: HistoryProtocol) {
