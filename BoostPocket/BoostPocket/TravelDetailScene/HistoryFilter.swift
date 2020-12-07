@@ -41,6 +41,15 @@ class HistoryFilter {
     }
     
     func filterHistories(with histories: [HistoryItemViewModel]) -> [HistoryItemViewModel] {
-        return []
+        var filteredHistories = histories
+        if let card = isCardOnly {
+            filteredHistories = filteredHistories.filter { $0.isCard == card }
+        }
+        if let prepare = isPrepareOnly, prepare {
+            filteredHistories = filteredHistories.filter { $0.isPrepare == prepare }
+        } else if let date = selectedDate {
+            filteredHistories = filteredHistories.filter { date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted)}
+        }
+        return filteredHistories
     }
 }
