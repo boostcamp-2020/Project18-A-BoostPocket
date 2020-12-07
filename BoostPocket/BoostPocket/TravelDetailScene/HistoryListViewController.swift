@@ -187,63 +187,12 @@ class HistoryListViewController: UIViewController {
                                                       currentDate: self.historyFilter.selectedDate ?? Date(),
                                                       exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
         
-//        let vc = AddHistoryViewController(nibName: AddHistoryViewController.identifier, bundle: nil)
-//        vc.delegate = self
-//        vc.baseHistoryViewModel = newHistoryViewModel
-//        present(vc, animated: true) { [weak self] in
-//            self?.closeFloatingActions()
-//        }
-//        let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newHistoryData in
-//            // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
-//            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image, amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: self?.historyFilter.isPrepareOnly ?? false, isCard: newHistoryData.isCard ?? false) { _ in }
-//        }
-        
         let onPresent: (() -> Void)  = { [weak self] in
             self?.closeFloatingActions()
         }
         
         AddHistoryViewController.present(at: self,
                                          newHistoryViewModel: newHistoryViewModel,
-                                         onPresent: onPresent)
-    }
-    
-    private func updateHistory(at indexPath: IndexPath) {
-        guard let travelItemViewModel = self.travelItemViewModel,
-            let currentHistoryItemViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
-        
-        let editHistoryViewModel = BaseHistoryViewModel(isIncome: currentHistoryItemViewModel.isIncome,
-                                                       flagImage: travelItemViewModel.flagImage ?? Data(),
-                                                       currencyCode: travelItemViewModel.currencyCode ?? "",
-                                                       currentDate: currentHistoryItemViewModel.date,
-                                                       exchangeRate: travelItemViewModel.exchangeRate,
-                                                       isCard: currentHistoryItemViewModel.isCard,
-                                                       category: currentHistoryItemViewModel.category,
-                                                       title: currentHistoryItemViewModel.title,
-                                                       memo: currentHistoryItemViewModel.memo,
-                                                       image: currentHistoryItemViewModel.image,
-                                                       amount: currentHistoryItemViewModel.amount)
-        
-        let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newHistoryData in
-            guard self?.travelItemViewModel?.updateHistory(id: currentHistoryItemViewModel.id ?? UUID(),
-                                                    isIncome: currentHistoryItemViewModel.isIncome,
-                                                    title: newHistoryData.title,
-                                                    memo: newHistoryData.memo,
-                                                    date: newHistoryData.date,
-                                                    image: newHistoryData.image,
-                                                    amount: newHistoryData.amount,
-                                                    category: newHistoryData.category,
-                                                    isPrepare: currentHistoryItemViewModel.isPrepare,
-                                                    isCard: newHistoryData.isCard) == true
-                else { return }
-            print("지출/예산 업데이트 성공")
-        }
-        
-        let onPresent: (() -> Void)  = { [weak self] in
-            self?.closeFloatingActions()
-        }
-        
-        AddHistoryViewController.present(at: self,
-                                         newHistoryViewModel: editHistoryViewModel,
                                          onPresent: onPresent)
     }
     
@@ -369,7 +318,32 @@ extension HistoryListViewController: UITableViewDelegate {
         }
         
         let editAction = UIContextualAction(style: .normal, title: "수정") { [weak self] (_, _, completion) in
-            self?.updateHistory(at: indexPath)
+            
+            guard let self = self,
+                  let travelItemViewModel = self.travelItemViewModel,
+                  let currentHistoryItemViewModel = self.dataSource.itemIdentifier(for: indexPath) else { return }
+            
+            let editHistoryViewModel = BaseHistoryViewModel(id: currentHistoryItemViewModel.id,
+                                                            isIncome: currentHistoryItemViewModel.isIncome,
+                                                           flagImage: travelItemViewModel.flagImage ?? Data(),
+                                                           currencyCode: travelItemViewModel.currencyCode ?? "",
+                                                           currentDate: currentHistoryItemViewModel.date,
+                                                           exchangeRate: travelItemViewModel.exchangeRate,
+                                                           isCard: currentHistoryItemViewModel.isCard,
+                                                           category: currentHistoryItemViewModel.category,
+                                                           title: currentHistoryItemViewModel.title,
+                                                           memo: currentHistoryItemViewModel.memo,
+                                                           image: currentHistoryItemViewModel.image,
+                                                           amount: currentHistoryItemViewModel.amount,
+                                                           isPrepare: currentHistoryItemViewModel.isPrepare)
+            
+            let onPresent: (() -> Void)  = {
+                self.closeFloatingActions()
+            }
+            
+            AddHistoryViewController.present(at: self,
+                                             newHistoryViewModel: editHistoryViewModel,
+                                             onPresent: onPresent)
             completion(true)
         }
         editAction.backgroundColor = .systemBlue
@@ -398,6 +372,11 @@ extension HistoryListViewController: AddHistoryDelegate {
     
     func createHistory(newHistoryData: NewHistoryData) {
         travelItemViewModel?.createHistory(id: UUID(), isIncome: newHistoryData.isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image, amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: historyFilter.isPrepareOnly ?? false, isCard: newHistoryData.isCard ?? false) { _ in }
+    }
+    
+    func updateHisotry(at historyId: UUID?, newHistoryData: NewHistoryData) {
+        guard travelItemViewModel?.updateHistory(id: historyId ?? UUID(), isIncome: newHistoryData.isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image, amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: newHistoryData.isPrepare, isCard: newHistoryData.isCard ?? false) == true else { return }
+        print("지출/예산 업데이트 성공")
     }
 }
 

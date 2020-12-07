@@ -11,6 +11,7 @@ import Toaster
 
 protocol AddHistoryDelegate: AnyObject {
     func createHistory(newHistoryData: NewHistoryData)
+    func updateHisotry(at historyId: UUID?, newHistoryData: NewHistoryData)
 }
 
 struct BaseHistoryViewModel {
@@ -43,6 +44,7 @@ struct NewHistoryData {
     var amount: Double
     var category: HistoryCategory
     var isCard: Bool?
+    var isPrepare: Bool?
 }
 
 class AddHistoryViewController: UIViewController {
@@ -240,13 +242,17 @@ class AddHistoryViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         var newHistoryData: NewHistoryData
+        
+        if isAddingIncome {
+            newHistoryData = NewHistoryData(isIncome: true, title: historyTitle ?? HistoryCategory.income.name, memo: memo, date: date, image: nil, amount: amount, category: .income, isCard: nil)
+        } else {
+            newHistoryData = NewHistoryData(isIncome: false, title: historyTitle ?? HistoryCategory.etc.name, memo: memo, date: date, image: image, amount: amount, category: category, isCard: isCard, isPrepare: baseHistoryViewModel?.isPrepare)
+        }
+        
         if isCreate {
-            if isAddingIncome {
-                newHistoryData = NewHistoryData(isIncome: true, title: historyTitle ?? HistoryCategory.income.name, memo: memo, date: date, image: nil, amount: amount, category: .income, isCard: nil)
-            } else {
-                newHistoryData = NewHistoryData(isIncome: false, title: historyTitle ?? HistoryCategory.etc.name, memo: memo, date: date, image: image, amount: amount, category: category, isCard: isCard)
-            }
             delegate?.createHistory(newHistoryData: newHistoryData)
+        } else {
+            delegate?.updateHisotry(at: baseHistoryViewModel?.id, newHistoryData: newHistoryData)
         }
         
         dismiss(animated: true, completion: nil)
