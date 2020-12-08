@@ -284,26 +284,31 @@
         <!--Report-->
         <scene sceneID="FPm-Fh-6Ct">
             <objects>
-                <viewController title="Report" id="3Zy-Ds-gOa" sceneMemberID="viewController">
+                <viewController title="Report" id="3Zy-Ds-gOa" customClass="ReportViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sa6-cu-tQi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아직 준비중이에요💁‍♂️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNY-WL-G6t">
-                                <rect key="frame" x="134.5" y="437.5" width="145" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DJ-XU-Ifo" customClass="ReportPieChartView" customModule="BoostPocket" customModuleProvider="target">
+                                <rect key="frame" x="50" y="271.5" width="314" height="314"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="0DJ-XU-Ifo" secondAttribute="height" multiplier="1:1" id="fNo-OR-PMR"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="FNY-WL-G6t" firstAttribute="centerY" secondItem="sa6-cu-tQi" secondAttribute="centerY" id="5kr-D5-Qhh"/>
-                            <constraint firstItem="FNY-WL-G6t" firstAttribute="centerX" secondItem="sa6-cu-tQi" secondAttribute="centerX" id="zvg-7h-b5Z"/>
+                            <constraint firstItem="0DJ-XU-Ifo" firstAttribute="centerY" secondItem="dz2-Wq-4eW" secondAttribute="centerY" id="AXM-rw-izk"/>
+                            <constraint firstItem="dz2-Wq-4eW" firstAttribute="trailing" secondItem="0DJ-XU-Ifo" secondAttribute="trailing" constant="50" id="bIz-5S-4ZW"/>
+                            <constraint firstItem="0DJ-XU-Ifo" firstAttribute="leading" secondItem="dz2-Wq-4eW" secondAttribute="leading" constant="50" id="vxn-Hz-7re"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dz2-Wq-4eW"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="리포트" image="chart.pie.fill" catalog="system" id="hU1-KU-wkB"/>
+                    <connections>
+                        <outlet property="reportPieChartView" destination="0DJ-XU-Ifo" id="4Im-Qf-CD4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DmL-CW-ayq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

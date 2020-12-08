@@ -39,6 +39,9 @@
 		5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
 		5CD9A895257DCA2300A7AEFF /* HistoryFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */; };
 		5CD9A89A257DCD6C00A7AEFF /* HistoryFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD9A899257DCD6C00A7AEFF /* HistoryFilterTests.swift */; };
+		5CE798B6257F7C1C00AC6C43 /* ReportPieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE798B5257F7C1C00AC6C43 /* ReportPieChartView.swift */; };
+		5CE798BB257F7C3100AC6C43 /* ReportPieChartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE798BA257F7C3100AC6C43 /* ReportPieChartView.xib */; };
+		5CE798C0257F7CDB00AC6C43 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE798BF257F7CDB00AC6C43 /* ReportViewController.swift */; };
 		5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF409472575239200351F4B /* MemoEditViewController.swift */; };
 		950BE471257F793200ACC0CA /* String+IsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950BE470257F793200ACC0CA /* String+IsCategory.swift */; };
 		950BE473257F7C7B00ACC0CA /* String+IsPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950BE472257F7C7B00ACC0CA /* String+IsPlaceholder.swift */; };
@@ -173,6 +176,9 @@
 		5CCB1264257DFF1D00C6788E /* HistoryItemViewModelStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItemViewModelStub.swift; sourceTree = "<group>"; };
 		5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilter.swift; sourceTree = "<group>"; };
 		5CD9A899257DCD6C00A7AEFF /* HistoryFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilterTests.swift; sourceTree = "<group>"; };
+		5CE798B5257F7C1C00AC6C43 /* ReportPieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPieChartView.swift; sourceTree = "<group>"; };
+		5CE798BA257F7C3100AC6C43 /* ReportPieChartView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportPieChartView.xib; sourceTree = "<group>"; };
+		5CE798BF257F7CDB00AC6C43 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		5CF409472575239200351F4B /* MemoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoEditViewController.swift; sourceTree = "<group>"; };
 		81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.debug.xcconfig"; sourceTree = "<group>"; };
@@ -361,6 +367,9 @@
 				A99E06642578D6480014C29F /* HistoryDetailViewController.swift */,
 				5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */,
 				5C815CC4257E2FB700D9EDF4 /* TotalAmountView.swift */,
+				5CE798B5257F7C1C00AC6C43 /* ReportPieChartView.swift */,
+				5CE798BA257F7C3100AC6C43 /* ReportPieChartView.xib */,
+				5CE798BF257F7CDB00AC6C43 /* ReportViewController.swift */,
 			);
 			path = TravelDetailScene;
 			sourceTree = "<group>";
@@ -705,6 +714,7 @@
 				5C15AB3F2577C32000244C6C /* HistoryCell.xib in Resources */,
 				5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */,
 				9574ACD12578B4C10072C578 /* AddHistoryViewController.xib in Resources */,
+				5CE798BB257F7C3100AC6C43 /* ReportPieChartView.xib in Resources */,
 				95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */,
 				5C797494256FD263007CB1ED /* TravelHeaderCell.xib in Resources */,
 				954D2CDE257E2F4800ECE9D9 /* CategoryCollectionViewCell.xib in Resources */,
@@ -872,9 +882,11 @@
 				950BE473257F7C7B00ACC0CA /* String+IsPlaceholder.swift in Sources */,
 				95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */,
 				5C15AB3E2577C32000244C6C /* HistoryCell.swift in Sources */,
+				5CE798C0257F7CDB00AC6C43 /* ReportViewController.swift in Sources */,
 				5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */,
 				A99E0630257762520014C29F /* History+CoreDataProperties.swift in Sources */,
 				A9BF7A86256F420D00496CD8 /* TravelCell.swift in Sources */,
+				5CE798B6257F7C1C00AC6C43 /* ReportPieChartView.swift in Sources */,
 				A99E06652578D6480014C29F /* HistoryDetailViewController.swift in Sources */,
 				955555AA257E18A200CA81C9 /* Country+CoreDataClass.swift in Sources */,
 				95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */,
