@@ -165,7 +165,7 @@ class HistoryDetailViewController: UIViewController {
         
         AddHistoryViewController.present(at: self,
                                          delegateTarget: self.presentingVC ?? UIViewController(),
-                                         newHistoryViewModel: baseHistoryViewModel,
+                                         baseHistoryViewModel: baseHistoryViewModel,
                                          onPresent: nil,
                                          onDismiss: onDismiss)
     }

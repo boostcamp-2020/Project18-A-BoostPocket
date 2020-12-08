@@ -374,7 +374,7 @@ extension AddHistoryViewController {
     
     static func present(at viewController: UIViewController,
                         delegateTarget: UIViewController,
-                        newHistoryViewModel: BaseHistoryViewModel,
+                        baseHistoryViewModel: BaseHistoryViewModel,
                         onPresent: (() -> Void)?,
                         onDismiss: (() -> Void)?) {
         
@@ -385,7 +385,7 @@ extension AddHistoryViewController {
         }
         
         vc.saveButtonHandler = onDismiss
-        vc.baseHistoryViewModel = newHistoryViewModel
+        vc.baseHistoryViewModel = baseHistoryViewModel
         viewController.present(vc, animated: true) {
             onPresent?()
         }

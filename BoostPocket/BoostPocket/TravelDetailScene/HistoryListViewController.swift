@@ -193,8 +193,9 @@ class HistoryListViewController: UIViewController {
         
         AddHistoryViewController.present(at: self,
                                          delegateTarget: self,
-                                         newHistoryViewModel: newHistoryViewModel,
-                                         onPresent: onPresent, onDismiss: nil)
+                                         baseHistoryViewModel: newHistoryViewModel,
+                                         onPresent: onPresent,
+                                         onDismiss: nil)
     }
     
     private func applySnapshot(with histories: [HistoryItemViewModel]) {
@@ -344,8 +345,9 @@ extension HistoryListViewController: UITableViewDelegate {
             
             AddHistoryViewController.present(at: self,
                                              delegateTarget: self,
-                                             newHistoryViewModel: editHistoryViewModel,
-                                             onPresent: onPresent, onDismiss: nil)
+                                             baseHistoryViewModel: editHistoryViewModel,
+                                             onPresent: onPresent,
+                                             onDismiss: nil)
             completion(true)
         }
         editAction.backgroundColor = .systemBlue
