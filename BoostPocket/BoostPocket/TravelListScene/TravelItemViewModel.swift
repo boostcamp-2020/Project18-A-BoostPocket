@@ -36,6 +36,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     var histories: [HistoryItemViewModel] = [] {
         willSet {
             DispatchQueue.main.async { [weak self] in
+                print("didFetch")
                 self?.didFetch?(newValue)
             }
         }

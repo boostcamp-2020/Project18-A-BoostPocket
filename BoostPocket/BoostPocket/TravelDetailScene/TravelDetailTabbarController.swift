@@ -16,6 +16,7 @@ class TravelDetailTabbarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         super.delegate = self
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     func setupChildViewControllers(with travelItemViewModel: TravelItemViewModel) {
