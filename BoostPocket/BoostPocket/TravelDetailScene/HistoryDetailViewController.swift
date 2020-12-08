@@ -226,17 +226,15 @@ class HistoryDetailViewController: UIViewController {
     }
     
     @objc func isPrepareTapped() {
-        
         guard let history = baseHistoryViewModel, let isPrepare = history.isPrepare else { return }
-    
-        if isPrepare {
-            isPrepareImageView.image = UIImage(named: "isPrepareTrue")
-        } else {
-            isPrepareImageView.image = UIImage(named: "isPrepareFalse")
-        }
         
         baseHistoryViewModel?.isPrepare = !isPrepare
-        // TO-DO : 값 업데이트
+        if isPrepare {
+            isPrepareImageView.image = UIImage(named: "isPrepareFalse")
+        } else {
+            isPrepareImageView.image = UIImage(named: "isPrepareTrue")
+        }
+        updateHistory()
     }
     
     private func updateHistory() {
