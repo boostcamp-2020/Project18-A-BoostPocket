@@ -255,8 +255,9 @@ extension HistoryDetailViewController: UIImagePickerControllerDelegate, UINaviga
         
         if let newImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             historyImageView.image = newImage
+            baseHistoryViewModel?.image = newImage.pngData()
             
-            // TO-DO : update
+            updateHistory()
         }
         dismiss(animated: true, completion: nil)
     }
