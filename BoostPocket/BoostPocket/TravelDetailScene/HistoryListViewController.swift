@@ -20,11 +20,14 @@ class HistoryListViewController: UIViewController {
     
     @IBOutlet weak var historyListTableView: UITableView!
     @IBOutlet weak var dayStackView: UIStackView!
+    @IBOutlet weak var allButton: UIButton!
+    @IBOutlet weak var prepareButton: UIButton!
     @IBOutlet weak var moneySegmentedControl: UISegmentedControl!
     @IBOutlet weak var floatingButton: UIButton!
     @IBOutlet weak var addExpenseButton: UIButton!
     @IBOutlet weak var addIncomeButton: UIButton!
     @IBOutlet weak var floatingStackView: UIStackView!
+    @IBOutlet weak var totalAmountView: TotalAmountView!
     
     lazy var buttons = [self.addExpenseButton, self.addIncomeButton]
     lazy var floatingDimView: UIView = {
@@ -59,10 +62,12 @@ class HistoryListViewController: UIViewController {
     // MARK: - Configuration
     
     private func configure() {
+        allButton.configureSelectedButton()
         configureTravelItemViewModel()
         configureTableView()
         configureSegmentedControl()
         configureFloatingActionButton()
+        setTotalAmountView()
     }
     
     private func configureSegmentedControl() {
@@ -107,12 +112,21 @@ class HistoryListViewController: UIViewController {
         addExpenseButton.clipsToBounds = true
     }
     
+    private func setTotalAmountView() {
+        let filteredHistories = historyFilter.filterHistories(with: travelItemViewModel?.histories)
+        let expenses = filteredHistories.filter({ !$0.isIncome }).reduce(0) { $0 + $1.amount }
+        let allAmount = filteredHistories.reduce(0) { $0 + $1.amount }
+        
+        self.totalAmountView.configure(withExpense: expenses, remain: allAmount - 2 * expenses)
+    }
+    
     private func configureTravelItemViewModel() {
         travelItemViewModel?.needFetchItems()
         travelItemViewModel?.didFetch = { [weak self] _ in
             guard let self = self else { return }
             self.historyListTableView.reloadData()
             self.applySnapshot(with: self.historyFilter.filterHistories(with: self.travelItemViewModel?.histories))
+            self.setTotalAmountView()
         }
     }
     
@@ -217,12 +231,13 @@ class HistoryListViewController: UIViewController {
             let day = startDate.interval(ofComponent: .day, fromDate: history.date)
             let amount = history.amount
             let date = history.date
-            if let day = days.filter({ date.isSameDay(with: $0.date) }).first {
-                day.amount += amount
+            if let sameDay = days.filter({ date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted)}).first {
+                sameDay.amount = history.isIncome ? sameDay.amount :  sameDay.amount + amount
             } else {
-                days.insert(HistoryListSectionHeader(dayNumber: day + 1, date: date, amount: amount))
+                days.insert(HistoryListSectionHeader(dayNumber: day + 1, date: date, amount: history.isIncome ? 0 : amount))
             }
         }
+      
         var sections = [HistoryListSectionHeader](days)
         sections = sections.sorted(by: {$0.date < $1.date})
         return sections
@@ -244,6 +259,17 @@ class HistoryListViewController: UIViewController {
         view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/7).isActive = true
     }
     
+    private func DeselectAllButtons() {
+        allButton.configureDeselectedButton()
+        prepareButton.configureDeselectedButton()
+        let subviews = dayStackView.subviews
+        for view in subviews {
+            if let button = view.subviews.filter({ $0 is UIButton }).first as? UIButton {
+                button.configureDeselectedButton()
+            }
+        }
+    }
+    
     @IBAction func moneySegmentedControlChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -254,18 +280,16 @@ class HistoryListViewController: UIViewController {
             historyFilter.isCardOnly = true
         }
         applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
+        setTotalAmountView()
     }
     
-    @IBAction func allButtonTapped(_ sender: UIButton) {
-        historyFilter.isPrepareOnly = false
+    @IBAction func isPrepareButtonTapped(_ sender: UIButton) {
+        DeselectAllButtons()
+        sender.configureSelectedButton()
+        historyFilter.isPrepareOnly = sender == prepareButton ? true : false
         historyFilter.selectedDate = nil
         applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
-    }
-    
-    @IBAction func prepareButtonTapped(_ sender: UIButton) {
-        historyFilter.isPrepareOnly = true
-        historyFilter.selectedDate = nil
-        applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
+        setTotalAmountView()
     }
 }
 
@@ -303,7 +327,8 @@ extension HistoryListViewController: UITableViewDelegate {
             else { return nil }
     
         // TODO: - Index out of range 오류 해결하기
-        headerView.configure(with: headers[section].dayNumber, date: headers[section].date, amount: headers[section].amount)
+        guard let exchangeRate = travelItemViewModel?.exchangeRate else { return UIView() }
+        headerView.configure(with: headers[section].dayNumber, date: headers[section].date, amount: headers[section].amount / exchangeRate)
         return headerView
     }
     
@@ -358,6 +383,7 @@ extension HistoryListViewController: UITableViewDelegate {
 
 extension HistoryListViewController: DayButtonDelegate {
     func dayButtonTapped(_ sender: UIButton) {
+        DeselectAllButtons()
         let subviews = dayStackView.subviews
         for index in 0..<subviews.count {
             if let _ = subviews[index].subviews.filter({ $0 == sender }).first as? UIButton {
@@ -365,10 +391,10 @@ extension HistoryListViewController: DayButtonDelegate {
                     let tappedDate = Calendar.current.date(byAdding: .day, value: index, to: startDate) else { return }
                 historyFilter.selectedDate = tappedDate
                 historyFilter.isPrepareOnly = nil
-                break
             }
         }
         applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
+        setTotalAmountView()
     }
 }
 

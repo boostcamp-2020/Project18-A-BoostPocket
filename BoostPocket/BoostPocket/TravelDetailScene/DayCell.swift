@@ -55,17 +55,33 @@ class DayCell: UIView {
     private func addConstraint() {
         dayButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            dayButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5),
+            dayButton.widthAnchor.constraint(equalTo: dayButton.heightAnchor),
             dayButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             dayButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -8)
         ])
         monthLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             monthLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            monthLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 12)
+            monthLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 13)
         ])
     }
     
     @objc func dayButtonTapped(_ sender: UIButton) {
         delegate?.dayButtonTapped(sender)
+        sender.configureSelectedButton()
+    }
+}
+
+extension UIButton {
+    func configureSelectedButton() {
+        self.layer.cornerRadius = self.frame.size.width / 2
+        self.backgroundColor = UIColor(named: "mainColor")
+        self.setTitleColor(.white, for: .normal)
+    }
+    
+    func configureDeselectedButton() {
+        self.backgroundColor = .clear
+        self.setTitleColor(.black, for: .normal)
     }
 }
