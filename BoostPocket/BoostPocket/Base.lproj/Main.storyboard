@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GER-CQ-fWE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GER-CQ-fWE">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -50,7 +48,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Rdy-JJ-Sg9" secondAttribute="height" multiplier="4:1" id="EH7-HB-BEF"/>
                                 </constraints>
@@ -58,7 +56,7 @@
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bPb-a6-87W">
                                 <rect key="frame" x="0.0" y="122" width="414" height="740"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TGJ-gd-ZwC">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -67,7 +65,7 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UM-5b-qib">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UM-5b-qib">
                                 <rect key="frame" x="149" y="794" width="116" height="38"/>
                                 <color key="backgroundColor" name="mainColor"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -85,8 +83,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="8UM-5b-qib" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Bvg-Xo-R0Q"/>
                             <constraint firstItem="bPb-a6-87W" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XjT-ag-ceK"/>
@@ -98,8 +95,11 @@
                             <constraint firstItem="Rdy-JJ-Sg9" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.3" id="wKL-BQ-oLW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bPb-a6-87W" secondAttribute="trailing" id="wYS-m2-q56"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="BoostPocket" id="Vxu-Wh-3nW"/>
+                    <navigationItem key="navigationItem" title="BoostPocket" id="Vxu-Wh-3nW">
+                        <barButtonItem key="backBarButtonItem" title=" " id="SHP-Qk-dbx"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="travelListCollectionView" destination="bPb-a6-87W" id="QKB-jb-CSc"/>
                         <outletCollection property="layoutButtons" destination="QHf-WB-OuR" collectionClass="NSMutableArray" id="F65-CO-aeE"/>
@@ -117,7 +117,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MainNavigationViewController" automaticallyAdjustsScrollViewInsets="NO" id="GER-CQ-fWE" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="m07-a9-ZSM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="chevron.left" catalog="system" backIndicatorTransitionMaskImage="chevron.left" id="m07-a9-ZSM">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -132,15 +132,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="default" width="64" height="64"/>
         <image name="hamburger" width="64" height="64"/>
         <image name="rectangle" width="64" height="64"/>
         <image name="square" width="64" height="64"/>
         <namedColor name="mainColor">
-            <color red="0.45899999141693115" green="0.75700002908706665" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.46299999952316284" green="0.69800001382827759" blue="0.89800000190734863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

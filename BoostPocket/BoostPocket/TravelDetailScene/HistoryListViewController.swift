@@ -64,6 +64,7 @@ class HistoryListViewController: UIViewController {
     private func configure() {
         allButton.configureSelectedButton()
         configureTravelItemViewModel()
+        self.historyListTableView.dataSource = self.dataSource
         configureTableView()
         configureSegmentedControl()
         configureFloatingActionButton()
@@ -121,13 +122,13 @@ class HistoryListViewController: UIViewController {
     }
     
     private func configureTravelItemViewModel() {
-        travelItemViewModel?.needFetchItems()
         travelItemViewModel?.didFetch = { [weak self] _ in
             guard let self = self else { return }
-            self.historyListTableView.reloadData()
             self.applySnapshot(with: self.historyFilter.filterHistories(with: self.travelItemViewModel?.histories))
             self.setTotalAmountView()
         }
+        
+        travelItemViewModel?.needFetchItems()
     }
     
     // MARK: - Floating Action Button
@@ -149,20 +150,12 @@ class HistoryListViewController: UIViewController {
             }
         }
         
-//        UIView.animate(withDuration: 0.5, animations: { self.floatingDimView.alpha = 0 }) { _ in
-//            self.floatingDimView.isHidden = true
-//        }
-        
         isFloatingButtonOpened = false
         rotateFloatingActionButton()
     }
     
     private func openFloatingActions() {
         self.floatingDimView.isHidden = false
-        
-//        UIView.animate(withDuration: 0.5) { [weak self] in
-//            self?.floatingDimView.alpha = 1
-//        }
         
         buttons.forEach { [weak self] button in
             button?.isHidden = false
@@ -216,11 +209,13 @@ class HistoryListViewController: UIViewController {
         var snapshot = Snapshot()
         headers = setupSection(with: histories)
         snapshot.appendSections(headers)
+
         histories.forEach { history in
             if let section = headers.filter({ history.date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted) }).first {
                 snapshot.appendItems([history], toSection: section)
             }
         }
+        
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
@@ -326,7 +321,6 @@ extension HistoryListViewController: UITableViewDelegate {
             !headers.isEmpty
             else { return nil }
     
-        // TODO: - Index out of range 오류 해결하기
         guard let exchangeRate = travelItemViewModel?.exchangeRate else { return UIView() }
         headerView.configure(with: headers[section].dayNumber, date: headers[section].date, amount: headers[section].amount / exchangeRate)
         return headerView
@@ -340,7 +334,6 @@ extension HistoryListViewController: UITableViewDelegate {
                     completion(false)
                     return
             }
-            
             completion(true)
         }
         

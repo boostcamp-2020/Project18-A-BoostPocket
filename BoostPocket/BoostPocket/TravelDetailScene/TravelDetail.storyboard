@@ -291,7 +291,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DJ-XU-Ifo" customClass="ReportPieChartView" customModule="BoostPocket" customModuleProvider="target">
                                 <rect key="frame" x="50" y="271.5" width="314" height="314"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="0DJ-XU-Ifo" secondAttribute="height" multiplier="1:1" id="fNo-OR-PMR"/>
                                 </constraints>
@@ -590,8 +590,11 @@
                                                                         <rect key="frame" x="0.0" y="64" width="374" height="30"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cgj-k5-VFd" userLabel="progress">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="112" height="30"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
                                                                                 <color key="backgroundColor" name="mainColor"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" constant="50" id="5UP-Wa-LVz"/>
+                                                                                </constraints>
                                                                             </view>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 %" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XiF-QM-NZR">
                                                                                 <rect key="frame" x="10" y="6" width="26" height="18"/>
@@ -606,7 +609,6 @@
                                                                             <constraint firstItem="XiF-QM-NZR" firstAttribute="centerY" secondItem="qvF-Ok-csh" secondAttribute="centerY" id="YBr-5F-AuR"/>
                                                                             <constraint firstItem="XiF-QM-NZR" firstAttribute="leading" secondItem="qvF-Ok-csh" secondAttribute="leading" constant="10" id="ZzT-yJ-vUT"/>
                                                                             <constraint firstAttribute="height" constant="30" id="bfw-a6-6Jf"/>
-                                                                            <constraint firstItem="Cgj-k5-VFd" firstAttribute="width" secondItem="qvF-Ok-csh" secondAttribute="width" multiplier="0.3" id="dnB-6J-sjZ"/>
                                                                             <constraint firstItem="Cgj-k5-VFd" firstAttribute="leading" secondItem="qvF-Ok-csh" secondAttribute="leading" id="mDy-yk-O9O"/>
                                                                             <constraint firstAttribute="bottom" secondItem="Cgj-k5-VFd" secondAttribute="bottom" id="mOx-6V-Efg"/>
                                                                         </constraints>
@@ -733,6 +735,9 @@
                         <outlet property="coverImage" destination="WT6-i3-eZ8" id="HeU-ou-U05"/>
                         <outlet property="endDatePicker" destination="ohT-8N-2VX" id="eFV-Vz-IIv"/>
                         <outlet property="flagImage" destination="br8-Kr-KgJ" id="Cut-Bt-1yB"/>
+                        <outlet property="progressBarBackground" destination="qvF-Ok-csh" id="OaP-V9-s94"/>
+                        <outlet property="progressBarWidthConstraint" destination="5UP-Wa-LVz" id="Pmt-RA-NdG"/>
+                        <outlet property="progressPercentageLabel" destination="XiF-QM-NZR" id="5cz-4l-KY2"/>
                         <outlet property="startDatePicker" destination="vVk-Xq-TIH" id="4yl-95-X3r"/>
                         <outlet property="travelMemoLabel" destination="BZe-HI-OZv" id="bdE-tw-D7h"/>
                         <outlet property="travelTitleLabel" destination="073-uU-kbJ" id="sFa-op-rYi"/>
@@ -1139,7 +1144,7 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <namedColor name="basicGrayTextColor">
-            <color red="0.81999999284744263" green="0.81999999284744263" blue="0.83899998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68199998140335083" green="0.68199998140335083" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="deleteButtonColor">
             <color red="0.98400002717971802" green="0.9100000262260437" blue="0.90200001001358032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1151,7 +1156,7 @@
             <color red="0.94099998474121094" green="0.58399999141693115" blue="0.57300001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="detailIncomeColor">
-            <color red="0.58039215686274503" green="0.81568627450980391" blue="0.71764705882352942" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.57999998331069946" green="0.81599998474121094" blue="0.71799999475479126" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="lightMainColor">
             <color red="0.95300000905990601" green="0.96899998188018799" blue="0.98799997568130493" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

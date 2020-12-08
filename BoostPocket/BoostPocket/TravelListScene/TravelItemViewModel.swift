@@ -9,6 +9,7 @@
 import Foundation
 
 protocol TravelItemPresentable: AnyObject {
+    var histories: [HistoryItemViewModel] { get }
     var id: UUID? { get }
     var title: String? { get }
     var memo: String? { get }
@@ -21,6 +22,7 @@ protocol TravelItemPresentable: AnyObject {
     var flagImage: Data? { get }
     var currencyCode: String? { get }
     var countryIdentifier: String? { get }
+    func getPercentage() -> Float
 }
 
 class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
@@ -36,7 +38,6 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     var histories: [HistoryItemViewModel] = [] {
         willSet {
             DispatchQueue.main.async { [weak self] in
-                print("didFetch")
                 self?.didFetch?(newValue)
             }
         }
@@ -71,6 +72,15 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         self.countryIdentifier = travel.country?.identifier
         
         self.historyProvider = historyProvider
+    }
+    
+    func getPercentage() -> Float {
+        self.needFetchItems()
+        
+        let expenses = self.histories.filter({ !$0.isIncome }).reduce(0) { $0 + $1.amount }
+        let allAmount = self.histories.reduce(0) { $0 + $1.amount }
+
+        return allAmount == 0 ? 0 : Float(expenses / allAmount)
     }
 }
 

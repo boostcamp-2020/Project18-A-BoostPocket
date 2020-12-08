@@ -25,6 +25,9 @@ class TravelProfileViewController: UIViewController {
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
     @IBOutlet weak var coverImage: UIImageView!
+    @IBOutlet weak var progressBarWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var progressBarBackground: UIView!
+    @IBOutlet weak var progressPercentageLabel: UILabel!
     
     private var imagePicker = UIImagePickerController()
     
@@ -45,7 +48,6 @@ class TravelProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupTravelProfile()
-        
     }
     
     private func setupTravelProfile() {
@@ -60,6 +62,10 @@ class TravelProfileViewController: UIViewController {
         self.startDatePicker.date = travelItemViewModel?.startDate ?? Date()
         self.endDatePicker.date = travelItemViewModel?.endDate ?? Date()
         self.coverImage.image = UIImage(data: travelItemViewModel?.coverImage ?? Data())
+        
+        let percentage = (travelItemViewModel?.getPercentage() ?? 0)
+        self.progressPercentageLabel.text = String(format: "%d%%", Int(percentage * 100))
+        self.progressBarWidthConstraint.constant = progressBarBackground.frame.width * CGFloat(percentage)
     }
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
