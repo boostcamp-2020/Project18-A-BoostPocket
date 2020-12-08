@@ -297,12 +297,12 @@ extension HistoryListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedHistoryViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
-        
+
         let detailhistoryViewModel = BaseHistoryViewModel(id: selectedHistoryViewModel.id,
                                                     isIncome: selectedHistoryViewModel.isIncome,
                                                     flagImage: self.travelItemViewModel?.flagImage ?? Data(),
                                                     currencyCode: self.travelItemViewModel?.currencyCode ?? "",
-                                                    currentDate: self.historyFilter.selectedDate ?? Date(),
+                                                    currentDate: selectedHistoryViewModel.date,
                                                     exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0,
                                                     isCard: selectedHistoryViewModel.isCard,
                                                     category: selectedHistoryViewModel.category,
