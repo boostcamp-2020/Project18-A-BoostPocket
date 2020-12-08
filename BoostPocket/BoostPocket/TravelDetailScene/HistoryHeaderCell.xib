@@ -16,21 +16,21 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BD7-cd-uDW">
-                    <rect key="frame" x="10" y="16" width="37.5" height="18"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <nil key="textColor"/>
+                    <rect key="frame" x="15" y="16.5" width="36" height="17"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                    <color key="textColor" red="0.13711532360000001" green="0.13711532360000001" blue="0.13711532360000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yvy-Qo-Nav">
-                    <rect key="frame" x="77.5" y="16" width="37.5" height="18"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <nil key="textColor"/>
+                    <rect key="frame" x="81" y="17" width="33" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="utG-0z-L8D">
-                    <rect key="frame" x="125" y="16" width="279" height="18"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <nil key="textColor"/>
+                    <rect key="frame" x="124" y="18" width="280" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -42,7 +42,7 @@
                 <constraint firstItem="Yvy-Qo-Nav" firstAttribute="leading" secondItem="BD7-cd-uDW" secondAttribute="trailing" constant="30" id="Rfc-v0-hLU"/>
                 <constraint firstItem="utG-0z-L8D" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Trb-JI-CID"/>
                 <constraint firstAttribute="trailing" secondItem="utG-0z-L8D" secondAttribute="trailing" constant="10" id="WUd-IE-7yr"/>
-                <constraint firstItem="BD7-cd-uDW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="v9a-4e-olN"/>
+                <constraint firstItem="BD7-cd-uDW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="v9a-4e-olN"/>
                 <constraint firstItem="Yvy-Qo-Nav" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="x6s-pZ-Wjb"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

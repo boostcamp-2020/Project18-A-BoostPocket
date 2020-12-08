@@ -889,7 +889,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KRW 7,675" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z3f-Ho-BOK">
                                                 <rect key="frame" x="174.5" y="96.5" width="65.5" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ar-ih-n1d" userLabel="seperator">
@@ -906,7 +906,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="MT0-vv-bR4" userLabel="Expense Stack View">
-                                                <rect key="frame" x="20" y="214" width="374" height="492.5"/>
+                                                <rect key="frame" x="20" y="214" width="374" height="488.5"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="historyImage" translatesAutoresizingMaskIntoConstraints="NO" id="iI5-n4-Lon">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="374"/>
@@ -927,18 +927,18 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jnT-Kg-cdp">
-                                                        <rect key="frame" x="0.0" y="460" width="374" height="32.5"/>
+                                                        <rect key="frame" x="0.0" y="460" width="374" height="28.5"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="isPrepareFalse" translatesAutoresizingMaskIntoConstraints="NO" id="q8c-hW-aUc">
-                                                                <rect key="frame" x="0.0" y="0.0" width="32.5" height="32.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="28.5" height="28.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="q8c-hW-aUc" secondAttribute="height" multiplier="1:1" id="hNQ-Op-tHw"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="준비 비용입니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjt-v8-joN">
-                                                                <rect key="frame" x="42.5" y="0.0" width="331.5" height="32.5"/>
+                                                                <rect key="frame" x="38.5" y="0.0" width="335.5" height="28.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <color key="textColor" red="0.13711532360000001" green="0.13711532360000001" blue="0.13711532360000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -963,7 +963,7 @@
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdU-9L-4nm">
                                                                         <rect key="frame" x="339.5" y="0.0" width="34.5" height="20.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <nil key="textColor"/>
+                                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
@@ -980,7 +980,7 @@
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD 1.00 = KRW 1,096" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khp-bb-Ych">
                                                                         <rect key="frame" x="201" y="0.0" width="173" height="20.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <nil key="textColor"/>
+                                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
@@ -1091,7 +1091,7 @@
                             <constraint firstItem="nEJ-zQ-SvF" firstAttribute="leading" secondItem="qNU-nu-0oe" secondAttribute="leading" id="Kir-6t-as9"/>
                             <constraint firstItem="uOJ-NV-xEH" firstAttribute="width" secondItem="qNU-nu-0oe" secondAttribute="width" multiplier="0.4" id="Uu5-ik-cFq"/>
                             <constraint firstItem="c0t-EW-Dz1" firstAttribute="leading" secondItem="qdh-T6-Pz0" secondAttribute="leading" id="XMY-Wq-yIP"/>
-                            <constraint firstItem="q8c-hW-aUc" firstAttribute="height" secondItem="qNU-nu-0oe" secondAttribute="height" multiplier="0.04" id="a4r-9p-zjX"/>
+                            <constraint firstItem="q8c-hW-aUc" firstAttribute="height" secondItem="qNU-nu-0oe" secondAttribute="height" multiplier="0.035" id="a4r-9p-zjX"/>
                             <constraint firstItem="eHk-JU-XwN" firstAttribute="height" secondItem="qNU-nu-0oe" secondAttribute="height" multiplier="0.05" id="fn0-VF-bqF"/>
                             <constraint firstItem="c0t-EW-Dz1" firstAttribute="top" secondItem="eHk-JU-XwN" secondAttribute="bottom" id="ihh-nC-eRz"/>
                             <constraint firstAttribute="bottom" secondItem="c0t-EW-Dz1" secondAttribute="bottom" id="ok8-GU-hQK"/>
