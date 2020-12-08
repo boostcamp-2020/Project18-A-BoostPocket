@@ -156,7 +156,6 @@ class AddHistoryViewController: UIViewController {
         }
         
         // 날짜
-        // TODO: DatePicker로 변경해서 사용자가 날짜를 바꿀 수 있도록 하는 기능 구현하기
         datePicker.setDate(newHistoryViewModel.currentDate, animated: true)
         
         // 이미지
@@ -355,8 +354,16 @@ extension AddHistoryViewController: UICollectionViewDataSource, UICollectionView
             return UICollectionViewCell()
         }
         
-        cell.configure(with: categories[indexPath.row])
+        let isSelected = categories[indexPath.row] == self.category
+        cell.configure(with: categories[indexPath.row], isSelected: isSelected)
+
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.category = categories[indexPath.row]
+        collectionView.reloadData()
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

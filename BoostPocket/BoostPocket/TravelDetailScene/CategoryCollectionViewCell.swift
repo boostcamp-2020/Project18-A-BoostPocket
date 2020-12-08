@@ -15,9 +15,10 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var categoryImage: UIImageView!
     @IBOutlet weak var categoryNameLabel: UILabel!
     
-    func configure(with category: HistoryCategory) {
+    func configure(with category: HistoryCategory, isSelected: Bool) {
         self.categoryImage.image = UIImage(named: category.imageName)
         self.categoryNameLabel.text = category.name
+        self.isSelected = isSelected
     }
     
     override var isSelected: Bool {
