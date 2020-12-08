@@ -19,27 +19,20 @@ class Slice {
 }
 
 class ReportPieChartView: UIView {
-    
     @IBOutlet var superView: UIView!
     
+    static let identifier = "ReportPieChartView"
     static let ANIMATION_DURATION: CGFloat = 1
     
     var slices: [Slice]?
     var sliceIndex: Int = 0
     var currentPercent: CGFloat = 0.0
-    let colors = [
-        UIColor(red: 135/255, green: 206/255, blue: 255/255, alpha: 1),
-        UIColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1),
-        UIColor(red: 240/255, green: 149/255, blue: 146/255, alpha: 1),
-        UIColor(red: 167/255, green: 167/255, blue: 167/255, alpha: 1),
-        UIColor(red: 148/255, green: 208/255, blue: 183/255, alpha: 1),
-        UIColor(red: 150/255, green: 111/255, blue: 214/255, alpha: 1)
-    ]
     
     // 스토리보드로 뷰가 생성되지만 nib으로 불러온 뷰를 추가해줌
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        let view: UIView = Bundle.main.loadNibNamed("ReportPieChartView", owner: self, options: nil)!.first as! UIView
+        guard let view = Bundle.main.loadNibNamed(ReportPieChartView.identifier, owner: self, options: nil)?.first as? UIView else { return }
+
         addSubview(view)
     }
     
@@ -80,7 +73,7 @@ class ReportPieChartView: UIView {
                                 radius: canvasWidth * 3 / 8,
                                 // 0 라디안부터 퍼센트에 해당하는 만큼의 라디안까지 path 생성
                                 startAngle: percentToRadian(currentPercent),
-                                endAngle: percentToRadian(currentPercent + slice.percent),
+                                endAngle: percentToRadian(currentPercent + slice.percent - 0.000001),
                                 clockwise: true)
         
         // 다각형을 그리기 위한 레이어 생성
@@ -89,8 +82,7 @@ class ReportPieChartView: UIView {
         sliceLayer.path = path.cgPath
         // 여기서 채워지는 컬러는 path의 시작과 끝점을 이어 만든 범위
         sliceLayer.fillColor = nil
-        sliceLayer.strokeColor = UIColor.blue.cgColor //colors.randomElement()?.cgColor
-//        sliceLayer.strokeColor = UIColor(named: slice.category.imageName + "-color")?.cgColor
+        sliceLayer.strokeColor = UIColor(named: slice.category.imageName + "-color")?.cgColor
         // 원 안을 채우는게 아니라 라인을 겁~~나 두껍게 그림
         sliceLayer.lineWidth = canvasWidth * 2 / 8
         // layer를 그리는 범위. 1이 맥시멈이고 그것보다 작은 경우 비율만큼만 그려짐
@@ -121,7 +113,10 @@ class ReportPieChartView: UIView {
         let labelCenter = getLabelCenter(currentPercent, currentPercent + slice.percent)
         let label = UILabel()
         addSubview(label)
-        label.text = String(format: "%d%%", Int(slice.percent * 100))
+        
+        let roundedPercentage = round(slice.percent * 1000) / 10
+        label.text = String(format: "%.1f%%", roundedPercentage)
+          
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: labelCenter.x - center.x),

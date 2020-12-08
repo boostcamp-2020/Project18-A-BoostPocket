@@ -17,29 +17,33 @@ class ReportViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         travelItemViewModel?.needFetchItems()
-        travelItemViewModel?.didFetch = { [weak self] _ in
-            self?.reportPieChartView.slices = self?.setupSlices()
-//            self?.reportPieChartView.animateChart()
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        reportPieChartView.slices = setupSlices()
         reportPieChartView.animateChart()
     }
     
     private func setupSlices() -> [Slice] {
         guard let histories = travelItemViewModel?.histories.filter({ !$0.isIncome }) else { return [] }
-        let standardPercent = CGFloat(1.0/Double(histories.count))
-
+        
+        var dictionary: [HistoryCategory: Int] = [:]
+        let totalNum = histories.count
         var slices: [Slice] = []
+        
         histories.forEach { history in
-            if let slice = slices.filter({ $0.category == history.category }).first {
-                slice.percent += standardPercent
+            if let value = dictionary[history.category] {
+                dictionary[history.category] = value + 1
             } else {
-                slices.append(Slice(category: history.category, percent: standardPercent))
+                dictionary[history.category] = 1
             }
         }
+        
+        dictionary.forEach { (key, value) in
+            slices.append(Slice(category: key, percent: CGFloat(Float(value) / Float(totalNum))))
+        }
+
         return slices
     }
 }

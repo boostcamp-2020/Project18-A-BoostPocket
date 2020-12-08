@@ -16,6 +16,11 @@ class TravelDetailTabbarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         super.delegate = self
+        
+//        let backImage = UIImage(systemName: "house")
+//        self.navigationController?.navigationBar.backIndicatorImage = backImage
+//        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
+        self.navigationItem.title = travelItemViewModel?.title
     }
     
     func setupChildViewControllers(with travelItemViewModel: TravelItemViewModel) {

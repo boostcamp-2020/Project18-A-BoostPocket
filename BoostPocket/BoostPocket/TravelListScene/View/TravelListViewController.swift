@@ -28,15 +28,15 @@ class TravelListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // self.travelListCollectionView.dataSource = dataSource
         configureCollectionView()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         travelListViewModel?.needFetchItems()
         travelListViewModel?.didFetch = { [weak self] fetchedTravels in
-            self?.travelListCollectionView.reloadData()
+            self?.travelListCollectionView.reloadData() // TODO: - reload 없애보기
             self?.applySnapShot(with: fetchedTravels)
         }
     }
