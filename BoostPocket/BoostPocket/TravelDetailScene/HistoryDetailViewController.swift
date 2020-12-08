@@ -94,7 +94,7 @@ class HistoryDetailViewController: UIViewController {
         
         if history.isIncome {
             // 수입
-            amountLabel.textColor = UIColor(named: "incomeColor")
+            amountLabel.textColor = UIColor(named: "detailIncomeColor")
             currencyCodeLabel.text = history.currencyCode
             let exchangedKoreanCurrency = 1.00 / history.exchangeRate
             exchangeRateLabel.text = "\(history.currencyCode) 1.00 = KRW \(exchangedKoreanCurrency.getCurrencyFormat(identifier: "ko_KR"))"
@@ -105,7 +105,7 @@ class HistoryDetailViewController: UIViewController {
             }
         } else {
             // 지출
-            amountLabel.textColor = UIColor(named: "deleteButtonColor")
+            amountLabel.textColor = UIColor(named: "detailExpenseColor")
             if let previousImage = history.image {
                 historyImageView.image = UIImage(data: previousImage)
             }

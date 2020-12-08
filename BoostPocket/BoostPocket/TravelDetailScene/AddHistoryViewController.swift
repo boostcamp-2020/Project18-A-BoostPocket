@@ -95,7 +95,7 @@ class AddHistoryViewController: UIViewController {
             self.isCreate = false
         }
         
-        let color = isAddingIncome ? UIColor(named: "incomeColor") : UIColor(named: "deleteButtonColor")
+        let color = isAddingIncome ? UIColor(named: "incomeBackgroundColor") : UIColor(named: "expenseBackgroundColor")
         
         segmentedControl.isHidden = isAddingIncome
         imageButton.isHidden = isAddingIncome
@@ -104,6 +104,17 @@ class AddHistoryViewController: UIViewController {
         
         // 상단 뷰 색상
         headerView.backgroundColor = color
+        
+        // 기타 텍스트 색상
+        if isAddingIncome {
+            calculatorExpressionLabel.textColor = UIColor(named: "incomeTextColor")
+            currencyCodeLabel.textColor = UIColor(named: "incomeTextColor")
+            currencyConvertedAmountLabel.textColor = UIColor(named: "incomeTextColor")
+        } else {
+            calculatorExpressionLabel.textColor = UIColor(named: "expenseTextColor")
+            currencyCodeLabel.textColor = UIColor(named: "expenseTextColor")
+            currencyConvertedAmountLabel.textColor = UIColor(named: "expenseTextColor")
+        }
         
         // 기록 타입
         historyTypeLabel.text = isAddingIncome ? "수입" : "지출"
