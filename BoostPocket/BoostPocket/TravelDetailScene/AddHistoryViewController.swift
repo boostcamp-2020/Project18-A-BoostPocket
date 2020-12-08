@@ -54,13 +54,10 @@ class AddHistoryViewController: UIViewController {
     private var saveButtonHandler: (() -> Void)?
     private var baseHistoryViewModel: BaseHistoryViewModel?
     private var isAddingIncome: Bool = false
-    private var historyTitle: String?
     private var memo: String?
-    private var date: Date = Date()
     private var image: Data?
     private var amount: Double = 0
     private var category: HistoryCategory = .etc
-    private var isCard: Bool = false
     private var imagePicker = UIImagePickerController()
     private let historyTitlePlaceholder = "항목명을 입력해주세요 (선택)"
     private var categories: [HistoryCategory] = [.food, .shopping, .tourism, .transportation, .accommodation, .etc]
@@ -89,9 +86,11 @@ class AddHistoryViewController: UIViewController {
     }
     
     private func configureViews() {
-        guard let newHistoryViewModel = self.baseHistoryViewModel else { return }
-        self.isAddingIncome = newHistoryViewModel.isIncome
-        if let _ = newHistoryViewModel.id {
+        guard let baseHistoryViewModel = self.baseHistoryViewModel else { return }
+        
+        self.isAddingIncome = baseHistoryViewModel.isIncome
+        
+        if let _ = baseHistoryViewModel.id {
             self.isCreate = false
         }
         
@@ -110,18 +109,18 @@ class AddHistoryViewController: UIViewController {
         historyTypeLabel.textColor = .white
         
         // 국기 이미지
-        flagImageView.image = UIImage(data: newHistoryViewModel.flagImage)
+        flagImageView.image = UIImage(data: baseHistoryViewModel.flagImage)
         
         // 환율코드
-        currencyCodeLabel.text = newHistoryViewModel.currencyCode
+        currencyCodeLabel.text = baseHistoryViewModel.currencyCode
         
         // 계산식 레이블, 계산된 금액 레이블, 환율을 적용하여 변환한 금액 레이블
         calculatedAmountLabel.textColor = .white
-        if let previousAmount = newHistoryViewModel.amount {
+        if let previousAmount = baseHistoryViewModel.amount {
             self.amount = previousAmount
             calculatorExpressionLabel.text = "\(previousAmount)"
             calculatedAmountLabel.text = "\(previousAmount)"
-            currencyConvertedAmountLabel.text = "KRW \((previousAmount / newHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: baseHistoryViewModel?.countryIdentifier ?? ""))"
+            currencyConvertedAmountLabel.text = "KRW \((previousAmount / baseHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: baseHistoryViewModel.countryIdentifier ?? ""))"
         } else {
             calculatorExpressionLabel.text = ""
             calculatedAmountLabel.text = "0"
@@ -129,9 +128,8 @@ class AddHistoryViewController: UIViewController {
         }
         
         // 카드/현금 여부
-        if let previousIsCard = newHistoryViewModel.isCard, previousIsCard {
+        if let previousIsCard = baseHistoryViewModel.isCard, previousIsCard {
             segmentedControl.selectedSegmentIndex = 1
-            self.isCard = true
         } else {
             segmentedControl.selectedSegmentIndex = 0
         }
@@ -141,14 +139,14 @@ class AddHistoryViewController: UIViewController {
             categoryCollectionView.delegate = self
             categoryCollectionView.dataSource = self
             categoryCollectionView.register(UINib(nibName: CategoryCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
+            self.category = baseHistoryViewModel.category ?? .etc
         }
         
         // 항목명
         let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
         historyTitleLabel.addGestureRecognizer(titleTap)
-        if let previousTitle = newHistoryViewModel.title {
-            self.historyTitle = previousTitle
-            historyTitleLabel.text = self.historyTitle
+        if let previousTitle = baseHistoryViewModel.title {
+            historyTitleLabel.text = previousTitle
             historyTitleLabel.textColor = .black
         } else {
             historyTitleLabel.text = historyTitlePlaceholder
@@ -156,17 +154,16 @@ class AddHistoryViewController: UIViewController {
         }
         
         // 날짜
-        // TODO: DatePicker로 변경해서 사용자가 날짜를 바꿀 수 있도록 하는 기능 구현하기
-        datePicker.setDate(newHistoryViewModel.currentDate, animated: true)
+        datePicker.setDate(baseHistoryViewModel.currentDate, animated: true)
         
         // 이미지
-        if let previousImage = newHistoryViewModel.image {
+        if let previousImage = baseHistoryViewModel.image {
             self.image = previousImage
             self.imageButton.tintColor = .black
         }
         
         // 메모
-        if let previousMemo = newHistoryViewModel.memo {
+        if let previousMemo = baseHistoryViewModel.memo {
             self.memo = previousMemo
             self.memoButton.tintColor = .black
         }
@@ -208,30 +205,18 @@ class AddHistoryViewController: UIViewController {
         return true
     }
     
-    @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            self.isCard = false
-        case 1:
-            self.isCard = true
-        default:
-            break
-        }
-    }
-    
     @objc func titleLabelTapped() {
-        let previousTitle = historyTitleLabel.text == historyTitlePlaceholder ? "" : historyTitle
+        let previousTitle = historyTitleLabel.text == historyTitlePlaceholder ? "" : historyTitleLabel.text
         
         TitleEditViewController.present(at: self, previousTitle: previousTitle ?? "") { [weak self] (newTitle) in
             guard let self = self else { return }
             if self.isAddingIncome {
-                self.historyTitle = newTitle.isEmpty ? HistoryCategory.income.name : newTitle
+                self.historyTitleLabel.text = newTitle.isEmpty ? HistoryCategory.income.name : newTitle
             } else {
-                self.historyTitle = newTitle.isEmpty ? HistoryCategory.etc.name : newTitle
+                self.historyTitleLabel.text = newTitle.isEmpty ? HistoryCategory.etc.name : newTitle
             }
             
-            self.historyTitleLabel.textColor = self.historyTitle == self.historyTitlePlaceholder ? .systemGray2 : .black
-            self.historyTitleLabel.text = self.historyTitle
+            self.historyTitleLabel.textColor = self.historyTitleLabel.text == self.historyTitlePlaceholder ? .systemGray2 : .black
         }
     }
     
@@ -242,10 +227,32 @@ class AddHistoryViewController: UIViewController {
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         var newHistoryData: NewHistoryData
         
-        if isAddingIncome {
-            newHistoryData = NewHistoryData(isIncome: true, title: historyTitle ?? HistoryCategory.income.name, memo: memo, date: datePicker.date, image: nil, amount: amount, category: .income, isCard: nil)
+        var defaultTitle: String
+        if let titleLabelText = historyTitleLabel.text {
+            defaultTitle = titleLabelText.isPlaceholder() ? category.name : titleLabelText
         } else {
-            newHistoryData = NewHistoryData(isIncome: false, title: historyTitle ?? HistoryCategory.etc.name, memo: memo, date: datePicker.date, image: image, amount: amount, category: category, isCard: isCard, isPrepare: baseHistoryViewModel?.isPrepare)
+            defaultTitle = category.name
+        }
+        
+        if isAddingIncome {
+            newHistoryData = NewHistoryData(isIncome: true,
+                                            title: defaultTitle.isCategory() ? HistoryCategory.income.name : defaultTitle ,
+                                            memo: memo,
+                                            date: datePicker.date,
+                                            image: nil,
+                                            amount: amount,
+                                            category: .income,
+                                            isCard: nil)
+        } else {
+            
+            newHistoryData = NewHistoryData(isIncome: false,
+                                            title: defaultTitle.isCategory() ? category.name : defaultTitle,
+                                            memo: memo,
+                                            date: datePicker.date,
+                                            image: image,
+                                            amount: amount,
+                                            category: category,
+                                            isCard: segmentedControl.selectedSegmentIndex == 0 ? false : true, isPrepare: baseHistoryViewModel?.isPrepare)
         }
         
         if isCreate {
@@ -355,8 +362,15 @@ extension AddHistoryViewController: UICollectionViewDataSource, UICollectionView
             return UICollectionViewCell()
         }
         
-        cell.configure(with: categories[indexPath.row])
+        cell.configure(with: categories[indexPath.row], isSelected: categories[indexPath.row] == self.category)
+
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        category = categories[indexPath.row]
+        collectionView.reloadData()
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

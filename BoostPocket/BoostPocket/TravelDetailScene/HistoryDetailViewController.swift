@@ -156,6 +156,8 @@ class HistoryDetailViewController: UIViewController {
             self.exchangedMoneyLabel.text = "KRW \((historyItemViewModel.amount / baseHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: countryIdentifier))"
             
             // category도 해줘야 함
+            self.baseHistoryViewModel?.category = historyItemViewModel.category
+            self.categoryImageView.image = UIImage(named: historyItemViewModel.category.imageName)
             
             // title
             self.baseHistoryViewModel?.title = self.historyItemViewModel?.title
@@ -174,6 +176,9 @@ class HistoryDetailViewController: UIViewController {
             } else {
                 self.expenseMemoLabel.text = historyItemViewModel.memo ?? EditMemoType.expenseMemo.rawValue
             }
+            
+            // isCard
+            self.baseHistoryViewModel?.isCard = historyItemViewModel.isCard
         }
         
         AddHistoryViewController.present(at: self,
@@ -184,11 +189,14 @@ class HistoryDetailViewController: UIViewController {
     }
     
     @objc func titleLabelTapped() {
-        let previousTitle = titleLabel.text
+        var defaultTitle = ""
+        if let baseHistoryViewModel = baseHistoryViewModel {
+            defaultTitle = baseHistoryViewModel.isIncome ? "예산 금액 추가" : baseHistoryViewModel.category?.name ?? HistoryCategory.etc.name
+        }
         
-        TitleEditViewController.present(at: self, previousTitle: previousTitle ?? "") { [weak self] (newTitle) in
+        TitleEditViewController.present(at: self, previousTitle: titleLabel.text ?? "") { [weak self] (newTitle) in
             guard let self = self else { return }
-            let updatingTitle = newTitle.isEmpty ? previousTitle : newTitle
+            let updatingTitle = newTitle.isEmpty ? defaultTitle : newTitle
             self.titleLabel.text = updatingTitle
             self.baseHistoryViewModel?.title = updatingTitle
             self.updateHistory()

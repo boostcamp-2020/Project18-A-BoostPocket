@@ -50,7 +50,7 @@ struct TravelInfo {
     }
 }
 
-enum HistoryCategory: Int16 {
+enum HistoryCategory: Int16, CaseIterable {
     case income = 0
     case food
     case shopping
