@@ -47,7 +47,7 @@ class DayCell: UIView {
     
     private func configureMonthLabel(with date: Date) {
         monthLabel.font = monthLabel.font.withSize(10)
-        monthLabel.textColor = UIColor.lightGray
+        monthLabel.textColor = UIColor(named: "basicGrayTextColor")
         guard let monthInt = Int(date.convertToString(format: .month)) else { return }
         monthLabel.text = String(monthInt) + "월"
     }

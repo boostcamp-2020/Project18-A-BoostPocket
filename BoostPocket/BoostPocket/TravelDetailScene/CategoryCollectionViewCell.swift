@@ -16,19 +16,14 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var categoryNameLabel: UILabel!
     
     func configure(with category: HistoryCategory, isSelected: Bool) {
-        self.categoryImage.image = UIImage(named: category.imageName)
         self.categoryNameLabel.text = category.name
-        self.isSelected = isSelected
-    }
-    
-    override var isSelected: Bool {
-        willSet {
-            super.isSelected = newValue
-            if newValue {
-                self.categoryNameLabel.textColor = .black
-            } else {
-                self.categoryNameLabel.textColor = .lightGray
-            }
+        
+        if isSelected {
+            self.categoryImage.image = UIImage(named: category.imageName + "-selected")
+            self.categoryNameLabel.textColor = UIColor(named: "basicBlackTextColor")
+        } else {
+            self.categoryImage.image = UIImage(named: category.imageName)
+            self.categoryNameLabel.textColor = UIColor(named: "basicGrayTextColor")
         }
     }
     
