@@ -286,13 +286,13 @@
         <!--Report-->
         <scene sceneID="FPm-Fh-6Ct">
             <objects>
-                <viewController title="Report" id="3Zy-Ds-gOa" sceneMemberID="viewController">
+                <viewController title="Report" id="3Zy-Ds-gOa" customClass="ReportViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sa6-cu-tQi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DJ-XU-Ifo" customClass="ReportPieChartView" customModule="BoostPocket" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="221" width="414" height="414"/>
+                                <rect key="frame" x="0.0" y="221.5" width="414" height="414"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="0DJ-XU-Ifo" secondAttribute="height" multiplier="1:1" id="fNo-OR-PMR"/>
@@ -308,6 +308,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="리포트" image="chart.pie.fill" catalog="system" id="hU1-KU-wkB"/>
+                    <connections>
+                        <outlet property="reportPieChartView" destination="0DJ-XU-Ifo" id="4Im-Qf-CD4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DmL-CW-ayq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
