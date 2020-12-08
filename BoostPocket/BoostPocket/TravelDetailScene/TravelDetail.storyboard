@@ -292,7 +292,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DJ-XU-Ifo" customClass="ReportPieChartView" customModule="BoostPocket" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="221.5" width="414" height="414"/>
+                                <rect key="frame" x="50" y="271.5" width="314" height="314"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="0DJ-XU-Ifo" secondAttribute="height" multiplier="1:1" id="fNo-OR-PMR"/>
@@ -303,8 +303,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="0DJ-XU-Ifo" firstAttribute="centerY" secondItem="dz2-Wq-4eW" secondAttribute="centerY" id="AXM-rw-izk"/>
-                            <constraint firstItem="dz2-Wq-4eW" firstAttribute="trailing" secondItem="0DJ-XU-Ifo" secondAttribute="trailing" id="bIz-5S-4ZW"/>
-                            <constraint firstItem="0DJ-XU-Ifo" firstAttribute="leading" secondItem="dz2-Wq-4eW" secondAttribute="leading" id="vxn-Hz-7re"/>
+                            <constraint firstItem="dz2-Wq-4eW" firstAttribute="trailing" secondItem="0DJ-XU-Ifo" secondAttribute="trailing" constant="50" id="bIz-5S-4ZW"/>
+                            <constraint firstItem="0DJ-XU-Ifo" firstAttribute="leading" secondItem="dz2-Wq-4eW" secondAttribute="leading" constant="50" id="vxn-Hz-7re"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="리포트" image="chart.pie.fill" catalog="system" id="hU1-KU-wkB"/>
