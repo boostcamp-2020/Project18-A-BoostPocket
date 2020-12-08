@@ -95,7 +95,7 @@ class AddHistoryViewController: UIViewController {
             self.isCreate = false
         }
         
-        let color = isAddingIncome ? .systemGreen : UIColor(named: "deleteButtonColor")
+        let color = isAddingIncome ? UIColor(named: "incomeColor") : UIColor(named: "deleteButtonColor")
         
         segmentedControl.isHidden = isAddingIncome
         imageButton.isHidden = isAddingIncome

@@ -97,7 +97,7 @@ class HistoryListViewController: UIViewController {
     }
     
     private func configureFloatingActionButton() {
-        let buttonWidth = self.view.bounds.width * 0.1
+        let buttonWidth = self.view.bounds.width * 0.13
         
         floatingButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
         floatingButton.layer.cornerRadius = buttonWidth * 0.5
@@ -117,7 +117,7 @@ class HistoryListViewController: UIViewController {
         let expenses = filteredHistories.filter({ !$0.isIncome }).reduce(0) { $0 + $1.amount }
         let allAmount = filteredHistories.reduce(0) { $0 + $1.amount }
         
-        self.totalAmountView.configure(withExpense: expenses, remain: allAmount - 2 * expenses)
+        self.totalAmountView.configure(withExpense: expenses, remain: allAmount - 2 * expenses, identifier: travelItemViewModel?.countryIdentifier)
     }
     
     private func configureTravelItemViewModel() {
@@ -217,7 +217,7 @@ class HistoryListViewController: UIViewController {
         headers = setupSection(with: histories)
         snapshot.appendSections(headers)
         histories.forEach { history in
-            if let section = headers.filter({ history.date.isSameDay(with: $0.date) }).first {
+            if let section = headers.filter({ history.date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted) }).first {
                 snapshot.appendItems([history], toSection: section)
             }
         }
