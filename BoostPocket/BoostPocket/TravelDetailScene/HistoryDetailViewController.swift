@@ -51,17 +51,23 @@ class HistoryDetailViewController: UIViewController {
     private func configureViews() {
         imagePicker.delegate = self
         
+        guard let history = baseHistoryViewModel else { return }
+        configureContraints(history: history)
+        configureAttributes(history: history)
+        
         let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
         let isPrepareTap = UITapGestureRecognizer(target: self, action: #selector(isPrepareTapped))
         let historyImageTap = UITapGestureRecognizer(target: self, action: #selector(historyImageTapped))
+        let memoTap = UITapGestureRecognizer(target: self, action: #selector(memoLabelTapped))
         
         titleLabel.addGestureRecognizer(titleTap)
         isPrepareImageView.addGestureRecognizer(isPrepareTap)
         historyImageView.addGestureRecognizer(historyImageTap)
-        
-        guard let history = baseHistoryViewModel else { return }
-        configureContraints(history: history)
-        configureAttributes(history: history)
+        if history.isIncome {
+            incomeMemoLabel.addGestureRecognizer(memoTap)
+        } else {
+            expenseMemoLabel.addGestureRecognizer(memoTap)
+        }
     }
     
     private func configureContraints(history: BaseHistoryViewModel) {
@@ -92,8 +98,10 @@ class HistoryDetailViewController: UIViewController {
             currencyCodeLabel.text = history.currencyCode
             let exchangedKoreanCurrency = 1.00 / history.exchangeRate
             exchangeRateLabel.text = "\(history.currencyCode) 1.00 = KRW \(exchangedKoreanCurrency.getCurrencyFormat(identifier: "ko_KR"))"
-            if let memo = history.memo {
-                incomeMemoLabel.text = memo
+            if let previousMemo = history.memo, !previousMemo.isEmpty {
+                incomeMemoLabel.text = previousMemo
+            } else {
+                incomeMemoLabel.text = EditMemoType.incomeMemo.rawValue
             }
         } else {
             // 지출
@@ -102,8 +110,10 @@ class HistoryDetailViewController: UIViewController {
                 historyImageView.image = UIImage(data: previousImage)
             }
             
-            if let previousMemo = history.memo {
+            if let previousMemo = history.memo, !previousMemo.isEmpty {
                 expenseMemoLabel.text = previousMemo
+            } else {
+                expenseMemoLabel.text = EditMemoType.expenseMemo.rawValue
             }
             
             if let isPrepare = history.isPrepare {
@@ -185,10 +195,30 @@ class HistoryDetailViewController: UIViewController {
         }
     }
     
-    private func updateHistory() {
+    @objc func memoLabelTapped() {
         guard let history = self.baseHistoryViewModel else { return }
-        let updatedHistory = NewHistoryData(isIncome: history.isIncome, title: history.title ?? "", memo: history.memo, date: history.currentDate, image: history.image, amount: history.amount ?? 0, category: history.category ?? (history.isIncome ? .income : .etc), isCard: history.isCard, isPrepare: history.isPrepare)
-        delegate?.updateHistory(at: history.id, updatedHistoryData: updatedHistory)
+        
+        var previousMemo: String?
+        var memoType: EditMemoType
+        if history.isIncome {
+            previousMemo = incomeMemoLabel.text
+            memoType = .incomeMemo
+        } else {
+            previousMemo = expenseMemoLabel.text
+            memoType = .expenseMemo
+        }
+        
+        MemoEditViewController.present(at: self, memoType: memoType, previousMemo: previousMemo) { [weak self] newMemo in
+            guard let self = self else { return }
+            let updatingMemo = newMemo.isEmpty ? memoType.rawValue : newMemo
+            if history.isIncome {
+                self.incomeMemoLabel.text = updatingMemo
+            } else {
+                self.expenseMemoLabel.text = updatingMemo
+            }
+            self.baseHistoryViewModel?.memo = updatingMemo
+            self.updateHistory()
+        }
     }
     
     @objc func historyImageTapped() {
@@ -209,7 +239,11 @@ class HistoryDetailViewController: UIViewController {
         // TO-DO : 값 업데이트
     }
     
-    
+    private func updateHistory() {
+        guard let history = self.baseHistoryViewModel else { return }
+        let updatedHistory = NewHistoryData(isIncome: history.isIncome, title: history.title ?? "", memo: history.memo, date: history.currentDate, image: history.image, amount: history.amount ?? 0, category: history.category ?? (history.isIncome ? .income : .etc), isCard: history.isCard, isPrepare: history.isPrepare)
+        delegate?.updateHistory(at: history.id, updatedHistoryData: updatedHistory)
+    }
     
     private func openPhotoLibrary() {
         imagePicker.sourceType = .photoLibrary
