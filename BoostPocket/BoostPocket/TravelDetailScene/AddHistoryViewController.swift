@@ -11,7 +11,7 @@ import Toaster
 
 protocol AddHistoryDelegate: AnyObject {
     func createHistory(newHistoryData: NewHistoryData)
-    func updateHisotry(at historyId: UUID?, newHistoryData: NewHistoryData)
+    func updateHistory(at historyId: UUID?, newHistoryData: NewHistoryData)
 }
 
 struct BaseHistoryViewModel {
@@ -252,7 +252,7 @@ class AddHistoryViewController: UIViewController {
         if isCreate {
             delegate?.createHistory(newHistoryData: newHistoryData)
         } else {
-            delegate?.updateHisotry(at: baseHistoryViewModel?.id, newHistoryData: newHistoryData)
+            delegate?.updateHistory(at: baseHistoryViewModel?.id, newHistoryData: newHistoryData)
         }
         
         saveButtonHandler?()

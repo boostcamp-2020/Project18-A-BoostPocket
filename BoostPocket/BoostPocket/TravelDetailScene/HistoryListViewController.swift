@@ -378,7 +378,7 @@ extension HistoryListViewController: AddHistoryDelegate {
         travelItemViewModel?.createHistory(id: UUID(), isIncome: newHistoryData.isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image, amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: historyFilter.isPrepareOnly ?? false, isCard: newHistoryData.isCard ?? false) { _ in }
     }
     
-    func updateHisotry(at historyId: UUID?, newHistoryData: NewHistoryData) {
+    func updateHistory(at historyId: UUID?, newHistoryData: NewHistoryData) {
         guard travelItemViewModel?.updateHistory(id: historyId ?? UUID(), isIncome: newHistoryData.isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image, amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: newHistoryData.isPrepare, isCard: newHistoryData.isCard ?? false) == true else { return }
         print("지출/예산 업데이트 성공")
     }
