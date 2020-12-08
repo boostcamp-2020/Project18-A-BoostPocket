@@ -170,9 +170,9 @@ class HistoryDetailViewController: UIViewController {
             // memo
             self.baseHistoryViewModel?.memo = historyItemViewModel.memo
             if historyItemViewModel.isIncome {
-                self.incomeMemoLabel.text = historyItemViewModel.memo
+                self.incomeMemoLabel.text = historyItemViewModel.memo ?? EditMemoType.incomeMemo.rawValue
             } else {
-                self.expenseMemoLabel.text = historyItemViewModel.memo
+                self.expenseMemoLabel.text = historyItemViewModel.memo ?? EditMemoType.expenseMemo.rawValue
             }
         }
         
@@ -198,25 +198,23 @@ class HistoryDetailViewController: UIViewController {
     @objc func memoLabelTapped() {
         guard let history = self.baseHistoryViewModel else { return }
         
-        var previousMemo: String?
+        let previousMemo = history.memo
         var memoType: EditMemoType
         if history.isIncome {
-            previousMemo = incomeMemoLabel.text
             memoType = .incomeMemo
         } else {
-            previousMemo = expenseMemoLabel.text
             memoType = .expenseMemo
         }
         
         MemoEditViewController.present(at: self, memoType: memoType, previousMemo: previousMemo) { [weak self] newMemo in
             guard let self = self else { return }
-            let updatingMemo = newMemo.isEmpty ? memoType.rawValue : newMemo
+            self.baseHistoryViewModel?.memo = newMemo.isEmpty ? nil : newMemo
             if history.isIncome {
-                self.incomeMemoLabel.text = updatingMemo
+                self.incomeMemoLabel.text = newMemo.isEmpty ? memoType.rawValue : newMemo
             } else {
-                self.expenseMemoLabel.text = updatingMemo
+                self.expenseMemoLabel.text = newMemo.isEmpty ? memoType.rawValue : newMemo
             }
-            self.baseHistoryViewModel?.memo = updatingMemo
+            
             self.updateHistory()
         }
     }
