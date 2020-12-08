@@ -24,7 +24,7 @@ class TotalAmountView: UIView {
         } else {
             showRemainLabels()
             remainLabel.text = setLabel(with: identifier, amount: remain)
-            remainLabel.textColor = remain < 0 ? UIColor(named: "deleteTextColor") : UIColor(named: "incomeColor")
+            remainLabel.textColor = remain < 0 ? UIColor(named: "deleteTextColor") : UIColor(named: "detailIncomeColor")
         }
         expenseLabel.text = setLabel(with: identifier, amount: expense)
 
