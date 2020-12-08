@@ -10,6 +10,7 @@ import UIKit
 
 protocol HistoryDetailDelegate: AnyObject {
     func deleteHistory(id: UUID?)
+    func updateHistory(at historyId: UUID?, updatedHistoryData: NewHistoryData)
 }
 
 class HistoryDetailViewController: UIViewController {
@@ -50,9 +51,11 @@ class HistoryDetailViewController: UIViewController {
     private func configureViews() {
         imagePicker.delegate = self
         
+        let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
         let isPrepareTap = UITapGestureRecognizer(target: self, action: #selector(isPrepareTapped))
         let historyImageTap = UITapGestureRecognizer(target: self, action: #selector(historyImageTapped))
         
+        titleLabel.addGestureRecognizer(titleTap)
         isPrepareImageView.addGestureRecognizer(isPrepareTap)
         historyImageView.addGestureRecognizer(historyImageTap)
         
@@ -83,7 +86,16 @@ class HistoryDetailViewController: UIViewController {
             titleLabel.text = title.isEmpty ? category.name : title
         }
         
-        if !history.isIncome {
+        if history.isIncome {
+            // 수입
+            amountLabel.textColor = UIColor(named: "incomeColor")
+            currencyCodeLabel.text = history.currencyCode
+            let exchangedKoreanCurrency = 1.00 / history.exchangeRate
+            exchangeRateLabel.text = "\(history.currencyCode) 1.00 = KRW \(exchangedKoreanCurrency.getCurrencyFormat(identifier: "ko_KR"))"
+            if let memo = history.memo {
+                incomeMemoLabel.text = memo
+            }
+        } else {
             // 지출
             amountLabel.textColor = UIColor(named: "deleteButtonColor")
             if let previousImage = history.image {
@@ -100,15 +112,6 @@ class HistoryDetailViewController: UIViewController {
                 } else {
                     isPrepareImageView.image = UIImage(named: "isPrepareFalse")
                 }
-            }
-        } else {
-            // 수입
-            amountLabel.textColor = UIColor(named: "incomeColor")
-            currencyCodeLabel.text = history.currencyCode
-            let exchangedKoreanCurrency = 1.00 / history.exchangeRate
-            exchangeRateLabel.text = "\(history.currencyCode) 1.00 = KRW \(exchangedKoreanCurrency.getCurrencyFormat(identifier: "ko_KR"))"
-            if let memo = history.memo {
-                incomeMemoLabel.text = memo
             }
         }
     }
@@ -170,6 +173,24 @@ class HistoryDetailViewController: UIViewController {
                                          onDismiss: onDismiss)
     }
     
+    @objc func titleLabelTapped() {
+        let previousTitle = titleLabel.text
+        
+        TitleEditViewController.present(at: self, previousTitle: previousTitle ?? "") { [weak self] (newTitle) in
+            guard let self = self else { return }
+            let updatingTitle = newTitle.isEmpty ? previousTitle : newTitle
+            self.titleLabel.text = updatingTitle
+            self.baseHistoryViewModel?.title = updatingTitle
+            self.updateHistory()
+        }
+    }
+    
+    private func updateHistory() {
+        guard let history = self.baseHistoryViewModel else { return }
+        let updatedHistory = NewHistoryData(isIncome: history.isIncome, title: history.title ?? "", memo: history.memo, date: history.currentDate, image: history.image, amount: history.amount ?? 0, category: history.category ?? (history.isIncome ? .income : .etc), isCard: history.isCard, isPrepare: history.isPrepare)
+        delegate?.updateHistory(at: history.id, updatedHistoryData: updatedHistory)
+    }
+    
     @objc func historyImageTapped() {
         openPhotoLibrary()
     }
@@ -187,6 +208,8 @@ class HistoryDetailViewController: UIViewController {
         baseHistoryViewModel?.isPrepare = !isPrepare
         // TO-DO : 값 업데이트
     }
+    
+    
     
     private func openPhotoLibrary() {
         imagePicker.sourceType = .photoLibrary

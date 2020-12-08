@@ -421,4 +421,9 @@ extension HistoryListViewController: HistoryDetailDelegate {
             print("기록 삭제에 실패했습니다.")
         }
     }
+    
+    func updateHistory(at historyId: UUID?, updatedHistoryData: NewHistoryData) {
+        guard travelItemViewModel?.updateHistory(id: historyId ?? UUID(), isIncome: updatedHistoryData.isIncome, title: updatedHistoryData.title, memo: updatedHistoryData.memo, date: updatedHistoryData.date, image: updatedHistoryData.image, amount: updatedHistoryData.amount, category: updatedHistoryData.category, isPrepare: updatedHistoryData.isPrepare, isCard: updatedHistoryData.isCard ?? false) == true else { return }
+        print("지출/예산 업데이트 성공")
+    }
 }
