@@ -19,12 +19,16 @@ class HistoryHeaderCell: UITableViewHeaderFooterView {
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var dateLabelLeadingConstraint: NSLayoutConstraint!
     
     func configure(with day: Int?, date: Date, amount: Double?) {
+        // TODO: - 여행 기간 이후에 해당하는 날짜 처리
         if let day = day, day > 0 {
             dayLabel.text = "DAY \(day)"
+            dateLabelLeadingConstraint.constant = 30
         } else {
             dayLabel.text = ""
+            dateLabelLeadingConstraint.constant = 0
         }
         dateLabel.text = date.convertToString(format: .korean)
         guard let amount = amount else { return }

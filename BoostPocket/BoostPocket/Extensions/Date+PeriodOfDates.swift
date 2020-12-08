@@ -31,6 +31,6 @@ extension Date {
     }
     
     func isSameDay(with date: Date) -> Bool {
-        return Calendar.current.dateComponents([.day], from: self, to: date).day == 0
+        return Calendar.current.dateComponents([.day], from: self.toLocalTime(), to: date.toLocalTime()).day == 0
     }
 }
