@@ -54,13 +54,10 @@ class AddHistoryViewController: UIViewController {
     private var saveButtonHandler: (() -> Void)?
     private var baseHistoryViewModel: BaseHistoryViewModel?
     private var isAddingIncome: Bool = false
-    private var historyTitle: String?
     private var memo: String?
-    private var date: Date = Date()
     private var image: Data?
     private var amount: Double = 0
     private var category: HistoryCategory = .etc
-    private var isCard: Bool = false
     private var imagePicker = UIImagePickerController()
     private let historyTitlePlaceholder = "항목명을 입력해주세요 (선택)"
     private var categories: [HistoryCategory] = [.food, .shopping, .tourism, .transportation, .accommodation, .etc]
@@ -90,7 +87,9 @@ class AddHistoryViewController: UIViewController {
     
     private func configureViews() {
         guard let baseHistoryViewModel = self.baseHistoryViewModel else { return }
+        
         self.isAddingIncome = baseHistoryViewModel.isIncome
+        
         if let _ = baseHistoryViewModel.id {
             self.isCreate = false
         }
@@ -131,7 +130,6 @@ class AddHistoryViewController: UIViewController {
         // 카드/현금 여부
         if let previousIsCard = baseHistoryViewModel.isCard, previousIsCard {
             segmentedControl.selectedSegmentIndex = 1
-            self.isCard = true
         } else {
             segmentedControl.selectedSegmentIndex = 0
         }
@@ -148,8 +146,7 @@ class AddHistoryViewController: UIViewController {
         let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
         historyTitleLabel.addGestureRecognizer(titleTap)
         if let previousTitle = baseHistoryViewModel.title {
-            self.historyTitle = previousTitle
-            historyTitleLabel.text = self.historyTitle
+            historyTitleLabel.text = previousTitle
             historyTitleLabel.textColor = .black
         } else {
             historyTitleLabel.text = historyTitlePlaceholder
@@ -208,30 +205,18 @@ class AddHistoryViewController: UIViewController {
         return true
     }
     
-    @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            self.isCard = false
-        case 1:
-            self.isCard = true
-        default:
-            break
-        }
-    }
-    
     @objc func titleLabelTapped() {
-        let previousTitle = historyTitleLabel.text == historyTitlePlaceholder ? "" : historyTitle
+        let previousTitle = historyTitleLabel.text == historyTitlePlaceholder ? "" : historyTitleLabel.text
         
         TitleEditViewController.present(at: self, previousTitle: previousTitle ?? "") { [weak self] (newTitle) in
             guard let self = self else { return }
             if self.isAddingIncome {
-                self.historyTitle = newTitle.isEmpty ? HistoryCategory.income.name : newTitle
+                self.historyTitleLabel.text = newTitle.isEmpty ? HistoryCategory.income.name : newTitle
             } else {
-                self.historyTitle = newTitle.isEmpty ? HistoryCategory.etc.name : newTitle
+                self.historyTitleLabel.text = newTitle.isEmpty ? HistoryCategory.etc.name : newTitle
             }
             
-            self.historyTitleLabel.textColor = self.historyTitle == self.historyTitlePlaceholder ? .systemGray2 : .black
-            self.historyTitleLabel.text = self.historyTitle
+            self.historyTitleLabel.textColor = self.historyTitleLabel.text == self.historyTitlePlaceholder ? .systemGray2 : .black
         }
     }
     
@@ -243,9 +228,9 @@ class AddHistoryViewController: UIViewController {
         var newHistoryData: NewHistoryData
         
         if isAddingIncome {
-            newHistoryData = NewHistoryData(isIncome: true, title: historyTitle ?? HistoryCategory.income.name, memo: memo, date: datePicker.date, image: nil, amount: amount, category: .income, isCard: nil)
+            newHistoryData = NewHistoryData(isIncome: true, title: historyTitleLabel.text ?? HistoryCategory.income.name, memo: memo, date: datePicker.date, image: nil, amount: amount, category: .income, isCard: nil)
         } else {
-            newHistoryData = NewHistoryData(isIncome: false, title: historyTitle ?? HistoryCategory.etc.name, memo: memo, date: datePicker.date, image: image, amount: amount, category: category, isCard: isCard, isPrepare: baseHistoryViewModel?.isPrepare)
+            newHistoryData = NewHistoryData(isIncome: false, title: historyTitleLabel.text ?? HistoryCategory.etc.name, memo: memo, date: datePicker.date, image: image, amount: amount, category: category, isCard: segmentedControl.selectedSegmentIndex == 0 ? false : true, isPrepare: baseHistoryViewModel?.isPrepare)
         }
         
         if isCreate {

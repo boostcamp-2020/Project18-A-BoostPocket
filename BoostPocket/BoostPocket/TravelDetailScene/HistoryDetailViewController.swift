@@ -176,6 +176,9 @@ class HistoryDetailViewController: UIViewController {
             } else {
                 self.expenseMemoLabel.text = historyItemViewModel.memo ?? EditMemoType.expenseMemo.rawValue
             }
+            
+            // isCard
+            self.baseHistoryViewModel?.isCard = historyItemViewModel.isCard
         }
         
         AddHistoryViewController.present(at: self,
