@@ -315,18 +315,18 @@
                     <rect key="frame" x="0.0" y="503.5" width="414" height="45"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ea-lC-YV1">
-                            <rect key="frame" x="0.0" y="0.0" width="30" height="45"/>
+                            <rect key="frame" x="0.0" y="0.0" width="52" height="45"/>
                             <state key="normal" title="취소"/>
                             <connections>
                                 <action selector="cancelButtonTapped:" destination="-1" eventType="touchUpInside" id="gxK-3I-KQc"/>
                             </connections>
                         </button>
                         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="FBN-Xp-w8g">
-                            <rect key="frame" x="30" y="0.0" width="309" height="45"/>
+                            <rect key="frame" x="52" y="0.0" width="246.5" height="45"/>
                             <locale key="locale" localeIdentifier="ko"/>
                         </datePicker>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5UH-g4-mMe" userLabel="Picture">
-                            <rect key="frame" x="339" y="0.0" width="24" height="45"/>
+                            <rect key="frame" x="298.5" y="0.0" width="32" height="45"/>
                             <color key="tintColor" systemColor="systemGray3Color"/>
                             <state key="normal" image="photo" catalog="system"/>
                             <connections>
@@ -334,7 +334,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14w-LZ-14y" userLabel="Memo">
-                            <rect key="frame" x="363" y="0.0" width="21" height="45"/>
+                            <rect key="frame" x="330.5" y="0.0" width="32" height="45"/>
                             <color key="tintColor" systemColor="systemGray3Color"/>
                             <state key="normal" image="list.dash" catalog="system"/>
                             <connections>
@@ -342,13 +342,19 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIf-oJ-N8p">
-                            <rect key="frame" x="384" y="0.0" width="30" height="45"/>
+                            <rect key="frame" x="362.5" y="0.0" width="51.5" height="45"/>
                             <state key="normal" title="저장"/>
                             <connections>
                                 <action selector="saveButtonTapped:" destination="-1" eventType="touchUpInside" id="XTN-WY-cDN"/>
                             </connections>
                         </button>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="QIf-oJ-N8p" firstAttribute="width" secondItem="Uvo-Ni-ty9" secondAttribute="width" multiplier="1/8" id="1wS-0r-bMB"/>
+                        <constraint firstItem="5UH-g4-mMe" firstAttribute="width" secondItem="Uvo-Ni-ty9" secondAttribute="width" multiplier="1/13" id="DUm-Qx-0ts"/>
+                        <constraint firstItem="14w-LZ-14y" firstAttribute="width" secondItem="Uvo-Ni-ty9" secondAttribute="width" multiplier="1/13" id="Gfe-OC-zYp"/>
+                        <constraint firstItem="6Ea-lC-YV1" firstAttribute="width" secondItem="Uvo-Ni-ty9" secondAttribute="width" multiplier="1/8" id="V3K-OY-mzj"/>
+                    </constraints>
                 </stackView>
                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RY6-19-kNJ">
                     <rect key="frame" x="0.0" y="488.5" width="414" height="0.0"/>
