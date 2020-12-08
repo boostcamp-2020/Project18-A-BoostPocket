@@ -15,11 +15,11 @@ class TotalAmountView: UIView {
     @IBOutlet weak var expenseTitleLabel: UILabel!
     @IBOutlet weak var remainTitleLabel: UILabel!
     @IBOutlet weak var divider: UIView!
-    @IBOutlet weak var expenseTitleLabelOriginCenterX: NSLayoutConstraint?
-    weak var expenseTitleLabelCenterX: NSLayoutConstraint?
+    @IBOutlet weak var expenseTitleLabelHalfCenterX: NSLayoutConstraint!
+    @IBOutlet weak var expenseTitleLabelCenterX: NSLayoutConstraint!
     
     func configure(withExpense expense: Double, remain: Double) {
-        if remain == 0, expense == 0 {
+        if remain + expense == 0 {
             hideRemainLabels()
         } else {
             showRemainLabels()
@@ -34,12 +34,9 @@ class TotalAmountView: UIView {
         remainLabel.isHidden = true
         remainTitleLabel.isHidden = true
         divider.isHidden = true
-        
-        expenseTitleLabelCenterX?.isActive = false
-        expenseTitleLabelOriginCenterX?.isActive = false
-        
-        expenseTitleLabelCenterX = NSLayoutConstraint(item: expenseTitleLabel ?? UILabel(), attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
-        expenseTitleLabelCenterX?.isActive = true
+
+        expenseTitleLabelHalfCenterX.priority = UILayoutPriority(750)
+        expenseTitleLabelCenterX.priority = UILayoutPriority(1000)
     }
     
     func showRemainLabels() {
@@ -47,10 +44,7 @@ class TotalAmountView: UIView {
         remainTitleLabel.isHidden = false
         divider.isHidden = false
         
-        expenseTitleLabelCenterX?.isActive = false
-        expenseTitleLabelOriginCenterX?.isActive = false
-        
-        expenseTitleLabelOriginCenterX = NSLayoutConstraint(item: expenseTitleLabel ?? UILabel(), attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 0.5, constant: 0)
-        expenseTitleLabelOriginCenterX?.isActive = true
+        expenseTitleLabelCenterX.priority = UILayoutPriority(750)
+        expenseTitleLabelHalfCenterX.priority = UILayoutPriority(1000)
     }
 }

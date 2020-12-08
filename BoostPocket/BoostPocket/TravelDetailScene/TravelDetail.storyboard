@@ -178,6 +178,7 @@
                                 </subviews>
                                 <color key="backgroundColor" name="lightMainColor"/>
                                 <constraints>
+                                    <constraint firstItem="Wgi-s5-6w3" firstAttribute="centerX" secondItem="5Pz-Vt-NSM" secondAttribute="centerX" priority="750" id="4q7-OO-k8F"/>
                                     <constraint firstItem="TiB-LT-87K" firstAttribute="height" secondItem="5Pz-Vt-NSM" secondAttribute="height" multiplier="0.8" id="MtP-xe-06y"/>
                                     <constraint firstItem="HQY-uN-Bt6" firstAttribute="centerY" secondItem="5Pz-Vt-NSM" secondAttribute="centerY" multiplier="1.25" id="RHv-s3-eYh"/>
                                     <constraint firstItem="Wgi-s5-6w3" firstAttribute="centerX" secondItem="5Pz-Vt-NSM" secondAttribute="centerX" multiplier="0.5" id="VVO-Ea-GYX"/>
@@ -194,7 +195,8 @@
                                     <outlet property="divider" destination="TiB-LT-87K" id="QLm-WG-Fii"/>
                                     <outlet property="expenseLabel" destination="HQY-uN-Bt6" id="JZ6-nG-4ea"/>
                                     <outlet property="expenseTitleLabel" destination="Wgi-s5-6w3" id="9pP-RB-g73"/>
-                                    <outlet property="expenseTitleLabelOriginCenterX" destination="VVO-Ea-GYX" id="ON9-To-IGT"/>
+                                    <outlet property="expenseTitleLabelCenterX" destination="4q7-OO-k8F" id="d41-1o-0FX"/>
+                                    <outlet property="expenseTitleLabelHalfCenterX" destination="VVO-Ea-GYX" id="ON9-To-IGT"/>
                                     <outlet property="remainLabel" destination="Pfa-3M-wrJ" id="o4X-km-qfF"/>
                                     <outlet property="remainTitleLabel" destination="xvk-0s-qJs" id="7BR-X1-bDM"/>
                                 </connections>

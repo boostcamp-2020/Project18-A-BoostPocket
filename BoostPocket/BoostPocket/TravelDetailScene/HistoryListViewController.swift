@@ -203,7 +203,16 @@ class HistoryListViewController: UIViewController {
         
         let saveButtonHandler: ((NewHistoryData) -> Void)? = { [weak self] newHistoryData in
             // isPrepare은 현재 "준비" 버튼이 선택되었는지에 따라 true/false
-            self?.travelItemViewModel?.createHistory(id: UUID(), isIncome: isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image, amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: self?.historyFilter.isPrepareOnly ?? false, isCard: newHistoryData.isCard ?? false) { _ in }
+            self?.travelItemViewModel?.createHistory(id: UUID(),
+                                                     isIncome: isIncome,
+                                                     title: newHistoryData.title,
+                                                     memo: newHistoryData.memo,
+                                                     date: newHistoryData.date,
+                                                     image: newHistoryData.image,
+                                                     amount: newHistoryData.amount,
+                                                     category: newHistoryData.category,
+                                                     isPrepare: self?.historyFilter.isPrepareOnly ?? false,
+                                                     isCard: newHistoryData.isCard ?? false) { _ in }
         }
         
         let onPresent: (() -> Void)  = { [weak self] in
@@ -276,10 +285,10 @@ class HistoryListViewController: UIViewController {
             let day = startDate.interval(ofComponent: .day, fromDate: history.date)
             let amount = history.amount
             let date = history.date
-            if let day = days.filter({ date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted)}).first {
-                day.amount = history.isIncome ? day.amount + amount : day.amount - amount
+            if let sameDay = days.filter({ date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted)}).first {
+                sameDay.amount = history.isIncome ? sameDay.amount :  sameDay.amount + amount
             } else {
-                days.insert(HistoryListSectionHeader(dayNumber: day + 1, date: date, amount: history.isIncome ? amount : -amount))
+                days.insert(HistoryListSectionHeader(dayNumber: day + 1, date: date, amount: history.isIncome ? 0 : amount))
             }
         }
         var sections = [HistoryListSectionHeader](days)
