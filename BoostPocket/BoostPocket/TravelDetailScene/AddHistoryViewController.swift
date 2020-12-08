@@ -227,10 +227,32 @@ class AddHistoryViewController: UIViewController {
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         var newHistoryData: NewHistoryData
         
-        if isAddingIncome {
-            newHistoryData = NewHistoryData(isIncome: true, title: historyTitleLabel.text ?? HistoryCategory.income.name, memo: memo, date: datePicker.date, image: nil, amount: amount, category: .income, isCard: nil)
+        var defaultTitle: String
+        if let titleLabelText = historyTitleLabel.text {
+            defaultTitle = titleLabelText.isPlaceholder() ? category.name : titleLabelText
         } else {
-            newHistoryData = NewHistoryData(isIncome: false, title: historyTitleLabel.text ?? HistoryCategory.etc.name, memo: memo, date: datePicker.date, image: image, amount: amount, category: category, isCard: segmentedControl.selectedSegmentIndex == 0 ? false : true, isPrepare: baseHistoryViewModel?.isPrepare)
+            defaultTitle = category.name
+        }
+        
+        if isAddingIncome {
+            newHistoryData = NewHistoryData(isIncome: true,
+                                            title: defaultTitle.isCategory() ? HistoryCategory.income.name : defaultTitle ,
+                                            memo: memo,
+                                            date: datePicker.date,
+                                            image: nil,
+                                            amount: amount,
+                                            category: .income,
+                                            isCard: nil)
+        } else {
+            
+            newHistoryData = NewHistoryData(isIncome: false,
+                                            title: defaultTitle.isCategory() ? category.name : defaultTitle,
+                                            memo: memo,
+                                            date: datePicker.date,
+                                            image: image,
+                                            amount: amount,
+                                            category: category,
+                                            isCard: segmentedControl.selectedSegmentIndex == 0 ? false : true, isPrepare: baseHistoryViewModel?.isPrepare)
         }
         
         if isCreate {
@@ -340,14 +362,13 @@ extension AddHistoryViewController: UICollectionViewDataSource, UICollectionView
             return UICollectionViewCell()
         }
         
-        let isSelected = categories[indexPath.row] == self.category
-        cell.configure(with: categories[indexPath.row], isSelected: isSelected)
+        cell.configure(with: categories[indexPath.row], isSelected: categories[indexPath.row] == self.category)
 
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.category = categories[indexPath.row]
+        category = categories[indexPath.row]
         collectionView.reloadData()
         
     }

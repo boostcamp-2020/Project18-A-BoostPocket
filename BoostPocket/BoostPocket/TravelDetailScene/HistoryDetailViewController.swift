@@ -189,11 +189,14 @@ class HistoryDetailViewController: UIViewController {
     }
     
     @objc func titleLabelTapped() {
-        let previousTitle = titleLabel.text
+        var defaultTitle = ""
+        if let baseHistoryViewModel = baseHistoryViewModel {
+            defaultTitle = baseHistoryViewModel.isIncome ? "예산 금액 추가" : baseHistoryViewModel.category?.name ?? HistoryCategory.etc.name
+        }
         
-        TitleEditViewController.present(at: self, previousTitle: previousTitle ?? "") { [weak self] (newTitle) in
+        TitleEditViewController.present(at: self, previousTitle: titleLabel.text ?? "") { [weak self] (newTitle) in
             guard let self = self else { return }
-            let updatingTitle = newTitle.isEmpty ? previousTitle : newTitle
+            let updatingTitle = newTitle.isEmpty ? defaultTitle : newTitle
             self.titleLabel.text = updatingTitle
             self.baseHistoryViewModel?.title = updatingTitle
             self.updateHistory()

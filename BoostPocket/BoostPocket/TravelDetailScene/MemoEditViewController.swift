@@ -134,11 +134,3 @@ extension MemoEditViewController {
         })
     }
 }
-
-extension String {
-    func isPlaceholder() -> Bool {
-        return self == EditMemoType.travelMemo.rawValue
-            || self == EditMemoType.expenseMemo.rawValue
-            || self == EditMemoType.incomeMemo.rawValue
-    }
-}
