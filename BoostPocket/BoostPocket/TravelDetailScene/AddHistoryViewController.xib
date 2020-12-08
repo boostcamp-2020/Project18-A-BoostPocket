@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="calculatedAmountLabel" destination="4pe-9q-UpJ" id="9OQ-vp-wPU"/>
                 <outlet property="calculatorExpressionLabel" destination="tkA-TC-4Rx" id="Tq9-d7-qIx"/>
+                <outlet property="categoryCollectionView" destination="heQ-Ap-lf8" id="rgn-yI-iUQ"/>
                 <outlet property="currencyCodeLabel" destination="qEf-JD-335" id="nB3-XZ-Ovi"/>
                 <outlet property="currencyConvertedAmountLabel" destination="aLb-EL-GfB" id="hn2-4P-kkK"/>
                 <outlet property="dateLabel" destination="OXX-qQ-6DH" id="4MH-oH-CvO"/>
@@ -357,17 +358,31 @@
                         <constraint firstAttribute="height" constant="1" id="a2a-5Y-BCG"/>
                     </constraints>
                 </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="heQ-Ap-lf8">
+                    <rect key="frame" x="0.0" y="197.5" width="414" height="270"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="V01-ce-Dyy">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="lci-Ei-eGZ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="4iX-Zc-Elj"/>
                 <constraint firstItem="fLx-PJ-SRJ" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.16" id="5SX-Ru-xHv"/>
                 <constraint firstItem="0kX-Kl-MDd" firstAttribute="top" secondItem="Uvo-Ni-ty9" secondAttribute="bottom" id="5dm-zO-9oG"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="heQ-Ap-lf8" secondAttribute="trailing" id="8sN-sz-tei"/>
                 <constraint firstItem="lci-Ei-eGZ" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.7" id="EGw-ox-G4Y"/>
+                <constraint firstItem="heQ-Ap-lf8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="G9O-nJ-83v"/>
+                <constraint firstItem="lci-Ei-eGZ" firstAttribute="top" secondItem="heQ-Ap-lf8" secondAttribute="bottom" constant="10" id="JEx-NU-Fnu"/>
                 <constraint firstItem="fLx-PJ-SRJ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="JPT-bd-AAd"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fLx-PJ-SRJ" secondAttribute="trailing" id="JaW-8O-dJs"/>
                 <constraint firstItem="Uvo-Ni-ty9" firstAttribute="top" secondItem="RY6-19-kNJ" secondAttribute="bottom" constant="15" id="LX4-ke-6CR"/>
                 <constraint firstItem="0kX-Kl-MDd" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.35" id="NK5-JK-lX7"/>
+                <constraint firstItem="heQ-Ap-lf8" firstAttribute="top" secondItem="fLx-PJ-SRJ" secondAttribute="bottom" constant="10" id="NWT-Gj-UAR"/>
                 <constraint firstItem="Uvo-Ni-ty9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Q7Q-qd-fTQ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RY6-19-kNJ" secondAttribute="trailing" id="SSf-MM-xZK"/>
                 <constraint firstItem="RY6-19-kNJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="VW7-0O-CiC"/>
