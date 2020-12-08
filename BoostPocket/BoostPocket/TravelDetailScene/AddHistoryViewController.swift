@@ -89,9 +89,9 @@ class AddHistoryViewController: UIViewController {
     }
     
     private func configureViews() {
-        guard let newHistoryViewModel = self.baseHistoryViewModel else { return }
-        self.isAddingIncome = newHistoryViewModel.isIncome
-        if let _ = newHistoryViewModel.id {
+        guard let baseHistoryViewModel = self.baseHistoryViewModel else { return }
+        self.isAddingIncome = baseHistoryViewModel.isIncome
+        if let _ = baseHistoryViewModel.id {
             self.isCreate = false
         }
         
@@ -110,18 +110,18 @@ class AddHistoryViewController: UIViewController {
         historyTypeLabel.textColor = .white
         
         // 국기 이미지
-        flagImageView.image = UIImage(data: newHistoryViewModel.flagImage)
+        flagImageView.image = UIImage(data: baseHistoryViewModel.flagImage)
         
         // 환율코드
-        currencyCodeLabel.text = newHistoryViewModel.currencyCode
+        currencyCodeLabel.text = baseHistoryViewModel.currencyCode
         
         // 계산식 레이블, 계산된 금액 레이블, 환율을 적용하여 변환한 금액 레이블
         calculatedAmountLabel.textColor = .white
-        if let previousAmount = newHistoryViewModel.amount {
+        if let previousAmount = baseHistoryViewModel.amount {
             self.amount = previousAmount
             calculatorExpressionLabel.text = "\(previousAmount)"
             calculatedAmountLabel.text = "\(previousAmount)"
-            currencyConvertedAmountLabel.text = "KRW \((previousAmount / newHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: baseHistoryViewModel?.countryIdentifier ?? ""))"
+            currencyConvertedAmountLabel.text = "KRW \((previousAmount / baseHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: baseHistoryViewModel.countryIdentifier ?? ""))"
         } else {
             calculatorExpressionLabel.text = ""
             calculatedAmountLabel.text = "0"
@@ -129,7 +129,7 @@ class AddHistoryViewController: UIViewController {
         }
         
         // 카드/현금 여부
-        if let previousIsCard = newHistoryViewModel.isCard, previousIsCard {
+        if let previousIsCard = baseHistoryViewModel.isCard, previousIsCard {
             segmentedControl.selectedSegmentIndex = 1
             self.isCard = true
         } else {
@@ -141,12 +141,13 @@ class AddHistoryViewController: UIViewController {
             categoryCollectionView.delegate = self
             categoryCollectionView.dataSource = self
             categoryCollectionView.register(UINib(nibName: CategoryCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
+            self.category = baseHistoryViewModel.category ?? .etc
         }
         
         // 항목명
         let titleTap = UITapGestureRecognizer(target: self, action: #selector(titleLabelTapped))
         historyTitleLabel.addGestureRecognizer(titleTap)
-        if let previousTitle = newHistoryViewModel.title {
+        if let previousTitle = baseHistoryViewModel.title {
             self.historyTitle = previousTitle
             historyTitleLabel.text = self.historyTitle
             historyTitleLabel.textColor = .black
@@ -156,16 +157,16 @@ class AddHistoryViewController: UIViewController {
         }
         
         // 날짜
-        datePicker.setDate(newHistoryViewModel.currentDate, animated: true)
+        datePicker.setDate(baseHistoryViewModel.currentDate, animated: true)
         
         // 이미지
-        if let previousImage = newHistoryViewModel.image {
+        if let previousImage = baseHistoryViewModel.image {
             self.image = previousImage
             self.imageButton.tintColor = .black
         }
         
         // 메모
-        if let previousMemo = newHistoryViewModel.memo {
+        if let previousMemo = baseHistoryViewModel.memo {
             self.memo = previousMemo
             self.memoButton.tintColor = .black
         }

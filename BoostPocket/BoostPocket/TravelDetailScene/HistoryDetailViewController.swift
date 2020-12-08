@@ -156,6 +156,8 @@ class HistoryDetailViewController: UIViewController {
             self.exchangedMoneyLabel.text = "KRW \((historyItemViewModel.amount / baseHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: countryIdentifier))"
             
             // category도 해줘야 함
+            self.baseHistoryViewModel?.category = historyItemViewModel.category
+            self.categoryImageView.image = UIImage(named: historyItemViewModel.category.imageName)
             
             // title
             self.baseHistoryViewModel?.title = self.historyItemViewModel?.title
