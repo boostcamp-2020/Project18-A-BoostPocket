@@ -192,8 +192,10 @@ class HistoryListViewController: UIViewController {
         }
         
         AddHistoryViewController.present(at: self,
-                                         newHistoryViewModel: newHistoryViewModel,
-                                         onPresent: onPresent)
+                                         delegateTarget: self,
+                                         baseHistoryViewModel: newHistoryViewModel,
+                                         onPresent: onPresent,
+                                         onDismiss: nil)
     }
     
     private func applySnapshot(with histories: [HistoryItemViewModel]) {
@@ -287,7 +289,7 @@ extension HistoryListViewController: UITableViewDelegate {
                                                     isPrepare: selectedHistoryViewModel.isPrepare,
                                                     countryIdentifier: travelItemViewModel?.countryIdentifier)
         
-        HistoryDetailViewController.present(at: self, historyViewModel: detailhistoryViewModel)
+        HistoryDetailViewController.present(at: self, baseHistoryViewModel: detailhistoryViewModel, historyItemViewModel: selectedHistoryViewModel)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -342,8 +344,10 @@ extension HistoryListViewController: UITableViewDelegate {
             }
             
             AddHistoryViewController.present(at: self,
-                                             newHistoryViewModel: editHistoryViewModel,
-                                             onPresent: onPresent)
+                                             delegateTarget: self,
+                                             baseHistoryViewModel: editHistoryViewModel,
+                                             onPresent: onPresent,
+                                             onDismiss: nil)
             completion(true)
         }
         editAction.backgroundColor = .systemBlue
@@ -374,7 +378,7 @@ extension HistoryListViewController: AddHistoryDelegate {
         travelItemViewModel?.createHistory(id: UUID(), isIncome: newHistoryData.isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image, amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: historyFilter.isPrepareOnly ?? false, isCard: newHistoryData.isCard ?? false) { _ in }
     }
     
-    func updateHisotry(at historyId: UUID?, newHistoryData: NewHistoryData) {
+    func updateHistory(at historyId: UUID?, newHistoryData: NewHistoryData) {
         guard travelItemViewModel?.updateHistory(id: historyId ?? UUID(), isIncome: newHistoryData.isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image, amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: newHistoryData.isPrepare, isCard: newHistoryData.isCard ?? false) == true else { return }
         print("지출/예산 업데이트 성공")
     }

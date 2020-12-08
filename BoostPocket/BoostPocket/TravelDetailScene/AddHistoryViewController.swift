@@ -11,7 +11,7 @@ import Toaster
 
 protocol AddHistoryDelegate: AnyObject {
     func createHistory(newHistoryData: NewHistoryData)
-    func updateHisotry(at historyId: UUID?, newHistoryData: NewHistoryData)
+    func updateHistory(at historyId: UUID?, newHistoryData: NewHistoryData)
 }
 
 struct BaseHistoryViewModel {
@@ -51,7 +51,7 @@ class AddHistoryViewController: UIViewController {
     static let identifier = "AddHistoryViewController"
     weak var delegate: AddHistoryDelegate?
     
-    private var saveButtonHandler: ((NewHistoryData) -> Void)?
+    private var saveButtonHandler: (() -> Void)?
     private var baseHistoryViewModel: BaseHistoryViewModel?
     private var isAddingIncome: Bool = false
     private var historyTitle: String?
@@ -121,7 +121,7 @@ class AddHistoryViewController: UIViewController {
             self.amount = previousAmount
             calculatorExpressionLabel.text = "\(previousAmount)"
             calculatedAmountLabel.text = "\(previousAmount)"
-            currencyConvertedAmountLabel.text = "KRW \(previousAmount / newHistoryViewModel.exchangeRate)"
+            currencyConvertedAmountLabel.text = "KRW \((previousAmount / newHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: baseHistoryViewModel?.countryIdentifier ?? ""))"
         } else {
             calculatorExpressionLabel.text = ""
             calculatedAmountLabel.text = "0"
@@ -188,7 +188,7 @@ class AddHistoryViewController: UIViewController {
             calculatedAmountLabel.text = "\(amount.insertComma)"
             
             let convertedAmount = amount / exchangeRate
-            currencyConvertedAmountLabel.text = "KRW " + convertedAmount.insertComma
+            currencyConvertedAmountLabel.text = "KRW " + convertedAmount.getCurrencyFormat(identifier: baseHistoryViewModel?.countryIdentifier ?? "")
             
             self.amount = amount
         }
@@ -252,9 +252,10 @@ class AddHistoryViewController: UIViewController {
         if isCreate {
             delegate?.createHistory(newHistoryData: newHistoryData)
         } else {
-            delegate?.updateHisotry(at: baseHistoryViewModel?.id, newHistoryData: newHistoryData)
+            delegate?.updateHistory(at: baseHistoryViewModel?.id, newHistoryData: newHistoryData)
         }
         
+        saveButtonHandler?()
         dismiss(animated: true, completion: nil)
     }
     
@@ -372,16 +373,21 @@ extension AddHistoryViewController {
     static let nibName = "AddHistoryViewController"
     
     static func present(at viewController: UIViewController,
-                        newHistoryViewModel: BaseHistoryViewModel,
-                        onPresent: @escaping (() -> Void)) {
+                        delegateTarget: UIViewController,
+                        baseHistoryViewModel: BaseHistoryViewModel,
+                        onPresent: (() -> Void)?,
+                        onDismiss: (() -> Void)?) {
         
         let vc = AddHistoryViewController(nibName: nibName, bundle: nil)
-        if let historyListVC = viewController as? HistoryListViewController {
+        
+        if let historyListVC = delegateTarget as? HistoryListViewController {
             vc.delegate = historyListVC
         }
-        vc.baseHistoryViewModel = newHistoryViewModel
+        
+        vc.saveButtonHandler = onDismiss
+        vc.baseHistoryViewModel = baseHistoryViewModel
         viewController.present(vc, animated: true) {
-            onPresent()
+            onPresent?()
         }
     }
     
