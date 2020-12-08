@@ -375,7 +375,8 @@ extension HistoryListViewController: UITableViewDelegate {
                                              onDismiss: nil)
             completion(true)
         }
-        editAction.backgroundColor = .systemBlue
+        editAction.backgroundColor = UIColor(named: "mainColor")
+        deleteAction.backgroundColor = UIColor(named: "deleteTextColor")
         
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
