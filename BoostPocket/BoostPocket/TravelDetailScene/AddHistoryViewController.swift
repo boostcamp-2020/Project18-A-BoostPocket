@@ -71,7 +71,7 @@ class AddHistoryViewController: UIViewController {
     @IBOutlet weak var historyTypeLabel: UILabel!
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var currencyCodeLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var calculatorExpressionLabel: UILabel!
     @IBOutlet weak var calculatedAmountLabel: UILabel!
     @IBOutlet weak var currencyConvertedAmountLabel: UILabel!
@@ -95,7 +95,7 @@ class AddHistoryViewController: UIViewController {
             self.isCreate = false
         }
         
-        let color = isAddingIncome ? .systemGreen : UIColor(named: "deleteButtonColor")
+        let color = isAddingIncome ? UIColor(named: "incomeColor") : UIColor(named: "deleteButtonColor")
         
         segmentedControl.isHidden = isAddingIncome
         imageButton.isHidden = isAddingIncome
@@ -157,8 +157,7 @@ class AddHistoryViewController: UIViewController {
         
         // 날짜
         // TODO: DatePicker로 변경해서 사용자가 날짜를 바꿀 수 있도록 하는 기능 구현하기
-        let dateLabelText = newHistoryViewModel.currentDate.convertToString(format: .dotted)
-        dateLabel.text = dateLabelText
+        datePicker.setDate(newHistoryViewModel.currentDate, animated: true)
         
         // 이미지
         if let previousImage = newHistoryViewModel.image {
@@ -244,9 +243,9 @@ class AddHistoryViewController: UIViewController {
         var newHistoryData: NewHistoryData
         
         if isAddingIncome {
-            newHistoryData = NewHistoryData(isIncome: true, title: historyTitle ?? HistoryCategory.income.name, memo: memo, date: date, image: nil, amount: amount, category: .income, isCard: nil)
+            newHistoryData = NewHistoryData(isIncome: true, title: historyTitle ?? HistoryCategory.income.name, memo: memo, date: datePicker.date, image: nil, amount: amount, category: .income, isCard: nil)
         } else {
-            newHistoryData = NewHistoryData(isIncome: false, title: historyTitle ?? HistoryCategory.etc.name, memo: memo, date: date, image: image, amount: amount, category: category, isCard: isCard, isPrepare: baseHistoryViewModel?.isPrepare)
+            newHistoryData = NewHistoryData(isIncome: false, title: historyTitle ?? HistoryCategory.etc.name, memo: memo, date: datePicker.date, image: image, amount: amount, category: category, isCard: isCard, isPrepare: baseHistoryViewModel?.isPrepare)
         }
         
         if isCreate {
@@ -282,7 +281,6 @@ class AddHistoryViewController: UIViewController {
             }
         }
     }
-    
 }
 
 extension AddHistoryViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

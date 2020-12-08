@@ -49,6 +49,7 @@
             <connections>
                 <outlet property="amountLabel" destination="utG-0z-L8D" id="jcB-Sv-682"/>
                 <outlet property="dateLabel" destination="Yvy-Qo-Nav" id="E1S-HI-rsU"/>
+                <outlet property="dateLabelLeadingConstraint" destination="Rfc-v0-hLU" id="CYX-dQ-zPM"/>
                 <outlet property="dayLabel" destination="BD7-cd-uDW" id="62S-6b-48y"/>
             </connections>
             <point key="canvasLocation" x="105.79710144927537" y="89.0625"/>

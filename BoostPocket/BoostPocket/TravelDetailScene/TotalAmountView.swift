@@ -18,16 +18,24 @@ class TotalAmountView: UIView {
     @IBOutlet weak var expenseTitleLabelHalfCenterX: NSLayoutConstraint!
     @IBOutlet weak var expenseTitleLabelCenterX: NSLayoutConstraint!
     
-    func configure(withExpense expense: Double, remain: Double) {
+    func configure(withExpense expense: Double, remain: Double, identifier: String?) {
         if remain + expense == 0 {
             hideRemainLabels()
         } else {
             showRemainLabels()
-            remainLabel.text = String(remain)
+            remainLabel.text = setLabel(with: identifier, amount: remain)
             remainLabel.textColor = remain < 0 ? UIColor(named: "deleteTextColor") : UIColor(named: "incomeColor")
         }
-        // TODO: identifier 적용하기!
-        expenseLabel.text = String(expense)
+        expenseLabel.text = setLabel(with: identifier, amount: expense)
+
+    }
+    
+    private func setLabel(with identifier: String?, amount: Double) -> String {
+        let signResult = amount >= 0 ? "" : "-"
+        if let id = identifier {
+            return signResult + id.currencySymbol + abs(amount).getCurrencyFormat(identifier: id)
+        }
+        return amount.insertComma
     }
     
     func hideRemainLabels() {
