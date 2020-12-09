@@ -11,17 +11,17 @@ import UIKit
 class ReportViewController: UIViewController {
     
     weak var travelItemViewModel: HistoryListPresentable?
-
+    
     @IBOutlet weak var summaryLabel: UILabel!
     @IBOutlet weak var reportPieChartView: ReportPieChartView!
     @IBOutlet weak var totalExpenseKRWLabel: UILabel!
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var currencyCodeLabel: UILabel!
     @IBOutlet weak var totalExpenseLabel: UILabel!
+    @IBOutlet weak var expensesStackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        travelItemViewModel?.needFetchItems()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -29,11 +29,17 @@ class ReportViewController: UIViewController {
         reportPieChartView.slices = setupSlices()
         reportPieChartView.animateChart()
         configureLabels()
+
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        configureStackView()
     }
     
     private func configureLabels() {
         guard let travelItemViewModel = self.travelItemViewModel,
-              let identifier = travelItemViewModel.countryIdentifier else { return }
+            let identifier = travelItemViewModel.countryIdentifier else { return }
         flagImageView.image = UIImage(data: travelItemViewModel.flagImage ?? Data())
         currencyCodeLabel.text = travelItemViewModel.currencyCode
         let totalAmount = travelItemViewModel.getTotalExpense()
@@ -56,29 +62,59 @@ class ReportViewController: UIViewController {
         attributedString.addAttribute(NSAttributedString.Key(rawValue: kCTFontAttributeName as String), value: fontSize, range: (message as NSString).range(of: percentageString))
         
         summaryLabel.attributedText = attributedString
+    }
+    
+    private func configureStackView() {
+        expensesStackView.removeAllArrangedSubviews()
         
+        guard let travelItemViewModel = travelItemViewModel,
+            let identifier = travelItemViewModel.countryIdentifier
+            else { return }
         
+        let expenses = travelItemViewModel.histories.filter({ !$0.isIncome })
+        let amounts = travelItemViewModel.getHistoriesDictionary(from: expenses)
+        let currencyCode = travelItemViewModel.currencyCode
+        let totalAmounts = travelItemViewModel.getTotalExpense()
+        let exchangeRate = travelItemViewModel.exchangeRate
+        
+        let sortedAmounts = amounts.sorted { $0.1 > $1.1 }
+        
+        sortedAmounts.forEach { (category, amount) in
+            if let expenseElementView = Bundle.main.loadNibNamed(ExpenseElementView.identifier, owner: nil, options: nil)?.first as? ExpenseElementView {
+
+                let percentage = round((amount / totalAmounts) * 1000 / 10)
+                let expenseString = identifier.currencySymbol + " " + amount.getCurrencyFormat(identifier: identifier)
+                let amountKRW = amount / exchangeRate
+                let expenseKRWString = "₩ " + amountKRW.getCurrencyFormat(identifier: "ko_KR")
+                let elementViewModel = ExpenseElementViewModel(category: category,
+                                                               categoryPercentage: percentage,
+                                                               currencyCode: currencyCode ?? "",
+                                                               expense: expenseString,
+                                                               expenseKRW: expenseKRWString)
+
+                expensesStackView.addArrangedSubview(expenseElementView)
+                
+                expenseElementView.frame.size.width = expensesStackView.frame.width
+                expenseElementView.heightAnchor.constraint(equalTo: expensesStackView.widthAnchor, multiplier: 0.25).isActive = true
+                
+                expenseElementView.configure(with: elementViewModel)
+            }
+        }
     }
     
     private func setupSlices() -> [Slice] {
-        guard let histories = travelItemViewModel?.histories.filter({ !$0.isIncome }) else { return [] }
+        guard let expenses = travelItemViewModel?.histories.filter({ !$0.isIncome }),
+            let amounts = travelItemViewModel?.getHistoriesDictionary(from: expenses),
+            let totalAmount = travelItemViewModel?.getTotalExpense()
+            else { return [] }
         
-        var dictionary: [HistoryCategory: Int] = [:]
-        let totalNum = histories.count
+        let sortedAmounts = amounts.sorted { $0.1 > $1.1 }
         var slices: [Slice] = []
         
-        histories.forEach { history in
-            if let value = dictionary[history.category] {
-                dictionary[history.category] = value + 1
-            } else {
-                dictionary[history.category] = 1
-            }
+        sortedAmounts.forEach { (category, amount) in
+            slices.append(Slice(category: category, percent: CGFloat(Float(amount) / Float(totalAmount))))
         }
         
-        dictionary.forEach { (key, value) in
-            slices.append(Slice(category: key, percent: CGFloat(Float(value) / Float(totalNum))))
-        }
-
         return slices
     }
 }

@@ -22,7 +22,7 @@ class ReportPieChartView: UIView {
     @IBOutlet var superView: UIView!
     
     static let identifier = "ReportPieChartView"
-    static let ANIMATION_DURATION: CGFloat = 1
+    static let ANIMATION_DURATION: CGFloat = 0.6
     
     var slices: [Slice]?
     var sliceIndex: Int = 0
@@ -115,7 +115,7 @@ class ReportPieChartView: UIView {
         addSubview(label)
         
         let roundedPercentage = round(slice.percent * 1000) / 10
-        label.text = String(format: "%.1f%%", roundedPercentage)
+        label.text = roundedPercentage < 5 ? "" : String(format: "%.1f%%", roundedPercentage)
           
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
