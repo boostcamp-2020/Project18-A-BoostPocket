@@ -347,29 +347,14 @@
 			isa = PBXGroup;
 			children = (
 				5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */,
-				5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */,
 				95747A66256FAF6B0065C419 /* TravelDetailTabbarController.swift */,
-				5CF409472575239200351F4B /* MemoEditViewController.swift */,
 				A99E0612257534F10014C29F /* TitleEditViewController.swift */,
-				A99E0638257763B90014C29F /* HistoryProvider.swift */,
-				A99E0645257766F50014C29F /* HistoryItemViewModel.swift */,
-				5C15AB3C2577C32000244C6C /* HistoryCell.swift */,
-				5C15AB3D2577C32000244C6C /* HistoryCell.xib */,
-				5C15AB432577C96E00244C6C /* HistoryListViewController.swift */,
-				5C15AB482577DED700244C6C /* HistoryHeaderCell.swift */,
-				5C15AB4D2577DEE900244C6C /* HistoryHeaderCell.xib */,
-				5C7F83622578B40400A58112 /* DayCell.swift */,
-				954D2CDB257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift */,
-				954D2CDC257E2F4800ECE9D9 /* CategoryCollectionViewCell.xib */,
-				9574ACCE2578B4C10072C578 /* AddHistoryViewController.swift */,
-				9574ACCF2578B4C10072C578 /* AddHistoryViewController.xib */,
-				5C7F8372257902A000A58112 /* HistoryListSectionHeader.swift */,
-				A99E06642578D6480014C29F /* HistoryDetailViewController.swift */,
-				5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */,
-				5C815CC4257E2FB700D9EDF4 /* TotalAmountView.swift */,
-				5CE798B5257F7C1C00AC6C43 /* ReportPieChartView.swift */,
-				5CE798BA257F7C3100AC6C43 /* ReportPieChartView.xib */,
-				5CE798BF257F7CDB00AC6C43 /* ReportViewController.swift */,
+				5CF409472575239200351F4B /* MemoEditViewController.swift */,
+				A99E06A3258060740014C29F /* ProfileScene */,
+				A99E06A5258061870014C29F /* HistoryListScene */,
+				A99E06A6258061E20014C29F /* AddHistoryScene */,
+				A99E06A7258062080014C29F /* HistoryDetailScene */,
+				A99E06A4258060E30014C29F /* ReportScene */,
 			);
 			path = TravelDetailScene;
 			sourceTree = "<group>";
@@ -525,20 +510,107 @@
 			path = HistoryTests;
 			sourceTree = "<group>";
 		};
-		A9BF7A35256D496300496CD8 /* Extensions */ = {
+		A99E06A3258060740014C29F /* ProfileScene */ = {
+			isa = PBXGroup;
+			children = (
+				5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */,
+			);
+			path = ProfileScene;
+			sourceTree = "<group>";
+		};
+		A99E06A4258060E30014C29F /* ReportScene */ = {
+			isa = PBXGroup;
+			children = (
+				5CE798B5257F7C1C00AC6C43 /* ReportPieChartView.swift */,
+				5CE798BA257F7C3100AC6C43 /* ReportPieChartView.xib */,
+				5CE798BF257F7CDB00AC6C43 /* ReportViewController.swift */,
+			);
+			path = ReportScene;
+			sourceTree = "<group>";
+		};
+		A99E06A5258061870014C29F /* HistoryListScene */ = {
+			isa = PBXGroup;
+			children = (
+				A99E06A8258062710014C29F /* View */,
+				A99E0638257763B90014C29F /* HistoryProvider.swift */,
+				A99E0645257766F50014C29F /* HistoryItemViewModel.swift */,
+				5C7F8372257902A000A58112 /* HistoryListSectionHeader.swift */,
+				5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */,
+			);
+			path = HistoryListScene;
+			sourceTree = "<group>";
+		};
+		A99E06A6258061E20014C29F /* AddHistoryScene */ = {
+			isa = PBXGroup;
+			children = (
+				954D2CDB257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift */,
+				954D2CDC257E2F4800ECE9D9 /* CategoryCollectionViewCell.xib */,
+				9574ACCE2578B4C10072C578 /* AddHistoryViewController.swift */,
+				9574ACCF2578B4C10072C578 /* AddHistoryViewController.xib */,
+			);
+			path = AddHistoryScene;
+			sourceTree = "<group>";
+		};
+		A99E06A7258062080014C29F /* HistoryDetailScene */ = {
+			isa = PBXGroup;
+			children = (
+				A99E06642578D6480014C29F /* HistoryDetailViewController.swift */,
+			);
+			path = HistoryDetailScene;
+			sourceTree = "<group>";
+		};
+		A99E06A8258062710014C29F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5C15AB432577C96E00244C6C /* HistoryListViewController.swift */,
+				5C15AB3C2577C32000244C6C /* HistoryCell.swift */,
+				5C15AB3D2577C32000244C6C /* HistoryCell.xib */,
+				5C15AB482577DED700244C6C /* HistoryHeaderCell.swift */,
+				5C15AB4D2577DEE900244C6C /* HistoryHeaderCell.xib */,
+				5C7F83622578B40400A58112 /* DayCell.swift */,
+				5C815CC4257E2FB700D9EDF4 /* TotalAmountView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A99E06AC2580630A0014C29F /* String+ */ = {
 			isa = PBXGroup;
 			children = (
 				A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */,
-				9564EE99257BBE3F00AD85AC /* Character+isOperation.swift */,
 				950BE470257F793200ACC0CA /* String+IsCategory.swift */,
 				950BE472257F7C7B00ACC0CA /* String+IsPlaceholder.swift */,
-				95747A68256FCEEA0065C419 /* Data+ImageData.swift */,
-				A9BF7AA4256F9B8800496CD8 /* Date+ConvertToString.swift */,
-				5CAE96652577FC6300FD7F05 /* Double+Comma.swift */,
-				5C7F83672578C77A00A58112 /* Date+PeriodOfDates.swift */,
-				5C77958C257965B400A685FB /* UIStackView+RemoveAll.swift */,
 				A99E0679257DFC580014C29F /* String+CurrencySymbol.swift */,
+			);
+			path = "String+";
+			sourceTree = "<group>";
+		};
+		A99E06AD258063240014C29F /* Date+ */ = {
+			isa = PBXGroup;
+			children = (
+				A9BF7AA4256F9B8800496CD8 /* Date+ConvertToString.swift */,
+				5C7F83672578C77A00A58112 /* Date+PeriodOfDates.swift */,
+			);
+			path = "Date+";
+			sourceTree = "<group>";
+		};
+		A99E06B42580635A0014C29F /* Double+ */ = {
+			isa = PBXGroup;
+			children = (
+				5CAE96652577FC6300FD7F05 /* Double+Comma.swift */,
 				A99E0681257E02780014C29F /* Double+NumberFormat.swift */,
+			);
+			path = "Double+";
+			sourceTree = "<group>";
+		};
+		A9BF7A35256D496300496CD8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A99E06AC2580630A0014C29F /* String+ */,
+				A99E06AD258063240014C29F /* Date+ */,
+				A99E06B42580635A0014C29F /* Double+ */,
+				9564EE99257BBE3F00AD85AC /* Character+isOperation.swift */,
+				95747A68256FCEEA0065C419 /* Data+ImageData.swift */,
+				5C77958C257965B400A685FB /* UIStackView+RemoveAll.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
