@@ -62,8 +62,6 @@ class TravelProfileViewController: UIViewController {
         progressPercentageLabel.text = String(format: "%d%%", Int(percentage * 100))
         
         progressBarWidthConstraint.constant = percentage > 1 ? progressBarBackground.frame.width : progressBarBackground.frame.width * CGFloat(percentage)
-        view.setNeedsUpdateConstraints()
-        view.layoutIfNeeded()
     }
     
     private func setupTravelProfile() {
