@@ -21,9 +21,11 @@ class HistoryCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func configure(with history: HistoryItemViewModel) {
+    func configure(with history: HistoryItemViewModel, identifier: String) {
+        
         categoryImageView.image = UIImage(named: history.category.imageName)
-        costLabel.text = history.amount.insertComma
+        
+        costLabel.text = identifier.currencySymbol + " " + history.amount.getCurrencyFormat(identifier: identifier)
         costLabel.textColor = history.category.name == "예산 금액 추가" ? UIColor(named: "detailIncomeColor") : UIColor(named: "detailExpenseColor")
         titleLabel.text = history.title
         dateLabel.text = history.date.convertToString(format: .time)

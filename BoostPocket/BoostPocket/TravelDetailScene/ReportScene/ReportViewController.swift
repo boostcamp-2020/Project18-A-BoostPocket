@@ -29,6 +29,11 @@ class ReportViewController: UIViewController {
         reportPieChartView.slices = setupSlices()
         reportPieChartView.animateChart()
         configureLabels()
+
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         configureStackView()
     }
     
@@ -73,10 +78,10 @@ class ReportViewController: UIViewController {
         let exchangeRate = travelItemViewModel.exchangeRate
         
         let sortedAmounts = amounts.sorted { $0.1 > $1.1 }
-        print(sortedAmounts)
         
         sortedAmounts.forEach { (category, amount) in
             if let expenseElementView = Bundle.main.loadNibNamed(ExpenseElementView.identifier, owner: nil, options: nil)?.first as? ExpenseElementView {
+
                 let percentage = round((amount / totalAmounts) * 1000 / 10)
                 let expenseString = identifier.currencySymbol + " " + amount.getCurrencyFormat(identifier: identifier)
                 let amountKRW = amount / exchangeRate
@@ -86,13 +91,13 @@ class ReportViewController: UIViewController {
                                                                currencyCode: currencyCode ?? "",
                                                                expense: expenseString,
                                                                expenseKRW: expenseKRWString)
+
+                expensesStackView.addArrangedSubview(expenseElementView)
+                
+                expenseElementView.frame.size.width = expensesStackView.frame.width
+                expenseElementView.heightAnchor.constraint(equalTo: expensesStackView.widthAnchor, multiplier: 0.25).isActive = true
                 
                 expenseElementView.configure(with: elementViewModel)
-                
-                expensesStackView.addArrangedSubview(expenseElementView)
-                expenseElementView.translatesAutoresizingMaskIntoConstraints = false
-                expenseElementView.widthAnchor.constraint(equalTo: expensesStackView.widthAnchor, multiplier: 1).isActive = true
-                expenseElementView.heightAnchor.constraint(equalTo: expensesStackView.widthAnchor, multiplier: 0.25).isActive = true
             }
         }
     }

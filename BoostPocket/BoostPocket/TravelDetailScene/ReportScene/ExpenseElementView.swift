@@ -25,12 +25,16 @@ class ExpenseElementView: UIView {
     @IBOutlet weak var expenseKRWLabel: UILabel!
     @IBOutlet weak var currencyCodeLabel: UILabel!
     @IBOutlet weak var expenseLabel: UILabel!
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        categoryBackgroundView.layer.cornerRadius = categoryBackgroundView.frame.width * 0.5
+    }
     
     func configure(with expenseElement: ExpenseElementViewModel) {
         let categoryColor = UIColor(named: expenseElement.category.imageName + "-color") ?? UIColor.systemBlue
         
         categoryBackgroundView.backgroundColor = categoryColor
-        categoryBackgroundView.layer.cornerRadius = categoryBackgroundView.frame.width * 0.5
         
         categoryImageView.image = UIImage(named: expenseElement.category.imageName + "-report")
         

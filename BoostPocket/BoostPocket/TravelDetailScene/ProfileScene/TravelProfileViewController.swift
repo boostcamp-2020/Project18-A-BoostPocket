@@ -33,7 +33,6 @@ class TravelProfileViewController: UIViewController {
     @IBOutlet weak var remainLabel: UILabel!
     @IBOutlet weak var currencyCodeLabel: UILabel!
     
-    
     private var imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {

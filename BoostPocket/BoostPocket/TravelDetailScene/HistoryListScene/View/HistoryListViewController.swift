@@ -87,10 +87,12 @@ class HistoryListViewController: UIViewController {
     
     private func configureDatasource() -> DataSource {
         let datasource = DataSource(tableView: historyListTableView) { (tableview, indexPath, item) -> UITableViewCell? in
-            guard let cell = tableview.dequeueReusableCell(withIdentifier: HistoryCell.identifier, for: indexPath) as? HistoryCell else { return UITableViewCell() }
+            guard let cell = tableview.dequeueReusableCell(withIdentifier: HistoryCell.identifier, for: indexPath) as? HistoryCell,
+                let identifier = self.travelItemViewModel?.countryIdentifier
+            else { return UITableViewCell() }
             
             cell.selectionStyle = .none
-            cell.configure(with: item)
+            cell.configure(with: item, identifier: identifier)
             return cell
         }
         
