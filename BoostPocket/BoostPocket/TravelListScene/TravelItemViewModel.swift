@@ -9,7 +9,6 @@
 import Foundation
 
 protocol TravelItemPresentable: AnyObject {
-    var histories: [HistoryItemViewModel] { get }
     var id: UUID? { get }
     var title: String? { get }
     var memo: String? { get }
@@ -22,7 +21,10 @@ protocol TravelItemPresentable: AnyObject {
     var flagImage: Data? { get }
     var currencyCode: String? { get }
     var countryIdentifier: String? { get }
-    func getPercentage() -> Float
+    var expensePercentage: Float { get }
+    var mostFrequentCategory: (HistoryCategory, Double) { get }
+    func getTotalIncome() -> Double
+    func getTotalExpense() -> Double
 }
 
 class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
@@ -43,7 +45,23 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         }
     }
     var didFetch: (([HistoryItemViewModel]) -> Void)?
-    
+    var expensePercentage: Float {
+        let expenses = getTotalExpense()
+        let incomes = getTotalIncome()
+        return incomes == 0 ? 0 : Float(expenses / incomes)
+    }
+    var mostFrequentCategory: (HistoryCategory, Double) {
+        needFetchItems()
+        var counts: [HistoryCategory: Int] = [:]
+        let expenses = histories.filter { !$0.isIncome }
+        expenses.forEach { counts[$0.category] = (counts[$0.category] ?? 0) + 1}
+        if let (category, count) = counts.max(by: {$0.1 < $1.1}) {
+            let percentage = Double(count) / Double(expenses.count)
+            return (category, round(percentage * 1000) / 10)
+        }
+        return (HistoryCategory.etc, 0)
+    }
+
     var id: UUID?
     var title: String?
     var memo: String?
@@ -74,13 +92,14 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         self.historyProvider = historyProvider
     }
     
-    func getPercentage() -> Float {
-        self.needFetchItems()
-        
-        let expenses = self.histories.filter({ !$0.isIncome }).reduce(0) { $0 + $1.amount }
-        let allAmount = self.histories.reduce(0) { $0 + $1.amount }
-
-        return allAmount == 0 ? 0 : Float(expenses / allAmount)
+    func getTotalIncome() -> Double {
+        needFetchItems()
+        return histories.filter({ $0.isIncome }).reduce(0) { $0 + $1.amount }
+    }
+    
+    func getTotalExpense() -> Double {
+        needFetchItems()
+        return histories.filter({ !$0.isIncome }).reduce(0) { $0 + $1.amount }
     }
 }
 
