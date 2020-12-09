@@ -55,15 +55,15 @@ class TravelProfileViewController: UIViewController {
         setupTravelProfile()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         guard let travelItemViewModel = travelItemViewModel else { return }
         let percentage = travelItemViewModel.expensePercentage
         progressPercentageLabel.text = String(format: "%d%%", Int(percentage * 100))
         
         progressBarWidthConstraint.constant = percentage > 1 ? progressBarBackground.frame.width : progressBarBackground.frame.width * CGFloat(percentage)
     }
-    
+
     private func setupTravelProfile() {
         guard let travelItemViewModel = travelItemViewModel else { return }
         travelTitleLabel.text = travelItemViewModel.title
