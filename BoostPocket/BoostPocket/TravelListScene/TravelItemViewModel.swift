@@ -25,6 +25,7 @@ protocol TravelItemPresentable: AnyObject {
     var mostFrequentCategory: (HistoryCategory, Double) { get }
     func getTotalIncome() -> Double
     func getTotalExpense() -> Double
+    func getHistoriesDictionary(from histories: [HistoryItemViewModel]) -> [HistoryCategory: Double]
 }
 
 class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
@@ -37,6 +38,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     }
     
     private weak var historyProvider: HistoryProvidable?
+    
     var histories: [HistoryItemViewModel] = [] {
         willSet {
             DispatchQueue.main.async { [weak self] in
@@ -44,21 +46,26 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
             }
         }
     }
+    
     var didFetch: (([HistoryItemViewModel]) -> Void)?
+    
     var expensePercentage: Float {
         let expenses = getTotalExpense()
         let incomes = getTotalIncome()
         return incomes == 0 ? 0 : Float(expenses / incomes)
     }
+    
     var mostFrequentCategory: (HistoryCategory, Double) {
         needFetchItems()
-        var counts: [HistoryCategory: Int] = [:]
+        
         let expenses = histories.filter { !$0.isIncome }
-        expenses.forEach { counts[$0.category] = (counts[$0.category] ?? 0) + 1}
-        if let (category, count) = counts.max(by: {$0.1 < $1.1}) {
-            let percentage = Double(count) / Double(expenses.count)
+        let amounts = getHistoriesDictionary(from: expenses)
+        
+        if let (category, amount) = amounts.max(by: {$0.1 < $1.1}) {
+            let percentage = amount / getTotalExpense()
             return (category, round(percentage * 1000) / 10)
         }
+        
         return (HistoryCategory.etc, 0)
     }
 
@@ -100,6 +107,13 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     func getTotalExpense() -> Double {
         needFetchItems()
         return histories.filter({ !$0.isIncome }).reduce(0) { $0 + $1.amount }
+    }
+    
+    func getHistoriesDictionary(from histories: [HistoryItemViewModel]) -> [HistoryCategory: Double] {
+        var counts: [HistoryCategory: Double] = [:]
+        histories.forEach { counts[$0.category] = (counts[$0.category] ?? 0) + $0.amount }
+
+        return counts
     }
 }
 

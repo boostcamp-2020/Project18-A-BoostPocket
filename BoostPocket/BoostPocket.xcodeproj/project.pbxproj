@@ -78,6 +78,9 @@
 		95A42E8625664DC40007810C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8525664DC40007810C /* Assets.xcassets */; };
 		95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8725664DC40007810C /* LaunchScreen.storyboard */; };
 		95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E9325664DC40007810C /* BoostPocketTests.swift */; };
+		95F8A29C2580C9B800A33D3E /* ExpenseElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */; };
+		95F8A29E2580C9CE00A33D3E /* ExpenseElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */; };
+		95F8A2A02580D5AE00A33D3E /* Double+getPercentage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F8A29F2580D5AE00A33D3E /* Double+getPercentage.swift */; };
 		A99E0613257534F10014C29F /* TitleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0612257534F10014C29F /* TitleEditViewController.swift */; };
 		A99E062F257762520014C29F /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E062D257762520014C29F /* History+CoreDataClass.swift */; };
 		A99E0630257762520014C29F /* History+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E062E257762520014C29F /* History+CoreDataProperties.swift */; };
@@ -222,6 +225,9 @@
 		95A42E8F25664DC40007810C /* BoostPocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoostPocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A42E9325664DC40007810C /* BoostPocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostPocketTests.swift; sourceTree = "<group>"; };
 		95A42E9525664DC40007810C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseElementView.swift; sourceTree = "<group>"; };
+		95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpenseElementView.xib; sourceTree = "<group>"; };
+		95F8A29F2580D5AE00A33D3E /* Double+getPercentage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+getPercentage.swift"; sourceTree = "<group>"; };
 		A99E0612257534F10014C29F /* TitleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleEditViewController.swift; sourceTree = "<group>"; };
 		A99E062D257762520014C29F /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A99E062E257762520014C29F /* History+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -524,6 +530,8 @@
 				5CE798B5257F7C1C00AC6C43 /* ReportPieChartView.swift */,
 				5CE798BA257F7C3100AC6C43 /* ReportPieChartView.xib */,
 				5CE798BF257F7CDB00AC6C43 /* ReportViewController.swift */,
+				95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */,
+				95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */,
 			);
 			path = ReportScene;
 			sourceTree = "<group>";
@@ -598,6 +606,7 @@
 			children = (
 				5CAE96652577FC6300FD7F05 /* Double+Comma.swift */,
 				A99E0681257E02780014C29F /* Double+NumberFormat.swift */,
+				95F8A29F2580D5AE00A33D3E /* Double+getPercentage.swift */,
 			);
 			path = "Double+";
 			sourceTree = "<group>";
@@ -786,6 +795,7 @@
 				5C15AB3F2577C32000244C6C /* HistoryCell.xib in Resources */,
 				5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */,
 				9574ACD12578B4C10072C578 /* AddHistoryViewController.xib in Resources */,
+				95F8A29E2580C9CE00A33D3E /* ExpenseElementView.xib in Resources */,
 				5CE798BB257F7C3100AC6C43 /* ReportPieChartView.xib in Resources */,
 				95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */,
 				5C797494256FD263007CB1ED /* TravelHeaderCell.xib in Resources */,
@@ -919,8 +929,10 @@
 				9574ACD02578B4C10072C578 /* AddHistoryViewController.swift in Sources */,
 				9579CBB7256E46A900E74A61 /* DataModelInfo.swift in Sources */,
 				5C77958D257965B400A685FB /* UIStackView+RemoveAll.swift in Sources */,
+				95F8A2A02580D5AE00A33D3E /* Double+getPercentage.swift in Sources */,
 				5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */,
 				9564EE9A257BBE3F00AD85AC /* Character+isOperation.swift in Sources */,
+				95F8A29C2580C9B800A33D3E /* ExpenseElementView.swift in Sources */,
 				5CAE96662577FC6300FD7F05 /* Double+Comma.swift in Sources */,
 				5C8C9196256E8436008C3919 /* TravelItemViewModel.swift in Sources */,
 				A9BF7AAB256F9CBF00496CD8 /* PaddedLabel.swift in Sources */,
