@@ -28,7 +28,6 @@ class TravelListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // self.travelListCollectionView.dataSource = dataSource
         configureCollectionView()
     }
     
@@ -36,7 +35,6 @@ class TravelListViewController: UIViewController {
         super.viewWillAppear(animated)
         travelListViewModel?.needFetchItems()
         travelListViewModel?.didFetch = { [weak self] fetchedTravels in
-            self?.travelListCollectionView.reloadData() // TODO: - reload 없애보기
             self?.applySnapShot(with: fetchedTravels)
         }
     }
@@ -47,6 +45,7 @@ class TravelListViewController: UIViewController {
         flowLayout.minimumLineSpacing = 15
         travelListCollectionView.setCollectionViewLayout(flowLayout, animated: true)
         
+        travelListCollectionView.dataSource = dataSource
         travelListCollectionView.delegate = self
         travelListCollectionView.register(TravelCell.getNib(), forCellWithReuseIdentifier: TravelCell.identifier)
         travelListCollectionView.register(TravelHeaderCell.getNib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TravelHeaderCell.identifier)
@@ -63,7 +62,7 @@ class TravelListViewController: UIViewController {
             guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TravelHeaderCell.identifier, for: indexPath) as? TravelHeaderCell else { return UICollectionReusableView() }
             
             let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
-            sectionHeader.configure(with: section, numberOfTravel: self.travelListViewModel?.travels.count ?? 0)
+            sectionHeader.configure(with: section.travelSectionCase, numberOfTravel: section.numberOfTravels)
             
             return sectionHeader
         }
@@ -73,16 +72,41 @@ class TravelListViewController: UIViewController {
     
     func applySnapShot(with travels: [TravelItemViewModel]) {
         var snapShot = SnapShot()
-        snapShot.appendSections([.current, .past, .upcoming])
+
+        let sectionCaseCounts = getTravelSectionNumbers()
+        
+        snapShot.appendSections([TravelSection(travelSectionCase: .current, numberOfTravels: sectionCaseCounts[.current] ?? 0),
+                                 TravelSection(travelSectionCase: .past, numberOfTravels: sectionCaseCounts[.past] ?? 0),
+                                 TravelSection(travelSectionCase: .upcoming, numberOfTravels: sectionCaseCounts[.upcoming] ?? 0)])
+        
         travels.forEach { travel in
-            let section = getTravelSection(with: travel)
-            snapShot.appendItems([travel], toSection: section)
+            let section = getTravelSectionCase(with: travel)
+            snapShot.appendItems([travel], toSection: TravelSection(travelSectionCase: section, numberOfTravels: sectionCaseCounts[section] ?? 0))
         }
         
         dataSource.apply(snapShot, animatingDifferences: true)
     }
     
-    func getTravelSection(with travel: TravelItemViewModel) -> TravelSection {
+    private func getTravelSectionNumbers() -> [TravelSectionCase: Int] {
+        guard let travels = travelListViewModel?.travels else { return [:] }
+        
+        var counts: [TravelSectionCase: Int] = [ .current: 0,
+                                                 .past: 0,
+                                                 .upcoming: 0]
+        
+        travels.forEach { travel in
+            let travelSectionCase = getTravelSectionCase(with: travel)
+            counts[travelSectionCase] = (counts[travelSectionCase] ?? 0) + 1
+        }
+        
+        if let past = counts[.past], let upcoming = counts[.upcoming] {
+            counts[.current] = (counts[.current] ?? 0) + past + upcoming
+        }
+        
+        return counts
+    }
+    
+    private func getTravelSectionCase(with travel: TravelItemViewModel) -> TravelSectionCase {
         let today = Date()
         guard let startDate = travel.startDate, let endDate = travel.endDate else { return .upcoming }
         
@@ -185,7 +209,7 @@ extension TravelListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
         let section = dataSource.snapshot().sectionIdentifiers[section]
-        if section == .current {
+        if section.travelSectionCase == .current {
             return CGSize(width: self.view.bounds.width, height: 100)
         }
         return CGSize(width: self.view.bounds.width, height: 50)

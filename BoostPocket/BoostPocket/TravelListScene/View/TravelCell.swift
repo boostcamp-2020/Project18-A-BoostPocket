@@ -19,14 +19,19 @@ class TravelCell: UICollectionViewCell {
     @IBOutlet weak var spentMoneyLabel: UILabel!
     
     func configure(with travel: TravelItemViewModel) {
-        guard let coverImage = travel.coverImage, let flagImage = travel.flagImage else { return }
+        guard let coverImage = travel.coverImage,
+            let flagImage = travel.flagImage,
+            let identifier = travel.countryIdentifier
+            else { return }
         
         travelTitleLabel.text = travel.title
         configureCoverImage(coverImage: coverImage)
         configureDate(startDate: travel.startDate, endDate: travel.endDate)
         flagImageView.image = UIImage(data: flagImage)
-        // TODO : 총 사용 금액으로 설정하기
-        spentMoneyLabel.text = "₩ \(Int(travel.budget))"
+        
+        let totalExpenseKRW = travel.getTotalExpense() / travel.exchangeRate
+        let totalExpenseKRWString = totalExpenseKRW.getCurrencyFormat(identifier: identifier)
+        spentMoneyLabel.text = "₩ " + totalExpenseKRWString
     }
     
     private func configureCoverImage(coverImage: Data) {

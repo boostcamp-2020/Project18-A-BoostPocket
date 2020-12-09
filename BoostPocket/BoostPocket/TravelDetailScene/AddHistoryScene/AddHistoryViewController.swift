@@ -369,12 +369,13 @@ extension AddHistoryViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell else {
-            return UICollectionViewCell()
-        }
+        guard let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier,
+                                                                    for: indexPath) as? CategoryCollectionViewCell
+            else {
+                return UICollectionViewCell()
+            }
         
         cell.configure(with: categories[indexPath.row], isSelected: categories[indexPath.row] == self.category)
-
         return cell
     }
     
