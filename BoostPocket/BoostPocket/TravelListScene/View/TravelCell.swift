@@ -19,10 +19,7 @@ class TravelCell: UICollectionViewCell {
     @IBOutlet weak var spentMoneyLabel: UILabel!
     
     func configure(with travel: TravelItemViewModel) {
-        guard let coverImage = travel.coverImage,
-            let flagImage = travel.flagImage,
-            let identifier = travel.countryIdentifier
-            else { return }
+        guard let coverImage = travel.coverImage, let flagImage = travel.flagImage else { return }
         
         travelTitleLabel.text = travel.title
         configureCoverImage(coverImage: coverImage)
@@ -30,7 +27,7 @@ class TravelCell: UICollectionViewCell {
         flagImageView.image = UIImage(data: flagImage)
         
         let totalExpenseKRW = travel.getTotalExpense() / travel.exchangeRate
-        let totalExpenseKRWString = totalExpenseKRW.getCurrencyFormat(identifier: identifier)
+        let totalExpenseKRWString = totalExpenseKRW.getCurrencyFormat(identifier: "ko_KR")
         spentMoneyLabel.text = "₩ " + totalExpenseKRWString
     }
     
