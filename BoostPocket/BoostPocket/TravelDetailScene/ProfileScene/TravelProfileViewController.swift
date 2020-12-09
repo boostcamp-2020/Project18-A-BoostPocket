@@ -63,7 +63,7 @@ class TravelProfileViewController: UIViewController {
         self.endDatePicker.date = travelItemViewModel?.endDate ?? Date()
         self.coverImage.image = UIImage(data: travelItemViewModel?.coverImage ?? Data())
         
-        let percentage = (travelItemViewModel?.getPercentage() ?? 0)
+        let percentage = travelItemViewModel?.expensePercentage ?? 0
         self.progressPercentageLabel.text = String(format: "%d%%", Int(percentage * 100))
         self.progressBarWidthConstraint.constant = progressBarBackground.frame.width * CGFloat(percentage)
     }
