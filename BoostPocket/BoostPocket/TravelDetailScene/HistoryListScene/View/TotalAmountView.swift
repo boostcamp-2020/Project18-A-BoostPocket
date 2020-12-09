@@ -17,6 +17,8 @@ class TotalAmountView: UIView {
     @IBOutlet weak var divider: UIView!
     @IBOutlet weak var expenseTitleLabelHalfCenterX: NSLayoutConstraint!
     @IBOutlet weak var expenseTitleLabelCenterX: NSLayoutConstraint!
+    @IBOutlet weak var expenseLabelHalfWidth: NSLayoutConstraint!
+    @IBOutlet weak var expenseLabelFullWidth: NSLayoutConstraint!
     
     func configure(withExpense expense: Double, remain: Double, identifier: String?) {
         if remain + expense == 0 {
@@ -45,6 +47,8 @@ class TotalAmountView: UIView {
 
         expenseTitleLabelHalfCenterX.priority = UILayoutPriority(750)
         expenseTitleLabelCenterX.priority = UILayoutPriority(1000)
+        expenseLabelHalfWidth.priority = UILayoutPriority(750)
+        expenseLabelFullWidth.priority = UILayoutPriority(1000)
     }
     
     func showRemainLabels() {
@@ -54,5 +58,7 @@ class TotalAmountView: UIView {
         
         expenseTitleLabelCenterX.priority = UILayoutPriority(750)
         expenseTitleLabelHalfCenterX.priority = UILayoutPriority(1000)
+        expenseLabelFullWidth.priority = UILayoutPriority(750)
+        expenseLabelHalfWidth.priority = UILayoutPriority(1000)
     }
 }

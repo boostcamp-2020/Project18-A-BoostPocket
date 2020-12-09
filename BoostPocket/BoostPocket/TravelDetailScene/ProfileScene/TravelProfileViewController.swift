@@ -28,6 +28,11 @@ class TravelProfileViewController: UIViewController {
     @IBOutlet weak var progressBarWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var progressBarBackground: UIView!
     @IBOutlet weak var progressPercentageLabel: UILabel!
+    @IBOutlet weak var expenseLabel: UILabel!
+    @IBOutlet weak var budgetLabel: UILabel!
+    @IBOutlet weak var remainLabel: UILabel!
+    @IBOutlet weak var currencyCodeLabel: UILabel!
+    
     
     private var imagePicker = UIImagePickerController()
     
@@ -50,22 +55,41 @@ class TravelProfileViewController: UIViewController {
         setupTravelProfile()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard let travelItemViewModel = travelItemViewModel else { return }
+        let percentage = travelItemViewModel.expensePercentage
+        progressPercentageLabel.text = String(format: "%d%%", Int(percentage * 100))
+        
+        progressBarWidthConstraint.constant = percentage > 1 ? progressBarBackground.frame.width : progressBarBackground.frame.width * CGFloat(percentage)
+        view.setNeedsUpdateConstraints()
+        view.layoutIfNeeded()
+    }
+    
     private func setupTravelProfile() {
-        self.travelTitleLabel.text = travelItemViewModel?.title
-        if let memo = travelItemViewModel?.memo, !memo.isEmpty {
+        guard let travelItemViewModel = travelItemViewModel else { return }
+        travelTitleLabel.text = travelItemViewModel.title
+        if let memo = travelItemViewModel.memo, !memo.isEmpty {
             travelMemoLabel.text = memo
         } else {
             travelMemoLabel.text = "여행을 위한 메모를 입력해보세요"
         }
-        self.countryNameLabel.text = travelItemViewModel?.countryName
-        self.flagImage.image = UIImage(data: travelItemViewModel?.flagImage ?? Data())
-        self.startDatePicker.date = travelItemViewModel?.startDate ?? Date()
-        self.endDatePicker.date = travelItemViewModel?.endDate ?? Date()
-        self.coverImage.image = UIImage(data: travelItemViewModel?.coverImage ?? Data())
+        countryNameLabel.text = travelItemViewModel.countryName
+        flagImage.image = UIImage(data: travelItemViewModel.flagImage ?? Data())
+        startDatePicker.date = travelItemViewModel.startDate ?? Date()
+        endDatePicker.date = travelItemViewModel.endDate ?? Date()
+        coverImage.image = UIImage(data: travelItemViewModel.coverImage ?? Data())
         
-        let percentage = travelItemViewModel?.expensePercentage ?? 0
-        self.progressPercentageLabel.text = String(format: "%d%%", Int(percentage * 100))
-        self.progressBarWidthConstraint.constant = progressBarBackground.frame.width * CGFloat(percentage)
+        guard let id = travelItemViewModel.countryIdentifier else { return }
+        let income = travelItemViewModel.getTotalIncome()
+        let expense = travelItemViewModel.getTotalExpense()
+        
+        currencyCodeLabel.text = travelItemViewModel.currencyCode
+        budgetLabel.text = id.currencySymbol + " " + income.getCurrencyFormat(identifier: id)
+        expenseLabel.text = id.currencySymbol + " " + expense.getCurrencyFormat(identifier: id) + " 사용"
+        let remain = income - expense
+        remainLabel.text = remain < 0 ? id.currencySymbol + " " + (-remain).getCurrencyFormat(identifier: id) + " 초과" :
+            id.currencySymbol + " " + remain.getCurrencyFormat(identifier: id) + " 남음"
     }
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
