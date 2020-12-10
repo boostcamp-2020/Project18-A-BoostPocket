@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,13 +23,13 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="69T-Nt-sjr">
                         <rect key="frame" x="117.5" y="34" width="40.5" height="17"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" name="basicBlackTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="traveling date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="1sc-j4-zb5">
                         <rect key="frame" x="7" y="53" width="261" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" name="basicBlackTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="woF-dC-F93" customClass="PaddedLabel" customModule="BoostPocket" customModuleProvider="target">
@@ -56,6 +57,8 @@
             <constraints>
                 <constraint firstItem="69T-Nt-sjr" firstAttribute="centerY" secondItem="Gmy-dG-DoZ" secondAttribute="bottom" multiplier="1/4" id="12p-AP-dcN"/>
                 <constraint firstItem="BvG-Ku-dp3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1sc-j4-zb5" secondAttribute="bottom" constant="2" id="15i-J4-rW8"/>
+                <constraint firstItem="woF-dC-F93" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="1bH-mX-zDM"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="woF-dC-F93" secondAttribute="trailing" constant="5" id="35I-Pg-xCr"/>
                 <constraint firstAttribute="bottom" secondItem="Gmy-dG-DoZ" secondAttribute="bottom" id="BUB-N8-k3O"/>
                 <constraint firstAttribute="trailing" secondItem="Gmy-dG-DoZ" secondAttribute="trailing" id="FQx-sK-VBG"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="woF-dC-F93" secondAttribute="bottom" constant="5" id="JEp-k9-fdo"/>
@@ -92,4 +95,9 @@
             <point key="canvasLocation" x="496.37681159420293" y="45.535714285714285"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <namedColor name="basicBlackTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+    </resources>
 </document>

@@ -14,13 +14,15 @@ struct CountryInfo {
     private(set) var flagImage: Data
     private(set) var currencyCode: String
     private(set) var exchangeRate: Double
+    private(set) var identifier: String
     
-    init(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String ) {
+    init(name: String, lastUpdated: Date, flagImage: Data, exchangeRate: Double, currencyCode: String, identifier: String) {
         self.name = name
         self.lastUpdated = lastUpdated
         self.flagImage = flagImage
         self.currencyCode = currencyCode
         self.exchangeRate = exchangeRate
+        self.identifier = identifier
     }
 }
 
@@ -48,7 +50,7 @@ struct TravelInfo {
     }
 }
 
-enum HistoryCategory: Int16 {
+enum HistoryCategory: Int16, CaseIterable {
     case income = 0
     case food
     case shopping

@@ -12,25 +12,12 @@ import NetworkManager
 
 class HistoryViewModelTests: XCTestCase {
     
-//    let id = UUID()
-//    let title = "test title"
-//    let memo = "memo"
-//    let budget = 3.29
-//    let coverImage = Data()
-//    let startDate = Date()
-//    let endDate = Date()
-//    let exchangeRate = 12.1
-
-//    let lastUpdated = "2019-08-23".convertToDate()
-//    let flagImage = Data()
-//    let currencyCode = "KRW"
-    
     let countryName = "대한민국"
     let id = UUID()
     let isIncome = false
     let title = "테스트지출"
     let memo = "테스트메모"
-    let date = "2020-12-21-12-01-33".convertToDate()
+    let date = "2020-12-21".convertToDate()
     let category = HistoryCategory.shopping
     let amount = Double()
     let image = Data()

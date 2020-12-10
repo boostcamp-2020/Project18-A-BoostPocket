@@ -25,8 +25,10 @@ class TravelCell: UICollectionViewCell {
         configureCoverImage(coverImage: coverImage)
         configureDate(startDate: travel.startDate, endDate: travel.endDate)
         flagImageView.image = UIImage(data: flagImage)
-        // TODO : 총 사용 금액으로 설정하기
-        spentMoneyLabel.text = "₩ \(Int(travel.budget))"
+        
+        let totalExpenseKRW = travel.getTotalExpense() / travel.exchangeRate
+        let totalExpenseKRWString = totalExpenseKRW.getCurrencyFormat(identifier: "ko_KR")
+        spentMoneyLabel.text = "₩ " + totalExpenseKRWString
     }
     
     private func configureCoverImage(coverImage: Data) {

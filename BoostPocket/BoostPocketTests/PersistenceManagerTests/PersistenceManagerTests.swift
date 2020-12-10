@@ -26,16 +26,17 @@ class PersistenceManagerTests: XCTestCase {
     let budget = Double()
     let exchangeRate = 1.5
     let countryName = "대한민국"
-    let lastUpdated = "2019-08-23-12-01-33".convertToDate()
+    let lastUpdated = "2019-08-23".convertToDate()
     let flagImage = Data()
     let currencyCode = "KRW"
     let historyId = UUID()
+    let identifier = "ko_KR"
     
     override func setUpWithError() throws {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
         let dataLoader = DataLoader(session: session)
         persistenceManagerStub = PersistenceManagerStub(dataLoader: dataLoader)
-        countryInfo = CountryInfo(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode)
+        countryInfo = CountryInfo(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode, identifier: identifier)
         travelInfo = TravelInfo(countryName: countryName, id: id, title: countryName, memo: memo, startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate)
         historyInfo = HistoryInfo(travelId: id, id: historyId, isIncome: false, title: "식당", memo: nil, date: Date(), category: .food, amount: Double(), image: nil, isPrepare: nil, isCard: nil)
         
@@ -176,9 +177,9 @@ class PersistenceManagerTests: XCTestCase {
         
         wait(for: [countryExpectation, travelExpectation], timeout: 5.0)
         
-        let newLastUpdated = "2020-12-25-12-01-00".convertToDate()
+        let newLastUpdated = "2020-12-25".convertToDate()
         let newExchagneRate = 12.0
-        countryInfo = CountryInfo(name: countryName, lastUpdated: newLastUpdated, flagImage: flagImage, exchangeRate: newExchagneRate, currencyCode: currencyCode)
+        countryInfo = CountryInfo(name: countryName, lastUpdated: newLastUpdated, flagImage: flagImage, exchangeRate: newExchagneRate, currencyCode: currencyCode, identifier: identifier)
         
         travelInfo = TravelInfo(countryName: countryName, id: id, title: countryName, memo: "updated memo", startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate)
         

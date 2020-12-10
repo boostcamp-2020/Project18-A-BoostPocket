@@ -1,20 +1,33 @@
 PODS:
   - FlagKit (2.2)
   - SwiftLint (0.41.0)
+  - Toaster (2.3.0)
 
 DEPENDENCIES:
   - FlagKit
   - SwiftLint
+  - Toaster (from `https://github.com/devxoul/Toaster.git`, branch `master`)
 
 SPEC REPOS:
   trunk:
     - FlagKit
     - SwiftLint
 
+EXTERNAL SOURCES:
+  Toaster:
+    :branch: master
+    :git: https://github.com/devxoul/Toaster.git
+
+CHECKOUT OPTIONS:
+  Toaster:
+    :commit: 0fca711c4083cb921cc0893a7a47836358ebf96b
+    :git: https://github.com/devxoul/Toaster.git
+
 SPEC CHECKSUMS:
   FlagKit: eca7dc89064b0c986302ba9acefad1bf80a435b1
   SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
+  Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
 
-PODFILE CHECKSUM: a503e1daa3c1fd05bce98048136b5e53d623af96
+PODFILE CHECKSUM: 6cc7f66c6b8ad0a94cbe8ad06e2be83f241964d8
 
 COCOAPODS: 1.9.3
