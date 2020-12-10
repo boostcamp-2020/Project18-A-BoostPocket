@@ -28,6 +28,7 @@ class HistoryListViewController: UIViewController {
     @IBOutlet weak var addIncomeButton: UIButton!
     @IBOutlet weak var floatingStackView: UIStackView!
     @IBOutlet weak var totalAmountView: TotalAmountView!
+    @IBOutlet weak var historyGuideLabel: UILabel!
     
     lazy var buttons = [self.addExpenseButton, self.addIncomeButton]
     lazy var floatingDimView: UIView = {
@@ -68,6 +69,10 @@ class HistoryListViewController: UIViewController {
         configureSegmentedControl()
         configureFloatingActionButton()
         setTotalAmountView()
+        
+        let hasHistory = travelItemViewModel?.histories.count != 0 // 기록이 있으면 true
+        historyGuideLabel.isHidden = hasHistory
+        historyGuideLabel.text = "기록이 없습니다 🙂"
     }
     
     private func configureSegmentedControl() {
@@ -126,11 +131,25 @@ class HistoryListViewController: UIViewController {
     private func configureTravelItemViewModel() {
         travelItemViewModel?.didFetch = { [weak self] _ in
             guard let self = self else { return }
-            self.applySnapshot(with: self.historyFilter.filterHistories(with: self.travelItemViewModel?.histories))
+            
+            let filteredHistory = self.historyFilter.filterHistories(with: self.travelItemViewModel?.histories)
+            self.configureHistoryGuideLabel(filteredHistory: filteredHistory)
+            self.applySnapshot(with: filteredHistory)
             self.setTotalAmountView()
         }
         
         travelItemViewModel?.needFetchItems()
+    }
+    
+    private func configureHistoryGuideLabel(filteredHistory: [HistoryItemViewModel]) {
+        let hasHistory = filteredHistory.count != 0
+        self.historyGuideLabel.isHidden = hasHistory
+        
+        if let selectedDate = self.historyFilter.selectedDate {
+            self.historyGuideLabel.text = selectedDate.convertToString(format: .korean) + "에\n기록이 없습니다 🙂"
+        } else {
+            self.historyGuideLabel.text = "기록이 없습니다 🙂"
+        }
     }
     
     // MARK: - Floating Action Button
@@ -285,7 +304,11 @@ class HistoryListViewController: UIViewController {
         sender.configureSelectedButton()
         historyFilter.isPrepareOnly = sender == prepareButton ? true : false
         historyFilter.selectedDate = nil
-        applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
+        
+        let filteredHistory = historyFilter.filterHistories(with: travelItemViewModel?.histories)
+        configureHistoryGuideLabel(filteredHistory: filteredHistory)
+        applySnapshot(with: filteredHistory)
+        
         setTotalAmountView()
     }
 }
@@ -389,7 +412,9 @@ extension HistoryListViewController: DayButtonDelegate {
                 historyFilter.isPrepareOnly = nil
             }
         }
-        applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
+        let filteredHistory = historyFilter.filterHistories(with: travelItemViewModel?.histories)
+        configureHistoryGuideLabel(filteredHistory: filteredHistory)
+        applySnapshot(with: filteredHistory)
         setTotalAmountView()
     }
 }
