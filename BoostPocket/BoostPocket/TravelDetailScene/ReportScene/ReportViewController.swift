@@ -19,6 +19,7 @@ class ReportViewController: UIViewController {
     @IBOutlet weak var currencyCodeLabel: UILabel!
     @IBOutlet weak var totalExpenseLabel: UILabel!
     @IBOutlet weak var expensesStackView: UIStackView!
+    @IBOutlet weak var informationView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,6 @@ class ReportViewController: UIViewController {
         reportPieChartView.slices = setupSlices()
         reportPieChartView.animateChart()
         configureLabels()
-
     }
     
     override func viewWillLayoutSubviews() {
@@ -47,21 +47,31 @@ class ReportViewController: UIViewController {
         
         totalExpenseKRWLabel.text = "KRW ₩ \(totalAmountKRW.getCurrencyFormat(identifier: "ko_KR"))"
         totalExpenseLabel.text = identifier.currencySymbol + " " + totalAmount.getCurrencyFormat(identifier: identifier)
-        let mostFrequentItem = travelItemViewModel.mostFrequentCategory
-        let categoryString = mostFrequentItem.0.name
-        let percentageString = String(format: "%.1f%%", mostFrequentItem.1)
-        let message = categoryString + "에 가장 많은 소비를 했습니다.\n총 지출 금액의 " + percentageString + "를 차지합니다"
         
-        let attributedString = NSMutableAttributedString(string: message)
-        let fontSize = UIFont.boldSystemFont(ofSize: 25)
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: mostFrequentItem.0.imageName + "-color") ?? UIColor.systemBlue, range: (message as NSString).range(of: categoryString))
-        
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "mainColor") ?? UIColor.systemBlue, range: (message as NSString).range(of: percentageString))
-        
-        attributedString.addAttribute(NSAttributedString.Key(rawValue: kCTFontAttributeName as String), value: fontSize, range: (message as NSString).range(of: categoryString))
-        attributedString.addAttribute(NSAttributedString.Key(rawValue: kCTFontAttributeName as String), value: fontSize, range: (message as NSString).range(of: percentageString))
-        
-        summaryLabel.attributedText = attributedString
+        if totalAmount > 0 {
+            informationView.isHidden = false
+            reportPieChartView.isHidden = false
+            
+            let mostFrequentItem = travelItemViewModel.mostFrequentCategory
+            let categoryString = mostFrequentItem.0.name
+            let percentageString = String(format: "%.1f%%", mostFrequentItem.1)
+            let message = categoryString + "에 가장 많은 소비를 했습니다.\n총 지출 금액의 " + percentageString + "를 차지합니다"
+            let attributedString = NSMutableAttributedString(string: message)
+            let fontSize = UIFont.boldSystemFont(ofSize: 25)
+            
+            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: mostFrequentItem.0.imageName + "-color") ?? UIColor.systemBlue, range: (message as NSString).range(of: categoryString))
+            
+            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "mainColor") ?? UIColor.systemBlue, range: (message as NSString).range(of: percentageString))
+            
+            attributedString.addAttribute(NSAttributedString.Key(rawValue: kCTFontAttributeName as String), value: fontSize, range: (message as NSString).range(of: categoryString))
+            attributedString.addAttribute(NSAttributedString.Key(rawValue: kCTFontAttributeName as String), value: fontSize, range: (message as NSString).range(of: percentageString))
+            
+            summaryLabel.attributedText = attributedString
+        } else {
+            summaryLabel.text = "지출 내역이 없습니다."
+            informationView.isHidden = true
+            reportPieChartView.isHidden = true
+        }
     }
     
     private func configureStackView() {
