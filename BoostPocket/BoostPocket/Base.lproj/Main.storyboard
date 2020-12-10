@@ -18,6 +18,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bPb-a6-87W">
+                                <rect key="frame" x="0.0" y="122" width="414" height="740"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TGJ-gd-ZwC">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Rdy-JJ-Sg9">
                                 <rect key="frame" x="2.9999999999999929" y="91" width="124.33333333333331" height="31"/>
                                 <subviews>
@@ -56,17 +67,6 @@
                                 </constraints>
                                 <edgeInsets key="layoutMargins" top="5" left="8" bottom="5" right="8"/>
                             </stackView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bPb-a6-87W">
-                                <rect key="frame" x="0.0" y="122" width="414" height="740"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TGJ-gd-ZwC">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UM-5b-qib">
                                 <rect key="frame" x="149" y="794" width="116" height="38"/>
                                 <color key="backgroundColor" name="mainColor"/>
@@ -91,11 +91,18 @@
                                     <constraint firstAttribute="width" constant="0.29999999999999999" id="jM4-uT-Wq1"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newTravel" translatesAutoresizingMaskIntoConstraints="NO" id="9zU-t4-Mca">
+                                <rect key="frame" x="124.33333333333333" y="713.33333333333337" width="165.33333333333337" height="70.666666666666629"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9zU-t4-Mca" secondAttribute="height" multiplier="938:400" id="QOK-Td-HUy"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="8UM-5b-qib" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Bvg-Xo-R0Q"/>
+                            <constraint firstItem="8UM-5b-qib" firstAttribute="top" secondItem="9zU-t4-Mca" secondAttribute="bottom" constant="10" id="IzT-gm-nAH"/>
                             <constraint firstItem="IEB-3q-aWi" firstAttribute="centerY" secondItem="Rdy-JJ-Sg9" secondAttribute="centerY" id="WNt-zH-oiB"/>
                             <constraint firstItem="bPb-a6-87W" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XjT-ag-ceK"/>
                             <constraint firstItem="IEB-3q-aWi" firstAttribute="leading" secondItem="Rdy-JJ-Sg9" secondAttribute="trailing" constant="2" id="aap-xp-JiU"/>
@@ -104,15 +111,18 @@
                             <constraint firstItem="IEB-3q-aWi" firstAttribute="height" secondItem="Rdy-JJ-Sg9" secondAttribute="height" multiplier="0.6" id="goT-LV-D8U"/>
                             <constraint firstItem="Rdy-JJ-Sg9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="3" id="hEA-Fk-dF9"/>
                             <constraint firstItem="Rdy-JJ-Sg9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="3" id="mql-GA-5HP"/>
+                            <constraint firstItem="9zU-t4-Mca" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.4" id="sK2-oS-bTB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8UM-5b-qib" secondAttribute="bottom" constant="30" id="uyg-lT-pue"/>
                             <constraint firstItem="Rdy-JJ-Sg9" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.3" id="wKL-BQ-oLW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bPb-a6-87W" secondAttribute="trailing" id="wYS-m2-q56"/>
+                            <constraint firstItem="9zU-t4-Mca" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ysg-24-G2b"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="BoostPocket" id="Vxu-Wh-3nW">
                         <barButtonItem key="backBarButtonItem" title=" " id="SHP-Qk-dbx"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="newTravelIndicateView" destination="9zU-t4-Mca" id="2JX-JW-iGm"/>
                         <outlet property="travelListCollectionView" destination="bPb-a6-87W" id="QKB-jb-CSc"/>
                         <outletCollection property="layoutButtons" destination="QHf-WB-OuR" collectionClass="NSMutableArray" id="F65-CO-aeE"/>
                         <outletCollection property="layoutButtons" destination="cQQ-cn-ped" collectionClass="NSMutableArray" id="Ps9-WR-4nN"/>
@@ -147,6 +157,7 @@
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="default" width="64" height="64"/>
         <image name="hamburger" width="64" height="64"/>
+        <image name="newTravel" width="938" height="401"/>
         <image name="rectangle" width="64" height="64"/>
         <image name="square" width="64" height="64"/>
         <namedColor name="mainColor">
