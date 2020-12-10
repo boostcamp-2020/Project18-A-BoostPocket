@@ -284,6 +284,70 @@ class TravelViewModelTests: XCTestCase {
         let comparativeGroup = [firstExpenseHistory?.category: firstExpenseHistory?.amount, secondExpenseHistory?.category: secondExpenseHistory?.amount]
         XCTAssertEqual(comparativeGroup, travelItemViewModel?.getHistoriesDictionary(from: travelItemViewModel!.histories))
     }
+    
+    func test_travelItemViewModel_mostFrequentCategory() {
+        var firstExpenseHistory: HistoryItemViewModel?
+        var secondExpenseHistory: HistoryItemViewModel?
+        let travelItemViewModel = createTravelItemViewModelForTests()
+        
+        XCTAssertNotNil(travelItemViewModel)
+        
+        let etcExpectation = XCTestExpectation(description: "Successfully Created ExpenseHistory")
+        
+        travelItemViewModel?.createHistory(id: travelItemViewModel?.id ?? id, isIncome: false, title: "expense history", memo: nil, date: Date(), image: Data(), amount: 12000, category: .etc, isPrepare: false, isCard: false) { historyItemViewModel in
+            firstExpenseHistory = historyItemViewModel
+            XCTAssertNotNil(firstExpenseHistory)
+            etcExpectation.fulfill()
+        }
+        
+        wait(for: [etcExpectation], timeout: 5.0)
+        
+        let hotelExpectation = XCTestExpectation(description: "Successfully Created IncomeHistory")
+        
+        travelItemViewModel?.createHistory(id: travelItemViewModel?.id ?? id, isIncome: false, title: "accommodation history", memo: nil, date: Date(), image: Data(), amount: 50000, category: .accommodation, isPrepare: false, isCard: true) { historyItemViewModel in
+            secondExpenseHistory = historyItemViewModel
+            XCTAssertNotNil(secondExpenseHistory)
+            hotelExpectation.fulfill()
+        }
+        
+        let percentage = round((secondExpenseHistory!.amount / travelItemViewModel!.getTotalExpense()) * 1000) / 10
+        
+        wait(for: [hotelExpectation], timeout: 5.0)
+        XCTAssertEqual(secondExpenseHistory?.category, travelItemViewModel?.mostFrequentCategory.0)
+        XCTAssertEqual(percentage, travelItemViewModel?.mostFrequentCategory.1)
+    }
+    
+    /*
+    func test_travelItemViewModel_mostFrequentCategory_amount_is_not_a_number() {
+        var firstExpenseHistory: HistoryItemViewModel?
+        var secondExpenseHistory: HistoryItemViewModel?
+        let travelItemViewModel = createTravelItemViewModelForTests()
+        
+        XCTAssertNotNil(travelItemViewModel)
+        
+        let etcExpectation = XCTestExpectation(description: "Successfully Created ExpenseHistory")
+        
+        travelItemViewModel?.createHistory(id: travelItemViewModel?.id ?? id, isIncome: false, title: "expense history", memo: nil, date: Date(), image: Data(), amount: 12000, category: .etc, isPrepare: false, isCard: false) { historyItemViewModel in
+            firstExpenseHistory = historyItemViewModel
+            XCTAssertNotNil(firstExpenseHistory)
+            etcExpectation.fulfill()
+        }
+        
+        wait(for: [etcExpectation], timeout: 5.0)
+        
+        let hotelExpectation = XCTestExpectation(description: "Successfully Created IncomeHistory")
+        
+        travelItemViewModel?.createHistory(id: travelItemViewModel?.id ?? id, isIncome: false, title: "accommodation history", memo: nil, date: Date(), image: Data(), amount: Double.nan, category: .accommodation, isPrepare: false, isCard: true) { historyItemViewModel in
+            secondExpenseHistory = historyItemViewModel
+            XCTAssertNotNil(secondExpenseHistory)
+            hotelExpectation.fulfill()
+        }
+        
+        wait(for: [hotelExpectation], timeout: 5.0)
+        XCTAssertEqual(secondExpenseHistory?.category, travelItemViewModel?.mostFrequentCategory.0)
+        XCTAssertEqual(100.0, travelItemViewModel?.mostFrequentCategory.1)
+    }
+     */
 
     func test_travelListViewModel_numberOfItem() {
         wait(for: [countriesExpectation], timeout: 5.0)
