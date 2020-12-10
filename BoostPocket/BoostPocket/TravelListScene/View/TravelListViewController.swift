@@ -25,14 +25,20 @@ class TravelListViewController: UIViewController {
     
     @IBOutlet weak var travelListCollectionView: UICollectionView!
     @IBOutlet var layoutButtons: [UIButton]!
+    @IBOutlet weak var newTravelIndicateView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        travelListViewModel?.needFetchItems()
         travelListViewModel?.didFetch = { [weak self] fetchedTravels in
             self?.applySnapShot(with: fetchedTravels)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        travelListViewModel?.needFetchItems()
+        configureNewTravelIndicateView()
     }
     
     private func configureCollectionView() {
@@ -64,6 +70,14 @@ class TravelListViewController: UIViewController {
         }
         
         return dataSource
+    }
+    
+    private func configureNewTravelIndicateView() {
+        if travelListViewModel?.numberOfItem() != 0 {
+            newTravelIndicateView.isHidden = true
+        } else {
+            newTravelIndicateView.isHidden = false
+        }
     }
     
     func applySnapShot(with travels: [TravelItemViewModel]) {
