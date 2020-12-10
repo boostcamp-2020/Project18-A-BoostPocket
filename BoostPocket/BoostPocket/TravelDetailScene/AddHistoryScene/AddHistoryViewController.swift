@@ -133,7 +133,7 @@ class AddHistoryViewController: UIViewController {
             calculatedAmountLabel.text = "\(previousAmount)"
             currencyConvertedAmountLabel.text = "KRW \((previousAmount / baseHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: baseHistoryViewModel.countryIdentifier ?? ""))"
         } else {
-            calculatorExpressionLabel.text = ""
+            calculatorExpressionLabel.text = "0"
             calculatedAmountLabel.text = "0"
             currencyConvertedAmountLabel.text = "KRW"
         }
@@ -236,6 +236,14 @@ class AddHistoryViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
+        guard amount > 0 else {
+            let alert = UIAlertController(title: "금액을 입력해주세요!", message: "", preferredStyle: UIAlertController.Style.alert)
+            let okAction = UIAlertAction(title: "확인", style: .default)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
         var newHistoryData: NewHistoryData
         
         var defaultTitle: String
@@ -355,8 +363,10 @@ extension AddHistoryViewController {
             !lastCharacter.isOperation() {
             changeCalculatedAmountLabel()
         } else if calculatorExpressionLabel.text?.count == 0 {
+            calculatorExpressionLabel.text = "0"
             calculatedAmountLabel.text = "0"
             currencyConvertedAmountLabel.text = "KRW"
+            changeCalculatedAmountLabel()
         }
     }
     
