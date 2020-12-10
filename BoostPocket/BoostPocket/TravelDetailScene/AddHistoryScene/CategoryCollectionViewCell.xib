@@ -23,7 +23,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="HTG-8y-ZRf">
-                        <rect key="frame" x="0.0" y="86.5" width="153" height="64.5"/>
+                        <rect key="frame" x="0.0" y="86.5" width="153" height="68.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -36,7 +36,7 @@
                 <constraint firstAttribute="trailing" secondItem="HTG-8y-ZRf" secondAttribute="trailing" id="AGY-c2-Ke0"/>
                 <constraint firstItem="SUM-IL-ApO" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.5" id="kc9-bY-Ud7"/>
                 <constraint firstItem="SUM-IL-ApO" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="oHP-wI-d5Q"/>
-                <constraint firstAttribute="bottom" secondItem="HTG-8y-ZRf" secondAttribute="bottom" constant="5" id="wTe-XO-SEN"/>
+                <constraint firstAttribute="bottom" secondItem="HTG-8y-ZRf" secondAttribute="bottom" constant="1" id="wTe-XO-SEN"/>
                 <constraint firstItem="SUM-IL-ApO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="yhN-fO-yEg"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>

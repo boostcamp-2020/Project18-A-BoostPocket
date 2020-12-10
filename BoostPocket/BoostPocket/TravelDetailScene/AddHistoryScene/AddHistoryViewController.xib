@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -130,7 +131,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="78.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <state key="normal" title="1">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="titleColor" name="basicBlackTextColor"/>
                                     </state>
                                     <connections>
                                         <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="U5M-Pv-OdA"/>
@@ -140,7 +141,7 @@
                                     <rect key="frame" x="103.5" y="0.0" width="103.5" height="78.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <state key="normal" title="2">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="titleColor" name="basicBlackTextColor"/>
                                     </state>
                                     <connections>
                                         <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="nDh-so-2N8"/>
@@ -150,7 +151,7 @@
                                     <rect key="frame" x="207" y="0.0" width="103.5" height="78.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <state key="normal" title="3">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="titleColor" name="basicBlackTextColor"/>
                                     </state>
                                     <connections>
                                         <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="uU4-PZ-XuC"/>
@@ -175,7 +176,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="78"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <state key="normal" title="4">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="titleColor" name="basicBlackTextColor"/>
                                     </state>
                                     <connections>
                                         <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="v2S-OL-bKc"/>
@@ -185,7 +186,7 @@
                                     <rect key="frame" x="103.5" y="0.0" width="103.5" height="78"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <state key="normal" title="5">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="titleColor" name="basicBlackTextColor"/>
                                     </state>
                                     <connections>
                                         <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="OwG-6A-30c"/>
@@ -195,7 +196,7 @@
                                     <rect key="frame" x="207" y="0.0" width="103.5" height="78"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <state key="normal" title="6">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="titleColor" name="basicBlackTextColor"/>
                                     </state>
                                     <connections>
                                         <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="n0L-7g-9nc"/>
@@ -220,7 +221,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="78.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <state key="normal" title="7">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="titleColor" name="basicBlackTextColor"/>
                                     </state>
                                     <connections>
                                         <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="6qK-ZD-ZHw"/>
@@ -230,7 +231,7 @@
                                     <rect key="frame" x="103.5" y="0.0" width="103.5" height="78.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <state key="normal" title="8">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="titleColor" name="basicBlackTextColor"/>
                                     </state>
                                     <connections>
                                         <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="uq3-yZ-VsB"/>
@@ -240,7 +241,7 @@
                                     <rect key="frame" x="207" y="0.0" width="103.5" height="78.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <state key="normal" title="9">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="titleColor" name="basicBlackTextColor"/>
                                     </state>
                                     <connections>
                                         <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="Drk-Pm-02K"/>
@@ -265,7 +266,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="78.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <state key="normal" title=".">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="titleColor" name="basicBlackTextColor"/>
                                     </state>
                                     <connections>
                                         <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="g1B-hj-p7H"/>
@@ -275,7 +276,7 @@
                                     <rect key="frame" x="103.5" y="0.0" width="103.5" height="78.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <state key="normal" title="0">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="titleColor" name="basicBlackTextColor"/>
                                     </state>
                                     <connections>
                                         <action selector="btnNumberWithSender:" destination="-1" eventType="touchUpInside" id="fI0-MQ-HAj"/>
@@ -309,19 +310,12 @@
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="Uvo-Ni-ty9" userLabel="Line 0">
                     <rect key="frame" x="0.0" y="503.5" width="414" height="45"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ea-lC-YV1">
-                            <rect key="frame" x="0.0" y="0.0" width="52" height="45"/>
-                            <state key="normal" title="취소"/>
-                            <connections>
-                                <action selector="cancelButtonTapped:" destination="-1" eventType="touchUpInside" id="gxK-3I-KQc"/>
-                            </connections>
-                        </button>
                         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="FBN-Xp-w8g">
-                            <rect key="frame" x="52" y="0.0" width="246.5" height="45"/>
+                            <rect key="frame" x="0.0" y="0.0" width="290" height="45"/>
                             <locale key="locale" localeIdentifier="ko"/>
                         </datePicker>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5UH-g4-mMe" userLabel="Picture">
-                            <rect key="frame" x="298.5" y="0.0" width="32" height="45"/>
+                            <rect key="frame" x="290" y="0.0" width="31" height="45"/>
                             <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" image="photo" catalog="system"/>
                             <connections>
@@ -329,27 +323,21 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14w-LZ-14y" userLabel="Memo">
-                            <rect key="frame" x="330.5" y="0.0" width="32" height="45"/>
+                            <rect key="frame" x="321" y="0.0" width="31" height="45"/>
                             <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" image="list.dash" catalog="system"/>
                             <connections>
                                 <action selector="addMemoButtonTapped:" destination="-1" eventType="touchUpInside" id="c6o-T4-531"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIf-oJ-N8p">
-                            <rect key="frame" x="362.5" y="0.0" width="51.5" height="45"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIf-oJ-N8p">
+                            <rect key="frame" x="352" y="0.0" width="62" height="45"/>
                             <state key="normal" title="저장"/>
                             <connections>
                                 <action selector="saveButtonTapped:" destination="-1" eventType="touchUpInside" id="XTN-WY-cDN"/>
                             </connections>
                         </button>
                     </subviews>
-                    <constraints>
-                        <constraint firstItem="QIf-oJ-N8p" firstAttribute="width" secondItem="Uvo-Ni-ty9" secondAttribute="width" multiplier="1/8" id="1wS-0r-bMB"/>
-                        <constraint firstItem="5UH-g4-mMe" firstAttribute="width" secondItem="Uvo-Ni-ty9" secondAttribute="width" multiplier="1/13" id="DUm-Qx-0ts"/>
-                        <constraint firstItem="14w-LZ-14y" firstAttribute="width" secondItem="Uvo-Ni-ty9" secondAttribute="width" multiplier="1/13" id="Gfe-OC-zYp"/>
-                        <constraint firstItem="6Ea-lC-YV1" firstAttribute="width" secondItem="Uvo-Ni-ty9" secondAttribute="width" multiplier="1/8" id="V3K-OY-mzj"/>
-                    </constraints>
                 </stackView>
                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RY6-19-kNJ">
                     <rect key="frame" x="0.0" y="488.5" width="414" height="0.0"/>
@@ -381,6 +369,7 @@
                 <constraint firstItem="0kX-Kl-MDd" firstAttribute="top" secondItem="Uvo-Ni-ty9" secondAttribute="bottom" id="5dm-zO-9oG"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="heQ-Ap-lf8" secondAttribute="trailing" id="8sN-sz-tei"/>
                 <constraint firstItem="lci-Ei-eGZ" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.7" id="EGw-ox-G4Y"/>
+                <constraint firstItem="14w-LZ-14y" firstAttribute="width" secondItem="o0M-UP-Rk5" secondAttribute="width" multiplier="0.3" id="EbA-ue-KVG"/>
                 <constraint firstItem="heQ-Ap-lf8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="G9O-nJ-83v"/>
                 <constraint firstItem="lci-Ei-eGZ" firstAttribute="top" secondItem="heQ-Ap-lf8" secondAttribute="bottom" constant="10" id="JEx-NU-Fnu"/>
                 <constraint firstItem="fLx-PJ-SRJ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="JPT-bd-AAd"/>
@@ -389,11 +378,13 @@
                 <constraint firstItem="0kX-Kl-MDd" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.35" id="NK5-JK-lX7"/>
                 <constraint firstItem="heQ-Ap-lf8" firstAttribute="top" secondItem="fLx-PJ-SRJ" secondAttribute="bottom" constant="10" id="NWT-Gj-UAR"/>
                 <constraint firstItem="Uvo-Ni-ty9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Q7Q-qd-fTQ"/>
+                <constraint firstItem="5UH-g4-mMe" firstAttribute="width" secondItem="o0M-UP-Rk5" secondAttribute="width" multiplier="0.3" id="Qpl-o7-S6s"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RY6-19-kNJ" secondAttribute="trailing" id="SSf-MM-xZK"/>
                 <constraint firstItem="RY6-19-kNJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="VW7-0O-CiC"/>
                 <constraint firstItem="Uvo-Ni-ty9" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="aew-P5-zSc"/>
                 <constraint firstItem="fLx-PJ-SRJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="dht-aF-fyi"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Uvo-Ni-ty9" secondAttribute="trailing" id="fGA-53-mMW"/>
+                <constraint firstItem="QIf-oJ-N8p" firstAttribute="width" secondItem="Yad-QF-DSb" secondAttribute="width" multiplier="0.6" id="fWD-LT-kpI"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="0kX-Kl-MDd" secondAttribute="bottom" id="hvk-1c-ZWd"/>
                 <constraint firstItem="0kX-Kl-MDd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="m7l-qn-khK"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0kX-Kl-MDd" secondAttribute="trailing" id="yGV-oI-Eax"/>
@@ -407,5 +398,8 @@
         <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="photo" catalog="system" width="128" height="93"/>
         <image name="return" catalog="system" width="128" height="101"/>
+        <namedColor name="basicBlackTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
     </resources>
 </document>

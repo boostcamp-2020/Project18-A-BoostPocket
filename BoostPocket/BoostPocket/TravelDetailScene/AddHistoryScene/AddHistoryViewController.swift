@@ -150,7 +150,7 @@ class AddHistoryViewController: UIViewController {
             categoryCollectionView.delegate = self
             categoryCollectionView.dataSource = self
             categoryCollectionView.register(UINib(nibName: CategoryCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
-            self.category = baseHistoryViewModel.category ?? .etc
+            category = baseHistoryViewModel.category ?? .etc
         }
         
         // 항목명
@@ -158,7 +158,7 @@ class AddHistoryViewController: UIViewController {
         historyTitleLabel.addGestureRecognizer(titleTap)
         if let previousTitle = baseHistoryViewModel.title {
             historyTitleLabel.text = previousTitle
-            historyTitleLabel.textColor = .black
+            historyTitleLabel.textColor = UIColor(named: "basicBlackTextColor") ?? .black
         } else {
             historyTitleLabel.text = historyTitlePlaceholder
             historyTitleLabel.textColor = .systemGray2
@@ -386,7 +386,7 @@ extension AddHistoryViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = self.view.frame.width * 0.15
+        let width = self.view.frame.width * 0.17
         return CGSize(width: width, height: width)
     }
     
