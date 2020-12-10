@@ -191,6 +191,37 @@ class TravelViewModelTests: XCTestCase {
         let percentage = createdExpenseHistory!.amount / createdIncomeHistory!.amount
         XCTAssertEqual(Float(percentage), travelItemViewModel?.expensePercentage)
     }
+    
+    func test_travelItemViewModel_getHistoryDictionary() {
+        var firstExpenseHistory: HistoryItemViewModel?
+        var secondExpenseHistory: HistoryItemViewModel?
+        let travelItemViewModel = createTravelItemViewModelForTests()
+        
+        XCTAssertNotNil(travelItemViewModel)
+        
+        let etcExpectation = XCTestExpectation(description: "Successfully Created ExpenseHistory")
+        
+        travelItemViewModel?.createHistory(id: travelItemViewModel?.id ?? id, isIncome: false, title: "expense history", memo: nil, date: Date(), image: Data(), amount: 12000, category: .etc, isPrepare: false, isCard: false) { historyItemViewModel in
+            firstExpenseHistory = historyItemViewModel
+            XCTAssertNotNil(firstExpenseHistory)
+            etcExpectation.fulfill()
+        }
+        
+        wait(for: [etcExpectation], timeout: 5.0)
+        
+        let hotelExpectation = XCTestExpectation(description: "Successfully Created IncomeHistory")
+        
+        travelItemViewModel?.createHistory(id: travelItemViewModel?.id ?? id, isIncome: false, title: "accommodation history", memo: nil, date: Date(), image: Data(), amount: 50000, category: .accommodation, isPrepare: false, isCard: true) { historyItemViewModel in
+            secondExpenseHistory = historyItemViewModel
+            XCTAssertNotNil(secondExpenseHistory)
+            hotelExpectation.fulfill()
+        }
+        
+        wait(for: [hotelExpectation], timeout: 5.0)
+        
+        let comparativeGroup = [firstExpenseHistory?.category: firstExpenseHistory?.amount, secondExpenseHistory?.category: secondExpenseHistory?.amount]
+        XCTAssertEqual(comparativeGroup, travelItemViewModel?.getHistoriesDictionary(from: travelItemViewModel!.histories))
+    }
 
     func test_travelListViewModel_numberOfItem() {
         wait(for: [countriesExpectation], timeout: 5.0)
