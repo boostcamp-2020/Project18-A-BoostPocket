@@ -208,7 +208,6 @@ class AddHistoryViewController: UIViewController {
         for str in numbersOnly {
             let pieces = str.components(separatedBy: ".")
             if pieces.count > 2 {
-                print("invalid!")
                 return false
             }
         }
