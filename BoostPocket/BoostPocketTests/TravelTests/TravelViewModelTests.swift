@@ -29,7 +29,7 @@ class TravelViewModelTests: XCTestCase {
     let endDate = Date()
     let exchangeRate = 12.1
     let countryName = "대한민국"
-    let lastUpdated = "2019-08-23-12-01-33".convertToDate()
+    let lastUpdated = "2019-08-23".convertToDate()
     let flagImage = Data()
     let currencyCode = "KRW"
     

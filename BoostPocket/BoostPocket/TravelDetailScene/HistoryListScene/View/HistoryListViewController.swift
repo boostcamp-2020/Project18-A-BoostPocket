@@ -232,7 +232,7 @@ class HistoryListViewController: UIViewController {
         snapshot.appendSections(headers)
 
         histories.forEach { history in
-            if let section = headers.filter({ history.date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted) }).first {
+            if let section = headers.filter({ history.date.isSameDay(with: $0.date) }).first {
                 snapshot.appendItems([history], toSection: section)
             }
         }
@@ -247,7 +247,7 @@ class HistoryListViewController: UIViewController {
             let day = startDate.interval(ofComponent: .day, fromDate: history.date)
             let amount = history.amount
             let date = history.date
-            if let sameDay = days.filter({ date.convertToString(format: .dotted) == $0.date.convertToString(format: .dotted)}).first {
+            if let sameDay = days.filter({ date.isSameDay(with: $0.date) }).first {
                 sameDay.amount = history.isIncome ? sameDay.amount :  sameDay.amount + amount
             } else {
                 days.insert(HistoryListSectionHeader(dayNumber: day + 1, date: date, amount: history.isIncome ? 0 : amount))

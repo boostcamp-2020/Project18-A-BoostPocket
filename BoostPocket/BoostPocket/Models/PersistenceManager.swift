@@ -228,7 +228,7 @@ extension PersistenceManager {
                 case .success(let data):
                     
                     let newExchangeRate = data.rates[currencyCode] ?? fetchedCountry.exchangeRate
-                    let newLastUpdated = (data.date + "-00-00-00").convertToDate()
+                    let newLastUpdated = data.date.convertToDate()
                     
                     newTravel.exchangeRate = newExchangeRate
                     
