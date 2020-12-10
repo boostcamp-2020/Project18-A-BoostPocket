@@ -29,10 +29,14 @@ class TravelListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        travelListViewModel?.needFetchItems()
         travelListViewModel?.didFetch = { [weak self] fetchedTravels in
             self?.applySnapShot(with: fetchedTravels)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        travelListViewModel?.needFetchItems()
     }
     
     private func configureCollectionView() {

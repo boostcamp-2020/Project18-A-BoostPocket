@@ -46,13 +46,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="295.5" height="59"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="jFB-Ve-ziB">
-                                                <rect key="frame" x="0.0" y="0.0" width="46" height="59"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="296" height="59"/>
                                             </stackView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="jFB-Ve-ziB" firstAttribute="top" secondItem="NrH-bA-9YK" secondAttribute="top" id="ca3-um-G55"/>
                                             <constraint firstAttribute="bottom" secondItem="jFB-Ve-ziB" secondAttribute="bottom" id="jNu-X7-Ccr"/>
                                             <constraint firstItem="jFB-Ve-ziB" firstAttribute="leading" secondItem="NrH-bA-9YK" secondAttribute="leading" id="kyV-Xz-j2m"/>
+                                            <constraint firstAttribute="height" secondItem="jFB-Ve-ziB" secondAttribute="height" id="qSt-xm-OVD"/>
                                             <constraint firstAttribute="trailing" secondItem="jFB-Ve-ziB" secondAttribute="trailing" id="vQu-LW-R1X"/>
                                         </constraints>
                                     </scrollView>
