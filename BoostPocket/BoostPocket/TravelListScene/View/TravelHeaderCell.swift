@@ -9,26 +9,29 @@
 import UIKit
 
 class TravelHeaderCell: UICollectionReusableView {
-    
     static let identifier = "TravelHeaderCell"
+    
     @IBOutlet weak var headerLabel: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    func configure(with sectionType: TravelSection, numberOfTravel: Int = 0) {
+    func configure(with sectionType: TravelSectionCase, numberOfTravel: Int = 0) {
         switch sectionType {
         case .current:
-            let message = "지금까지 \(numberOfTravel)개 나라를 여행 했습니다"
-            let attributedString = NSMutableAttributedString(string: message)
-            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "mainColor") ?? UIColor.systemBlue, range: (message as NSString).range(of: "\(numberOfTravel)"))
+            let attributedString = getAttributedString(of: "지금까지 \(numberOfTravel)개 나라를 여행 했습니다", numberOfTravel: numberOfTravel)
             headerLabel.attributedText = attributedString
         case .past:
-            headerLabel.text = "지난 여행"
+            let attributedString = getAttributedString(of: "지난 여행 \(numberOfTravel)개", numberOfTravel: numberOfTravel)
+            headerLabel.attributedText = attributedString
         case .upcoming:
-            headerLabel.text = "다가오는 여행"
+            let attributedString = getAttributedString(of: "다가오는 여행 \(numberOfTravel)개", numberOfTravel: numberOfTravel)
+            headerLabel.attributedText = attributedString
         }
+    }
+    
+    private func getAttributedString(of message: String, numberOfTravel: Int) -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString(string: message)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "mainColor") ?? UIColor.systemBlue, range: (message as NSString).range(of: "\(numberOfTravel)"))
+        
+        return attributedString
     }
     
     /*

@@ -8,7 +8,12 @@
 
 import Foundation
 
-enum TravelSection {
+struct TravelSection: Hashable {
+    var travelSectionCase: TravelSectionCase
+    var numberOfTravels: Int
+}
+
+enum TravelSectionCase {
     case current
     case upcoming
     case past
