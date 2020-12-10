@@ -64,7 +64,6 @@ class HistoryListViewController: UIViewController {
     private func configure() {
         allButton.configureSelectedButton()
         configureTravelItemViewModel()
-        self.historyListTableView.dataSource = self.dataSource
         configureTableView()
         configureSegmentedControl()
         configureFloatingActionButton()
@@ -81,6 +80,7 @@ class HistoryListViewController: UIViewController {
     
     private func configureTableView() {
         historyListTableView.delegate = self
+        historyListTableView.dataSource = dataSource
         historyListTableView.register(HistoryCell.getNib(), forCellReuseIdentifier: HistoryCell.identifier)
         historyListTableView.register(HistoryHeaderCell.getNib(), forHeaderFooterViewReuseIdentifier: HistoryHeaderCell.identifier)
     }
