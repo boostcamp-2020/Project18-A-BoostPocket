@@ -52,7 +52,18 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     var expensePercentage: Float {
         let expenses = getTotalExpense()
         let incomes = getTotalIncome()
-        return incomes == 0 ? 0 : Float(expenses / incomes)
+        
+        var percentage: Float
+        
+        if expenses.isInfinite || expenses.isNaN {
+            percentage = 1
+        } else if incomes.isInfinite || expenses.isNaN {
+            percentage = 0
+        } else {
+            percentage = incomes == 0 ? 0 : Float(expenses / incomes)
+        }
+        
+        return percentage
     }
     
     var mostFrequentCategory: (HistoryCategory, Double) {
@@ -60,9 +71,17 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         
         let expenses = histories.filter { !$0.isIncome }
         let amounts = getHistoriesDictionary(from: expenses)
+        let totalExpense = getTotalExpense()
         
         if let (category, amount) = amounts.max(by: {$0.1 < $1.1}) {
-            let percentage = amount / getTotalExpense()
+            var percentage: Double
+            
+            if amount.isInfinite || amount.isNaN {
+                percentage = 1
+            } else {
+                percentage = amount / totalExpense
+            }
+
             return (category, round(percentage * 1000) / 10)
         }
         

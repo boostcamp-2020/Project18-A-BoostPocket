@@ -115,6 +115,7 @@ class ReportPieChartView: UIView {
         addSubview(label)
         
         let roundedPercentage = round(slice.percent * 1000) / 10
+        
         label.text = roundedPercentage < 5 ? "" : String(format: "%.1f%%", roundedPercentage)
           
         label.translatesAutoresizingMaskIntoConstraints = false
