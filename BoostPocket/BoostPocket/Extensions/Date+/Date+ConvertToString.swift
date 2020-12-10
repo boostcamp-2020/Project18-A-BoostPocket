@@ -37,7 +37,7 @@ extension String {
     func convertToDate() -> Date {
         let dateString: String = self
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = DateFormats.fullDated.rawValue
+        dateFormatter.dateFormat = DateFormats.dashed.rawValue
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         
         let date: Date = dateFormatter.date(from: dateString)!

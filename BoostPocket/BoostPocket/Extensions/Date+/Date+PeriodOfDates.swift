@@ -11,8 +11,17 @@ import Foundation
 extension Date {
     func getPeriodOfDates(with endDate: Date) -> [Date] {
         var dates: [Date] = []
-        var date = self
-        while date <= endDate {
+        if self.isSameDay(with: endDate) {
+            return [self]
+        }
+        
+        var date = self.convertToString(format: .dashed).convertToDate()
+        let convertedEndDate = endDate.convertToString(format: .dashed).convertToDate()
+        
+        print(date)
+        print(convertedEndDate)
+        
+        while date <= convertedEndDate {
             dates.append(date)
             guard let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: date) else { break }
             date = nextDate
@@ -31,6 +40,6 @@ extension Date {
     }
     
     func isSameDay(with date: Date) -> Bool {
-        return Calendar.current.dateComponents([.day], from: self.toLocalTime(), to: date.toLocalTime()).day == 0
+        return self.convertToString(format: .dashed) == date.convertToString(format: .dashed)
     }
 }
