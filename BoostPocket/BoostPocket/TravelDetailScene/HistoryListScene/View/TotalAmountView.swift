@@ -36,7 +36,7 @@ class TotalAmountView: UIView {
     private func setLabel(with identifier: String?, amount: Double) -> String {
         let signResult = amount >= 0 ? "" : "-"
         if let id = identifier {
-            return signResult + id.currencySymbol + abs(amount).getCurrencyFormat(identifier: id)
+            return signResult + id.currencySymbol + " " + abs(amount).getCurrencyFormat(identifier: id)
         }
         return amount.insertComma
     }
