@@ -25,6 +25,7 @@ class TravelProfileViewController: UIViewController {
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
     @IBOutlet weak var coverImage: UIImageView!
+    @IBOutlet weak var progressBar: UIView!
     @IBOutlet weak var progressBarWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var progressBarBackground: UIView!
     @IBOutlet weak var progressPercentageLabel: UILabel!
@@ -58,7 +59,7 @@ class TravelProfileViewController: UIViewController {
         super.viewDidLayoutSubviews()
         guard let travelItemViewModel = travelItemViewModel else { return }
         let percentage = travelItemViewModel.expensePercentage
-        progressPercentageLabel.text = String(format: "%d%%", Int(percentage * 100))
+        progressPercentageLabel.text = String(format: "%lld%%", Int(percentage * 100))
         
         progressBarWidthConstraint.constant = percentage > 1 ? progressBarBackground.frame.width : progressBarBackground.frame.width * CGFloat(percentage)
     }
@@ -87,6 +88,10 @@ class TravelProfileViewController: UIViewController {
         let remain = income - expense
         remainLabel.text = remain < 0 ? id.currencySymbol + " " + (-remain).getCurrencyFormat(identifier: id) + " 초과" :
             id.currencySymbol + " " + remain.getCurrencyFormat(identifier: id) + " 남음"
+        remainLabel.textColor = remain < 0 ? UIColor(named: "deleteTextColor") : UIColor(named: "basicGrayTextColor")
+        progressBar.backgroundColor = remain < 0 ? UIColor(named: "expenseBackgroundColor") : UIColor(named: "mainColor")
+        progressBarBackground.layer.cornerRadius = progressBarBackground.bounds.height * 0.3
+        progressBar.layer.cornerRadius = progressBarBackground.bounds.height * 0.3
     }
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
