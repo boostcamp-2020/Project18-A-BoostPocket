@@ -40,7 +40,7 @@ class DayCell: UIView {
     
     private func configureDayButton(with date: Date) {
         dayButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
-        dayButton.setTitleColor(.black, for: .normal)
+        dayButton.setTitleColor(UIColor(named: "basicBlackTextColor"), for: .normal)
         guard let dayInt = Int(date.convertToString(format: .day)) else { return }
         dayButton.setTitle(String(dayInt), for: .normal)
     }
@@ -82,6 +82,6 @@ extension UIButton {
     
     func configureDeselectedButton() {
         self.backgroundColor = .clear
-        self.setTitleColor(.black, for: .normal)
+        self.setTitleColor(UIColor(named: "basicBlackTextColor"), for: .normal)
     }
 }
