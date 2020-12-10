@@ -189,10 +189,9 @@ class TravelViewModelTests: XCTestCase {
         wait(for: [incomeExpectation], timeout: 5.0)
         
         let percentage = createdExpenseHistory!.amount / createdIncomeHistory!.amount
-        XCTAssertEqual(Float(percentage), travelItemViewModel?.expensePercentage)
+        XCTAssertEqual(Double(percentage), travelItemViewModel?.expensePercentage)
     }
     
-    /*
     func test_travelItemViewModel_expensePercentage_expense_is_not_a_number() {
         var createdExpenseHistory: HistoryItemViewModel?
         var createdIncomeHistory: HistoryItemViewModel?
@@ -252,7 +251,6 @@ class TravelViewModelTests: XCTestCase {
         
         XCTAssertEqual(0.0, travelItemViewModel?.expensePercentage)
     }
-     */
     
     func test_travelItemViewModel_getHistoryDictionary() {
         var firstExpenseHistory: HistoryItemViewModel?
@@ -313,11 +311,10 @@ class TravelViewModelTests: XCTestCase {
         let percentage = round((secondExpenseHistory!.amount / travelItemViewModel!.getTotalExpense()) * 1000) / 10
         
         wait(for: [hotelExpectation], timeout: 5.0)
-        XCTAssertEqual(secondExpenseHistory?.category, travelItemViewModel?.mostFrequentCategory.0)
-        XCTAssertEqual(percentage, travelItemViewModel?.mostFrequentCategory.1)
+        XCTAssertEqual(secondExpenseHistory?.category, travelItemViewModel?.getMostSpentCategory.0)
+        XCTAssertEqual(percentage, travelItemViewModel?.getMostSpentCategory.1)
     }
     
-    /*
     func test_travelItemViewModel_mostFrequentCategory_amount_is_not_a_number() {
         var firstExpenseHistory: HistoryItemViewModel?
         var secondExpenseHistory: HistoryItemViewModel?
@@ -344,10 +341,9 @@ class TravelViewModelTests: XCTestCase {
         }
         
         wait(for: [hotelExpectation], timeout: 5.0)
-        XCTAssertEqual(secondExpenseHistory?.category, travelItemViewModel?.mostFrequentCategory.0)
-        XCTAssertEqual(100.0, travelItemViewModel?.mostFrequentCategory.1)
+        XCTAssertEqual(secondExpenseHistory?.category, travelItemViewModel?.getMostSpentCategory.0)
+        XCTAssertEqual(100.0, travelItemViewModel?.getMostSpentCategory.1)
     }
-     */
 
     func test_travelListViewModel_numberOfItem() {
         wait(for: [countriesExpectation], timeout: 5.0)
