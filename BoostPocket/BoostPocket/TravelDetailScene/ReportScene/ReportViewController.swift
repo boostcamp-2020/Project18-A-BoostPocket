@@ -122,7 +122,13 @@ class ReportViewController: UIViewController {
         var slices: [Slice] = []
         
         sortedAmounts.forEach { (category, amount) in
-            slices.append(Slice(category: category, percent: CGFloat(Float(amount) / Float(totalAmount))))
+            var percentage: CGFloat
+            if amount.isNaN || amount.isInfinite {
+                percentage = 1
+            } else {
+                percentage = CGFloat(amount / totalAmount)
+            }
+            slices.append(Slice(category: category, percent: percentage))
         }
         
         return slices
