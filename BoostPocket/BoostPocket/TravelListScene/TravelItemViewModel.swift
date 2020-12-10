@@ -21,8 +21,8 @@ protocol TravelItemPresentable: AnyObject {
     var flagImage: Data? { get }
     var currencyCode: String? { get }
     var countryIdentifier: String? { get }
-    var expensePercentage: Float { get }
-    var mostFrequentCategory: (HistoryCategory, Double) { get }
+    var expensePercentage: Double { get }
+    var getMostSpentCategory: (HistoryCategory, Double) { get }
     func getTotalIncome() -> Double
     func getTotalExpense() -> Double
     func getHistoriesDictionary(from histories: [HistoryItemViewModel]) -> [HistoryCategory: Double]
@@ -49,40 +49,44 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     
     var didFetch: (([HistoryItemViewModel]) -> Void)?
     
-    var expensePercentage: Float {
+    var expensePercentage: Double {
         let expenses = getTotalExpense()
         let incomes = getTotalIncome()
         
-        var percentage: Float
+        var percentage: Double
+        
+        if expenses == 0 {
+            return 0
+        }
+        
+        if incomes == 0 {
+            return 1
+        }
         
         if expenses.isInfinite || expenses.isNaN {
             percentage = 1
-        } else if incomes.isInfinite || expenses.isNaN {
+        } else if incomes.isInfinite || incomes.isNaN {
             percentage = 0
         } else {
-            percentage = incomes == 0 ? 0 : Float(expenses / incomes)
+            percentage = Double(expenses / incomes)
         }
         
         return percentage
     }
     
-    var mostFrequentCategory: (HistoryCategory, Double) {
+    var getMostSpentCategory: (HistoryCategory, Double) {
         needFetchItems()
         
         let expenses = histories.filter { !$0.isIncome }
         let amounts = getHistoriesDictionary(from: expenses)
         let totalExpense = getTotalExpense()
         
+        if let history = expenses.filter({ $0.amount.isNaN || $0.amount.isInfinite }).first {
+            return (history.category, 100)
+        }
+        
         if let (category, amount) = amounts.max(by: {$0.1 < $1.1}) {
-            var percentage: Double
-            
-            if amount.isInfinite || amount.isNaN {
-                percentage = 1
-            } else {
-                percentage = amount / totalExpense
-            }
-
-            return (category, round(percentage * 1000) / 10)
+            return (category, round(amount / totalExpense * 1000) / 10)
         }
         
         return (HistoryCategory.etc, 0)

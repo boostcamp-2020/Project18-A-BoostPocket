@@ -52,7 +52,7 @@ class ReportViewController: UIViewController {
             informationView.isHidden = false
             reportPieChartView.isHidden = false
             
-            let mostFrequentItem = travelItemViewModel.mostFrequentCategory
+            let mostFrequentItem = travelItemViewModel.getMostSpentCategory
             let categoryString = mostFrequentItem.0.name
             let percentageString = String(format: "%.1f%%", mostFrequentItem.1)
             let message = categoryString + "에 가장 많은 소비를 했습니다.\n총 지출 금액의 " + percentageString + "를 차지합니다"

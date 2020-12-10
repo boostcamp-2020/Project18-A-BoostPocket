@@ -33,7 +33,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="woF-dC-F93" customClass="PaddedLabel" customModule="BoostPocket" customModuleProvider="target">
-                        <rect key="frame" x="5" y="115.5" width="265" height="20.5"/>
+                        <rect key="frame" x="116.5" y="115.5" width="42" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -57,8 +57,8 @@
             <constraints>
                 <constraint firstItem="69T-Nt-sjr" firstAttribute="centerY" secondItem="Gmy-dG-DoZ" secondAttribute="bottom" multiplier="1/4" id="12p-AP-dcN"/>
                 <constraint firstItem="BvG-Ku-dp3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1sc-j4-zb5" secondAttribute="bottom" constant="2" id="15i-J4-rW8"/>
-                <constraint firstItem="woF-dC-F93" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="1bH-mX-zDM"/>
-                <constraint firstAttribute="trailing" secondItem="woF-dC-F93" secondAttribute="trailing" constant="5" id="35I-Pg-xCr"/>
+                <constraint firstItem="woF-dC-F93" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="1bH-mX-zDM"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="woF-dC-F93" secondAttribute="trailing" constant="5" id="35I-Pg-xCr"/>
                 <constraint firstAttribute="bottom" secondItem="Gmy-dG-DoZ" secondAttribute="bottom" id="BUB-N8-k3O"/>
                 <constraint firstAttribute="trailing" secondItem="Gmy-dG-DoZ" secondAttribute="trailing" id="FQx-sK-VBG"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="woF-dC-F93" secondAttribute="bottom" constant="5" id="JEp-k9-fdo"/>

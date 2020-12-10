@@ -59,7 +59,7 @@ class TravelProfileViewController: UIViewController {
         super.viewDidLayoutSubviews()
         guard let travelItemViewModel = travelItemViewModel else { return }
         let percentage = travelItemViewModel.expensePercentage
-        progressPercentageLabel.text = String(format: "%lld%%", Int(percentage * 100))
+        progressPercentageLabel.text = String(format: "%.0f%%", round(percentage * 1000) / 10)
         
         progressBarWidthConstraint.constant = percentage > 1 ? progressBarBackground.frame.width : progressBarBackground.frame.width * CGFloat(percentage)
     }
