@@ -386,7 +386,7 @@ extension AddHistoryViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = self.view.frame.width * 0.2
+        let width = self.view.frame.width * 0.17
         return CGSize(width: width, height: width)
     }
     
