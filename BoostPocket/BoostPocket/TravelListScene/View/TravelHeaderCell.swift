@@ -14,17 +14,19 @@ class TravelHeaderCell: UICollectionReusableView {
     @IBOutlet weak var headerLabel: UILabel!
     
     func configure(with sectionType: TravelSectionCase, numberOfTravel: Int = 0) {
+        var attributedString = NSMutableAttributedString()
         switch sectionType {
         case .current:
-            let attributedString = getAttributedString(of: "지금까지 \(numberOfTravel)개 나라를 여행 했습니다", numberOfTravel: numberOfTravel)
-            headerLabel.attributedText = attributedString
+            attributedString = getAttributedString(of: "지금까지 \(numberOfTravel)개 나라를 여행 했습니다", numberOfTravel: numberOfTravel)
+            headerLabel.textAlignment = .center
         case .past:
-            let attributedString = getAttributedString(of: "지난 여행 \(numberOfTravel)개", numberOfTravel: numberOfTravel)
-            headerLabel.attributedText = attributedString
+            attributedString = getAttributedString(of: "지난 여행 \(numberOfTravel)개", numberOfTravel: numberOfTravel)
+            headerLabel.textAlignment = .left
         case .upcoming:
-            let attributedString = getAttributedString(of: "다가오는 여행 \(numberOfTravel)개", numberOfTravel: numberOfTravel)
-            headerLabel.attributedText = attributedString
+            attributedString = getAttributedString(of: "다가오는 여행 \(numberOfTravel)개", numberOfTravel: numberOfTravel)
+            headerLabel.textAlignment = .left
         }
+        headerLabel.attributedText = attributedString
     }
     
     private func getAttributedString(of message: String, numberOfTravel: Int) -> NSMutableAttributedString {
@@ -33,25 +35,7 @@ class TravelHeaderCell: UICollectionReusableView {
         
         return attributedString
     }
-    
-    /*
-    func setConstraintOfCurrentLabel() {
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = false
-        headerLabel.removeConstraint(headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15))
-        headerLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-    }
-    
-    func setConstraintOfDefaultLabel() {
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // headerLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = false
-        headerLabel.removeConstraint(headerLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor))
-        headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
-    }
-    */
-    
+
     static func getNib() -> UINib {
         return UINib(nibName: TravelHeaderCell.identifier, bundle: nil)
     }

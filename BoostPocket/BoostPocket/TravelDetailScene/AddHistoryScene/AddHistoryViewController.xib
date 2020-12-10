@@ -286,7 +286,7 @@
                                     <rect key="frame" x="207" y="0.0" width="103.5" height="78.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <state key="normal" image="return" catalog="system">
+                                    <state key="normal" image="delete.left.fill" catalog="system">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
@@ -395,9 +395,9 @@
         </view>
     </objects>
     <resources>
+        <image name="delete.left.fill" catalog="system" width="128" height="104"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="photo" catalog="system" width="128" height="93"/>
-        <image name="return" catalog="system" width="128" height="101"/>
         <namedColor name="basicBlackTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
