@@ -23,8 +23,8 @@
                             <constraint firstAttribute="width" secondItem="NFJ-ir-T7d" secondAttribute="height" multiplier="1:1" id="TqG-Ut-15A"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pF6-0v-9CD">
-                        <rect key="frame" x="117" y="21" width="44" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pF6-0v-9CD">
+                        <rect key="frame" x="117" y="21" width="263" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <color key="textColor" name="mainColor"/>
                         <nil key="highlightedColor"/>
@@ -35,7 +35,7 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gU8-NF-FGt">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gU8-NF-FGt">
                         <rect key="frame" x="370" y="38" width="31" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -46,6 +46,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="gU8-NF-FGt" secondAttribute="trailing" constant="10" id="5TW-UC-wUd"/>
                     <constraint firstItem="NFJ-ir-T7d" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="GXo-Eq-f1u"/>
                     <constraint firstItem="pF6-0v-9CD" firstAttribute="leading" secondItem="NFJ-ir-T7d" secondAttribute="trailing" constant="60" id="Hsz-6m-YgL"/>
+                    <constraint firstItem="pF6-0v-9CD" firstAttribute="trailing" secondItem="gU8-NF-FGt" secondAttribute="leading" constant="10" id="IRr-Yr-RJb"/>
                     <constraint firstItem="NFJ-ir-T7d" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="Lh0-84-JKg"/>
                     <constraint firstItem="Rkm-Sy-yRT" firstAttribute="leading" secondItem="pF6-0v-9CD" secondAttribute="leading" id="ga9-qb-AbM"/>
                     <constraint firstItem="gU8-NF-FGt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="jOL-az-dwY"/>

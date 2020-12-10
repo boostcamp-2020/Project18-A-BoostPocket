@@ -23,7 +23,7 @@ class PaddedLabel: UILabel {
     func configure() {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.white.cgColor
-        self.layer.cornerRadius = self.frame.width * 0.2
+        self.layer.cornerRadius = self.frame.height * 0.5
     }
     
     // MARK: - Properties
@@ -34,9 +34,10 @@ class PaddedLabel: UILabel {
         return CGSize(width: width, height: heigth)
     }
     
+    // MARK: - Padding
+    
     private var padding: CGSize = .init(width: 0, height: 0)
     
-    // MARK: Padding
     @IBInspectable var paddingWidth: CGFloat {
         get { padding.width }
         set { padding.width = newValue }

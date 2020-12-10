@@ -338,6 +338,12 @@ extension AddHistoryViewController {
             calculatorExpressionLabel.text?.removeLast()
         }
         
+        if calculatorExpressionLabel.text?.count == 1,
+            let lastCharacter = calculatorExpressionLabel.text?.last,
+            lastCharacter == "0" {
+            calculatorExpressionLabel.text?.removeLast()
+        }
+        
         calculatorExpressionLabel.text! += buttonText
         
         if buttonText != "." {
@@ -363,11 +369,18 @@ extension AddHistoryViewController {
             !lastCharacter.isOperation() {
             changeCalculatedAmountLabel()
         } else if calculatorExpressionLabel.text?.count == 0 {
-            calculatorExpressionLabel.text = "0"
-            calculatedAmountLabel.text = "0"
-            currencyConvertedAmountLabel.text = "KRW"
-            changeCalculatedAmountLabel()
+            initializeLabels()
+        } else if calculatorExpressionLabel.text?.count == 1,
+            let isOperation = calculatorExpressionLabel.text?.last?.isOperation(), isOperation {
+            initializeLabels()
         }
+    }
+    
+    private func initializeLabels() {
+        calculatorExpressionLabel.text = "0"
+        calculatedAmountLabel.text = "0"
+        currencyConvertedAmountLabel.text = "KRW"
+        changeCalculatedAmountLabel()
     }
     
 }
