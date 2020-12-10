@@ -167,6 +167,41 @@ class TravelViewModelTests: XCTestCase {
         
         XCTAssertEqual(createdHistory?.amount, travelItemViewModel?.getTotalIncome())
     }
+    
+    func test_travelItemViewModel_getTotalExpense() {
+        wait(for: [countriesExpectation], timeout: 5.0)
+        
+        let fetchedCountries = countryProvider.fetchCountries()
+        let firstCountry = fetchedCountries.first
+        XCTAssertNotNil(fetchedCountries)
+        XCTAssertNotNil(firstCountry)
+        
+        let travelExpectation = XCTestExpectation(description: "Successfully Created Travel")
+        var createdTravel: Travel?
+        var createdHistory: HistoryItemViewModel?
+        var travelItemViewModel: TravelItemViewModel?
+        
+        travelProvider.createTravel(countryName: firstCountry?.name ?? countryName) { travel in
+            XCTAssertNotNil(travel)
+            createdTravel = travel
+            travelItemViewModel = TravelItemViewModel(travel: createdTravel!, historyProvider: self.historyProvider)
+            travelExpectation.fulfill()
+        }
+        
+        wait(for: [travelExpectation], timeout: 5.0)
+        
+        let historyExpectation = XCTestExpectation(description: "Successfully Created History")
+        
+        travelItemViewModel?.createHistory(id: createdTravel?.id ?? id, isIncome: false, title: "expense history", memo: nil, date: Date(), image: Data(), amount: 12000, category: .etc, isPrepare: false, isCard: false) { historyItemViewModel in
+            XCTAssertNotNil(historyItemViewModel)
+            createdHistory = historyItemViewModel
+            historyExpectation.fulfill()
+        }
+        
+        wait(for: [historyExpectation], timeout: 5.0)
+        
+        XCTAssertEqual(createdHistory?.amount, travelItemViewModel?.getTotalExpense())
+    }
 
     func test_travelListViewModel_numberOfItem() {
         wait(for: [countriesExpectation], timeout: 5.0)
