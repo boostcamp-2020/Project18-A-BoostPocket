@@ -192,6 +192,68 @@ class TravelViewModelTests: XCTestCase {
         XCTAssertEqual(Float(percentage), travelItemViewModel?.expensePercentage)
     }
     
+    /*
+    func test_travelItemViewModel_expensePercentage_expense_is_not_a_number() {
+        var createdExpenseHistory: HistoryItemViewModel?
+        var createdIncomeHistory: HistoryItemViewModel?
+        let travelItemViewModel = createTravelItemViewModelForTests()
+        
+        XCTAssertNotNil(travelItemViewModel)
+        
+        let expenseExpectation = XCTestExpectation(description: "Successfully Created ExpenseHistory")
+        
+        travelItemViewModel?.createHistory(id: travelItemViewModel?.id ?? id, isIncome: false, title: "expense history", memo: nil, date: Date(), image: Data(), amount: Double.nan, category: .etc, isPrepare: false, isCard: false) { historyItemViewModel in
+            createdExpenseHistory = historyItemViewModel
+            XCTAssertNotNil(createdExpenseHistory)
+            expenseExpectation.fulfill()
+        }
+        
+        wait(for: [expenseExpectation], timeout: 5.0)
+        
+        let incomeExpectation = XCTestExpectation(description: "Successfully Created IncomeHistory")
+        
+        travelItemViewModel?.createHistory(id: travelItemViewModel?.id ?? id, isIncome: true, title: "income history", memo: nil, date: Date(), image: Data(), amount: 24000, category: .income, isPrepare: false, isCard: false) { historyItemViewModel in
+            createdIncomeHistory = historyItemViewModel
+            XCTAssertNotNil(createdIncomeHistory)
+            incomeExpectation.fulfill()
+        }
+        
+        wait(for: [incomeExpectation], timeout: 5.0)
+        
+        XCTAssertEqual(1.0, travelItemViewModel?.expensePercentage)
+    }
+    
+    func test_travelItemViewModel_expensePercentage_income_is_not_a_number() {
+        var createdExpenseHistory: HistoryItemViewModel?
+        var createdIncomeHistory: HistoryItemViewModel?
+        let travelItemViewModel = createTravelItemViewModelForTests()
+        
+        XCTAssertNotNil(travelItemViewModel)
+        
+        let expenseExpectation = XCTestExpectation(description: "Successfully Created ExpenseHistory")
+        
+        travelItemViewModel?.createHistory(id: travelItemViewModel?.id ?? id, isIncome: false, title: "expense history", memo: nil, date: Date(), image: Data(), amount: 12000, category: .etc, isPrepare: false, isCard: false) { historyItemViewModel in
+            createdExpenseHistory = historyItemViewModel
+            XCTAssertNotNil(createdExpenseHistory)
+            expenseExpectation.fulfill()
+        }
+        
+        wait(for: [expenseExpectation], timeout: 5.0)
+        
+        let incomeExpectation = XCTestExpectation(description: "Successfully Created IncomeHistory")
+        
+        travelItemViewModel?.createHistory(id: travelItemViewModel?.id ?? id, isIncome: true, title: "income history", memo: nil, date: Date(), image: Data(), amount: Double.nan, category: .income, isPrepare: false, isCard: false) { historyItemViewModel in
+            createdIncomeHistory = historyItemViewModel
+            XCTAssertNotNil(createdIncomeHistory)
+            incomeExpectation.fulfill()
+        }
+        
+        wait(for: [incomeExpectation], timeout: 5.0)
+        
+        XCTAssertEqual(0.0, travelItemViewModel?.expensePercentage)
+    }
+     */
+    
     func test_travelItemViewModel_getHistoryDictionary() {
         var firstExpenseHistory: HistoryItemViewModel?
         var secondExpenseHistory: HistoryItemViewModel?
