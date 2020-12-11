@@ -18,9 +18,6 @@ extension Date {
         var date = self.convertToString(format: .dashed).convertToDate()
         let convertedEndDate = endDate.convertToString(format: .dashed).convertToDate()
         
-        print(date)
-        print(convertedEndDate)
-        
         while date <= convertedEndDate {
             dates.append(date)
             guard let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: date) else { break }
@@ -33,8 +30,8 @@ extension Date {
         let currentSelf = self.toLocalTime()
         let currentDate = date.toLocalTime()
         let currentCalendar = Calendar.current
-        guard let start = currentCalendar.ordinality(of: comp, in: .era, for: currentSelf) else { return 0 }
-        guard let end = currentCalendar.ordinality(of: comp, in: .era, for: currentDate) else { return 0 }
+        guard let end = currentCalendar.ordinality(of: comp, in: .era, for: currentSelf) else { return 0 }
+        guard let start = currentCalendar.ordinality(of: comp, in: .era, for: currentDate) else { return 0 }
         
         return end - start
     }

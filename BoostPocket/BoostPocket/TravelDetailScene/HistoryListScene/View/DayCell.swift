@@ -75,6 +75,7 @@ class DayCell: UIView {
 
 extension UIButton {
     func configureSelectedButton() {
+        
         self.layer.cornerRadius = self.frame.size.width / 2
         self.backgroundColor = UIColor(named: "mainColor")
         self.setTitleColor(.white, for: .normal)
