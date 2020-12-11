@@ -64,7 +64,7 @@
 <br>
 
 ## 데모  
-[3주차 데모 영상](https://youtu.be/s0C9SuHFOJs)  
+[3주차 데모 영상](https://youtu.be/gzoJWoKQhDs)  
 
 ## 배포  
 [여기](https://kr.object.ncloudstorage.com/boostpocket-week3/Download.html)서 아이폰 디바이스에 다운로드 받을 수 있습니다👏  
