@@ -25,6 +25,12 @@ class ReportViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        reportPieChartView.superView.layer.sublayers = nil
+        reportPieChartView.removeAllLabels()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         reportPieChartView.slices = setupSlices()

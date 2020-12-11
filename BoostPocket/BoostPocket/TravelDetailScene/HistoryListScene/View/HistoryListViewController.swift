@@ -322,7 +322,9 @@ class HistoryListViewController: UIViewController {
         default:
             historyFilter.isCardOnly = true
         }
-        applySnapshot(with: historyFilter.filterHistories(with: travelItemViewModel?.histories))
+        let filteredHistory = historyFilter.filterHistories(with: travelItemViewModel?.histories)
+        applySnapshot(with: filteredHistory)
+        configureHistoryGuideLabel(filteredHistory: filteredHistory)
         setTotalAmountView()
     }
     
