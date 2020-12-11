@@ -18,9 +18,6 @@ extension Date {
         var date = self.convertToString(format: .dashed).convertToDate()
         let convertedEndDate = endDate.convertToString(format: .dashed).convertToDate()
         
-        print(date)
-        print(convertedEndDate)
-        
         while date <= convertedEndDate {
             dates.append(date)
             guard let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: date) else { break }
