@@ -16,15 +16,18 @@ class TravelDetailTabbarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         super.delegate = self
+        self.navigationItem.title = travelItemViewModel?.title
     }
     
     func setupChildViewControllers(with travelItemViewModel: TravelItemViewModel) {
         self.travelItemViewModel = travelItemViewModel
         
         guard let profileVC = self.viewControllers?[0] as? TravelProfileViewController,
-              let historyListVC = self.viewControllers?[1] as? HistoryListViewController else { return }
+              let historyListVC = self.viewControllers?[1] as? HistoryListViewController,
+              let reportVC = self.viewControllers?[2] as? ReportViewController else { return }
         profileVC.travelItemViewModel = travelItemViewModel
         historyListVC.travelItemViewModel = travelItemViewModel
+        reportVC.travelItemViewModel = travelItemViewModel
     }
 }
 

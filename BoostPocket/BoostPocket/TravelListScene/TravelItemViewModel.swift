@@ -20,6 +20,12 @@ protocol TravelItemPresentable: AnyObject {
     var countryName: String? { get }
     var flagImage: Data? { get }
     var currencyCode: String? { get }
+    var countryIdentifier: String? { get }
+    var expensePercentage: Double { get }
+    var getMostSpentCategory: (HistoryCategory, Double) { get }
+    func getTotalIncome() -> Double
+    func getTotalExpense() -> Double
+    func getHistoriesDictionary(from histories: [HistoryItemViewModel]) -> [HistoryCategory: Double]
 }
 
 class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
@@ -32,6 +38,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     }
     
     private weak var historyProvider: HistoryProvidable?
+    
     var histories: [HistoryItemViewModel] = [] {
         willSet {
             DispatchQueue.main.async { [weak self] in
@@ -39,8 +46,52 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
             }
         }
     }
+    
     var didFetch: (([HistoryItemViewModel]) -> Void)?
     
+    var expensePercentage: Double {
+        let expenses = getTotalExpense()
+        let incomes = getTotalIncome()
+        
+        var percentage: Double
+        
+        if expenses == 0 {
+            return 0
+        }
+        
+        if incomes == 0 {
+            return 1
+        }
+        
+        if expenses.isInfinite || expenses.isNaN {
+            percentage = 1
+        } else if incomes.isInfinite || incomes.isNaN {
+            percentage = 0
+        } else {
+            percentage = Double(expenses / incomes)
+        }
+        
+        return percentage
+    }
+    
+    var getMostSpentCategory: (HistoryCategory, Double) {
+        needFetchItems()
+        
+        let expenses = histories.filter { !$0.isIncome }
+        let amounts = getHistoriesDictionary(from: expenses)
+        let totalExpense = getTotalExpense()
+        
+        if let history = expenses.filter({ $0.amount.isNaN || $0.amount.isInfinite }).first {
+            return (history.category, 100)
+        }
+        
+        if let (category, amount) = amounts.max(by: {$0.1 < $1.1}) {
+            return (category, round(amount / totalExpense * 1000) / 10)
+        }
+        
+        return (HistoryCategory.etc, 0)
+    }
+
     var id: UUID?
     var title: String?
     var memo: String?
@@ -52,6 +103,7 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
     var countryName: String?
     var flagImage: Data?
     var currencyCode: String?
+    var countryIdentifier: String?
     
     init(travel: TravelProtocol, historyProvider: HistoryProvidable) {
         self.id = travel.id
@@ -65,15 +117,33 @@ class TravelItemViewModel: TravelItemPresentable, Equatable, Hashable {
         self.countryName = travel.country?.name
         self.flagImage = travel.country?.flagImage
         self.currencyCode = travel.country?.currencyCode
+        self.countryIdentifier = travel.country?.identifier
         
         self.historyProvider = historyProvider
+    }
+    
+    func getTotalIncome() -> Double {
+        needFetchItems()
+        return histories.filter({ $0.isIncome }).reduce(0) { $0 + $1.amount }
+    }
+    
+    func getTotalExpense() -> Double {
+        needFetchItems()
+        return histories.filter({ !$0.isIncome }).reduce(0) { $0 + $1.amount }
+    }
+    
+    func getHistoriesDictionary(from histories: [HistoryItemViewModel]) -> [HistoryCategory: Double] {
+        var counts: [HistoryCategory: Double] = [:]
+        histories.forEach { counts[$0.category] = (counts[$0.category] ?? 0) + $0.amount }
+
+        return counts
     }
 }
 
 protocol HistoryListPresentable: TravelItemPresentable {
     var histories: [HistoryItemViewModel] { get }
     var didFetch: (([HistoryItemViewModel]) -> Void)? { get set }
-    func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double,
+    func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double,
                        category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void)
     func needFetchItems()
     func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool?, isCard: Bool?) -> Bool
@@ -83,7 +153,7 @@ protocol HistoryListPresentable: TravelItemPresentable {
 
 extension TravelItemViewModel: HistoryListPresentable {
     
-    func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data, amount: Double, category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void) {
+    func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void) {
         
         let historyInfo = HistoryInfo(travelId: self.id ?? UUID(), id: id, isIncome: isIncome, title: title, memo: memo, date: date ?? Date(), category: category, amount: amount, image: image, isPrepare: isPrepare, isCard: isCard)
         
@@ -127,6 +197,11 @@ extension TravelItemViewModel: HistoryListPresentable {
         histories[indexToUpdate].isPrepare = updatedHistory.isPrepare
         histories[indexToUpdate].memo = updatedHistory.memo
         histories[indexToUpdate].title = updatedHistory.title ?? updatedHistory.categoryState.name
+        
+        // update 함수는 willSet이 안불리기 때문에 따로 didFetch 처리
+        DispatchQueue.main.async { [weak self] in
+            self?.didFetch?(self?.histories ?? [])
+        }
         
         return true
     }

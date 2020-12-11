@@ -27,19 +27,31 @@
 		5C7F83632578B40400A58112 /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F83622578B40400A58112 /* DayCell.swift */; };
 		5C7F83682578C77A00A58112 /* Date+PeriodOfDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F83672578C77A00A58112 /* Date+PeriodOfDates.swift */; };
 		5C7F8373257902A100A58112 /* HistoryListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F8372257902A000A58112 /* HistoryListSectionHeader.swift */; };
+		5C815CC5257E2FB700D9EDF4 /* TotalAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C815CC4257E2FB700D9EDF4 /* TotalAmountView.swift */; };
 		5C89619E256E917300575677 /* TravelStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C89619D256E917300575677 /* TravelStub.swift */; };
 		5C8C9196256E8436008C3919 /* TravelItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */; };
 		5C8C91AD256E8F0F008C3919 /* TravelViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C91AC256E8F0F008C3919 /* TravelViewModelTests.swift */; };
 		5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C96E8E1256BDA4200246590 /* CountryViewModelTests.swift */; };
 		5CAE96662577FC6300FD7F05 /* Double+Comma.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE96652577FC6300FD7F05 /* Double+Comma.swift */; };
 		5CB682E5256C03F800830373 /* CountryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB682E4256C03F800830373 /* CountryListViewModel.swift */; };
+		5CCB1265257DFF1D00C6788E /* HistoryItemViewModelStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCB1264257DFF1D00C6788E /* HistoryItemViewModelStub.swift */; };
 		5CD76E9F256C24DC00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
-		5CD76EB7256C933C00BD6CE3 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A1256B8FBA003049CB /* Country+CoreDataClass.swift */; };
-		5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9572F9A2256B8FBA003049CB /* Country+CoreDataProperties.swift */; };
 		5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */; };
+		5CD9A895257DCA2300A7AEFF /* HistoryFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */; };
+		5CD9A89A257DCD6C00A7AEFF /* HistoryFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD9A899257DCD6C00A7AEFF /* HistoryFilterTests.swift */; };
+		5CE798B6257F7C1C00AC6C43 /* ReportPieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE798B5257F7C1C00AC6C43 /* ReportPieChartView.swift */; };
+		5CE798BB257F7C3100AC6C43 /* ReportPieChartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE798BA257F7C3100AC6C43 /* ReportPieChartView.xib */; };
+		5CE798C0257F7CDB00AC6C43 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE798BF257F7CDB00AC6C43 /* ReportViewController.swift */; };
 		5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF409472575239200351F4B /* MemoEditViewController.swift */; };
+		950BE471257F793200ACC0CA /* String+IsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950BE470257F793200ACC0CA /* String+IsCategory.swift */; };
+		950BE473257F7C7B00ACC0CA /* String+IsPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950BE472257F7C7B00ACC0CA /* String+IsPlaceholder.swift */; };
+		954D2CDD257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954D2CDB257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift */; };
+		954D2CDE257E2F4800ECE9D9 /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 954D2CDC257E2F4800ECE9D9 /* CategoryCollectionViewCell.xib */; };
 		954F7019256D1C4B00B2E48B /* TravelListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */; };
 		954F701B256D3E7700B2E48B /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954F701A256D3E7700B2E48B /* Sections.swift */; };
+		955555AA257E18A200CA81C9 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955555A8257E18A200CA81C9 /* Country+CoreDataClass.swift */; };
+		955555AB257E18A200CA81C9 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955555A9257E18A200CA81C9 /* Country+CoreDataProperties.swift */; };
+		9564EE9A257BBE3F00AD85AC /* Character+isOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9564EE99257BBE3F00AD85AC /* Character+isOperation.swift */; };
 		956BBC58256B9CCC007803B1 /* CountryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BBC57256B9CCC007803B1 /* CountryStub.swift */; };
 		9572F977256B5397003049CB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9572F976256B5397003049CB /* .swiftlint.yml */; };
 		9572F986256B54E4003049CB /* NetworkManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9572F97D256B54E4003049CB /* NetworkManager.framework */; };
@@ -66,6 +78,10 @@
 		95A42E8625664DC40007810C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8525664DC40007810C /* Assets.xcassets */; };
 		95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8725664DC40007810C /* LaunchScreen.storyboard */; };
 		95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E9325664DC40007810C /* BoostPocketTests.swift */; };
+		95C8F4BE258301E500B8D91E /* Date+isValidInRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8F4BD258301E500B8D91E /* Date+isValidInRange.swift */; };
+		95F8A29C2580C9B800A33D3E /* ExpenseElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */; };
+		95F8A29E2580C9CE00A33D3E /* ExpenseElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */; };
+		95F8A2A02580D5AE00A33D3E /* Double+getPercentage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F8A29F2580D5AE00A33D3E /* Double+getPercentage.swift */; };
 		A99E0613257534F10014C29F /* TitleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0612257534F10014C29F /* TitleEditViewController.swift */; };
 		A99E062F257762520014C29F /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E062D257762520014C29F /* History+CoreDataClass.swift */; };
 		A99E0630257762520014C29F /* History+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E062E257762520014C29F /* History+CoreDataProperties.swift */; };
@@ -74,6 +90,8 @@
 		A99E064C257773430014C29F /* HistoryProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E064B257773430014C29F /* HistoryProviderTests.swift */; };
 		A99E065425778B130014C29F /* HistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E065325778B130014C29F /* HistoryViewModelTests.swift */; };
 		A99E06652578D6480014C29F /* HistoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E06642578D6480014C29F /* HistoryDetailViewController.swift */; };
+		A99E067A257DFC580014C29F /* String+CurrencySymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0679257DFC580014C29F /* String+CurrencySymbol.swift */; };
+		A99E0682257E02780014C29F /* Double+NumberFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99E0681257E02780014C29F /* Double+NumberFormat.swift */; };
 		A9BF7A37256D496C00496CD8 /* String+firstConsonant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */; };
 		A9BF7A50256E293F00496CD8 /* TravelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */; };
 		A9BF7A71256E2D5900496CD8 /* Travel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */; };
@@ -152,17 +170,31 @@
 		5C7F83622578B40400A58112 /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		5C7F83672578C77A00A58112 /* Date+PeriodOfDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+PeriodOfDates.swift"; sourceTree = "<group>"; };
 		5C7F8372257902A000A58112 /* HistoryListSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListSectionHeader.swift; sourceTree = "<group>"; };
+		5C815CC4257E2FB700D9EDF4 /* TotalAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalAmountView.swift; sourceTree = "<group>"; };
 		5C89619D256E917300575677 /* TravelStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelStub.swift; path = BoostPocketTests/TravelTests/TravelStub.swift; sourceTree = SOURCE_ROOT; };
 		5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelItemViewModel.swift; sourceTree = "<group>"; };
 		5C8C91AC256E8F0F008C3919 /* TravelViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelViewModelTests.swift; path = BoostPocketTests/TravelTests/TravelViewModelTests.swift; sourceTree = SOURCE_ROOT; };
 		5C96E8E1256BDA4200246590 /* CountryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewModelTests.swift; sourceTree = "<group>"; };
 		5CAE96652577FC6300FD7F05 /* Double+Comma.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Comma.swift"; sourceTree = "<group>"; };
 		5CB682E4256C03F800830373 /* CountryListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryListViewModel.swift; sourceTree = "<group>"; };
+		5CCB1264257DFF1D00C6788E /* HistoryItemViewModelStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItemViewModelStub.swift; sourceTree = "<group>"; };
+		5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilter.swift; sourceTree = "<group>"; };
+		5CD9A899257DCD6C00A7AEFF /* HistoryFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilterTests.swift; sourceTree = "<group>"; };
+		5CE798B5257F7C1C00AC6C43 /* ReportPieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPieChartView.swift; sourceTree = "<group>"; };
+		5CE798BA257F7C3100AC6C43 /* ReportPieChartView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportPieChartView.xib; sourceTree = "<group>"; };
+		5CE798BF257F7CDB00AC6C43 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		5CF409472575239200351F4B /* MemoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoEditViewController.swift; sourceTree = "<group>"; };
 		81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.debug.xcconfig"; sourceTree = "<group>"; };
+		950BE470257F793200ACC0CA /* String+IsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsCategory.swift"; sourceTree = "<group>"; };
+		950BE472257F7C7B00ACC0CA /* String+IsPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsPlaceholder.swift"; sourceTree = "<group>"; };
+		954D2CDB257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		954D2CDC257E2F4800ECE9D9 /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewModel.swift; sourceTree = "<group>"; };
 		954F701A256D3E7700B2E48B /* Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
+		955555A8257E18A200CA81C9 /* Country+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Country+CoreDataClass.swift"; path = "BoostPocket/CoreDataModels/Country+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		955555A9257E18A200CA81C9 /* Country+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Country+CoreDataProperties.swift"; path = "BoostPocket/CoreDataModels/Country+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		9564EE99257BBE3F00AD85AC /* Character+isOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+isOperation.swift"; sourceTree = "<group>"; };
 		956BBC57256B9CCC007803B1 /* CountryStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryStub.swift; sourceTree = "<group>"; };
 		9572F976256B5397003049CB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		9572F97D256B54E4003049CB /* NetworkManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,8 +204,6 @@
 		9572F98C256B54E4003049CB /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		9572F98E256B54E4003049CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9572F99B256B552E003049CB /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
-		9572F9A1256B8FBA003049CB /* Country+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataClass.swift"; sourceTree = "<group>"; };
-		9572F9A2256B8FBA003049CB /* Country+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9572F9A8256B902C003049CB /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		9572F9AD256B9524003049CB /* CountryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryProvider.swift; sourceTree = "<group>"; };
 		9572F9AF256B9703003049CB /* CountryProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryProviderTests.swift; sourceTree = "<group>"; };
@@ -196,6 +226,10 @@
 		95A42E8F25664DC40007810C /* BoostPocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoostPocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A42E9325664DC40007810C /* BoostPocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostPocketTests.swift; sourceTree = "<group>"; };
 		95A42E9525664DC40007810C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95C8F4BD258301E500B8D91E /* Date+isValidInRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+isValidInRange.swift"; sourceTree = "<group>"; };
+		95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseElementView.swift; sourceTree = "<group>"; };
+		95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpenseElementView.xib; sourceTree = "<group>"; };
+		95F8A29F2580D5AE00A33D3E /* Double+getPercentage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+getPercentage.swift"; sourceTree = "<group>"; };
 		A99E0612257534F10014C29F /* TitleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleEditViewController.swift; sourceTree = "<group>"; };
 		A99E062D257762520014C29F /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A99E062E257762520014C29F /* History+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -204,6 +238,8 @@
 		A99E064B257773430014C29F /* HistoryProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProviderTests.swift; sourceTree = "<group>"; };
 		A99E065325778B130014C29F /* HistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModelTests.swift; sourceTree = "<group>"; };
 		A99E06642578D6480014C29F /* HistoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailViewController.swift; sourceTree = "<group>"; };
+		A99E0679257DFC580014C29F /* String+CurrencySymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CurrencySymbol.swift"; sourceTree = "<group>"; };
+		A99E0681257E02780014C29F /* Double+NumberFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+NumberFormat.swift"; sourceTree = "<group>"; };
 		A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+firstConsonant.swift"; sourceTree = "<group>"; };
 		A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProvider.swift; sourceTree = "<group>"; };
 		A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Travel+CoreDataClass.swift"; path = "BoostPocket/CoreDataModels/Travel+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -283,12 +319,12 @@
 		9572F99E256B8F42003049CB /* CoreDataModels */ = {
 			isa = PBXGroup;
 			children = (
+				955555A8257E18A200CA81C9 /* Country+CoreDataClass.swift */,
+				955555A9257E18A200CA81C9 /* Country+CoreDataProperties.swift */,
 				A99E062D257762520014C29F /* History+CoreDataClass.swift */,
 				A99E062E257762520014C29F /* History+CoreDataProperties.swift */,
 				A9BF7A6F256E2D5900496CD8 /* Travel+CoreDataClass.swift */,
 				A9BF7A70256E2D5900496CD8 /* Travel+CoreDataProperties.swift */,
-				9572F9A1256B8FBA003049CB /* Country+CoreDataClass.swift */,
-				9572F9A2256B8FBA003049CB /* Country+CoreDataProperties.swift */,
 			);
 			path = CoreDataModels;
 			sourceTree = "<group>";
@@ -319,22 +355,14 @@
 			isa = PBXGroup;
 			children = (
 				5C3DAF3925666A8000178EA0 /* TravelDetail.storyboard */,
-				5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */,
 				95747A66256FAF6B0065C419 /* TravelDetailTabbarController.swift */,
-				5CF409472575239200351F4B /* MemoEditViewController.swift */,
 				A99E0612257534F10014C29F /* TitleEditViewController.swift */,
-				A99E0638257763B90014C29F /* HistoryProvider.swift */,
-				A99E0645257766F50014C29F /* HistoryItemViewModel.swift */,
-				5C15AB3C2577C32000244C6C /* HistoryCell.swift */,
-				5C15AB3D2577C32000244C6C /* HistoryCell.xib */,
-				5C15AB432577C96E00244C6C /* HistoryListViewController.swift */,
-				5C15AB482577DED700244C6C /* HistoryHeaderCell.swift */,
-				5C15AB4D2577DEE900244C6C /* HistoryHeaderCell.xib */,
-				5C7F83622578B40400A58112 /* DayCell.swift */,
-				9574ACCE2578B4C10072C578 /* AddHistoryViewController.swift */,
-				9574ACCF2578B4C10072C578 /* AddHistoryViewController.xib */,
-				5C7F8372257902A000A58112 /* HistoryListSectionHeader.swift */,
-				A99E06642578D6480014C29F /* HistoryDetailViewController.swift */,
+				5CF409472575239200351F4B /* MemoEditViewController.swift */,
+				A99E06A3258060740014C29F /* ProfileScene */,
+				A99E06A5258061870014C29F /* HistoryListScene */,
+				A99E06A6258061E20014C29F /* AddHistoryScene */,
+				A99E06A7258062080014C29F /* HistoryDetailScene */,
+				A99E06A4258060E30014C29F /* ReportScene */,
 			);
 			path = TravelDetailScene;
 			sourceTree = "<group>";
@@ -484,18 +512,116 @@
 			children = (
 				A99E064B257773430014C29F /* HistoryProviderTests.swift */,
 				A99E065325778B130014C29F /* HistoryViewModelTests.swift */,
+				5CD9A899257DCD6C00A7AEFF /* HistoryFilterTests.swift */,
+				5CCB1264257DFF1D00C6788E /* HistoryItemViewModelStub.swift */,
 			);
 			path = HistoryTests;
+			sourceTree = "<group>";
+		};
+		A99E06A3258060740014C29F /* ProfileScene */ = {
+			isa = PBXGroup;
+			children = (
+				5C3DAF3D25666B4D00178EA0 /* TravelProfileViewController.swift */,
+			);
+			path = ProfileScene;
+			sourceTree = "<group>";
+		};
+		A99E06A4258060E30014C29F /* ReportScene */ = {
+			isa = PBXGroup;
+			children = (
+				5CE798B5257F7C1C00AC6C43 /* ReportPieChartView.swift */,
+				5CE798BA257F7C3100AC6C43 /* ReportPieChartView.xib */,
+				5CE798BF257F7CDB00AC6C43 /* ReportViewController.swift */,
+				95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */,
+				95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */,
+			);
+			path = ReportScene;
+			sourceTree = "<group>";
+		};
+		A99E06A5258061870014C29F /* HistoryListScene */ = {
+			isa = PBXGroup;
+			children = (
+				A99E06A8258062710014C29F /* View */,
+				A99E0638257763B90014C29F /* HistoryProvider.swift */,
+				A99E0645257766F50014C29F /* HistoryItemViewModel.swift */,
+				5C7F8372257902A000A58112 /* HistoryListSectionHeader.swift */,
+				5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */,
+			);
+			path = HistoryListScene;
+			sourceTree = "<group>";
+		};
+		A99E06A6258061E20014C29F /* AddHistoryScene */ = {
+			isa = PBXGroup;
+			children = (
+				954D2CDB257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift */,
+				954D2CDC257E2F4800ECE9D9 /* CategoryCollectionViewCell.xib */,
+				9574ACCE2578B4C10072C578 /* AddHistoryViewController.swift */,
+				9574ACCF2578B4C10072C578 /* AddHistoryViewController.xib */,
+			);
+			path = AddHistoryScene;
+			sourceTree = "<group>";
+		};
+		A99E06A7258062080014C29F /* HistoryDetailScene */ = {
+			isa = PBXGroup;
+			children = (
+				A99E06642578D6480014C29F /* HistoryDetailViewController.swift */,
+			);
+			path = HistoryDetailScene;
+			sourceTree = "<group>";
+		};
+		A99E06A8258062710014C29F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5C15AB432577C96E00244C6C /* HistoryListViewController.swift */,
+				5C15AB3C2577C32000244C6C /* HistoryCell.swift */,
+				5C15AB3D2577C32000244C6C /* HistoryCell.xib */,
+				5C15AB482577DED700244C6C /* HistoryHeaderCell.swift */,
+				5C15AB4D2577DEE900244C6C /* HistoryHeaderCell.xib */,
+				5C7F83622578B40400A58112 /* DayCell.swift */,
+				5C815CC4257E2FB700D9EDF4 /* TotalAmountView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A99E06AC2580630A0014C29F /* String+ */ = {
+			isa = PBXGroup;
+			children = (
+				A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */,
+				950BE470257F793200ACC0CA /* String+IsCategory.swift */,
+				950BE472257F7C7B00ACC0CA /* String+IsPlaceholder.swift */,
+				A99E0679257DFC580014C29F /* String+CurrencySymbol.swift */,
+			);
+			path = "String+";
+			sourceTree = "<group>";
+		};
+		A99E06AD258063240014C29F /* Date+ */ = {
+			isa = PBXGroup;
+			children = (
+				A9BF7AA4256F9B8800496CD8 /* Date+ConvertToString.swift */,
+				5C7F83672578C77A00A58112 /* Date+PeriodOfDates.swift */,
+				95C8F4BD258301E500B8D91E /* Date+isValidInRange.swift */,
+			);
+			path = "Date+";
+			sourceTree = "<group>";
+		};
+		A99E06B42580635A0014C29F /* Double+ */ = {
+			isa = PBXGroup;
+			children = (
+				5CAE96652577FC6300FD7F05 /* Double+Comma.swift */,
+				A99E0681257E02780014C29F /* Double+NumberFormat.swift */,
+				95F8A29F2580D5AE00A33D3E /* Double+getPercentage.swift */,
+			);
+			path = "Double+";
 			sourceTree = "<group>";
 		};
 		A9BF7A35256D496300496CD8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				A9BF7A36256D496C00496CD8 /* String+firstConsonant.swift */,
+				A99E06AC2580630A0014C29F /* String+ */,
+				A99E06AD258063240014C29F /* Date+ */,
+				A99E06B42580635A0014C29F /* Double+ */,
+				9564EE99257BBE3F00AD85AC /* Character+isOperation.swift */,
 				95747A68256FCEEA0065C419 /* Data+ImageData.swift */,
-				A9BF7AA4256F9B8800496CD8 /* Date+ConvertToString.swift */,
-				5CAE96652577FC6300FD7F05 /* Double+Comma.swift */,
-				5C7F83672578C77A00A58112 /* Date+PeriodOfDates.swift */,
 				5C77958C257965B400A685FB /* UIStackView+RemoveAll.swift */,
 			);
 			path = Extensions;
@@ -672,8 +798,11 @@
 				5C15AB3F2577C32000244C6C /* HistoryCell.xib in Resources */,
 				5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */,
 				9574ACD12578B4C10072C578 /* AddHistoryViewController.xib in Resources */,
+				95F8A29E2580C9CE00A33D3E /* ExpenseElementView.xib in Resources */,
+				5CE798BB257F7C3100AC6C43 /* ReportPieChartView.xib in Resources */,
 				95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */,
 				5C797494256FD263007CB1ED /* TravelHeaderCell.xib in Resources */,
+				954D2CDE257E2F4800ECE9D9 /* CategoryCollectionViewCell.xib in Resources */,
 				A9BF7A87256F420D00496CD8 /* TravelCell.xib in Resources */,
 				5C3DAF302566576000178EA0 /* CountryListViewController.xib in Resources */,
 				9572F977256B5397003049CB /* .swiftlint.yml in Resources */,
@@ -798,12 +927,15 @@
 				95A42E7E25664DBE0007810C /* TravelListViewController.swift in Sources */,
 				5C3DAF3E25666B4D00178EA0 /* TravelProfileViewController.swift in Sources */,
 				5C7F83632578B40400A58112 /* DayCell.swift in Sources */,
+				5C815CC5257E2FB700D9EDF4 /* TotalAmountView.swift in Sources */,
 				95747A67256FAF6B0065C419 /* TravelDetailTabbarController.swift in Sources */,
 				9574ACD02578B4C10072C578 /* AddHistoryViewController.swift in Sources */,
 				9579CBB7256E46A900E74A61 /* DataModelInfo.swift in Sources */,
-				5CD76EBB256C935E00BD6CE3 /* Country+CoreDataProperties.swift in Sources */,
 				5C77958D257965B400A685FB /* UIStackView+RemoveAll.swift in Sources */,
+				95F8A2A02580D5AE00A33D3E /* Double+getPercentage.swift in Sources */,
 				5C3DAF2F2566576000178EA0 /* CountryListViewController.swift in Sources */,
+				9564EE9A257BBE3F00AD85AC /* Character+isOperation.swift in Sources */,
+				95F8A29C2580C9B800A33D3E /* ExpenseElementView.swift in Sources */,
 				5CAE96662577FC6300FD7F05 /* Double+Comma.swift in Sources */,
 				5C8C9196256E8436008C3919 /* TravelItemViewModel.swift in Sources */,
 				A9BF7AAB256F9CBF00496CD8 /* PaddedLabel.swift in Sources */,
@@ -811,30 +943,40 @@
 				954F701B256D3E7700B2E48B /* Sections.swift in Sources */,
 				5CB682E5256C03F800830373 /* CountryListViewModel.swift in Sources */,
 				A9BF7A72256E2D5900496CD8 /* Travel+CoreDataProperties.swift in Sources */,
+				954D2CDD257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift in Sources */,
 				9572F9A9256B902C003049CB /* PersistenceManager.swift in Sources */,
+				A99E0682257E02780014C29F /* Double+NumberFormat.swift in Sources */,
 				A99E0639257763B90014C29F /* HistoryProvider.swift in Sources */,
+				5CD9A895257DCA2300A7AEFF /* HistoryFilter.swift in Sources */,
 				A9BF7AA5256F9B8800496CD8 /* Date+ConvertToString.swift in Sources */,
 				5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */,
 				A99E0646257766F50014C29F /* HistoryItemViewModel.swift in Sources */,
-				5CD76EB7256C933C00BD6CE3 /* Country+CoreDataClass.swift in Sources */,
 				5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */,
 				A9BF7A37256D496C00496CD8 /* String+firstConsonant.swift in Sources */,
 				95747A69256FCEEA0065C419 /* Data+ImageData.swift in Sources */,
 				5C797493256FD263007CB1ED /* TravelHeaderCell.swift in Sources */,
 				954F7019256D1C4B00B2E48B /* TravelListViewModel.swift in Sources */,
+				A99E067A257DFC580014C29F /* String+CurrencySymbol.swift in Sources */,
+				955555AB257E18A200CA81C9 /* Country+CoreDataProperties.swift in Sources */,
 				5C7F83682578C77A00A58112 /* Date+PeriodOfDates.swift in Sources */,
 				A9BF7A71256E2D5900496CD8 /* Travel+CoreDataClass.swift in Sources */,
 				A99E062F257762520014C29F /* History+CoreDataClass.swift in Sources */,
 				5C7F8373257902A100A58112 /* HistoryListSectionHeader.swift in Sources */,
+				950BE471257F793200ACC0CA /* String+IsCategory.swift in Sources */,
 				5C15AB492577DED700244C6C /* HistoryHeaderCell.swift in Sources */,
 				9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */,
 				5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
+				950BE473257F7C7B00ACC0CA /* String+IsPlaceholder.swift in Sources */,
 				95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */,
 				5C15AB3E2577C32000244C6C /* HistoryCell.swift in Sources */,
+				5CE798C0257F7CDB00AC6C43 /* ReportViewController.swift in Sources */,
 				5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */,
 				A99E0630257762520014C29F /* History+CoreDataProperties.swift in Sources */,
 				A9BF7A86256F420D00496CD8 /* TravelCell.swift in Sources */,
+				5CE798B6257F7C1C00AC6C43 /* ReportPieChartView.swift in Sources */,
+				95C8F4BE258301E500B8D91E /* Date+isValidInRange.swift in Sources */,
 				A99E06652578D6480014C29F /* HistoryDetailViewController.swift in Sources */,
+				955555AA257E18A200CA81C9 /* Country+CoreDataClass.swift in Sources */,
 				95A42E7C25664DBE0007810C /* SceneDelegate.swift in Sources */,
 				A99E0613257534F10014C29F /* TitleEditViewController.swift in Sources */,
 				5C15AB442577C96E00244C6C /* HistoryListViewController.swift in Sources */,
@@ -849,6 +991,7 @@
 				5CD76E9F256C24DC00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
 				956BBC58256B9CCC007803B1 /* CountryStub.swift in Sources */,
 				A9BF7A77256E306100496CD8 /* TravelProviderTests.swift in Sources */,
+				5CD9A89A257DCD6C00A7AEFF /* HistoryFilterTests.swift in Sources */,
 				5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */,
 				5C8C91AD256E8F0F008C3919 /* TravelViewModelTests.swift in Sources */,
 				9572F9B3256B974C003049CB /* PersistenceManagerStub.swift in Sources */,
@@ -856,6 +999,7 @@
 				5C89619E256E917300575677 /* TravelStub.swift in Sources */,
 				A99E064C257773430014C29F /* HistoryProviderTests.swift in Sources */,
 				95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */,
+				5CCB1265257DFF1D00C6788E /* HistoryItemViewModelStub.swift in Sources */,
 				9572F9B0256B9703003049CB /* CountryProviderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1120,7 +1264,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -1129,7 +1272,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = BoostPocket.BoostPocket;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.BoostPocket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1140,7 +1283,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 57F756558017352589C6CED3 /* Pods-BoostPocket.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -1149,7 +1291,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = BoostPocket.BoostPocket;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.BoostPocket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

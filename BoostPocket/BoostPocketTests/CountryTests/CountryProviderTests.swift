@@ -16,10 +16,11 @@ class CountryProviderTests: XCTestCase {
     var countryProviderStub: CountryProvidable!
     
     let countryName = "test name"
-    let lastUpdated = "2019-08-23-12-01-33".convertToDate()
+    let lastUpdated = "2019-08-23".convertToDate()
     let flagImage = Data()
     let exchangeRate = 1.5
     let currencyCode = "test code"
+    let identifier = "ko_KR"
     
     override func setUpWithError() throws {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
@@ -38,32 +39,14 @@ class CountryProviderTests: XCTestCase {
         
         XCTAssertEqual(countryProviderStub.fetchCountries(), [])
         
-        countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) { (country) in
-            XCTAssertNotNil(country)
+        persistenceManagerStub.createObject(newObjectInfo: CountryInfo(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode, identifier: identifier)) { dataModelProtocol in
+            XCTAssertNotNil(dataModelProtocol)
             expectation.fulfill()
         }
         
         wait(for: [expectation], timeout: 5.0)
         XCTAssertNotEqual(countryProviderStub.fetchCountries(), [])
-    }
-    
-    func test_countryProvider_createCountry() {
-        let expectation = XCTestExpectation(description: "Successfully Created Country")
-        var createdCountry: Country?
-        
-        countryProviderStub.createCountry(name: countryName, lastUpdated: lastUpdated, flagImage: flagImage, exchangeRate: exchangeRate, currencyCode: currencyCode) { (country) in
-            XCTAssertNotNil(country)
-            createdCountry = country
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 5.0)
-        XCTAssertNotNil(createdCountry)
-        XCTAssertEqual(createdCountry?.name, countryName)
-        XCTAssertEqual(createdCountry?.lastUpdated, lastUpdated)
-        XCTAssertEqual(createdCountry?.flagImage, flagImage)
-        XCTAssertEqual(createdCountry?.exchangeRate, exchangeRate)
-        XCTAssertEqual(createdCountry?.currencyCode, currencyCode)
+        XCTAssertEqual(countryProviderStub.countries.count, 1)
     }
 
 }
