@@ -455,8 +455,14 @@ extension HistoryListViewController: AddHistoryDelegate {
     }
     
     func updateHistory(at historyId: UUID?, newHistoryData: NewHistoryData) {
-        guard travelItemViewModel?.updateHistory(id: historyId ?? UUID(), isIncome: newHistoryData.isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image, amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: newHistoryData.isPrepare, isCard: newHistoryData.isCard ?? false) == true else { return }
-        print("지출/예산 업데이트 성공")
+        guard let travelItemViewModel = travelItemViewModel else { return }
+        travelItemViewModel.updateHistory(id: historyId ?? UUID(), isIncome: newHistoryData.isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image, amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: newHistoryData.isPrepare, isCard: newHistoryData.isCard ?? false) { result in
+            if result {
+                print("지출/예산 업데이트 성공")
+            } else {
+                print("지출/예산 업데이트 실패")
+            }
+        }
     }
 }
 
@@ -473,7 +479,13 @@ extension HistoryListViewController: HistoryDetailDelegate {
     }
     
     func updateHistory(at historyId: UUID?, updatedHistoryData: NewHistoryData) {
-        guard travelItemViewModel?.updateHistory(id: historyId ?? UUID(), isIncome: updatedHistoryData.isIncome, title: updatedHistoryData.title, memo: updatedHistoryData.memo, date: updatedHistoryData.date, image: updatedHistoryData.image, amount: updatedHistoryData.amount, category: updatedHistoryData.category, isPrepare: updatedHistoryData.isPrepare, isCard: updatedHistoryData.isCard ?? false) == true else { return }
-        print("지출/예산 업데이트 성공")
+        guard let travelItemViewModel = travelItemViewModel else { return }
+        travelItemViewModel.updateHistory(id: historyId ?? UUID(), isIncome: updatedHistoryData.isIncome, title: updatedHistoryData.title, memo: updatedHistoryData.memo, date: updatedHistoryData.date, image: updatedHistoryData.image, amount: updatedHistoryData.amount, category: updatedHistoryData.category, isPrepare: updatedHistoryData.isPrepare, isCard: updatedHistoryData.isCard ?? false) { result in
+            if result {
+                print("지출/예산 업데이트 성공")
+            } else {
+                print("지출/예산 업데이트 실패")
+            }
+        }
     }
 }

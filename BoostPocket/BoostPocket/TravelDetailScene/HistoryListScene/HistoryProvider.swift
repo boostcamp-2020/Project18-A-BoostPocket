@@ -13,7 +13,7 @@ protocol HistoryProvidable: AnyObject {
     func createHistory(createdHistoryInfo: HistoryInfo, completion: @escaping (History?) -> Void)
     func fetchHistories() -> [History]
     func deleteHistory(id: UUID) -> Bool
-    func updateHistory(updatedHistoryInfo: HistoryInfo) -> History?
+    func updateHistory(updatedHistoryInfo: HistoryInfo, completion: @escaping (History?) -> Void)
 }
 
 class HistoryProvider: HistoryProvidable {
@@ -58,13 +58,23 @@ class HistoryProvider: HistoryProvidable {
         return false
     }
     
-    func updateHistory(updatedHistoryInfo: HistoryInfo) -> History? {
-        guard let persistenceManager = persistenceManager,
-            let updatedHistory = persistenceManager.updateObject(updatedObjectInfo: updatedHistoryInfo) as? History,
-            let indexToUpdate = histories.indices.filter({ histories[$0].id == updatedHistory.id }).first
-            else { return nil }
+    func updateHistory(updatedHistoryInfo: HistoryInfo, completion: @escaping (History?) -> Void) {
+        guard let persistenceManager = persistenceManager else {
+            completion(nil)
+            return
+        }
         
-        self.histories[indexToUpdate] = updatedHistory
-        return updatedHistory
+        persistenceManager.updateObject(updatedObjectInfo: updatedHistoryInfo) { [weak self] updatedHistory in
+            guard let self = self,
+            let updatedHistory = updatedHistory as? History,
+                let indexToUpdate = self.histories.indices.filter({ self.histories[$0].id == updatedHistory.id }).first
+                else {
+                    completion(nil)
+                    return
+            }
+            
+            self.histories[indexToUpdate] = updatedHistory
+            completion(updatedHistory)
+        }
     }
 }

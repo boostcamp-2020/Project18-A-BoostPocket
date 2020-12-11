@@ -261,12 +261,18 @@ extension TravelListViewController: TravelProfileDelegate {
             let updatingTravel = travelListViewModel.travels.filter({ $0.id == updatingId }).first,
             let countryName = updatingTravel.countryName,
             let title = updatingTravel.title,
-            let coverImage = updatingTravel.coverImage,
+            let coverImage = updatingTravel.coverImage {
             
-            travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo, startDate: newStartDate, endDate: newEndDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) {
-            print("여행 정보 업데이트 성공")
+            travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo, startDate: newStartDate, endDate: newEndDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) { result in
+                if result {
+                    print("여행 정보 업데이트 성공")
+                } else {
+                    print("여행 정보 업데이트 실패")
+                }
+            }
+            
         } else {
-            print("여행 정보 업데이트 실패")
+            print("여행 업데이트를 위한 정보 불러오기 실패")
         }
     }
 }

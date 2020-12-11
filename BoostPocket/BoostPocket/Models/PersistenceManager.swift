@@ -22,7 +22,7 @@ protocol PersistenceManagable: AnyObject {
     func fetchAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T]
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]?
     func isExchangeRateOutdated(lastUpdated: Date) -> Bool
-    func updateObject<T>(updatedObjectInfo: T) -> DataModelProtocol?
+    func updateObject<T>(updatedObjectInfo: T, completion: @escaping (DataModelProtocol?) -> Void)
     func delete<T>(deletingObject: T) -> Bool
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
     func setupTravelInfo(travelInfo: TravelInfo, completion: @escaping (Travel?) -> Void)
@@ -197,15 +197,18 @@ extension PersistenceManager {
 
     func setupTravelInfo(travelInfo: TravelInfo, completion: @escaping (Travel?) -> Void) {
         guard let entity = NSEntityDescription.entity(forEntityName: Travel.entityName, in: self.context) else {
+            print("setupTravelInfo - Travel Entity 불러오기 실패")
             completion(nil)
             return
         }
+        
         let newTravel = Travel(entity: entity, insertInto: context)
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Country.entityName)
         fetchRequest.predicate = NSPredicate(format: "name == %@", travelInfo.countryName)
         
         guard let countries = fetch(fetchRequest) as? [Country], let fetchedCountry = countries.first else {
+            print("setupTravelInfo - 국가 \(travelInfo.countryName)을 찾지 못했습니다")
             completion(nil)
             return
         }
@@ -224,33 +227,34 @@ extension PersistenceManager {
                 guard let currencyCode = fetchedCountry.currencyCode else { return }
                 
                 switch result {
-                    
                 case .success(let data):
-                    
+                    print("setupTravelInfo - 새로운 환율정보 네트워크 응답 성공")
                     let newExchangeRate = data.rates[currencyCode] ?? fetchedCountry.exchangeRate
                     let newLastUpdated = data.date.convertToDate()
                     
                     newTravel.exchangeRate = newExchangeRate
                     
-                    if let countryName = fetchedCountry.name,
-                        let flagImage = fetchedCountry.flagImage,
-                        let currencyCode = fetchedCountry.currencyCode,
-                        let identifier = fetchedCountry.identifier,
-                        self?.updateObject(updatedObjectInfo: CountryInfo(name: countryName, lastUpdated: newLastUpdated, flagImage: flagImage, exchangeRate: newExchangeRate, currencyCode: currencyCode, identifier: identifier)) != nil {
-                        print("환율 정보 업데이트 성공")
-                    } else {
-                        print("환율 정보 업데이트 실패")
+                    if let countryName = fetchedCountry.name, let flagImage = fetchedCountry.flagImage, let currencyCode = fetchedCountry.currencyCode, let identifier = fetchedCountry.identifier {
+                        self?.updateObject(updatedObjectInfo: CountryInfo(name: countryName, lastUpdated: newLastUpdated, flagImage: flagImage, exchangeRate: newExchangeRate, currencyCode: currencyCode, identifier: identifier)) { result in
+                            if let _ = result {
+                                print("setupTravelInfo - 새로운 환율정보 업데이트 성공")
+                                completion(newTravel)
+                            } else {
+                                print("setupTravelInfo - 새로운 환율정보 업데이트 실패")
+                                completion(newTravel)
+                            }
+                        }
                     }
                     
                 case .failure(let error):
-                    print("Network error")
+                    print("setupTravelInfo - 새로운 환율정보 네트워크 응답 실패")
                     print(error.localizedDescription)
                     newTravel.exchangeRate = fetchedCountry.exchangeRate
+                    completion(newTravel)
                 }
-                
-                completion(newTravel)
             }
         } else {
+            print("setupTravelInfo - 환율 정보가 최신입니다")
             newTravel.exchangeRate = fetchedCountry.exchangeRate
             completion(newTravel)
         }
@@ -277,18 +281,22 @@ extension PersistenceManager {
         }
         
         do {
+            // print("fetchAll 성공")
             let fetchedResult = try self.context.fetch(request)
             return fetchedResult
         } catch {
+            // print("fetchAll 실패")
             return []
         }
     }
 
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]? {
         do {
+            print("fetch 성공")
             let fetchResult = try self.context.fetch(request)
             return fetchResult
         } catch {
+            print("fetch 실패")
             print(error.localizedDescription)
             return nil
         }
@@ -298,7 +306,7 @@ extension PersistenceManager {
 // MARK: - Core Data Updating support
 
 extension PersistenceManager {
-    func updateObject<T>(updatedObjectInfo: T) -> DataModelProtocol? {
+    func updateObject<T>(updatedObjectInfo: T, completion: @escaping (DataModelProtocol?) -> Void) {
         var updatedObject: DataModelProtocol?
         
         if let updatedTravelInfo = updatedObjectInfo as? TravelInfo,
@@ -312,7 +320,7 @@ extension PersistenceManager {
             updatedObject = updatedHistory
         }
         
-        return updatedObject
+        completion(updatedObject)
     }
 
     private func updateHistory(historyInfo: HistoryInfo) -> History? {
@@ -337,9 +345,10 @@ extension PersistenceManager {
             let histories = fetch(fetchRequest) as? [History]
             let updatedHistory = histories?.first
             
+            print("updateHistory 성공")
             return updatedHistory
         } catch {
-            print("updateHistory Error")
+            print("updateHistory 실패")
             print(error.localizedDescription)
             return nil
         }
@@ -365,9 +374,10 @@ extension PersistenceManager {
             let travels = fetch(fetchRequest) as? [Travel]
             let updatedTravel = travels?.first
             
+            print("updateTravel 성공")
             return updatedTravel
         } catch {
-            print("updateTravel Error")
+            print("updateTravel 실패")
             print(error.localizedDescription)
             return nil
         }
@@ -389,9 +399,10 @@ extension PersistenceManager {
             let countries = fetch(fetchRequest) as? [Country]
             let updatedCountry = countries?.first
             
+            print("updateCountry 성공")
             return updatedCountry
         } catch {
-            print("updateCountry Error")
+            print("updateCountry 실패")
             print(error.localizedDescription)
             return nil
         }
