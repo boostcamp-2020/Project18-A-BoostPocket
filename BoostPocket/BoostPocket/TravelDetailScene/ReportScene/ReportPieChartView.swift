@@ -57,6 +57,7 @@ class ReportPieChartView: UIView {
     
     // 각각의 퍼센트와 색이 담긴 슬라이스를 파라미터로 주입하여 그림
     private func addSlice(_ slice: Slice) {
+        if round(slice.percent * 1000) / 10 == 0 { return }
         // strikeEnd키로 애니메이션 생성.
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         // strokeEnd의 경우 value 범위는 0~1까지. 모든 범위에 해당하는 애니메이션
@@ -112,11 +113,14 @@ class ReportPieChartView: UIView {
         let center = self.center
         let labelCenter = getLabelCenter(currentPercent, currentPercent + slice.percent)
         let label = UILabel()
+        label.textColor = .white
+        label.numberOfLines = 0
+        label.textAlignment = .center
         addSubview(label)
         
         let roundedPercentage = round(slice.percent * 1000) / 10
         
-        label.text = roundedPercentage < 5 ? "" : String(format: "%.1f%%", roundedPercentage)
+        label.text = roundedPercentage < 5 ? "" : String(format: "\(slice.category.name)\n%.1f%%", roundedPercentage)
           
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -127,18 +131,15 @@ class ReportPieChartView: UIView {
         self.layoutIfNeeded()
     }
     
-    private func removeAllLabels() {
+    func removeAllLabels() {
         subviews.filter({ $0 is UILabel }).forEach({ $0.removeFromSuperview() })
     }
     
     func animateChart() {
         sliceIndex = 0
         currentPercent = 0.0
-        superView.layer.sublayers = nil
-        removeAllLabels()
         
         if slices != nil && slices!.count > 0 {
-            
             let firstSlice = slices![0]
             addLabel(firstSlice)
             addSlice(firstSlice)
