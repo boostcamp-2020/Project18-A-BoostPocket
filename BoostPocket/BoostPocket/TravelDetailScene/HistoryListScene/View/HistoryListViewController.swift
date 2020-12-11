@@ -44,6 +44,7 @@ class HistoryListViewController: UIViewController {
     
     weak var travelItemViewModel: HistoryListPresentable?
 
+    private weak var selectedDateButton: UIButton?
     private var historyFilter = HistoryFilter()
     private var isFloatingButtonOpened: Bool = false
     private lazy var dataSource = configureDatasource()
@@ -57,9 +58,33 @@ class HistoryListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupDays(from: travelItemViewModel?.startDate, to: travelItemViewModel?.endDate)
+        configureSelectedDateButton()
         moneySegmentedControl.selectedSegmentIndex = 0
     }
+
+    private func configureSelectedDateButton() {
+        if let selectedDate = historyFilter.selectedDate,
+            let startDate = travelItemViewModel?.startDate,
+            let endDate = travelItemViewModel?.endDate {
+            if selectedDate.isValidInRange(from: startDate, to: endDate) {
+                let index = selectedDate.interval(ofComponent: .day, fromDate: startDate)
+                
+                guard let selectedDateCell = dayStackView.subviews[index].subviews.filter({ $0 is UIButton }).first as? UIButton else { return }
+                
+                selectedDateButton = selectedDateCell
+            } else {
+                isPrepareButtonTapped(allButton)
+            } 
+        } else {
+            isPrepareButtonTapped(allButton)
+        }
+    }
     
+    override func viewDidLayoutSubviews() {
+          super.viewDidLayoutSubviews()
+          selectedDateButton?.configureSelectedButton()
+      }
+      
     // MARK: - Configuration
     
     private func configure() {
@@ -244,7 +269,7 @@ class HistoryListViewController: UIViewController {
         guard let startDate = travelItemViewModel?.startDate else { return [] }
         var days = Set<HistoryListSectionHeader>()
         histories.forEach { history in
-            let day = startDate.interval(ofComponent: .day, fromDate: history.date)
+            let day = history.date.interval(ofComponent: .day, fromDate: startDate)
             let amount = history.amount
             let date = history.date
             if let sameDay = days.filter({ date.isSameDay(with: $0.date) }).first {
@@ -275,9 +300,11 @@ class HistoryListViewController: UIViewController {
         view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/7).isActive = true
     }
     
-    private func DeselectAllButtons() {
+    private func deselectAllButtons() {
         allButton.configureDeselectedButton()
         prepareButton.configureDeselectedButton()
+        selectedDateButton = nil
+        
         let subviews = dayStackView.subviews
         for view in subviews {
             if let button = view.subviews.filter({ $0 is UIButton }).first as? UIButton {
@@ -300,7 +327,7 @@ class HistoryListViewController: UIViewController {
     }
     
     @IBAction func isPrepareButtonTapped(_ sender: UIButton) {
-        DeselectAllButtons()
+        deselectAllButtons()
         sender.configureSelectedButton()
         historyFilter.isPrepareOnly = sender == prepareButton ? true : false
         historyFilter.selectedDate = nil
@@ -402,7 +429,7 @@ extension HistoryListViewController: UITableViewDelegate {
 
 extension HistoryListViewController: DayButtonDelegate {
     func dayButtonTapped(_ sender: UIButton) {
-        DeselectAllButtons()
+        deselectAllButtons()
         let subviews = dayStackView.subviews
         for index in 0..<subviews.count {
             if let _ = subviews[index].subviews.filter({ $0 == sender }).first as? UIButton {

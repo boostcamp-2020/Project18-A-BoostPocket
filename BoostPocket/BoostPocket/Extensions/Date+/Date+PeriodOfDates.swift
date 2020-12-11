@@ -30,8 +30,8 @@ extension Date {
         let currentSelf = self.toLocalTime()
         let currentDate = date.toLocalTime()
         let currentCalendar = Calendar.current
-        guard let start = currentCalendar.ordinality(of: comp, in: .era, for: currentSelf) else { return 0 }
-        guard let end = currentCalendar.ordinality(of: comp, in: .era, for: currentDate) else { return 0 }
+        guard let end = currentCalendar.ordinality(of: comp, in: .era, for: currentSelf) else { return 0 }
+        guard let start = currentCalendar.ordinality(of: comp, in: .era, for: currentDate) else { return 0 }
         
         return end - start
     }
