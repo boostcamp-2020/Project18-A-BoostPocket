@@ -43,6 +43,7 @@
 		5CE798BB257F7C3100AC6C43 /* ReportPieChartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE798BA257F7C3100AC6C43 /* ReportPieChartView.xib */; };
 		5CE798C0257F7CDB00AC6C43 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE798BF257F7CDB00AC6C43 /* ReportViewController.swift */; };
 		5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF409472575239200351F4B /* MemoEditViewController.swift */; };
+		950743B12583CEA700B2A992 /* TravelListVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950743B02583CEA700B2A992 /* TravelListVCTests.swift */; };
 		950BE471257F793200ACC0CA /* String+IsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950BE470257F793200ACC0CA /* String+IsCategory.swift */; };
 		950BE473257F7C7B00ACC0CA /* String+IsPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950BE472257F7C7B00ACC0CA /* String+IsPlaceholder.swift */; };
 		954D2CDD257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954D2CDB257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift */; };
@@ -186,6 +187,7 @@
 		5CF409472575239200351F4B /* MemoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoEditViewController.swift; sourceTree = "<group>"; };
 		81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.debug.xcconfig"; sourceTree = "<group>"; };
+		950743B02583CEA700B2A992 /* TravelListVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListVCTests.swift; sourceTree = "<group>"; };
 		950BE470257F793200ACC0CA /* String+IsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsCategory.swift"; sourceTree = "<group>"; };
 		950BE472257F7C7B00ACC0CA /* String+IsPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsPlaceholder.swift"; sourceTree = "<group>"; };
 		954D2CDB257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 				95B907A5256D606F009C2B27 /* TravelTests */,
 				95B907A4256D6060009C2B27 /* CountryTests */,
 				95A42E9525664DC40007810C /* Info.plist */,
+				950743B02583CEA700B2A992 /* TravelListVCTests.swift */,
 			);
 			path = BoostPocketTests;
 			sourceTree = "<group>";
@@ -989,6 +992,7 @@
 			files = (
 				9581C709256E34AC006ABA8E /* PersistenceManagerTests.swift in Sources */,
 				5CD76E9F256C24DC00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
+				950743B12583CEA700B2A992 /* TravelListVCTests.swift in Sources */,
 				956BBC58256B9CCC007803B1 /* CountryStub.swift in Sources */,
 				A9BF7A77256E306100496CD8 /* TravelProviderTests.swift in Sources */,
 				5CD9A89A257DCD6C00A7AEFF /* HistoryFilterTests.swift in Sources */,

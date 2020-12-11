@@ -12,23 +12,34 @@ enum Layout {
     case defaultLayout
     case squareLayout
     case rectangleLayout
-    case hamburgerLayout
+}
+
+protocol TravelListVCPresenter: AnyObject {
+    func onViewDidLoad()
+    func onLayoutButtonTapped()
+    func onDefaultLayoutButtonTapped()
+    func onSquareLayoutButtonTapped()
+    func onRectangleLayoutButtonTapped()
 }
 
 class TravelListViewController: UIViewController {
+    static let identifier = "TravelListViewController"
+    
     typealias DataSource = UICollectionViewDiffableDataSource<TravelSection, TravelItemViewModel>
     typealias SnapShot = NSDiffableDataSourceSnapshot<TravelSection, TravelItemViewModel>
     
     var layout: Layout = .defaultLayout
     lazy var dataSource: DataSource = configureDataSource()
     var travelListViewModel: TravelListPresentable?
+    weak var presenter: TravelListVCPresenter?
     
     @IBOutlet weak var travelListCollectionView: UICollectionView!
-    @IBOutlet var layoutButtons: [UIButton]!
+    @IBOutlet var layoutButtons: [UIButton]! // weak?
     @IBOutlet weak var newTravelIndicateView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.onViewDidLoad()
         configureCollectionView()
         travelListViewModel?.didFetch = { [weak self] fetchedTravels in
             self?.applySnapShot(with: fetchedTravels)
@@ -133,6 +144,8 @@ class TravelListViewController: UIViewController {
     }
     
     @IBAction func layoutButtonTapped(_ sender: UIButton) {
+        presenter?.onLayoutButtonTapped()
+        
         resetAlphaOfLayoutButtons()
         sender.alpha = 1
         
@@ -140,12 +153,15 @@ class TravelListViewController: UIViewController {
         switch index {
         case 0:
             layout = .defaultLayout
+            presenter?.onDefaultLayoutButtonTapped()
         case 1:
             layout = .squareLayout
+            presenter?.onSquareLayoutButtonTapped()
         case 2:
             layout = .rectangleLayout
+            presenter?.onRectangleLayoutButtonTapped()
         default:
-            layout = .hamburgerLayout
+            break
         }
         applySnapShot(with: travelListViewModel?.travels ?? [])
     }
