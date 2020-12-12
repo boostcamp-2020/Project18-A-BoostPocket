@@ -74,7 +74,7 @@
 
 <br>
 
-## 아키텍처 패턴
+## 아키텍처 패턴 - MVVM
 <img src = "https://user-images.githubusercontent.com/35067611/101982474-82701f80-3cb7-11eb-8fc3-6c5cd00bb77a.jpeg" width ="600">
 
 <br>
