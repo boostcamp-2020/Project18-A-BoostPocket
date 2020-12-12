@@ -34,8 +34,11 @@
 
 <br>
 
-## Wiki Home  
-[팀 위키](https://github.com/boostcamp-2020/Project18-A-BoostPocket/wiki)에 오시면 더 많은 자료를 확인하실 수 있습니다
+### [위키🏠](https://github.com/boostcamp-2020/Project18-A-BoostPocket/wiki)에 오시면 더 많은 자료를 확인하실 수 있습니다.
+
+### [4주차 데모 영상](https://youtu.be/gzoJWoKQhDs)  
+
+### [배포링크](https://kr.object.ncloudstorage.com/boostpocket/Download.html)를 통해 등록된 아이폰 디바이스에 다운로드 받을 수 있습니다👏  
 
 <br>
 
@@ -66,16 +69,17 @@
 
 <br>
 
-## 팀원소개
-|🧑🏻‍💻 유시형|👩🏻‍💻 이승진|👩🏻‍💻 조송주|
-|-|-|-|
-|<img src="https://user-images.githubusercontent.com/65107199/99751943-a44a0c80-2b26-11eb-9d62-ffd30f1978b9.jpg" width="200px;">|<img src="https://user-images.githubusercontent.com/65107199/99751947-a57b3980-2b26-11eb-97d2-d68ccbb20f69.jpg" width="200px;">|<img src="https://user-images.githubusercontent.com/65107199/99751950-a6ac6680-2b26-11eb-95e5-dc209529d64d.jpg" width="200px;">|
-|[@sihyungyou](https://github.com/sihyungyou)|[@devilzcough](https://github.com/devilzcough)|[@songjucho](https://github.com/songjucho)|
+## 시퀀스 다이어그램
+<img src = "https://user-images.githubusercontent.com/35067611/101982425-2e653b00-3cb7-11eb-9ab4-ca5ab1e233c0.png" width ="650">
 
 <br>
 
-## 데모  
-[4주차 데모 영상](https://youtu.be/gzoJWoKQhDs)  
+## 아키텍처 패턴
+<img src = "https://user-images.githubusercontent.com/35067611/101982474-82701f80-3cb7-11eb-8fc3-6c5cd00bb77a.jpeg" width ="600">
 
-## 배포  
-[여기](https://kr.object.ncloudstorage.com/boostpocket/Download.html)서 등록된 아이폰 디바이스에 한해 다운로드 받을 수 있습니다👏  
+<br>
+
+## 팀원소개
+|🧑🏻‍💻 유시형|👩🏻‍💻 이승진|👩🏻‍💻 조송주|
+|-|-|-|
+|[@sihyungyou](https://github.com/sihyungyou)|[@devilzcough](https://github.com/devilzcough)|[@songjucho](https://github.com/songjucho)|
