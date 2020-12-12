@@ -122,10 +122,8 @@ extension PersistenceManager {
         if context.hasChanges {
             do {
                 try context.save()
-            } catch {
-                let nserror = error as NSError
-                print("saveContext Error")
-                print(nserror.localizedDescription)
+            } catch let saveError {
+                print("saveContext 실패: \(saveError)")
             }
         }
     }
@@ -281,25 +279,69 @@ extension PersistenceManager {
         }
         
         do {
-            // print("fetchAll 성공")
             let fetchedResult = try self.context.fetch(request)
+            // print("fetchAll 성공")
             return fetchedResult
-        } catch {
-            // print("fetchAll 실패")
+        } catch let fetchAllError {
+            print("fetchAll 실패: \(fetchAllError)")
             return []
         }
     }
 
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]? {
         do {
-            print("fetch 성공")
             let fetchResult = try self.context.fetch(request)
+            print("fetch 성공")
             return fetchResult
-        } catch {
-            print("fetch 실패")
-            print(error.localizedDescription)
+        } catch let fetchError {
+            print("fetch 실패: \(fetchError)")
             return nil
         }
+    }
+    
+    func fetchTravel(withId id: UUID) -> Travel? {
+        let fetchRequest = NSFetchRequest<Travel>(entityName: Travel.entityName)
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        
+        do {
+            let travels = try context.fetch(fetchRequest)
+            return travels.first
+        } catch let fetchError {
+            print("fetchTravel 실패: \(fetchError)")
+        }
+        
+        return nil
+    }
+    
+    func fetchHistory(withId id: UUID) -> History? {
+        let fetchRequest = NSFetchRequest<History>(entityName: History.entityName)
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        
+        do {
+            let histories = try context.fetch(fetchRequest)
+            return histories.first
+        } catch let fetchError {
+            print("fetchHistory 실패: \(fetchError)")
+        }
+        
+        return nil
+    }
+    
+    func fetchCountry(withName name: String) -> Country? {
+        let fetchRequest = NSFetchRequest<Country>(entityName: Country.entityName)
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+        
+        do {
+            let countries = try context.fetch(fetchRequest)
+            return countries.first
+        } catch let fetchError {
+            print("fetchCountry 실패: \(fetchError)")
+        }
+        
+        return nil
     }
 }
 
@@ -324,88 +366,42 @@ extension PersistenceManager {
     }
 
     private func updateHistory(historyInfo: HistoryInfo) -> History? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: History.entityName)
-        fetchRequest.predicate = NSPredicate(format: "id == %@", historyInfo.id as CVarArg)
+        guard let updatingHistory = fetchHistory(withId: historyInfo.id) else { return nil }
         
-        do {
-            let anys = try self.context.fetch(fetchRequest)
-            let objectUpdate = anys[0] as? NSManagedObject
-            
-            objectUpdate?.setValue(historyInfo.amount, forKey: "amount")
-            objectUpdate?.setValue(historyInfo.category.rawValue, forKey: "category")
-            objectUpdate?.setValue(historyInfo.date, forKey: "date")
-            objectUpdate?.setValue(historyInfo.image, forKey: "image")
-            objectUpdate?.setValue(historyInfo.isCard, forKey: "isCard")
-            objectUpdate?.setValue(historyInfo.isPrepare, forKey: "isPrepare")
-            objectUpdate?.setValue(historyInfo.memo, forKey: "memo")
-            objectUpdate?.setValue(historyInfo.title, forKey: "title")
-            
-            try self.context.save()
-            
-            let histories = fetch(fetchRequest) as? [History]
-            let updatedHistory = histories?.first
-            
-            print("updateHistory 성공")
-            return updatedHistory
-        } catch {
-            print("updateHistory 실패")
-            print(error.localizedDescription)
-            return nil
-        }
+        updatingHistory.amount = historyInfo.amount
+        updatingHistory.category = historyInfo.category.rawValue
+        updatingHistory.date = historyInfo.date
+        updatingHistory.image = historyInfo.image
+        updatingHistory.isCard = historyInfo.isCard ?? false
+        updatingHistory.isPrepare = historyInfo.isPrepare ?? false
+        updatingHistory.memo = historyInfo.memo
+        updatingHistory.title = historyInfo.title
+        
+        saveContext()
+        return updatingHistory
     }
     
     private func updateTravel(travelInfo: TravelInfo) -> Travel? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Travel.entityName)
-        fetchRequest.predicate = NSPredicate(format: "id == %@", travelInfo.id as CVarArg)
+        guard let updatingTravel = fetchTravel(withId: travelInfo.id) else { return nil }
         
-        do {
-            let anys = try self.context.fetch(fetchRequest)
-            let objectUpdate = anys[0] as? NSManagedObject
-
-            objectUpdate?.setValue(travelInfo.title, forKey: "title")
-            objectUpdate?.setValue(travelInfo.memo, forKey: "memo")
-            objectUpdate?.setValue(travelInfo.startDate, forKey: "startDate")
-            objectUpdate?.setValue(travelInfo.endDate, forKey: "endDate")
-            objectUpdate?.setValue(travelInfo.budget, forKey: "budget")
-            objectUpdate?.setValue(travelInfo.coverImage, forKey: "coverImage")
-            
-            try self.context.save()
-            
-            let travels = fetch(fetchRequest) as? [Travel]
-            let updatedTravel = travels?.first
-            
-            print("updateTravel 성공")
-            return updatedTravel
-        } catch {
-            print("updateTravel 실패")
-            print(error.localizedDescription)
-            return nil
-        }
+        updatingTravel.title = travelInfo.title
+        updatingTravel.memo = travelInfo.memo
+        updatingTravel.startDate = travelInfo.startDate
+        updatingTravel.endDate = travelInfo.endDate
+        updatingTravel.coverImage = travelInfo.coverImage
+        
+        saveContext()
+        return updatingTravel
     }
-
+    
     private func updateCountry(countryInfo: CountryInfo) -> Country? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Country.entityName)
-        fetchRequest.predicate = NSPredicate(format: "name == %@", countryInfo.name)
+        guard let updatingCountry = fetchCountry(withName: countryInfo.name) else { return nil }
         
-        do {
-            let anys = try self.context.fetch(fetchRequest)
-            let objectUpdate = anys[0] as? NSManagedObject
-            
-            objectUpdate?.setValue(countryInfo.lastUpdated, forKey: "lastUpdated")
-            objectUpdate?.setValue(countryInfo.exchangeRate, forKey: "exchangeRate")
-            
-            try self.context.save()
-            
-            let countries = fetch(fetchRequest) as? [Country]
-            let updatedCountry = countries?.first
-            
-            print("updateCountry 성공")
-            return updatedCountry
-        } catch {
-            print("updateCountry 실패")
-            print(error.localizedDescription)
-            return nil
-        }
+        updatingCountry.lastUpdated = countryInfo.lastUpdated
+        updatingCountry.exchangeRate = countryInfo.exchangeRate
+
+        saveContext()
+        return updatingCountry
     }
 }
 

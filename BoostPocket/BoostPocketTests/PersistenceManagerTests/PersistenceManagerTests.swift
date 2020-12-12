@@ -140,21 +140,21 @@ class PersistenceManagerTests: XCTestCase {
         XCTAssertNotEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
     }
     
-    func test_persistenceManager_fetch() {
-        var createdCountry: Country?
-        
-        persistenceManagerStub.createObject(newObjectInfo: countryInfo) { (createdObject) in
-            createdCountry = createdObject as? Country
-            XCTAssertNotNil(createdCountry)
-        }
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Country.entityName)
-        fetchRequest.predicate = NSPredicate(format: "name == %@", countryInfo.name)
-        
-        let fetchedCountry = persistenceManagerStub.fetch(fetchRequest) as? [Country]
-        XCTAssertNotNil(fetchedCountry)
-        XCTAssertEqual(fetchedCountry?.first, createdCountry)
-    }
+//    func test_persistenceManager_fetch() {
+//        var createdCountry: Country?
+//
+//        persistenceManagerStub.createObject(newObjectInfo: countryInfo) { (createdObject) in
+//            createdCountry = createdObject as? Country
+//            XCTAssertNotNil(createdCountry)
+//        }
+//
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Country.entityName)
+//        fetchRequest.predicate = NSPredicate(format: "name == %@", countryInfo.name)
+//
+//        let fetchedCountry = persistenceManagerStub.fetch(fetchRequest) as? [Country]
+//        XCTAssertNotNil(fetchedCountry)
+//        XCTAssertEqual(fetchedCountry?.first, createdCountry)
+//    }
     
     func test_persistenceManager_updateObject() {
         let countryExpectation = XCTestExpectation(description: "Successfully Created Country")

@@ -28,13 +28,13 @@ class TravelListViewController: UIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<TravelSection, TravelItemViewModel>
     typealias SnapShot = NSDiffableDataSourceSnapshot<TravelSection, TravelItemViewModel>
     
-    var layout: Layout = .defaultLayout
-    lazy var dataSource: DataSource = configureDataSource()
+    private(set) var layout: Layout = .defaultLayout
+    private lazy var dataSource: DataSource = configureDataSource()
     var travelListViewModel: TravelListPresentable?
     weak var presenter: TravelListVCPresenter?
     
     @IBOutlet weak var travelListCollectionView: UICollectionView!
-    @IBOutlet var layoutButtons: [UIButton]! // weak?
+    @IBOutlet var layoutButtons: [UIButton]!
     @IBOutlet weak var newTravelIndicateView: UIImageView!
     
     override func viewDidLoad() {

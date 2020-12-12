@@ -72,6 +72,7 @@ class TravelListVCTests: XCTestCase {
         
         sut.layoutButtonTapped(sut.layoutButtons[0])
         XCTAssertTrue(presenter.onDefaultLayoutButtonTappedCalled)
+        XCTAssertEqual(sut.layout, Layout.defaultLayout)
     }
     
     func test_travelListVC_layoutButtonTapped_squareLayout() {
@@ -79,6 +80,7 @@ class TravelListVCTests: XCTestCase {
         
         sut.layoutButtonTapped(sut.layoutButtons[1])
         XCTAssertTrue(presenter.onSquareLayoutButtonTappedCalled)
+        XCTAssertEqual(sut.layout, Layout.squareLayout)
     }
     
     func test_travelListVC_layoutButtonTapped_rectangleLayout() {
@@ -86,5 +88,6 @@ class TravelListVCTests: XCTestCase {
         
         sut.layoutButtonTapped(sut.layoutButtons[2])
         XCTAssertTrue(presenter.onRectangleLayoutButtonTappedCalled)
+        XCTAssertEqual(sut.layout, Layout.rectangleLayout)
     }
 }
