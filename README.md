@@ -62,7 +62,7 @@
 <img src = "https://user-images.githubusercontent.com/35067611/101981687-09ba9480-3cb2-11eb-9205-6899a9c131c7.jpeg" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101981689-0fb07580-3cb2-11eb-923e-427ceb9bc3da.png" width ="200" />  
 
 #### 다크모드 지원  
-<img src = "https://user-images.githubusercontent.com/35067611/101981789-b0069a00-3cb2-11eb-8482-235126f7bae0.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101981701-1d65fb00-3cb2-11eb-8c3f-89b5b38b6b87.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101981730-4dad9980-3cb2-11eb-9289-92ccc22f3424.png" width ="200" />  
+<img src = "https://user-images.githubusercontent.com/35067611/101981789-b0069a00-3cb2-11eb-8482-235126f7bae0.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101981701-1d65fb00-3cb2-11eb-8c3f-89b5b38b6b87.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101981823-e93f0a00-3cb2-11eb-9dab-c5a1ffa0c848.png" width ="200" />  
 
 <br>
 
