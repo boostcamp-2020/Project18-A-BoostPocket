@@ -109,25 +109,22 @@ class TravelProfileViewController: UIViewController {
     }
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
-        let alert = UIAlertController(title: "여행을 삭제하시겠습니까?", message: "저장된 여행 정보가 사라집니다.", preferredStyle: UIAlertController.Style.alert)
-        let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
-            self.profileDelegate?.deleteTravel(id: self.travelItemViewModel?.id)
-            self.navigationController?.popViewController(animated: true)
+        let okAction: (() -> Void)? = { [weak self] in
+            self?.profileDelegate?.deleteTravel(id: self?.travelItemViewModel?.id)
+            self?.navigationController?.popViewController(animated: true)
         }
-        let cancel = UIAlertAction(title: "취소", style: .default, handler: nil)
-        alert.addAction(cancel)
-        alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
+        
+        presentAlertView(title: "여행을 삭제하시겠습니까?", message: "저장된 여행 정보가 사라집니다.", okAction: okAction, isCancelButton: true)
     }
     
     @IBAction func startDateSelected(_ sender: UIDatePicker) {
         endDatePicker.minimumDate = startDatePicker.date
-        profileDelegate?.updateTravel(id: travelItemViewModel?.id, newTitle: travelItemViewModel?.title, newMemo: travelItemViewModel?.memo, newStartDate: sender.date, newEndDate: endDatePicker?.date, newCoverImage: travelItemViewModel?.coverImage, newBudget: travelItemViewModel?.budget, newExchangeRate: travelItemViewModel?.exchangeRate) { result in
+        profileDelegate?.updateTravel(id: travelItemViewModel?.id, newTitle: travelItemViewModel?.title, newMemo: travelItemViewModel?.memo, newStartDate: sender.date, newEndDate: endDatePicker?.date, newCoverImage: travelItemViewModel?.coverImage, newBudget: travelItemViewModel?.budget, newExchangeRate: travelItemViewModel?.exchangeRate) { [weak self] result in
             if result {
                 print("여행 시작일 업데이트 성공")
             } else {
-                // TODO: - 실패 Alert
                 print("여행 종료일 업데이트 실패")
+                self?.presentAlertView(title: "시작일 업데이트에 실패했습니다", message: "다시 시도해주세요", okAction: nil, isCancelButton: false)
             }
         }
         presenter?.onStartDateSelected()
@@ -136,12 +133,12 @@ class TravelProfileViewController: UIViewController {
     @IBAction func endDateSelected(_ sender: UIDatePicker) {
         startDatePicker.maximumDate = endDatePicker.date
         
-        profileDelegate?.updateTravel(id: travelItemViewModel?.id, newTitle: travelItemViewModel?.title, newMemo: travelItemViewModel?.memo, newStartDate: startDatePicker.date, newEndDate: sender.date, newCoverImage: travelItemViewModel?.coverImage, newBudget: travelItemViewModel?.budget, newExchangeRate: travelItemViewModel?.exchangeRate) { result in
+        profileDelegate?.updateTravel(id: travelItemViewModel?.id, newTitle: travelItemViewModel?.title, newMemo: travelItemViewModel?.memo, newStartDate: startDatePicker.date, newEndDate: sender.date, newCoverImage: travelItemViewModel?.coverImage, newBudget: travelItemViewModel?.budget, newExchangeRate: travelItemViewModel?.exchangeRate) { [weak self] result in
             if result {
                 print("여행 종료일 업데이트 성공")
             } else {
-                // TODO: - 실패 Alert
                 print("여행 종료일 업데이트 실패")
+                self?.presentAlertView(title: "종료일 업데이트에 실패했습니다", message: "다시 시도해주세요", okAction: nil, isCancelButton: false)
             }
         }
     }
@@ -151,15 +148,15 @@ class TravelProfileViewController: UIViewController {
             guard let self = self else { return }
             let updatingTitle = newTitle.isEmpty ? self.travelItemViewModel?.countryName : newTitle
             
-            self.profileDelegate?.updateTravel(id: self.travelItemViewModel?.id, newTitle: updatingTitle, newMemo: self.travelItemViewModel?.memo, newStartDate: self.travelItemViewModel?.startDate, newEndDate: self.travelItemViewModel?.endDate, newCoverImage: self.travelItemViewModel?.coverImage, newBudget: self.travelItemViewModel?.budget, newExchangeRate: self.travelItemViewModel?.exchangeRate) { result in
+            self.profileDelegate?.updateTravel(id: self.travelItemViewModel?.id, newTitle: updatingTitle, newMemo: self.travelItemViewModel?.memo, newStartDate: self.travelItemViewModel?.startDate, newEndDate: self.travelItemViewModel?.endDate, newCoverImage: self.travelItemViewModel?.coverImage, newBudget: self.travelItemViewModel?.budget, newExchangeRate: self.travelItemViewModel?.exchangeRate) { [weak self] result in
                 if result {
                     print("여행 타이틀 업데이트 성공")
                     DispatchQueue.main.async {
-                        self.travelTitleLabel.text = updatingTitle
+                        self?.travelTitleLabel.text = updatingTitle
                     }
                 } else {
-                    // TODO: - 실패 Alert
                     print("여행 타이틀 업데이트 실패")
+                    self?.presentAlertView(title: "제목 업데이트에 실패했습니다", message: "다시 시도해주세요", okAction: nil, isCancelButton: false)
                 }
             }
         }
@@ -170,15 +167,15 @@ class TravelProfileViewController: UIViewController {
         MemoEditViewController.present(at: self, memoType: .travelMemo, previousMemo: self.travelItemViewModel?.memo) { [weak self] (newMemo) in
             let updatingMemo = newMemo.isEmpty ? EditMemoType.travelMemo.rawValue : newMemo
 
-            self?.profileDelegate?.updateTravel(id: self?.travelItemViewModel?.id, newTitle: self?.travelItemViewModel?.title, newMemo: updatingMemo, newStartDate: self?.travelItemViewModel?.startDate, newEndDate: self?.travelItemViewModel?.endDate, newCoverImage: self?.travelItemViewModel?.coverImage, newBudget: self?.travelItemViewModel?.budget, newExchangeRate: self?.travelItemViewModel?.exchangeRate) { result in
+            self?.profileDelegate?.updateTravel(id: self?.travelItemViewModel?.id, newTitle: self?.travelItemViewModel?.title, newMemo: updatingMemo, newStartDate: self?.travelItemViewModel?.startDate, newEndDate: self?.travelItemViewModel?.endDate, newCoverImage: self?.travelItemViewModel?.coverImage, newBudget: self?.travelItemViewModel?.budget, newExchangeRate: self?.travelItemViewModel?.exchangeRate) { [weak self] result in
                 if result {
                     print("여행 메모 업데이트 성공")
                     DispatchQueue.main.async {
                         self?.travelMemoLabel.text = updatingMemo
                     }
                 } else {
-                    // TODO: - 실패 Alert
                     print("여행 메모 업데이트 실패")
+                    self?.presentAlertView(title: "메모 업데이트에 실패했습니다", message: "다시 시도해주세요", okAction: nil, isCancelButton: false)
                 }
             }
         }
@@ -199,18 +196,40 @@ extension TravelProfileViewController: UIImagePickerControllerDelegate, UINaviga
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         if let newImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            profileDelegate?.updateTravel(id: travelItemViewModel?.id, newTitle: travelItemViewModel?.title, newMemo: travelItemViewModel?.memo, newStartDate: travelItemViewModel?.startDate, newEndDate: travelItemViewModel?.endDate, newCoverImage: newImage.pngData(), newBudget: travelItemViewModel?.budget, newExchangeRate: travelItemViewModel?.exchangeRate) { [weak self ]result in
+            profileDelegate?.updateTravel(id: travelItemViewModel?.id, newTitle: travelItemViewModel?.title, newMemo: travelItemViewModel?.memo, newStartDate: travelItemViewModel?.startDate, newEndDate: travelItemViewModel?.endDate, newCoverImage: newImage.pngData(), newBudget: travelItemViewModel?.budget, newExchangeRate: travelItemViewModel?.exchangeRate) { [weak self] result in
                 if result {
                     print("여행 커버이미지 업데이트 성공")
                     DispatchQueue.main.async {
                         self?.coverImage.image = newImage
                     }
                 } else {
-                    // TODO: - 실패 Alert
                     print("여행 커버이미지 업데이트 실패")
+                    self?.presentAlertView(title: "커버사진 업데이트에 실패했습니다", message: "다시 시도해주세요", okAction: nil, isCancelButton: false)
                 }
             }
         }
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension TravelProfileViewController {
+    func presentAlertView(title: String,
+                          message: String,
+                          okAction: (() -> Void)?,
+                          isCancelButton: Bool) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        if isCancelButton {
+            let cancelAction = UIAlertAction(title: "취소", style: .default)
+            alert.addAction(cancelAction)
+        }
+        
+        let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
+            okAction?()
+        }
+        
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
     }
 }

@@ -49,11 +49,4 @@ class TravelProfileVCTests: XCTestCase {
         
         XCTAssertTrue(presenter.onViewDidLoadCalled)
     }
-    
-    func test_travelProfileVC_startDateSelected() {
-        let sut = makeSUT()
-
-        sut.startDateSelected(UIDatePicker())
-        XCTAssertTrue(presenter.onStartDateSelectedCalled)
-    }
 }
