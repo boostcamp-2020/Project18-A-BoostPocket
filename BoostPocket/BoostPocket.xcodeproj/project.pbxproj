@@ -82,6 +82,7 @@
 		95AC159C2585D0770079F042 /* HistoryListVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AC159B2585D0770079F042 /* HistoryListVCTests.swift */; };
 		95AC159E2585ED5D0079F042 /* HistoryListSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AC159D2585ED5D0079F042 /* HistoryListSupport.swift */; };
 		95AC15A02585EDE30079F042 /* TravelListSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AC159F2585EDE30079F042 /* TravelListSupport.swift */; };
+		95AC15A22585F2C20079F042 /* TravelProfileVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AC15A12585F2C20079F042 /* TravelProfileVCTests.swift */; };
 		95C8F4BE258301E500B8D91E /* Date+isValidInRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8F4BD258301E500B8D91E /* Date+isValidInRange.swift */; };
 		95F8A29C2580C9B800A33D3E /* ExpenseElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */; };
 		95F8A29E2580C9CE00A33D3E /* ExpenseElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */; };
@@ -234,6 +235,7 @@
 		95AC159B2585D0770079F042 /* HistoryListVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListVCTests.swift; sourceTree = "<group>"; };
 		95AC159D2585ED5D0079F042 /* HistoryListSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListSupport.swift; sourceTree = "<group>"; };
 		95AC159F2585EDE30079F042 /* TravelListSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListSupport.swift; sourceTree = "<group>"; };
+		95AC15A12585F2C20079F042 /* TravelProfileVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProfileVCTests.swift; sourceTree = "<group>"; };
 		95C8F4BD258301E500B8D91E /* Date+isValidInRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+isValidInRange.swift"; sourceTree = "<group>"; };
 		95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseElementView.swift; sourceTree = "<group>"; };
 		95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpenseElementView.xib; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 				95A42E9525664DC40007810C /* Info.plist */,
 				950743B02583CEA700B2A992 /* TravelListVCTests.swift */,
 				95AC159B2585D0770079F042 /* HistoryListVCTests.swift */,
+				95AC15A12585F2C20079F042 /* TravelProfileVCTests.swift */,
 			);
 			path = BoostPocketTests;
 			sourceTree = "<group>";
@@ -1010,6 +1013,7 @@
 				5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */,
 				5C8C91AD256E8F0F008C3919 /* TravelViewModelTests.swift in Sources */,
 				9572F9B3256B974C003049CB /* PersistenceManagerStub.swift in Sources */,
+				95AC15A22585F2C20079F042 /* TravelProfileVCTests.swift in Sources */,
 				A99E065425778B130014C29F /* HistoryViewModelTests.swift in Sources */,
 				5C89619E256E917300575677 /* TravelStub.swift in Sources */,
 				A99E064C257773430014C29F /* HistoryProviderTests.swift in Sources */,

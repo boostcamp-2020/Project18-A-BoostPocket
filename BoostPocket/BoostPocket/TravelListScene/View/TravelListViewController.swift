@@ -241,7 +241,9 @@ extension TravelListViewController: TravelProfileDelegate {
         }
     }
     
-    func updateTravel(id: UUID? = nil, newTitle: String? = nil, newMemo: String?, newStartDate: Date? = nil, newEndDate: Date? = nil, newCoverImage: Data? = nil, newBudget: Double? = nil, newExchangeRate: Double? = nil) {
+    func updateTravel(id: UUID? = nil, newTitle: String? = nil, newMemo: String? = nil, newStartDate: Date? = nil, newEndDate: Date? = nil, newCoverImage: Data? = nil, newBudget: Double? = nil, newExchangeRate: Double? = nil, completion: @escaping (Bool) -> Void) {
+        presenter?.onUpdateTravel()
+        
         if let travelListViewModel = travelListViewModel,
             let updatingId = id,
             let updatingTravel = travelListViewModel.travels.filter({ $0.id == updatingId }).first,
@@ -252,13 +254,15 @@ extension TravelListViewController: TravelProfileDelegate {
             travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo, startDate: newStartDate, endDate: newEndDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) { result in
                 if result {
                     print("여행 정보 업데이트 성공")
+                    completion(true)
                 } else {
                     print("여행 정보 업데이트 실패")
+                    completion(false)
                 }
             }
-            
         } else {
             print("여행 업데이트를 위한 정보 불러오기 실패")
+            completion(false)
         }
     }
 }

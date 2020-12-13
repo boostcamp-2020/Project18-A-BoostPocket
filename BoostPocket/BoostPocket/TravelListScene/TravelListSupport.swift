@@ -20,10 +20,12 @@ protocol TravelListVCPresenter: AnyObject {
     var onDefaultLayoutButtonTappedCalled: Bool { get }
     var onSquareLayoutButtonTappedCalled: Bool { get }
     var onRectangleLayoutButtonTappedCalled: Bool { get }
+    var onUpdateTravelCalled: Bool { get }
     
     func onViewDidLoad()
     func onLayoutButtonTapped()
     func onDefaultLayoutButtonTapped()
     func onSquareLayoutButtonTapped()
     func onRectangleLayoutButtonTapped()
+    func onUpdateTravel()
 }
