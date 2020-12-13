@@ -80,6 +80,8 @@
 		95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8725664DC40007810C /* LaunchScreen.storyboard */; };
 		95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E9325664DC40007810C /* BoostPocketTests.swift */; };
 		95AC159C2585D0770079F042 /* HistoryListVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AC159B2585D0770079F042 /* HistoryListVCTests.swift */; };
+		95AC159E2585ED5D0079F042 /* HistoryListSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AC159D2585ED5D0079F042 /* HistoryListSupport.swift */; };
+		95AC15A02585EDE30079F042 /* TravelListSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AC159F2585EDE30079F042 /* TravelListSupport.swift */; };
 		95C8F4BE258301E500B8D91E /* Date+isValidInRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8F4BD258301E500B8D91E /* Date+isValidInRange.swift */; };
 		95F8A29C2580C9B800A33D3E /* ExpenseElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */; };
 		95F8A29E2580C9CE00A33D3E /* ExpenseElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */; };
@@ -230,6 +232,8 @@
 		95A42E9325664DC40007810C /* BoostPocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostPocketTests.swift; sourceTree = "<group>"; };
 		95A42E9525664DC40007810C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95AC159B2585D0770079F042 /* HistoryListVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListVCTests.swift; sourceTree = "<group>"; };
+		95AC159D2585ED5D0079F042 /* HistoryListSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListSupport.swift; sourceTree = "<group>"; };
+		95AC159F2585EDE30079F042 /* TravelListSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListSupport.swift; sourceTree = "<group>"; };
 		95C8F4BD258301E500B8D91E /* Date+isValidInRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+isValidInRange.swift"; sourceTree = "<group>"; };
 		95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseElementView.swift; sourceTree = "<group>"; };
 		95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpenseElementView.xib; sourceTree = "<group>"; };
@@ -338,6 +342,7 @@
 			children = (
 				A980ADC6257095E60001F5DC /* View */,
 				A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */,
+				95AC159F2585EDE30079F042 /* TravelListSupport.swift */,
 				954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */,
 				5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */,
 			);
@@ -549,6 +554,7 @@
 			children = (
 				A99E06A8258062710014C29F /* View */,
 				A99E0638257763B90014C29F /* HistoryProvider.swift */,
+				95AC159D2585ED5D0079F042 /* HistoryListSupport.swift */,
 				A99E0645257766F50014C29F /* HistoryItemViewModel.swift */,
 				5C7F8372257902A000A58112 /* HistoryListSectionHeader.swift */,
 				5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */,
@@ -969,11 +975,13 @@
 				A99E062F257762520014C29F /* History+CoreDataClass.swift in Sources */,
 				5C7F8373257902A100A58112 /* HistoryListSectionHeader.swift in Sources */,
 				950BE471257F793200ACC0CA /* String+IsCategory.swift in Sources */,
+				95AC15A02585EDE30079F042 /* TravelListSupport.swift in Sources */,
 				5C15AB492577DED700244C6C /* HistoryHeaderCell.swift in Sources */,
 				9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */,
 				5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
 				950BE473257F7C7B00ACC0CA /* String+IsPlaceholder.swift in Sources */,
 				95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */,
+				95AC159E2585ED5D0079F042 /* HistoryListSupport.swift in Sources */,
 				5C15AB3E2577C32000244C6C /* HistoryCell.swift in Sources */,
 				5CE798C0257F7CDB00AC6C43 /* ReportViewController.swift in Sources */,
 				5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */,

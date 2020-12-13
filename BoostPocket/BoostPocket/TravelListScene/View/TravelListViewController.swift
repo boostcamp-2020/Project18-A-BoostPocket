@@ -8,20 +8,6 @@
 
 import UIKit
 
-enum Layout {
-    case defaultLayout
-    case squareLayout
-    case rectangleLayout
-}
-
-protocol TravelListVCPresenter: AnyObject {
-    func onViewDidLoad()
-    func onLayoutButtonTapped()
-    func onDefaultLayoutButtonTapped()
-    func onSquareLayoutButtonTapped()
-    func onRectangleLayoutButtonTapped()
-}
-
 class TravelListViewController: UIViewController {
     static let identifier = "TravelListViewController"
     

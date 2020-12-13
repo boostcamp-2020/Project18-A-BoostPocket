@@ -10,11 +10,12 @@ import XCTest
 @testable import BoostPocket
 
 class TravelListVCPresenterMock: TravelListVCPresenter {
-    private(set) var onViewDidLoadCalled = false
-    private(set) var onLayoutButtonTappedCalled = false
-    private(set) var onDefaultLayoutButtonTappedCalled = false
-    private(set) var onSquareLayoutButtonTappedCalled = false
-    private(set) var onRectangleLayoutButtonTappedCalled = false
+    var onViewDidLoadCalled: Bool = false
+    var onLayoutButtonTappedCalled: Bool = false
+    var onDefaultLayoutButtonTappedCalled: Bool = false
+    var onSquareLayoutButtonTappedCalled: Bool = false
+    var onRectangleLayoutButtonTappedCalled: Bool = false
+    
     
     func onViewDidLoad() {
         onViewDidLoadCalled = true
