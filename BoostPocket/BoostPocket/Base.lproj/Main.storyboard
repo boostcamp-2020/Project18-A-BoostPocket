@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GER-CQ-fWE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GER-CQ-fWE">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--BoostPocket-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="TravelListViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TravelListViewController" id="BYZ-38-t0r" customClass="TravelListViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bPb-a6-87W">
-                                <rect key="frame" x="0.0" y="122" width="414" height="740"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="132.33333333333331" width="414" height="729.66666666666674"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TGJ-gd-ZwC">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -30,44 +28,37 @@
                                 <cells/>
                             </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Rdy-JJ-Sg9">
-                                <rect key="frame" x="2.9999999999999929" y="91" width="124.33333333333331" height="31"/>
+                                <rect key="frame" x="2.9999999999999929" y="91" width="124.33333333333331" height="41.333333333333343"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHf-WB-OuR">
-                                        <rect key="frame" x="8" y="5" width="21" height="21"/>
+                                        <rect key="frame" x="8.0000000000000018" y="4.9999999999999982" width="30.666666666666671" height="31.333333333333329"/>
                                         <state key="normal" image="default"/>
                                         <connections>
                                             <action selector="layoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5oO-Te-hfk"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQQ-cn-ped">
-                                        <rect key="frame" x="37" y="5" width="21" height="21"/>
+                                        <rect key="frame" x="46.666666666666664" y="4.9999999999999982" width="30.666666666666664" height="31.333333333333329"/>
                                         <state key="normal" image="square"/>
                                         <connections>
                                             <action selector="layoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NmO-U0-p1s"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYc-Qb-PfD">
-                                        <rect key="frame" x="66" y="5" width="21" height="21"/>
+                                        <rect key="frame" x="85.333333333333329" y="4.9999999999999982" width="31" height="31.333333333333329"/>
                                         <state key="normal" image="rectangle"/>
                                         <connections>
                                             <action selector="layoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d5h-oB-c6u"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FkX-fM-WP7">
-                                        <rect key="frame" x="95" y="5" width="21.333333333333329" height="21"/>
-                                        <state key="normal" image="hamburger"/>
-                                        <connections>
-                                            <action selector="layoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gVj-MC-7Nv"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Rdy-JJ-Sg9" secondAttribute="height" multiplier="4:1" id="EH7-HB-BEF"/>
+                                    <constraint firstAttribute="width" secondItem="Rdy-JJ-Sg9" secondAttribute="height" multiplier="3:1" id="EH7-HB-BEF"/>
                                 </constraints>
                                 <edgeInsets key="layoutMargins" top="5" left="8" bottom="5" right="8"/>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UM-5b-qib">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UM-5b-qib">
                                 <rect key="frame" x="149" y="794" width="116" height="38"/>
                                 <color key="backgroundColor" name="mainColor"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -85,8 +76,8 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IEB-3q-aWi" userLabel="Divider">
-                                <rect key="frame" x="129.33333333333334" y="97.333333333333329" width="0.33333333333334281" height="18.666666666666671"/>
-                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <rect key="frame" x="129.33333333333334" y="99.333333333333329" width="0.33333333333334281" height="24.666666666666671"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="0.29999999999999999" id="jM4-uT-Wq1"/>
                                 </constraints>
@@ -98,8 +89,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="8UM-5b-qib" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Bvg-Xo-R0Q"/>
                             <constraint firstItem="8UM-5b-qib" firstAttribute="top" secondItem="9zU-t4-Mca" secondAttribute="bottom" constant="10" id="IzT-gm-nAH"/>
@@ -117,6 +107,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bPb-a6-87W" secondAttribute="trailing" id="wYS-m2-q56"/>
                             <constraint firstItem="9zU-t4-Mca" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ysg-24-G2b"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="BoostPocket" id="Vxu-Wh-3nW">
                         <barButtonItem key="backBarButtonItem" title=" " id="SHP-Qk-dbx"/>
@@ -127,7 +118,6 @@
                         <outletCollection property="layoutButtons" destination="QHf-WB-OuR" collectionClass="NSMutableArray" id="F65-CO-aeE"/>
                         <outletCollection property="layoutButtons" destination="cQQ-cn-ped" collectionClass="NSMutableArray" id="Ps9-WR-4nN"/>
                         <outletCollection property="layoutButtons" destination="FYc-Qb-PfD" collectionClass="NSMutableArray" id="ULf-hz-iyX"/>
-                        <outletCollection property="layoutButtons" destination="FkX-fM-WP7" collectionClass="NSMutableArray" id="XMN-CX-6Rn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -156,18 +146,11 @@
     <resources>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="default" width="64" height="64"/>
-        <image name="hamburger" width="64" height="64"/>
-        <image name="newTravel" width="938" height="401"/>
+        <image name="newTravel" width="932" height="402"/>
         <image name="rectangle" width="64" height="64"/>
         <image name="square" width="64" height="64"/>
         <namedColor name="mainColor">
             <color red="0.46299999952316284" green="0.69800001382827759" blue="0.89800000190734863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

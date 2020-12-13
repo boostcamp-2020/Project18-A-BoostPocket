@@ -12,16 +12,26 @@ enum Layout {
     case defaultLayout
     case squareLayout
     case rectangleLayout
-    case hamburgerLayout
+}
+
+protocol TravelListVCPresenter: AnyObject {
+    func onViewDidLoad()
+    func onLayoutButtonTapped()
+    func onDefaultLayoutButtonTapped()
+    func onSquareLayoutButtonTapped()
+    func onRectangleLayoutButtonTapped()
 }
 
 class TravelListViewController: UIViewController {
+    static let identifier = "TravelListViewController"
+    
     typealias DataSource = UICollectionViewDiffableDataSource<TravelSection, TravelItemViewModel>
     typealias SnapShot = NSDiffableDataSourceSnapshot<TravelSection, TravelItemViewModel>
     
-    var layout: Layout = .defaultLayout
-    lazy var dataSource: DataSource = configureDataSource()
+    private(set) var layout: Layout = .defaultLayout
+    private lazy var dataSource: DataSource = configureDataSource()
     var travelListViewModel: TravelListPresentable?
+    weak var presenter: TravelListVCPresenter?
     
     @IBOutlet weak var travelListCollectionView: UICollectionView!
     @IBOutlet var layoutButtons: [UIButton]!
@@ -29,6 +39,7 @@ class TravelListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.onViewDidLoad()
         configureCollectionView()
         travelListViewModel?.didFetch = { [weak self] fetchedTravels in
             self?.applySnapShot(with: fetchedTravels)
@@ -133,6 +144,8 @@ class TravelListViewController: UIViewController {
     }
     
     @IBAction func layoutButtonTapped(_ sender: UIButton) {
+        presenter?.onLayoutButtonTapped()
+        
         resetAlphaOfLayoutButtons()
         sender.alpha = 1
         
@@ -140,12 +153,15 @@ class TravelListViewController: UIViewController {
         switch index {
         case 0:
             layout = .defaultLayout
+            presenter?.onDefaultLayoutButtonTapped()
         case 1:
             layout = .squareLayout
+            presenter?.onSquareLayoutButtonTapped()
         case 2:
             layout = .rectangleLayout
+            presenter?.onRectangleLayoutButtonTapped()
         default:
-            layout = .hamburgerLayout
+            break
         }
         applySnapShot(with: travelListViewModel?.travels ?? [])
     }
@@ -245,12 +261,18 @@ extension TravelListViewController: TravelProfileDelegate {
             let updatingTravel = travelListViewModel.travels.filter({ $0.id == updatingId }).first,
             let countryName = updatingTravel.countryName,
             let title = updatingTravel.title,
-            let coverImage = updatingTravel.coverImage,
+            let coverImage = updatingTravel.coverImage {
             
-            travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo, startDate: newStartDate, endDate: newEndDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) {
-            print("여행 정보 업데이트 성공")
+            travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo, startDate: newStartDate, endDate: newEndDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) { result in
+                if result {
+                    print("여행 정보 업데이트 성공")
+                } else {
+                    print("여행 정보 업데이트 실패")
+                }
+            }
+            
         } else {
-            print("여행 정보 업데이트 실패")
+            print("여행 업데이트를 위한 정보 불러오기 실패")
         }
     }
 }

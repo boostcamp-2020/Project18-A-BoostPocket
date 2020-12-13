@@ -94,9 +94,18 @@ class TravelProviderTests: XCTestCase {
         wait(for: [expectation], timeout: 5.0)
         
         let travelInfo = TravelInfo(countryName: countryName, id: createdTravel?.id ?? UUID(), title: "updated title", memo: createdTravel?.memo ?? "", startDate: createdTravel?.startDate ?? Date(), endDate: createdTravel?.endDate ?? Date(), coverImage: createdTravel?.coverImage ?? Data(), budget: createdTravel?.budget ?? Double(), exchangeRate: createdTravel?.exchangeRate ?? Double())
-        let updatedTravel = travelProvider.updateTravel(updatedTravelInfo: travelInfo)
         
-        XCTAssertNotNil(updatedTravel)
+        let updateTravelExpectation = XCTestExpectation(description: "Successfully Updated Travel")
+        var updatedTravel: Travel?
+        
+        travelProvider.updateTravel(updatedTravelInfo: travelInfo) { travel in
+            updatedTravel = travel
+            XCTAssertNotNil(updatedTravel)
+            updateTravelExpectation.fulfill()
+        }
+        
+        wait(for: [updateTravelExpectation], timeout: 5.0)
+        
         XCTAssertEqual(updatedTravel?.title, "updated title")
         XCTAssertEqual(createdTravel, updatedTravel)
         XCTAssertEqual(travelProvider.fetchTravels().first, createdTravel)
