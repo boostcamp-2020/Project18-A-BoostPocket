@@ -14,7 +14,22 @@ class DataSource: UITableViewDiffableDataSource<HistoryListSectionHeader, Histor
     }
 }
 
+protocol HistoryListVCPresenter: AnyObject {
+    var onViewDidLoadCalled: Bool { get }
+    var onFloatingActionButtonTappedCalled: Bool { get }
+    var onCloseFloatingActionsCalled: Bool { get }
+    var onOpenFloatingActionsCalled: Bool { get }
+    var onRotateFloatingActionButtonCalled: Bool { get }
+    
+    func onViewDidLoad()
+    func onFloatingActionButtonTapped()
+    func onCloseFloatingActions()
+    func onOpenFloatingActions()
+    func onRotateFloatingActionButton()
+}
+
 class HistoryListViewController: UIViewController {
+    static let identifier = "HistoryListViewController"
     
     typealias Snapshot = NSDiffableDataSourceSnapshot<HistoryListSectionHeader, HistoryItemViewModel>
     
@@ -31,28 +46,19 @@ class HistoryListViewController: UIViewController {
     @IBOutlet weak var historyGuideLabel: UILabel!
     
     lazy var buttons = [self.addExpenseButton, self.addIncomeButton]
-    lazy var floatingDimView: UIView = {
-        let view = UIView(frame: self.view.frame)
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-        view.alpha = 0
-        view.isHidden = true
-        
-        self.view.insertSubview(view, belowSubview: self.floatingStackView)
-        
-        return view
-    }()
     
+    weak var presenter: HistoryListVCPresenter?
     weak var travelItemViewModel: HistoryListPresentable?
-
     private weak var selectedDateButton: UIButton?
     private var historyFilter = HistoryFilter()
-    private var isFloatingButtonOpened: Bool = false
+    private(set) var isFloatingButtonOpened: Bool = false
     private lazy var dataSource = configureDatasource()
     private lazy var headers = setupSection(with: travelItemViewModel?.histories ?? [])
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        presenter?.onViewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -180,17 +186,22 @@ class HistoryListViewController: UIViewController {
     // MARK: - Floating Action Button
     
     @IBAction func floatingActionButtonTapped(_ sender: UIButton) {
+        presenter?.onFloatingActionButtonTapped()
+        
         switch isFloatingButtonOpened {
         case true:
+            presenter?.onCloseFloatingActions()
             closeFloatingActions()
         case false:
+            presenter?.onOpenFloatingActions()
             openFloatingActions()
         }
     }
     
-    private func closeFloatingActions() {
+    func closeFloatingActions() {
         buttons.reversed().forEach { [weak self] button in
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.3) {
+                button?.alpha = 0
                 button?.isHidden = true
                 self?.view.layoutIfNeeded()
             }
@@ -198,16 +209,13 @@ class HistoryListViewController: UIViewController {
         
         isFloatingButtonOpened = false
         rotateFloatingActionButton()
+        presenter?.onCloseFloatingActions()
     }
     
-    private func openFloatingActions() {
-        self.floatingDimView.isHidden = false
-        
+    func openFloatingActions() {
         buttons.forEach { [weak self] button in
-            button?.isHidden = false
-            button?.alpha = 0
-            
             UIView.animate(withDuration: 0.3) {
+                button?.isHidden = false
                 button?.alpha = 1
                 self?.view.layoutIfNeeded()
             }
@@ -215,14 +223,17 @@ class HistoryListViewController: UIViewController {
         
         isFloatingButtonOpened = true
         rotateFloatingActionButton()
+        presenter?.onOpenFloatingActions()
     }
     
-    private func rotateFloatingActionButton() {
+    func rotateFloatingActionButton() {
         let roatation = isFloatingButtonOpened ? CGAffineTransform(rotationAngle: .pi - (.pi / 4)) : CGAffineTransform.identity
         
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.floatingButton.transform = roatation
         }
+        
+        presenter?.onRotateFloatingActionButton()
     }
     
     @IBAction func addExpenseButtonTapped(_ sender: UIButton) {
