@@ -79,10 +79,9 @@ class TravelListViewController: UIViewController {
     }
     
     private func presentLoadingView() {
-        self.navigationController?.navigationBar.isHidden = true
-        let curveView = CurveView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        let curveView = LoadingView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         curveView.center = self.view.center
-        self.view.addSubview(curveView)
+        self.navigationController?.view.addSubview(curveView)
     }
     
     func applySnapShot(with travels: [TravelItemViewModel]) {

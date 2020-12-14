@@ -126,21 +126,6 @@
             </objects>
             <point key="canvasLocation" x="744.92753623188412" y="118.52678571428571"/>
         </scene>
-        <!--Loading View Controller-->
-        <scene sceneID="jfX-SU-9Qx">
-            <objects>
-                <viewController storyboardIdentifier="LoadingViewController" id="UK6-j3-d6c" customClass="LoadingViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="znQ-hd-iyO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="5Hp-tz-75z"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vpo-DQ-JNX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1116" y="119"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="5Ol-El-Gka">
             <objects>
