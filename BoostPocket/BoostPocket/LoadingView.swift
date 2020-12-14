@@ -44,7 +44,7 @@ class LoadingView: UIView {
         let height = self.frame.height
         
         path.move(to: CGPoint(x: self.frame.width, y: self.frame.height))
-        path.addCurve(to: CGPoint(x: width * 0.26, y: height * 0.12), controlPoint1: CGPoint(x: 0, y: height), controlPoint2: CGPoint(x: 0, y: height * 0.12))
+        path.addCurve(to: CGPoint(x: width * 0.26, y: height * 0.12), controlPoint1: CGPoint(x: 0, y: height), controlPoint2: CGPoint(x: 0, y: height * 0.08))
         path.addQuadCurve(to: CGPoint(x: width * 0.4, y: height * 0.43), controlPoint: CGPoint(x: self.frame.width, y: height * 0.18))
         path.addQuadCurve(to: CGPoint(x: 0, y: height * 0.86), controlPoint: CGPoint(x: width * 1.26, y: height * 0.55))
         return path
