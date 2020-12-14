@@ -24,7 +24,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pF6-0v-9CD">
-                        <rect key="frame" x="117" y="21" width="263" height="21"/>
+                        <rect key="frame" x="117" y="21" width="243" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <color key="textColor" name="mainColor"/>
                         <nil key="highlightedColor"/>
@@ -46,7 +46,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="gU8-NF-FGt" secondAttribute="trailing" constant="10" id="5TW-UC-wUd"/>
                     <constraint firstItem="NFJ-ir-T7d" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="GXo-Eq-f1u"/>
                     <constraint firstItem="pF6-0v-9CD" firstAttribute="leading" secondItem="NFJ-ir-T7d" secondAttribute="trailing" constant="60" id="Hsz-6m-YgL"/>
-                    <constraint firstItem="pF6-0v-9CD" firstAttribute="trailing" secondItem="gU8-NF-FGt" secondAttribute="leading" constant="10" id="IRr-Yr-RJb"/>
+                    <constraint firstItem="pF6-0v-9CD" firstAttribute="trailing" secondItem="gU8-NF-FGt" secondAttribute="leading" constant="-10" id="IRr-Yr-RJb"/>
                     <constraint firstItem="NFJ-ir-T7d" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="Lh0-84-JKg"/>
                     <constraint firstItem="Rkm-Sy-yRT" firstAttribute="leading" secondItem="pF6-0v-9CD" secondAttribute="leading" id="ga9-qb-AbM"/>
                     <constraint firstItem="gU8-NF-FGt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="jOL-az-dwY"/>

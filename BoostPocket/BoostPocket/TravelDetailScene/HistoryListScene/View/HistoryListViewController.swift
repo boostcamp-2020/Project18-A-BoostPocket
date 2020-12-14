@@ -186,7 +186,6 @@ class HistoryListViewController: UIViewController {
     func closeFloatingActions() {
         buttons.reversed().forEach { [weak self] button in
             UIView.animate(withDuration: 0.3) {
-                button?.alpha = 0
                 button?.isHidden = true
                 self?.view.layoutIfNeeded()
             }
@@ -199,8 +198,10 @@ class HistoryListViewController: UIViewController {
     
     func openFloatingActions() {
         buttons.forEach { [weak self] button in
+            button?.isHidden = false
+            button?.alpha = 0
+            
             UIView.animate(withDuration: 0.3) {
-                button?.isHidden = false
                 button?.alpha = 1
                 self?.view.layoutIfNeeded()
             }
