@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3725D4AFE6D2AE5B6A21D483 /* Pods_BoostPocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B97464333E742D61CD6648 /* Pods_BoostPocket.framework */; };
 		470EEBDB802C6552ECB4E189 /* Pods_BoostPocketTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */; };
+		5C0324D4258768D100213B75 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0324D3258768D100213B75 /* LoadingView.swift */; };
 		5C15AB3E2577C32000244C6C /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C15AB3C2577C32000244C6C /* HistoryCell.swift */; };
 		5C15AB3F2577C32000244C6C /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C15AB3D2577C32000244C6C /* HistoryCell.xib */; };
 		5C15AB442577C96E00244C6C /* HistoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C15AB432577C96E00244C6C /* HistoryListViewController.swift */; };
@@ -157,6 +158,7 @@
 		05B97464333E742D61CD6648 /* Pods_BoostPocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		460E2B0DBA1F49A0D275F156 /* Pods-BoostPocketTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocketTests.release.xcconfig"; path = "Target Support Files/Pods-BoostPocketTests/Pods-BoostPocketTests.release.xcconfig"; sourceTree = "<group>"; };
 		57F756558017352589C6CED3 /* Pods-BoostPocket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.release.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.release.xcconfig"; sourceTree = "<group>"; };
+		5C0324D3258768D100213B75 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		5C15AB3C2577C32000244C6C /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		5C15AB3D2577C32000244C6C /* HistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryCell.xib; sourceTree = "<group>"; };
 		5C15AB432577C96E00244C6C /* HistoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListViewController.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 				95A42E8725664DC40007810C /* LaunchScreen.storyboard */,
 				95A42E8A25664DC40007810C /* Info.plist */,
 				95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */,
+				5C0324D3258768D100213B75 /* LoadingView.swift */,
 			);
 			path = BoostPocket;
 			sourceTree = "<group>";
@@ -966,6 +969,7 @@
 				A9BF7AA5256F9B8800496CD8 /* Date+ConvertToString.swift in Sources */,
 				5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */,
 				A99E0646257766F50014C29F /* HistoryItemViewModel.swift in Sources */,
+				5C0324D4258768D100213B75 /* LoadingView.swift in Sources */,
 				5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */,
 				A9BF7A37256D496C00496CD8 /* String+firstConsonant.swift in Sources */,
 				95747A69256FCEEA0065C419 /* Data+ImageData.swift in Sources */,
