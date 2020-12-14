@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "etc-report.png",
+      "filename" : "guitar-report-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "etc-report.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "guitar-report-3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
