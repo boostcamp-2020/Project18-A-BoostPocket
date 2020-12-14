@@ -141,6 +141,12 @@ extension PersistenceManager {
         
         if let newCountryInfo = newObjectInfo as? CountryInfo {
             createdObject = setupCountryInfo(countryInfo: newCountryInfo)
+            guard saveContext() else {
+                completion(nil)
+                return
+            }
+            
+            completion(createdObject)
         } else if let newTravelInfo = newObjectInfo as? TravelInfo {
             setupTravelInfo(travelInfo: newTravelInfo) { [weak self] newTravel in
                 createdObject = newTravel
@@ -149,7 +155,6 @@ extension PersistenceManager {
                     completion(nil)
                     return
                 }
-                
                 completion(createdObject)
             }
         } else if let newHistoryInfo = newObjectInfo as? HistoryInfo {
