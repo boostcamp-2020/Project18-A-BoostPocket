@@ -14,7 +14,7 @@ class LoadingView: UIView {
     private let positionAnimation = CAKeyframeAnimation(keyPath: "position")
     
     override func draw(_ rect: CGRect) {
-        layer.backgroundColor = UIColor(named: "transportation-color")?.cgColor
+        layer.backgroundColor = UIColor(named: "launchScreenColor")?.cgColor
         
         let path = makePath()
         configureAnimations(with: path)
@@ -31,7 +31,7 @@ class LoadingView: UIView {
         pathLayer.path = path.cgPath
         pathLayer.fillColor = nil
         pathLayer.strokeColor = UIColor.white.cgColor
-        pathLayer.lineWidth = 2
+        pathLayer.lineWidth = 3
         pathLayer.strokeEnd = 1
         pathLayer.lineDashPattern = [NSNumber(value: 10)]
         self.layer.addSublayer(pathLayer)
