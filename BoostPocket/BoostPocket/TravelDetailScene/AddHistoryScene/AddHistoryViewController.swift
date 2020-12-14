@@ -129,8 +129,8 @@ class AddHistoryViewController: UIViewController {
         calculatedAmountLabel.textColor = .white
         if let previousAmount = baseHistoryViewModel.amount {
             self.amount = previousAmount
-            calculatorExpressionLabel.text = "\(previousAmount)"
-            calculatedAmountLabel.text = "\(previousAmount)"
+            calculatorExpressionLabel.text = previousAmount.convertToString()
+            calculatedAmountLabel.text = previousAmount.convertToString()
             currencyConvertedAmountLabel.text = "KRW \((previousAmount / baseHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: baseHistoryViewModel.countryIdentifier ?? ""))"
         } else {
             calculatorExpressionLabel.text = "0"
@@ -236,8 +236,8 @@ class AddHistoryViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        guard amount > 0 else {
-            let alert = UIAlertController(title: "금액을 입력해주세요!", message: "", preferredStyle: UIAlertController.Style.alert)
+        guard amount > 0, !amount.isNaN, !amount.isInfinite else {
+            let alert = UIAlertController(title: "금액을 확인해주세요!", message: "", preferredStyle: UIAlertController.Style.alert)
             let okAction = UIAlertAction(title: "확인", style: .default)
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)

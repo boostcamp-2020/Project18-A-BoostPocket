@@ -87,7 +87,7 @@ class HistoryDetailViewController: UIViewController {
         historyDateLabel.text = history.currentDate.convertToString(format: .fullKoreanDated)
         if let category = history.category, let title = history.title, let amount = history.amount, let identifier = history.countryIdentifier {
             amountLabel.text = "\(identifier.currencySymbol) \(amount.getCurrencyFormat(identifier: identifier))"
-            exchangedMoneyLabel.text = "KRW \((amount / history.exchangeRate).getCurrencyFormat(identifier: identifier))"
+            exchangedMoneyLabel.text = "KRW \((amount / history.exchangeRate).getCurrencyFormat(identifier: "ko_KR"))"
             categoryImageView.image = UIImage(named: category.imageName)
             titleLabel.text = title.isEmpty ? category.name : title
         }
