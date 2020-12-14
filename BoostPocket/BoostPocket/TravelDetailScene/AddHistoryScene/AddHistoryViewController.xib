@@ -310,22 +310,36 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uvo-Ni-ty9" userLabel="Line 0">
-                    <rect key="frame" x="20" y="503.5" width="394" height="45"/>
+                    <rect key="frame" x="0.0" y="503.5" width="414" height="45"/>
                     <subviews>
-                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="FBN-Xp-w8g">
-                            <rect key="frame" x="0.0" y="0.0" width="239" height="45"/>
-                            <locale key="locale" localeIdentifier="ko"/>
-                        </datePicker>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5UH-g4-mMe" userLabel="Picture">
-                            <rect key="frame" x="239" y="0.0" width="51.5" height="45"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RWq-Ek-2dx">
+                            <rect key="frame" x="0.0" y="0.0" width="259" height="45"/>
+                            <subviews>
+                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="FBN-Xp-w8g">
+                                    <rect key="frame" x="20" y="0.0" width="219" height="45"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="219" id="UH0-dh-oF4"/>
+                                    </constraints>
+                                    <locale key="locale" localeIdentifier="ko"/>
+                                </datePicker>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="FBN-Xp-w8g" firstAttribute="centerX" secondItem="RWq-Ek-2dx" secondAttribute="centerX" id="40g-uB-nBS"/>
+                                <constraint firstAttribute="bottom" secondItem="FBN-Xp-w8g" secondAttribute="bottom" id="Rhp-K0-hy3"/>
+                                <constraint firstItem="FBN-Xp-w8g" firstAttribute="top" secondItem="RWq-Ek-2dx" secondAttribute="top" id="SUa-oX-KvR"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5UH-g4-mMe" userLabel="Picture">
+                            <rect key="frame" x="259" y="0.0" width="51.5" height="45"/>
                             <color key="tintColor" systemColor="systemGray3Color"/>
                             <state key="normal" image="photo" catalog="system"/>
                             <connections>
                                 <action selector="addImageButtonTapped:" destination="-1" eventType="touchUpInside" id="LG4-Eq-Ho1"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14w-LZ-14y" userLabel="Memo">
-                            <rect key="frame" x="290.5" y="0.0" width="52" height="45"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14w-LZ-14y" userLabel="Memo">
+                            <rect key="frame" x="310.5" y="0.0" width="52" height="45"/>
                             <color key="tintColor" systemColor="systemGray3Color"/>
                             <state key="normal" image="list.dash" catalog="system"/>
                             <connections>
@@ -333,7 +347,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIf-oJ-N8p">
-                            <rect key="frame" x="342.5" y="0.0" width="51.5" height="45"/>
+                            <rect key="frame" x="362.5" y="0.0" width="51.5" height="45"/>
                             <state key="normal" title="저장"/>
                             <connections>
                                 <action selector="saveButtonTapped:" destination="-1" eventType="touchUpInside" id="XTN-WY-cDN"/>
@@ -341,8 +355,7 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="14w-LZ-14y" firstAttribute="leading" secondItem="5UH-g4-mMe" secondAttribute="trailing" id="3VQ-J2-zBT"/>
-                        <constraint firstItem="QIf-oJ-N8p" firstAttribute="leading" secondItem="14w-LZ-14y" secondAttribute="trailing" id="StW-zK-adn"/>
+                        <constraint firstItem="14w-LZ-14y" firstAttribute="width" secondItem="5UH-g4-mMe" secondAttribute="width" id="OGg-Z8-d2O"/>
                     </constraints>
                 </stackView>
                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RY6-19-kNJ">
@@ -384,7 +397,7 @@
                 <constraint firstItem="Uvo-Ni-ty9" firstAttribute="top" secondItem="RY6-19-kNJ" secondAttribute="bottom" constant="15" id="LX4-ke-6CR"/>
                 <constraint firstItem="0kX-Kl-MDd" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.35" id="NK5-JK-lX7"/>
                 <constraint firstItem="heQ-Ap-lf8" firstAttribute="top" secondItem="fLx-PJ-SRJ" secondAttribute="bottom" constant="10" id="NWT-Gj-UAR"/>
-                <constraint firstItem="Uvo-Ni-ty9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Q7Q-qd-fTQ"/>
+                <constraint firstItem="Uvo-Ni-ty9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Q7Q-qd-fTQ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RY6-19-kNJ" secondAttribute="trailing" id="SSf-MM-xZK"/>
                 <constraint firstItem="RY6-19-kNJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="VW7-0O-CiC"/>
                 <constraint firstItem="Uvo-Ni-ty9" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="aew-P5-zSc"/>
