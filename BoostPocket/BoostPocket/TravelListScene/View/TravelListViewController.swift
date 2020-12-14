@@ -26,6 +26,7 @@ class TravelListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.onViewDidLoad()
+        presentLoadingView()
         configureCollectionView()
         travelListViewModel?.didFetch = { [weak self] fetchedTravels in
             self?.applySnapShot(with: fetchedTravels)
@@ -75,6 +76,13 @@ class TravelListViewController: UIViewController {
         } else {
             newTravelIndicateView.isHidden = false
         }
+    }
+    
+    private func presentLoadingView() {
+        self.navigationController?.navigationBar.isHidden = true
+        let curveView = CurveView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        curveView.center = self.view.center
+        self.view.addSubview(curveView)
     }
     
     func applySnapShot(with travels: [TravelItemViewModel]) {
