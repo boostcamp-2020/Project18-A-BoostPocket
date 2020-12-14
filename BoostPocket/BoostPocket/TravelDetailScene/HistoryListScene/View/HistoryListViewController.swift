@@ -59,7 +59,7 @@ class HistoryListViewController: UIViewController {
             let endDate = travelItemViewModel?.endDate {
             if selectedDate.isValidInRange(from: startDate, to: endDate) {
                 let index = selectedDate.interval(ofComponent: .day, fromDate: startDate)
-                
+
                 guard let selectedDateCell = dayStackView.subviews[index].subviews.filter({ $0 is UIButton }).first as? UIButton else { return }
                 
                 selectedDateButton = selectedDateCell
