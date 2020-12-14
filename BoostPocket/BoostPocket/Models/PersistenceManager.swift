@@ -26,7 +26,7 @@ protocol PersistenceManagable: AnyObject {
     func delete<T>(deletingObject: T) -> Bool
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
     func setupTravelInfo(travelInfo: TravelInfo, completion: @escaping (Travel?) -> Void)
-    func saveContext()
+    @discardableResult func saveContext() -> Bool
 }
 
 class PersistenceManager: PersistenceManagable {
@@ -118,14 +118,18 @@ class PersistenceManager: PersistenceManagable {
 // MARK: - Core Data Saving support
 
 extension PersistenceManager {
-    func saveContext() {
+    @discardableResult
+    func saveContext() -> Bool {
         if context.hasChanges {
             do {
                 try context.save()
+                return true
             } catch let saveError {
                 print("saveContext 실패: \(saveError)")
+                return false
             }
         }
+        return true
     }
 }
 
@@ -137,17 +141,28 @@ extension PersistenceManager {
         
         if let newCountryInfo = newObjectInfo as? CountryInfo {
             createdObject = setupCountryInfo(countryInfo: newCountryInfo)
-            saveContext()
+            guard saveContext() else {
+                completion(nil)
+                return
+            }
+            
             completion(createdObject)
         } else if let newTravelInfo = newObjectInfo as? TravelInfo {
-            setupTravelInfo(travelInfo: newTravelInfo) { [weak self] (newTravel) in
+            setupTravelInfo(travelInfo: newTravelInfo) { [weak self] newTravel in
                 createdObject = newTravel
-                self?.saveContext()
+                
+                guard let self = self, self.saveContext() else {
+                    completion(nil)
+                    return
+                }
                 completion(createdObject)
             }
         } else if let newHistoryInfo = newObjectInfo as? HistoryInfo {
             createdObject = setupHistoryInfo(historyInfo: newHistoryInfo)
-            saveContext()
+            guard saveContext() else {
+                completion(nil)
+                return
+            }
             completion(createdObject)
         }
     }
@@ -221,7 +236,7 @@ extension PersistenceManager {
         newTravel.coverImage = travelInfo.coverImage
         
         if let lastUpdated = fetchedCountry.lastUpdated, isExchangeRateOutdated(lastUpdated: lastUpdated) {
-            dataLoader?.requestExchangeRate(url: exchangeRateAPIurl) { [weak self] (result) in
+            dataLoader?.requestExchangeRate(url: exchangeRateAPIurl) { [weak self] result in
                 guard let currencyCode = fetchedCountry.currencyCode else { return }
                 
                 switch result {
@@ -352,17 +367,20 @@ extension PersistenceManager {
         var updatedObject: DataModelProtocol?
         
         if let updatedTravelInfo = updatedObjectInfo as? TravelInfo,
-            let updatedTravel =  updateTravel(travelInfo: updatedTravelInfo) {
+            let updatedTravel = updateTravel(travelInfo: updatedTravelInfo) {
             updatedObject = updatedTravel
+            completion(updatedObject)
         } else if let updatedCountryInfo = updatedObjectInfo as? CountryInfo,
             let updatedCountry = updateCountry(countryInfo: updatedCountryInfo) {
             updatedObject = updatedCountry
+            completion(updatedObject)
         } else if let updatedHistoryInfo = updatedObjectInfo as? HistoryInfo,
             let updatedHistory = updateHistory(historyInfo: updatedHistoryInfo) {
             updatedObject = updatedHistory
+            completion(updatedObject)
+        } else {
+            completion(nil)
         }
-        
-        completion(updatedObject)
     }
 
     private func updateHistory(historyInfo: HistoryInfo) -> History? {
@@ -377,7 +395,7 @@ extension PersistenceManager {
         updatingHistory.memo = historyInfo.memo
         updatingHistory.title = historyInfo.title
         
-        saveContext()
+        guard saveContext() else { return nil }
         return updatingHistory
     }
     
@@ -390,7 +408,7 @@ extension PersistenceManager {
         updatingTravel.endDate = travelInfo.endDate
         updatingTravel.coverImage = travelInfo.coverImage
         
-        saveContext()
+        guard saveContext() else { return nil }
         return updatingTravel
     }
     
@@ -400,7 +418,7 @@ extension PersistenceManager {
         updatingCountry.lastUpdated = countryInfo.lastUpdated
         updatingCountry.exchangeRate = countryInfo.exchangeRate
 
-        saveContext()
+        guard saveContext() else { return nil }
         return updatingCountry
     }
 }
@@ -409,8 +427,7 @@ extension PersistenceManager {
 
 extension PersistenceManager {
     func delete<T>(deletingObject: T) -> Bool {
-        
-        if let travelObject = deletingObject as? Travel {
+        if let travelObject = deletingObject as? Travel, deleteHistories(of: travelObject) {
             self.context.delete(travelObject)
         } else if let countryObject = deletingObject as? Country {
             self.context.delete(countryObject)
@@ -418,13 +435,20 @@ extension PersistenceManager {
             self.context.delete(historyObject)
         }
         
-        do {
-            try context.save()
-            return true
-        } catch {
-            print(error.localizedDescription)
-            return false
+        guard saveContext() else { return false }
+        return true
+    }
+    
+    func deleteHistories(of travel: Travel) -> Bool {
+        let historySet = travel.mutableSetValue(forKey: "history")
+        
+        for history in historySet {
+            guard let historyObject = history as? NSManagedObject else { return false }
+            context.delete(historyObject)
         }
+        
+        guard saveContext() else { return false }
+        return true
     }
 }
 

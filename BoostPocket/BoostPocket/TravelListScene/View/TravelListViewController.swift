@@ -8,20 +8,6 @@
 
 import UIKit
 
-enum Layout {
-    case defaultLayout
-    case squareLayout
-    case rectangleLayout
-}
-
-protocol TravelListVCPresenter: AnyObject {
-    func onViewDidLoad()
-    func onLayoutButtonTapped()
-    func onDefaultLayoutButtonTapped()
-    func onSquareLayoutButtonTapped()
-    func onRectangleLayoutButtonTapped()
-}
-
 class TravelListViewController: UIViewController {
     static let identifier = "TravelListViewController"
     
@@ -93,7 +79,7 @@ class TravelListViewController: UIViewController {
     
     func applySnapShot(with travels: [TravelItemViewModel]) {
         var snapShot = SnapShot()
-
+        
         let sectionCaseCounts = getTravelSectionNumbers()
         
         snapShot.appendSections([TravelSection(travelSectionCase: .current, numberOfTravels: sectionCaseCounts[.current] ?? 0),
@@ -173,11 +159,11 @@ class TravelListViewController: UIViewController {
         
         countryListVC.countryListViewModel = countryListViewModel
         countryListVC.doneButtonHandler = { (selectedCountry) in
-            self.travelListViewModel?.createTravel(countryName: selectedCountry.name) { (travelItemViewModel) in
+            self.travelListViewModel?.createTravel(countryName: selectedCountry.name) { travelItemViewModel in
                 DispatchQueue.main.async {
                     guard let createdTravelItemViewModel = travelItemViewModel,
                         let tabBarVC = TravelDetailTabbarController.createTabbarVC(),
-                    let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
+                        let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
                         else { return }
                     
                     tabBarVC.setupChildViewControllers(with: createdTravelItemViewModel)
@@ -224,7 +210,7 @@ extension TravelListViewController: UICollectionViewDelegate {
         guard let selectedTravelViewModel = dataSource.itemIdentifier(for: indexPath),
             let tabBarVC = TravelDetailTabbarController.createTabbarVC(),
             let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
-        else { return }
+            else { return }
         
         tabBarVC.setupChildViewControllers(with: selectedTravelViewModel)
         profileVC.profileDelegate = self
@@ -255,7 +241,9 @@ extension TravelListViewController: TravelProfileDelegate {
         }
     }
     
-    func updateTravel(id: UUID? = nil, newTitle: String? = nil, newMemo: String?, newStartDate: Date? = nil, newEndDate: Date? = nil, newCoverImage: Data? = nil, newBudget: Double? = nil, newExchangeRate: Double? = nil) {
+    func updateTravel(id: UUID? = nil, newTitle: String? = nil, newMemo: String? = nil, newStartDate: Date? = nil, newEndDate: Date? = nil, newCoverImage: Data? = nil, newBudget: Double? = nil, newExchangeRate: Double? = nil, completion: @escaping (Bool) -> Void) {
+        presenter?.onUpdateTravel()
+        
         if let travelListViewModel = travelListViewModel,
             let updatingId = id,
             let updatingTravel = travelListViewModel.travels.filter({ $0.id == updatingId }).first,
@@ -266,13 +254,15 @@ extension TravelListViewController: TravelProfileDelegate {
             travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo, startDate: newStartDate, endDate: newEndDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) { result in
                 if result {
                     print("여행 정보 업데이트 성공")
+                    completion(true)
                 } else {
                     print("여행 정보 업데이트 실패")
+                    completion(false)
                 }
             }
-            
         } else {
             print("여행 업데이트를 위한 정보 불러오기 실패")
+            completion(false)
         }
     }
 }

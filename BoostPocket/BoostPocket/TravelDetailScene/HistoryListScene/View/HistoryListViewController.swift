@@ -14,20 +14,6 @@ class DataSource: UITableViewDiffableDataSource<HistoryListSectionHeader, Histor
     }
 }
 
-protocol HistoryListVCPresenter: AnyObject {
-    var onViewDidLoadCalled: Bool { get }
-    var onFloatingActionButtonTappedCalled: Bool { get }
-    var onCloseFloatingActionsCalled: Bool { get }
-    var onOpenFloatingActionsCalled: Bool { get }
-    var onRotateFloatingActionButtonCalled: Bool { get }
-    
-    func onViewDidLoad()
-    func onFloatingActionButtonTapped()
-    func onCloseFloatingActions()
-    func onOpenFloatingActions()
-    func onRotateFloatingActionButton()
-}
-
 class HistoryListViewController: UIViewController {
     static let identifier = "HistoryListViewController"
     
@@ -46,7 +32,6 @@ class HistoryListViewController: UIViewController {
     @IBOutlet weak var historyGuideLabel: UILabel!
     
     lazy var buttons = [self.addExpenseButton, self.addIncomeButton]
-    
     weak var presenter: HistoryListVCPresenter?
     weak var travelItemViewModel: HistoryListPresentable?
     private weak var selectedDateButton: UIButton?

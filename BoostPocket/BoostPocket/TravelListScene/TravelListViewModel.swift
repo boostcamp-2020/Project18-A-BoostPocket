@@ -42,7 +42,7 @@ class TravelListViewModel: TravelListPresentable {
     }
     
     func createTravel(countryName: String, completion: @escaping (TravelItemViewModel?) -> Void) {
-        travelProvider?.createTravel(countryName: countryName) { [weak self] (createdTravel) in
+        travelProvider?.createTravel(countryName: countryName) { [weak self] createdTravel in
             guard let self = self,
                 let historyProvider = self.historyProvider,
                 let createdTravel = createdTravel else {

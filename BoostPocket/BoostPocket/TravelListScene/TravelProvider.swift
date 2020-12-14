@@ -27,7 +27,7 @@ class TravelProvider: TravelProvidable {
     func createTravel(countryName: String, completion: @escaping (Travel?) -> Void) {
         let newTravelInfo = TravelInfo(countryName: countryName, id: UUID(), title: countryName, memo: nil, startDate: nil, endDate: nil, coverImage: Data().getCoverImage() ?? Data(), budget: Double(), exchangeRate: Double())
         
-        persistenceManager?.createObject(newObjectInfo: newTravelInfo) { [weak self] (createdObject) in
+        persistenceManager?.createObject(newObjectInfo: newTravelInfo) { [weak self] createdObject in
             guard let createdTravel = createdObject as? Travel else {
                 completion(nil)
                 return
