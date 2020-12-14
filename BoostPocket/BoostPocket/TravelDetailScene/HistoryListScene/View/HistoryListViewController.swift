@@ -138,10 +138,10 @@ class HistoryListViewController: UIViewController {
     
     private func setTotalAmountView() {
         let filteredHistories = historyFilter.filterHistories(with: travelItemViewModel?.histories)
-        let expenses = filteredHistories.filter({ !$0.isIncome }).reduce(0) { $0 + $1.amount }
-        let allAmount = filteredHistories.reduce(0) { $0 + $1.amount }
+        let expense = filteredHistories.filter({ !$0.isIncome }).reduce(0) { $0 + $1.amount }
+        let income = filteredHistories.filter({ $0.isIncome }).reduce(0) { $0 + $1.amount }
         
-        self.totalAmountView.configure(withExpense: expenses, remain: allAmount - 2 * expenses, identifier: travelItemViewModel?.countryIdentifier)
+        self.totalAmountView.configure(withExpense: expense, income: income, identifier: travelItemViewModel?.countryIdentifier)
     }
     
     private func configureTravelItemViewModel() {
