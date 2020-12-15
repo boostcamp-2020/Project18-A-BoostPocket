@@ -171,13 +171,13 @@ extension TravelItemViewModel: HistoryListPresentable {
     func needFetchItems() {
         guard let fetchedHistories = historyProvider?.fetchHistories() else { return }
         
-        histories.removeAll()
         var newHistoryItemViewModels: [HistoryItemViewModel] = []
         fetchedHistories.forEach { history in
             if history.travel?.id == self.id {
                 newHistoryItemViewModels.append(HistoryItemViewModel(history: history))
             }
         }
+        
         histories = newHistoryItemViewModels
     }
     
