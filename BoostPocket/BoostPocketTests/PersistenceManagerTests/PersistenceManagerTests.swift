@@ -50,6 +50,57 @@ class PersistenceManagerTests: XCTestCase {
         historyInfo = nil
     }
     
+    func test_persistenceManager_createCountriesWithAPIRequest_with_no_countries() {
+        let createCountriesExpectation = XCTestExpectation(description: "Successfully Created Countries")
+        
+        var createCountriesResult: Bool = false
+        persistenceManagerStub.createCountriesWithAPIRequest { result in
+            createCountriesResult = result
+            createCountriesExpectation.fulfill()
+        }
+        
+        wait(for: [createCountriesExpectation], timeout: 1)
+        XCTAssertTrue(createCountriesResult)
+    }
+    
+    func test_persistenceManager_createCountriesWithAPIRequest_with_countries() {
+        var createdCountry: Country?
+        persistenceManagerStub.createObject(newObjectInfo: countryInfo) { country in
+            createdCountry = country as? Country
+        }
+        
+        XCTAssertNotNil(createdCountry)
+        
+        var createCountriesResult: Bool = false
+        persistenceManagerStub.createCountriesWithAPIRequest { result in
+            createCountriesResult = result
+        }
+        
+        XCTAssertTrue(createCountriesResult)
+    }
+    
+    func test_persistenceManager_setupCountries() {
+        let requestExchangeRateExpectation = XCTestExpectation(description: "Successfully Reqested ExchangeRate")
+        
+        let url: String = "https://api.exchangeratesapi.io/latest?base=KRW"
+        var exchangeRateData: ExchangeRate?
+        dataLoader?.requestExchangeRate(url: url, completion: { result in
+            switch result {
+            case .success(let data):
+                exchangeRateData = data
+                XCTAssertNotNil(exchangeRateData)
+                requestExchangeRateExpectation.fulfill()
+            case .failure:
+                break
+            }
+        })
+        
+        wait(for: [requestExchangeRateExpectation], timeout: 1)
+        persistenceManagerStub.setupCountries(with: exchangeRateData!)
+        
+        XCTAssertTrue(persistenceManagerStub.count(request: Country.fetchRequest()) ?? 0 > 0)
+    }
+    
     func test_persistenceManager_filterCountries() {
         let identifiers = ["ko_KR", "ja_JP"]
         let rates = ["KRW": 1.0, "JPY": 0.0941570188]

@@ -26,6 +26,7 @@ protocol PersistenceManagable: AnyObject {
     func delete<T>(deletingObject: T) -> Bool
     func count<T: NSManagedObject>(request: NSFetchRequest<T>) -> Int?
     func setupTravelInfo(travelInfo: TravelInfo, completion: @escaping (Travel?) -> Void)
+    func setupCountries(with data: ExchangeRate)
     @discardableResult func saveContext() -> Bool
 }
 
@@ -79,8 +80,7 @@ class PersistenceManager: PersistenceManagable {
         }
     }
     
-    // TODO: - 테스트코드 작성하기
-    private func setupCountries(with data: ExchangeRate) {
+    func setupCountries(with data: ExchangeRate) {
         let koreaLocale = NSLocale(localeIdentifier: "ko_KR")
         let identifiers = NSLocale.availableLocaleIdentifiers
         let countryDictionary = filterCountries(identifiers, rates: data.rates)
