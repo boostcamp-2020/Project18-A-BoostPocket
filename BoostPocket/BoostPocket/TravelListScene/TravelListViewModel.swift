@@ -15,7 +15,6 @@ protocol TravelListPresentable {
     
     func createTravel(countryName: String, completion: @escaping (TravelItemViewModel?) -> Void)
     func needFetchItems()
-    func cellForItemAt(id: UUID) -> TravelItemViewModel?
     func updateTravel(countryName: String, id: UUID, title: String, memo: String?, startDate: Date?, endDate: Date?, coverImage: Data, budget: Double, exchangeRate: Double, completion: @escaping (Bool) -> Void)
     func deleteTravel(id: UUID) -> Bool
     func numberOfItem() -> Int
@@ -68,10 +67,6 @@ class TravelListViewModel: TravelListPresentable {
             newTravelItemViewModels.append(TravelItemViewModel(travel: travel, historyProvider: historyProvider))
         }
         travels = newTravelItemViewModels
-    }
-    
-    func cellForItemAt(id: UUID) -> TravelItemViewModel? {
-        return travels.filter({ $0.id == id }).first
     }
     
     func updateTravel(countryName: String, id: UUID, title: String, memo: String?, startDate: Date?, endDate: Date?, coverImage: Data, budget: Double, exchangeRate: Double, completion: @escaping (Bool) -> Void) {

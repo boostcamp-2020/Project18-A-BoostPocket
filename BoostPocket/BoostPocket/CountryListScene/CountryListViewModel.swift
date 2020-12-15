@@ -33,11 +33,12 @@ class CountryListViewModel: CountryListPresentable {
     
     func needFetchItems() {
         guard let fetchedCountries = countryProvider?.fetchCountries() else { return }
-        self.countries.removeAll()
+        
         var newCountryItemViewModels: [CountryItemViewModel] = []
         fetchedCountries.forEach { country in
             newCountryItemViewModels.append(CountryItemViewModel(country: country))
         }
+        
         countries = newCountryItemViewModels
     }
     
