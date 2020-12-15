@@ -49,6 +49,7 @@ class TotalAmountView: UIView {
 
         expenseTitleLabelHalfCenterX.priority = UILayoutPriority(750)
         expenseTitleLabelCenterX.priority = UILayoutPriority(1000)
+        
         expenseLabelHalfWidth.priority = UILayoutPriority(750)
         expenseLabelFullWidth.priority = UILayoutPriority(1000)
     }
@@ -60,6 +61,7 @@ class TotalAmountView: UIView {
         
         expenseTitleLabelCenterX.priority = UILayoutPriority(750)
         expenseTitleLabelHalfCenterX.priority = UILayoutPriority(1000)
+        
         expenseLabelFullWidth.priority = UILayoutPriority(750)
         expenseLabelHalfWidth.priority = UILayoutPriority(1000)
     }

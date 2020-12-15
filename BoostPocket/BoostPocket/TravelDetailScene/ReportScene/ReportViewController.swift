@@ -45,7 +45,8 @@ class ReportViewController: UIViewController {
     
     private func configureLabels() {
         guard let travelItemViewModel = self.travelItemViewModel,
-            let identifier = travelItemViewModel.countryIdentifier else { return }
+              let identifier = travelItemViewModel.countryIdentifier else { return }
+        
         flagImageView.image = UIImage(data: travelItemViewModel.flagImage ?? Data())
         currencyCodeLabel.text = travelItemViewModel.currencyCode
         let totalAmount = travelItemViewModel.getTotalExpense()
@@ -84,8 +85,7 @@ class ReportViewController: UIViewController {
         expensesStackView.removeAllArrangedSubviews()
         
         guard let travelItemViewModel = travelItemViewModel,
-            let identifier = travelItemViewModel.countryIdentifier
-            else { return }
+              let identifier = travelItemViewModel.countryIdentifier else { return }
         
         let expenses = travelItemViewModel.histories.filter({ !$0.isIncome })
         let amounts = travelItemViewModel.getHistoriesDictionary(from: expenses)
@@ -97,7 +97,7 @@ class ReportViewController: UIViewController {
         
         sortedAmounts.forEach { (category, amount) in
             if let expenseElementView = Bundle.main.loadNibNamed(ExpenseElementView.identifier, owner: nil, options: nil)?.first as? ExpenseElementView {
-
+                
                 let percentage = round((amount / totalAmounts) * 1000 / 10)
                 let expenseString = identifier.currencySymbol + " " + amount.getCurrencyFormat(identifier: identifier)
                 let amountKRW = amount / exchangeRate
@@ -107,12 +107,10 @@ class ReportViewController: UIViewController {
                                                                currencyCode: currencyCode ?? "",
                                                                expense: expenseString,
                                                                expenseKRW: expenseKRWString)
-
-                expensesStackView.addArrangedSubview(expenseElementView)
                 
+                expensesStackView.addArrangedSubview(expenseElementView)
                 expenseElementView.frame.size.width = expensesStackView.frame.width
                 expenseElementView.heightAnchor.constraint(equalTo: expensesStackView.widthAnchor, multiplier: 0.25).isActive = true
-                
                 expenseElementView.configure(with: elementViewModel)
             }
         }
@@ -120,9 +118,9 @@ class ReportViewController: UIViewController {
     
     private func setupSlices() -> [Slice] {
         guard let expenses = travelItemViewModel?.histories.filter({ !$0.isIncome }),
-            let amounts = travelItemViewModel?.getHistoriesDictionary(from: expenses),
-            let totalAmount = travelItemViewModel?.getTotalExpense()
-            else { return [] }
+              let amounts = travelItemViewModel?.getHistoriesDictionary(from: expenses),
+              let totalAmount = travelItemViewModel?.getTotalExpense()
+        else { return [] }
         
         let sortedAmounts = amounts.sorted { $0.1 > $1.1 }
         var slices: [Slice] = []
