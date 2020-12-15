@@ -51,15 +51,15 @@ class PersistenceManagerTests: XCTestCase {
     }
     
     func test_persistenceManager_createCountriesWithAPIRequest_with_no_countries() {
-        let exchangeRateExpectation = XCTestExpectation(description: "Successfully Requested Exchange Rate")
+        let createCountriesExpectation = XCTestExpectation(description: "Successfully Created Countries")
         
         var createCountriesResult: Bool = false
         persistenceManagerStub.createCountriesWithAPIRequest { result in
             createCountriesResult = result
-            exchangeRateExpectation.fulfill()
+            createCountriesExpectation.fulfill()
         }
         
-        wait(for: [exchangeRateExpectation], timeout: 2)
+        wait(for: [createCountriesExpectation], timeout: 1)
         XCTAssertTrue(createCountriesResult)
     }
     
@@ -77,6 +77,28 @@ class PersistenceManagerTests: XCTestCase {
         }
         
         XCTAssertTrue(createCountriesResult)
+    }
+    
+    func test_persistenceManager_setupCountries() {
+        let requestExchangeRateExpectation = XCTestExpectation(description: "Successfully Reqested ExchangeRate")
+        
+        let url: String = "https://api.exchangeratesapi.io/latest?base=KRW"
+        var exchangeRateData: ExchangeRate?
+        dataLoader?.requestExchangeRate(url: url, completion: { result in
+            switch result {
+            case .success(let data):
+                exchangeRateData = data
+                XCTAssertNotNil(exchangeRateData)
+                requestExchangeRateExpectation.fulfill()
+            case .failure:
+                break
+            }
+        })
+        
+        wait(for: [requestExchangeRateExpectation], timeout: 1)
+        persistenceManagerStub.setupCountries(with: exchangeRateData!)
+        
+        XCTAssertTrue(persistenceManagerStub.count(request: Country.fetchRequest()) ?? 0 > 0)
     }
     
     func test_persistenceManager_filterCountries() {
