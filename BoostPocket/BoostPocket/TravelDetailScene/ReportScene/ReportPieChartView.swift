@@ -23,7 +23,7 @@ class ReportPieChartView: UIView {
     @IBOutlet var superView: UIView!
     
     static let identifier = "ReportPieChartView"
-    static let ANIMATION_DURATION: CGFloat = 0.6
+    static let animationDuration: CGFloat = 0.6
     
     var slices: [Slice]?
     private var sliceIndex: Int = 0
@@ -41,7 +41,7 @@ class ReportPieChartView: UIView {
     }
     
     private func getDuration(_ slice: Slice) -> CFTimeInterval {
-        return CFTimeInterval(slice.percent / 1.0 * ReportPieChartView.ANIMATION_DURATION)
+        return CFTimeInterval(slice.percent / 1.0 * ReportPieChartView.animationDuration)
     }
     
     private func percentToRadian(_ percent: CGFloat) -> CGFloat {
