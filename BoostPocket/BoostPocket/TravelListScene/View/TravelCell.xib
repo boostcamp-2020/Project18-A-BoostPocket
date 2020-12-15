@@ -20,8 +20,8 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gmy-dG-DoZ" userLabel="Cover Image">
                         <rect key="frame" x="0.0" y="0.0" width="275" height="170"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="69T-Nt-sjr">
-                        <rect key="frame" x="117.5" y="34" width="40.5" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="69T-Nt-sjr">
+                        <rect key="frame" x="10" y="34" width="255" height="17"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                         <color key="textColor" name="basicBlackTextColor"/>
                         <nil key="highlightedColor"/>
@@ -32,7 +32,7 @@
                         <color key="textColor" name="basicBlackTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="woF-dC-F93" customClass="PaddedLabel" customModule="BoostPocket" customModuleProvider="target">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="woF-dC-F93" customClass="PaddedLabel" customModule="BoostPocket" customModuleProvider="target">
                         <rect key="frame" x="116.5" y="115.5" width="42" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -64,12 +64,14 @@
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="woF-dC-F93" secondAttribute="bottom" constant="5" id="JEp-k9-fdo"/>
                 <constraint firstItem="1sc-j4-zb5" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="JIn-8P-iFc"/>
                 <constraint firstItem="1sc-j4-zb5" firstAttribute="width" secondItem="ZTg-uK-7eu" secondAttribute="width" multiplier="0.95" id="JVa-XJ-LsN"/>
+                <constraint firstAttribute="trailing" secondItem="69T-Nt-sjr" secondAttribute="trailing" constant="10" id="Mni-ia-3nV"/>
                 <constraint firstItem="1sc-j4-zb5" firstAttribute="top" relation="greaterThanOrEqual" secondItem="69T-Nt-sjr" secondAttribute="bottom" constant="2" id="Zmi-7n-Zlr"/>
                 <constraint firstItem="BvG-Ku-dp3" firstAttribute="height" secondItem="Gmy-dG-DoZ" secondAttribute="height" multiplier="0.1" id="alb-rp-K9O"/>
                 <constraint firstItem="woF-dC-F93" firstAttribute="top" relation="greaterThanOrEqual" secondItem="BvG-Ku-dp3" secondAttribute="bottom" constant="2" id="daS-bo-487"/>
                 <constraint firstItem="Gmy-dG-DoZ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="flp-A8-cNy"/>
                 <constraint firstItem="Gmy-dG-DoZ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ic0-7l-43u"/>
                 <constraint firstItem="BvG-Ku-dp3" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="jXY-Ek-7Co"/>
+                <constraint firstItem="69T-Nt-sjr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="kpo-2x-eeb"/>
                 <constraint firstItem="1sc-j4-zb5" firstAttribute="top" secondItem="69T-Nt-sjr" secondAttribute="bottom" constant="2" id="lAb-eT-or5"/>
                 <constraint firstItem="woF-dC-F93" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="lHL-z0-Ba7"/>
                 <constraint firstItem="69T-Nt-sjr" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="qw7-pl-GqN"/>
