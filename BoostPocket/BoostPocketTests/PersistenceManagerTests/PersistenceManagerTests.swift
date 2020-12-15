@@ -50,6 +50,35 @@ class PersistenceManagerTests: XCTestCase {
         historyInfo = nil
     }
     
+    func test_persistenceManager_createCountriesWithAPIRequest_with_no_countries() {
+        let exchangeRateExpectation = XCTestExpectation(description: "Successfully Requested Exchange Rate")
+        
+        var createCountriesResult: Bool = false
+        persistenceManagerStub.createCountriesWithAPIRequest { result in
+            createCountriesResult = result
+            exchangeRateExpectation.fulfill()
+        }
+        
+        wait(for: [exchangeRateExpectation], timeout: 2)
+        XCTAssertTrue(createCountriesResult)
+    }
+    
+    func test_persistenceManager_createCountriesWithAPIRequest_with_countries() {
+        var createdCountry: Country?
+        persistenceManagerStub.createObject(newObjectInfo: countryInfo) { country in
+            createdCountry = country as? Country
+        }
+        
+        XCTAssertNotNil(createdCountry)
+        
+        var createCountriesResult: Bool = false
+        persistenceManagerStub.createCountriesWithAPIRequest { result in
+            createCountriesResult = result
+        }
+        
+        XCTAssertTrue(createCountriesResult)
+    }
+    
     func test_persistenceManager_filterCountries() {
         let identifiers = ["ko_KR", "ja_JP"]
         let rates = ["KRW": 1.0, "JPY": 0.0941570188]
