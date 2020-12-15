@@ -66,10 +66,10 @@ class LoadingView: UIView {
 
 extension LoadingView: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.5, animations: {
             self.alpha = 0
-        } completion: { _ in
+        }, completion: { _ in
             self.removeFromSuperview()
-        }
+        })
     }
 }

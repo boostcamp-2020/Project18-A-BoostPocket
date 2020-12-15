@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "etc-selected.png",
+      "filename" : "guitar-selected-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "etc-selected.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "guitar-selected-3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

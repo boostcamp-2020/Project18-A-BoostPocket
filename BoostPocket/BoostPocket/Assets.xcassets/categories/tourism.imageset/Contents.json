@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "tourism.png",
+      "filename" : "tourism-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "tourism.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "tourism-3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "square.png",
+      "filename" : "squares-128.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,11 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "squares_dark.png",
+      "filename" : "squares-dark-128.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "squares-256.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -27,10 +28,12 @@
           "value" : "dark"
         }
       ],
+      "filename" : "squares-dark-256.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "squares-512.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -41,6 +44,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "squares-dark-512.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

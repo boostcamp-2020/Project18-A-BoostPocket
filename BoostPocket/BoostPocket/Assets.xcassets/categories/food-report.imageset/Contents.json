@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "food-report.png",
+      "filename" : "food-report-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "food-report-2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "food-report-3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

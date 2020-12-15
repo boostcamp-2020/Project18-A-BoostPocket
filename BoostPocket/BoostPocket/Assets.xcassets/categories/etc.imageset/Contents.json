@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "etc.png",
+      "filename" : "guitar-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "etc.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "guitar-3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
