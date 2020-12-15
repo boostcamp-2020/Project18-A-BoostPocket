@@ -87,37 +87,19 @@ class TravelListViewController: UIViewController {
     func applySnapShot(with travels: [TravelItemViewModel]) {
         var snapShot = SnapShot()
         
-        let sectionCaseCounts = getTravelSectionNumbers()
+        let currentTravels = Array(travels.filter { getTravelSectionCase(with: $0) == .current }.reversed())
+        let upcomingTravels = travels.filter { getTravelSectionCase(with: $0) == .upcoming }
+        let pastTravels = Array(travels.filter { getTravelSectionCase(with: $0) == .past }.reversed())
         
-        snapShot.appendSections([TravelSection(travelSectionCase: .current, numberOfTravels: sectionCaseCounts[.current] ?? 0),
-                                 TravelSection(travelSectionCase: .past, numberOfTravels: sectionCaseCounts[.past] ?? 0),
-                                 TravelSection(travelSectionCase: .upcoming, numberOfTravels: sectionCaseCounts[.upcoming] ?? 0)])
+        snapShot.appendSections([TravelSection(travelSectionCase: .current, numberOfTravels: travels.count),
+                                 TravelSection(travelSectionCase: .upcoming, numberOfTravels: upcomingTravels.count),
+                                 TravelSection(travelSectionCase: .past, numberOfTravels: pastTravels.count)])
         
-        travels.forEach { travel in
-            let section = getTravelSectionCase(with: travel)
-            snapShot.appendItems([travel], toSection: TravelSection(travelSectionCase: section, numberOfTravels: sectionCaseCounts[section] ?? 0))
-        }
+        snapShot.appendItems(currentTravels, toSection: TravelSection(travelSectionCase: .current, numberOfTravels: travels.count))
+        snapShot.appendItems(upcomingTravels, toSection: TravelSection(travelSectionCase: .upcoming, numberOfTravels: upcomingTravels.count))
+        snapShot.appendItems(pastTravels, toSection: TravelSection(travelSectionCase: .past, numberOfTravels: pastTravels.count))
         
         dataSource.apply(snapShot, animatingDifferences: true)
-    }
-    
-    private func getTravelSectionNumbers() -> [TravelSectionCase: Int] {
-        guard let travels = travelListViewModel?.travels else { return [:] }
-        
-        var counts: [TravelSectionCase: Int] = [ .current: 0,
-                                                 .past: 0,
-                                                 .upcoming: 0]
-        
-        travels.forEach { travel in
-            let travelSectionCase = getTravelSectionCase(with: travel)
-            counts[travelSectionCase] = (counts[travelSectionCase] ?? 0) + 1
-        }
-        
-        if let past = counts[.past], let upcoming = counts[.upcoming] {
-            counts[.current] = (counts[.current] ?? 0) + past + upcoming
-        }
-        
-        return counts
     }
     
     private func getTravelSectionCase(with travel: TravelItemViewModel) -> TravelSectionCase {

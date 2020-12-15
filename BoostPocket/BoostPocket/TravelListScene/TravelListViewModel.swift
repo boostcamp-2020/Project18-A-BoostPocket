@@ -62,7 +62,6 @@ class TravelListViewModel: TravelListPresentable {
             let historyProvider = self.historyProvider
             else { return }
         
-        travels.removeAll()
         var newTravelItemViewModels: [TravelItemViewModel] = []
         
         fetchedTravels.forEach { travel in
