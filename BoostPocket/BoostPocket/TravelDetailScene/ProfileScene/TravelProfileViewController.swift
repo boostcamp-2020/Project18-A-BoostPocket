@@ -153,6 +153,7 @@ class TravelProfileViewController: UIViewController {
                     print("여행 타이틀 업데이트 성공")
                     DispatchQueue.main.async {
                         self?.travelTitleLabel.text = updatingTitle
+                        self?.tabBarController?.navigationItem.title = updatingTitle
                     }
                 } else {
                     print("여행 타이틀 업데이트 실패")
