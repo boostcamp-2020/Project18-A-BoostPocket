@@ -54,24 +54,28 @@ class PersistenceManager: PersistenceManagable {
     }
     
     func createCountriesWithAPIRequest(completion: @escaping (Bool) -> Void) {
-        dataLoader?.requestExchangeRate(url: exchangeRateAPIurl) { [weak self] (result) in
-            guard let self = self, let numberOfCountries = self.count(request: Country.fetchRequest()) else {
-                completion(false)
-                return
-            }
-            
-            switch result {
-            case .success(let data):
-                if numberOfCountries <= 0 {
-                    print("setup countries")
-                    self.setupCountries(with: data)
+        
+        guard let numberOfCountries = self.count(request: Country.fetchRequest()) else {
+            completion(false)
+            return
+        }
+        
+        if numberOfCountries <= 0 {
+            dataLoader?.requestExchangeRate(url: exchangeRateAPIurl) { [weak self] (result) in
+                switch result {
+                case .success(let data):
+                    self?.setupCountries(with: data)
+                    print("국가 생성 성공")
                     completion(true)
+                    
+                case .failure(let error):
+                    print("Network Error")
+                    print(error.localizedDescription)
+                    completion(false)
                 }
-            case .failure(let error):
-                print("Network Error")
-                print(error.localizedDescription)
-                completion(false)
             }
+        } else {
+            completion(true)
         }
     }
     
