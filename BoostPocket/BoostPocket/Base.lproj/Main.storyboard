@@ -39,14 +39,14 @@
                                             <action selector="layoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5oO-Te-hfk"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQQ-cn-ped">
+                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQQ-cn-ped">
                                         <rect key="frame" x="37.333333333333329" y="0.0" width="37.333333333333329" height="37.333333333333336"/>
                                         <state key="normal" image="square"/>
                                         <connections>
                                             <action selector="layoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NmO-U0-p1s"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYc-Qb-PfD">
+                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYc-Qb-PfD">
                                         <rect key="frame" x="74.666666666666671" y="0.0" width="37" height="37.333333333333336"/>
                                         <state key="normal" image="rectangle"/>
                                         <connections>
