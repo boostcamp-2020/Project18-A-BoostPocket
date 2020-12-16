@@ -166,13 +166,13 @@ class TravelProfileViewController: UIViewController {
     @objc func memoLabelTapped() {
         presenter?.onMemoLabelTapped()
         MemoEditViewController.present(at: self, memoType: .travelMemo, previousMemo: self.travelItemViewModel?.memo) { [weak self] (newMemo) in
-            let updatingMemo = newMemo.isEmpty ? EditMemoType.travelMemo.rawValue : newMemo
+            let updatingMemo = newMemo.isEmpty ? nil : newMemo
 
             self?.profileDelegate?.updateTravel(id: self?.travelItemViewModel?.id, newTitle: self?.travelItemViewModel?.title, newMemo: updatingMemo, newStartDate: self?.travelItemViewModel?.startDate, newEndDate: self?.travelItemViewModel?.endDate, newCoverImage: self?.travelItemViewModel?.coverImage, newBudget: self?.travelItemViewModel?.budget, newExchangeRate: self?.travelItemViewModel?.exchangeRate) { [weak self] result in
                 if result {
                     print("여행 메모 업데이트 성공")
                     DispatchQueue.main.async {
-                        self?.travelMemoLabel.text = updatingMemo
+                        self?.travelMemoLabel.text = updatingMemo ?? EditMemoType.travelMemo.rawValue
                     }
                 } else {
                     print("여행 메모 업데이트 실패")
