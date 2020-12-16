@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--BoostPocket-->
+        <!--부스트포켓-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="TravelListViewController" id="BYZ-38-t0r" customClass="TravelListViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
@@ -110,7 +110,7 @@
                             <constraint firstItem="9zU-t4-Mca" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ysg-24-G2b"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="BoostPocket" id="Vxu-Wh-3nW">
+                    <navigationItem key="navigationItem" title="부스트포켓" id="Vxu-Wh-3nW">
                         <barButtonItem key="backBarButtonItem" title=" " id="SHP-Qk-dbx"/>
                     </navigationItem>
                     <connections>
