@@ -27,6 +27,7 @@ class MemoEditViewController: UIViewController {
         super.viewDidLoad()
         memoTextView.delegate = self
         setInitialTextviewPlaceholder()
+        memoTextView.becomeFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {

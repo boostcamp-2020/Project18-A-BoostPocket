@@ -25,6 +25,7 @@ class TitleEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.titleTextField.text = previousTitle
+        titleTextField.becomeFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {
