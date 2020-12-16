@@ -78,6 +78,8 @@ class AddHistoryViewController: UIViewController {
     @IBOutlet weak var memoButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
+    @IBOutlet weak var incomeInfoView: UIView!
+    @IBOutlet weak var currencyInfoLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,8 +147,23 @@ class AddHistoryViewController: UIViewController {
             segmentedControl.selectedSegmentIndex = 0
         }
         
+        // 수입/지출 infromation view
+        if isAddingIncome {
+            categoryCollectionView.isHidden = true
+            let currencyCode = baseHistoryViewModel.currencyCode
+            var convertedString = (1 / baseHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: "ko_KR")
+            
+            if let index = convertedString.range(of: ".")?.lowerBound {
+                let substring = convertedString[..<index]
+                convertedString = String(substring)
+            }
+            
+            currencyInfoLabel.text = "\(currencyCode) 1.00 = KRW \(convertedString)"
+        }
+        
         // 카테고리 CollectionView
         if !isAddingIncome {
+            incomeInfoView.isHidden = true
             categoryCollectionView.delegate = self
             categoryCollectionView.dataSource = self
             categoryCollectionView.register(UINib(nibName: CategoryCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
