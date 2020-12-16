@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  BoostPocket
+
+  Created by sihyung you on 2020/12/16.
+  Copyright © 2020 BoostPocket. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "부스트포켓";
