@@ -320,7 +320,7 @@ class AddHistoryViewController: UIViewController {
                 self?.memoButton.tintColor = .lightGray
             } else {
                 self?.memo = newMemo
-                self?.memoButton.tintColor = .black
+                self?.memoButton.tintColor = UIColor(named: "basicBlackTextColor")
             }
         }
     }
@@ -336,7 +336,7 @@ extension AddHistoryViewController: UIImagePickerControllerDelegate, UINavigatio
             imageToast.show()
             
             self.image = newImage.pngData()
-            self.imageButton.tintColor = .black
+            self.imageButton.tintColor = UIColor(named: "basicBlackTextColor")
         }
         
         dismiss(animated: true)
@@ -369,13 +369,13 @@ extension AddHistoryViewController {
     }
     
     @IBAction func btnOperator(sender: UIButton) {
-        let buttonText = sender.titleLabel?.text
-        
         if let lastCharacter = calculatorExpressionLabel.text?.last, lastCharacter.isOperation() {
             calculatorExpressionLabel.text?.removeLast()
         }
         
-        calculatorExpressionLabel.text! += buttonText!
+        guard let labelText = calculatorExpressionLabel.text,
+              let buttonText = sender.titleLabel?.text else { return }
+        calculatorExpressionLabel.text = labelText + buttonText
     }
     
     @IBAction func backTapped(_ sender: Any) {
