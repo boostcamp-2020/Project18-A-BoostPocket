@@ -227,7 +227,7 @@ class AddHistoryViewController: UIViewController {
                 self.historyTitleLabel.text = newTitle.isEmpty ? HistoryCategory.etc.name : newTitle
             }
             
-            self.historyTitleLabel.textColor = self.historyTitleLabel.text == self.historyTitlePlaceholder ? .systemGray2 : .black
+            self.historyTitleLabel.textColor = self.historyTitleLabel.text == self.historyTitlePlaceholder ? .systemGray2 : UIColor(named: "basicBlackTextColor") ?? .black
         }
     }
     
