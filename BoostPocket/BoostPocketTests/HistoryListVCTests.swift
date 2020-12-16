@@ -15,6 +15,7 @@ class HistoryListVCPresenterMock: HistoryListVCPresenter {
     var onCloseFloatingActionsCalled: Bool = false
     var onOpenFloatingActionsCalled: Bool = false
     var onRotateFloatingActionButtonCalled: Bool = false
+    var onAnimationDoneCalled: Bool = false
     
     func onViewDidLoad() {
         onViewDidLoadCalled = true
@@ -34,6 +35,10 @@ class HistoryListVCPresenterMock: HistoryListVCPresenter {
     
     func onRotateFloatingActionButton() {
         onRotateFloatingActionButtonCalled = true
+    }
+    
+    func onAnimationDone() {
+        onAnimationDoneCalled = true
     }
 }
 
@@ -62,16 +67,15 @@ class HistoryListVCTests: XCTestCase {
     func test_historyListVC_floatingButtonTapped() {
         let sut = makeSUT()
         let currentStatus = sut.isFloatingButtonOpened
-        
+  
         sut.floatingActionButtonTapped(UIButton())
-        
+
         XCTAssertTrue(presenter.onFloatingActionButtonTappedCalled)
         if currentStatus {
             XCTAssertTrue(presenter.onCloseFloatingActionsCalled)
         } else {
             XCTAssertTrue(presenter.onOpenFloatingActionsCalled)
         }
-        XCTAssertTrue(presenter.onRotateFloatingActionButtonCalled)
     }
     
     func test_historyListVC_closeFloatingActions() {
