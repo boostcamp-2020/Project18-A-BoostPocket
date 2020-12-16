@@ -254,7 +254,8 @@ class AddHistoryViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         guard amount > 0, !amount.isNaN, !amount.isInfinite else {
-            let alert = UIAlertController(title: "금액을 확인해주세요!", message: "", preferredStyle: UIAlertController.Style.alert)
+            let title = amount.isNaN || amount.isInfinite ? "입력할 수 없는 금액입니다!" : "금액을 입력해주세요!"
+            let alert = UIAlertController(title: title, message: "", preferredStyle: UIAlertController.Style.alert)
             let okAction = UIAlertAction(title: "확인", style: .default)
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
