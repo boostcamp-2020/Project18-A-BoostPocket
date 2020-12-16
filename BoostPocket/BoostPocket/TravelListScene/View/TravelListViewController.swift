@@ -25,6 +25,7 @@ class TravelListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "부스트포켓"
         presenter?.onViewDidLoad()
         presentLoadingView()
         configureCollectionView()
