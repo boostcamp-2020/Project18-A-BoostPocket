@@ -30,7 +30,7 @@ class TotalAmountView: UIView {
             remainLabel.textColor = remain < 0 ? UIColor(named: "deleteTextColor") : UIColor(named: "detailIncomeColor")
         }
         expenseLabel.text = setLabel(with: identifier, amount: expense)
-        expenseLabel.textColor = .black
+//        expenseLabel.textColor = .black
 
     }
     
