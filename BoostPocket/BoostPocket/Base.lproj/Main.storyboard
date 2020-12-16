@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--BoostPocket-->
+        <!--부스트포켓-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="TravelListViewController" id="BYZ-38-t0r" customClass="TravelListViewController" customModule="BoostPocket" customModuleProvider="target" sceneMemberID="viewController">
@@ -39,14 +39,14 @@
                                             <action selector="layoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5oO-Te-hfk"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQQ-cn-ped">
+                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQQ-cn-ped">
                                         <rect key="frame" x="37.333333333333329" y="0.0" width="37.333333333333329" height="37.333333333333336"/>
                                         <state key="normal" image="square"/>
                                         <connections>
                                             <action selector="layoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NmO-U0-p1s"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYc-Qb-PfD">
+                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYc-Qb-PfD">
                                         <rect key="frame" x="74.666666666666671" y="0.0" width="37" height="37.333333333333336"/>
                                         <state key="normal" image="rectangle"/>
                                         <connections>
@@ -110,7 +110,7 @@
                             <constraint firstItem="9zU-t4-Mca" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ysg-24-G2b"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="BoostPocket" id="Vxu-Wh-3nW">
+                    <navigationItem key="navigationItem" title="부스트포켓" id="Vxu-Wh-3nW">
                         <barButtonItem key="backBarButtonItem" title=" " id="SHP-Qk-dbx"/>
                     </navigationItem>
                     <connections>
