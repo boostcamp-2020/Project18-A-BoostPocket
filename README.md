@@ -52,20 +52,9 @@
 ## 프로젝트 소개
 `부스트포켓`은 여행 경비 관리 앱 [트라비포켓](https://apps.apple.com/kr/app/%ED%8A%B8%EB%9D%BC%EB%B9%84%ED%8F%AC%EC%BC%93-%EC%97%AC%ED%96%89%EA%B0%80%EA%B3%84%EB%B6%80-%EC%97%AC%ED%96%89-%EA%B2%BD%EB%B9%84-%EA%B4%80%EB%A6%AC/id673659438)의 클론 프로젝트입니다. 여행 중 발생한 지출과 추가되는 예산 내역들을 빠르고 간단히 입력하고, 경비 리포트로 지출내역을 확인해보세요!
 
-#### 손 쉬운 국가 검색과 여행 생성  
-<img src = "https://user-images.githubusercontent.com/35067611/101980231-63699180-3ca7-11eb-84bd-d1f83567bf0f.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101980233-6795af00-3ca7-11eb-86c2-c134c5516887.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101980250-8005c980-3ca7-11eb-9d95-aa23b1862540.png" width ="200" />  
+<img src = "https://user-images.githubusercontent.com/35067611/102311940-19d3bc00-3fb1-11eb-9b1f-8a8c4bbbfe54.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311944-1b9d7f80-3fb1-11eb-937e-c7e7333db28c.png" width ="200" /> 
 
-#### 여행의 전반적인 정보를 한눈에 확인  
-<img src = "https://user-images.githubusercontent.com/35067611/101981621-a466a380-3cb1-11eb-850a-f97406fa952e.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101981610-9a44a500-3cb1-11eb-9136-bde501d8e9ac.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101981616-a0d31c80-3cb1-11eb-99fa-dc1fa921abd5.png" width ="200" />  
-
-#### 간단하게 지출과 예산을 추가하고 수정  
-<img src = "https://user-images.githubusercontent.com/35067611/101981652-d1b35180-3cb1-11eb-8ba4-95f43060addc.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101981659-ded04080-3cb1-11eb-85a4-14eed06d02c9.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101981674-eee82000-3cb1-11eb-93ea-a783b35b4235.png" width ="200" />  
-
-#### 경비 리포트로 나의 지출내역을 한눈에 파악  
-<img src = "https://user-images.githubusercontent.com/35067611/101981687-09ba9480-3cb2-11eb-9205-6899a9c131c7.jpeg" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101981689-0fb07580-3cb2-11eb-923e-427ceb9bc3da.png" width ="200" />  
-
-#### 다크모드 지원  
-<img src = "https://user-images.githubusercontent.com/35067611/101981789-b0069a00-3cb2-11eb-8482-235126f7bae0.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101981701-1d65fb00-3cb2-11eb-8c3f-89b5b38b6b87.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/101981823-e93f0a00-3cb2-11eb-9dab-c5a1ffa0c848.png" width ="200" />  
+<img src = "https://user-images.githubusercontent.com/35067611/102311946-1c361600-3fb1-11eb-9ab7-1d6ce88fb8ab.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311948-1cceac80-3fb1-11eb-8e74-90b48921afea.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311950-1d674300-3fb1-11eb-92fb-9a022d880644.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311952-1dffd980-3fb1-11eb-8c08-3e09c3c9427d.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311959-1f310680-3fb1-11eb-8ccd-36c9bd686246.png" width ="200" />  
 
 <br>
 
