@@ -187,13 +187,13 @@ class AddHistoryViewController: UIViewController {
         // 이미지
         if let previousImage = baseHistoryViewModel.image {
             self.image = previousImage
-            self.imageButton.tintColor = .black
+            self.imageButton.tintColor = UIColor(named: "basicBlackTextColor") ?? .black
         }
         
         // 메모
         if let previousMemo = baseHistoryViewModel.memo {
             self.memo = previousMemo
-            self.memoButton.tintColor = .black
+            self.memoButton.tintColor = UIColor(named: "basicBlackTextColor") ?? .black
         }
         
         // 계산기 버튼 색상
