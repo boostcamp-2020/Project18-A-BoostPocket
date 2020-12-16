@@ -14,10 +14,12 @@ protocol HistoryListVCPresenter: AnyObject {
     var onCloseFloatingActionsCalled: Bool { get }
     var onOpenFloatingActionsCalled: Bool { get }
     var onRotateFloatingActionButtonCalled: Bool { get }
+    var onAnimationDoneCalled: Bool { get }
     
     func onViewDidLoad()
     func onFloatingActionButtonTapped()
     func onCloseFloatingActions()
     func onOpenFloatingActions()
     func onRotateFloatingActionButton()
+    func onAnimationDone()
 }

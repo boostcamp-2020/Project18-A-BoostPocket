@@ -52,14 +52,14 @@ class HistoryListViewController: UIViewController {
         configureSelectedDateButton()
         moneySegmentedControl.selectedSegmentIndex = 0
     }
-
+    
     private func configureSelectedDateButton() {
         if let selectedDate = historyFilter.selectedDate,
             let startDate = travelItemViewModel?.startDate,
             let endDate = travelItemViewModel?.endDate {
             if selectedDate.isValidInRange(from: startDate, to: endDate) {
                 let index = selectedDate.interval(ofComponent: .day, fromDate: startDate)
-
+                
                 guard let selectedDateCell = dayStackView.subviews[index].subviews.filter({ $0 is UIButton }).first as? UIButton else { return }
                 
                 selectedDateButton = selectedDateCell
@@ -72,10 +72,10 @@ class HistoryListViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-          super.viewDidLayoutSubviews()
-          selectedDateButton?.configureSelectedButton()
-      }
-      
+        super.viewDidLayoutSubviews()
+        selectedDateButton?.configureSelectedButton()
+    }
+    
     // MARK: - Configuration
     
     private func configure() {
@@ -110,7 +110,7 @@ class HistoryListViewController: UIViewController {
         let datasource = DataSource(tableView: historyListTableView) { (tableview, indexPath, item) -> UITableViewCell? in
             guard let cell = tableview.dequeueReusableCell(withIdentifier: HistoryCell.identifier, for: indexPath) as? HistoryCell,
                 let identifier = self.travelItemViewModel?.countryIdentifier
-            else { return UITableViewCell() }
+                else { return UITableViewCell() }
             
             cell.selectionStyle = .none
             cell.configure(with: item, identifier: identifier)
@@ -184,31 +184,35 @@ class HistoryListViewController: UIViewController {
     }
     
     func closeFloatingActions() {
-        buttons.reversed().forEach { [weak self] button in
-            UIView.animate(withDuration: 0.3) {
-                button?.isHidden = true
-                self?.view.layoutIfNeeded()
+        DispatchQueue.main.async { [weak self] in
+            self?.buttons.reversed().forEach { button in
+                UIView.animate(withDuration: 0.3) {
+                    button?.isHidden = true
+                    self?.view.layoutIfNeeded()
+                }
             }
+            self?.rotateFloatingActionButton()
         }
         
         isFloatingButtonOpened = false
-        rotateFloatingActionButton()
         presenter?.onCloseFloatingActions()
     }
     
     func openFloatingActions() {
-        buttons.forEach { [weak self] button in
-            button?.isHidden = false
-            button?.alpha = 0
-            
-            UIView.animate(withDuration: 0.3) {
-                button?.alpha = 1
-                self?.view.layoutIfNeeded()
+        DispatchQueue.main.async { [weak self] in
+            self?.buttons.forEach { button in
+                button?.isHidden = false
+                button?.alpha = 0
+                
+                UIView.animate(withDuration: 0.3) {
+                    button?.alpha = 1
+                    self?.view.layoutIfNeeded()
+                }
             }
+            self?.rotateFloatingActionButton()
         }
         
         isFloatingButtonOpened = true
-        rotateFloatingActionButton()
         presenter?.onOpenFloatingActions()
     }
     
@@ -232,10 +236,10 @@ class HistoryListViewController: UIViewController {
     
     private func addNewHistory(isIncome: Bool) {
         let newHistoryViewModel = BaseHistoryViewModel(isIncome: isIncome,
-                                                      flagImage: self.travelItemViewModel?.flagImage ?? Data(),
-                                                      currencyCode: self.travelItemViewModel?.currencyCode ?? "",
-                                                      currentDate: self.historyFilter.selectedDate ?? Date(),
-                                                      exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
+                                                       flagImage: self.travelItemViewModel?.flagImage ?? Data(),
+                                                       currencyCode: self.travelItemViewModel?.currencyCode ?? "",
+                                                       currentDate: self.historyFilter.selectedDate ?? Date(),
+                                                       exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
         
         let onPresent: (() -> Void)  = { [weak self] in
             self?.closeFloatingActions()
@@ -252,7 +256,7 @@ class HistoryListViewController: UIViewController {
         var snapshot = Snapshot()
         headers = setupSection(with: histories)
         snapshot.appendSections(headers)
-
+        
         histories.forEach { history in
             if let section = headers.filter({ history.date.isSameDay(with: $0.date) }).first {
                 snapshot.appendItems([history], toSection: section)
@@ -275,7 +279,7 @@ class HistoryListViewController: UIViewController {
                 days.insert(HistoryListSectionHeader(dayNumber: day + 1, date: date, amount: history.isIncome ? 0 : amount))
             }
         }
-      
+        
         var sections = [HistoryListSectionHeader](days)
         sections = sections.sorted(by: {$0.date < $1.date})
         return sections
@@ -340,24 +344,24 @@ class HistoryListViewController: UIViewController {
 }
 
 extension HistoryListViewController: UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedHistoryViewModel = dataSource.itemIdentifier(for: indexPath) else { return }
-
+        
         let detailhistoryViewModel = BaseHistoryViewModel(id: selectedHistoryViewModel.id,
-                                                    isIncome: selectedHistoryViewModel.isIncome,
-                                                    flagImage: self.travelItemViewModel?.flagImage ?? Data(),
-                                                    currencyCode: self.travelItemViewModel?.currencyCode ?? "",
-                                                    currentDate: selectedHistoryViewModel.date,
-                                                    exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0,
-                                                    isCard: selectedHistoryViewModel.isCard,
-                                                    category: selectedHistoryViewModel.category,
-                                                    title: selectedHistoryViewModel.title,
-                                                    memo: selectedHistoryViewModel.memo,
-                                                    image: selectedHistoryViewModel.image,
-                                                    amount: selectedHistoryViewModel.amount,
-                                                    isPrepare: selectedHistoryViewModel.isPrepare,
-                                                    countryIdentifier: travelItemViewModel?.countryIdentifier)
+                                                          isIncome: selectedHistoryViewModel.isIncome,
+                                                          flagImage: self.travelItemViewModel?.flagImage ?? Data(),
+                                                          currencyCode: self.travelItemViewModel?.currencyCode ?? "",
+                                                          currentDate: selectedHistoryViewModel.date,
+                                                          exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0,
+                                                          isCard: selectedHistoryViewModel.isCard,
+                                                          category: selectedHistoryViewModel.category,
+                                                          title: selectedHistoryViewModel.title,
+                                                          memo: selectedHistoryViewModel.memo,
+                                                          image: selectedHistoryViewModel.image,
+                                                          amount: selectedHistoryViewModel.amount,
+                                                          isPrepare: selectedHistoryViewModel.isPrepare,
+                                                          countryIdentifier: travelItemViewModel?.countryIdentifier)
         
         HistoryDetailViewController.present(at: self, baseHistoryViewModel: detailhistoryViewModel, historyItemViewModel: selectedHistoryViewModel)
     }
@@ -371,7 +375,7 @@ extension HistoryListViewController: UITableViewDelegate {
             // TODO: - 더 효율적으로 빈 headers 처리하는 방법 고민하기
             !headers.isEmpty
             else { return nil }
-    
+        
         guard let exchangeRate = travelItemViewModel?.exchangeRate else { return UIView() }
         headerView.configure(with: headers[section].dayNumber, date: headers[section].date, amount: headers[section].amount / exchangeRate)
         return headerView
@@ -391,22 +395,22 @@ extension HistoryListViewController: UITableViewDelegate {
         let editAction = UIContextualAction(style: .normal, title: "수정") { [weak self] (_, _, completion) in
             
             guard let self = self,
-                  let travelItemViewModel = self.travelItemViewModel,
-                  let currentHistoryItemViewModel = self.dataSource.itemIdentifier(for: indexPath) else { return }
+                let travelItemViewModel = self.travelItemViewModel,
+                let currentHistoryItemViewModel = self.dataSource.itemIdentifier(for: indexPath) else { return }
             
             let editHistoryViewModel = BaseHistoryViewModel(id: currentHistoryItemViewModel.id,
                                                             isIncome: currentHistoryItemViewModel.isIncome,
-                                                           flagImage: travelItemViewModel.flagImage ?? Data(),
-                                                           currencyCode: travelItemViewModel.currencyCode ?? "",
-                                                           currentDate: currentHistoryItemViewModel.date,
-                                                           exchangeRate: travelItemViewModel.exchangeRate,
-                                                           isCard: currentHistoryItemViewModel.isCard,
-                                                           category: currentHistoryItemViewModel.category,
-                                                           title: currentHistoryItemViewModel.title,
-                                                           memo: currentHistoryItemViewModel.memo,
-                                                           image: currentHistoryItemViewModel.image,
-                                                           amount: currentHistoryItemViewModel.amount,
-                                                           isPrepare: currentHistoryItemViewModel.isPrepare)
+                                                            flagImage: travelItemViewModel.flagImage ?? Data(),
+                                                            currencyCode: travelItemViewModel.currencyCode ?? "",
+                                                            currentDate: currentHistoryItemViewModel.date,
+                                                            exchangeRate: travelItemViewModel.exchangeRate,
+                                                            isCard: currentHistoryItemViewModel.isCard,
+                                                            category: currentHistoryItemViewModel.category,
+                                                            title: currentHistoryItemViewModel.title,
+                                                            memo: currentHistoryItemViewModel.memo,
+                                                            image: currentHistoryItemViewModel.image,
+                                                            amount: currentHistoryItemViewModel.amount,
+                                                            isPrepare: currentHistoryItemViewModel.isPrepare)
             
             let onPresent: (() -> Void)  = {
                 self.closeFloatingActions()
