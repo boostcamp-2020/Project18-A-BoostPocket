@@ -85,6 +85,7 @@
 		95AC15A02585EDE30079F042 /* TravelListSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AC159F2585EDE30079F042 /* TravelListSupport.swift */; };
 		95AC15A22585F2C20079F042 /* TravelProfileVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AC15A12585F2C20079F042 /* TravelProfileVCTests.swift */; };
 		95C8F4BE258301E500B8D91E /* Date+isValidInRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8F4BD258301E500B8D91E /* Date+isValidInRange.swift */; };
+		95D7505F2589EF18006BCB98 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95D750612589EF18006BCB98 /* InfoPlist.strings */; };
 		95F8A29C2580C9B800A33D3E /* ExpenseElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */; };
 		95F8A29E2580C9CE00A33D3E /* ExpenseElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */; };
 		95F8A2A02580D5AE00A33D3E /* Double+getPercentage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F8A29F2580D5AE00A33D3E /* Double+getPercentage.swift */; };
@@ -239,6 +240,10 @@
 		95AC159F2585EDE30079F042 /* TravelListSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListSupport.swift; sourceTree = "<group>"; };
 		95AC15A12585F2C20079F042 /* TravelProfileVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProfileVCTests.swift; sourceTree = "<group>"; };
 		95C8F4BD258301E500B8D91E /* Date+isValidInRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+isValidInRange.swift"; sourceTree = "<group>"; };
+		95D7505B2589EE7C006BCB98 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		95D7505C2589EE7F006BCB98 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		95D750602589EF18006BCB98 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		95D750622589EF76006BCB98 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseElementView.swift; sourceTree = "<group>"; };
 		95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpenseElementView.xib; sourceTree = "<group>"; };
 		95F8A29F2580D5AE00A33D3E /* Double+getPercentage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+getPercentage.swift"; sourceTree = "<group>"; };
@@ -433,6 +438,7 @@
 				95A42E8A25664DC40007810C /* Info.plist */,
 				95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */,
 				5C0324D3258768D100213B75 /* LoadingView.swift */,
+				95D750612589EF18006BCB98 /* InfoPlist.strings */,
 			);
 			path = BoostPocket;
 			sourceTree = "<group>";
@@ -779,6 +785,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 95A42E6D25664DBE0007810C;
 			productRefGroup = 95A42E7725664DBE0007810C /* Products */;
@@ -813,6 +820,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C15AB4E2577DEE900244C6C /* HistoryHeaderCell.xib in Resources */,
+				95D7505F2589EF18006BCB98 /* InfoPlist.strings in Resources */,
 				5C15AB3F2577C32000244C6C /* HistoryCell.xib in Resources */,
 				5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */,
 				9574ACD12578B4C10072C578 /* AddHistoryViewController.xib in Resources */,
@@ -1058,6 +1066,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				95A42E8025664DBE0007810C /* Base */,
+				95D7505B2589EE7C006BCB98 /* ko */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1066,8 +1075,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				95A42E8825664DC40007810C /* Base */,
+				95D7505C2589EE7F006BCB98 /* ko */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		95D750612589EF18006BCB98 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				95D750602589EF18006BCB98 /* ko */,
+				95D750622589EF76006BCB98 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1174,6 +1193,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1234,6 +1254,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1297,9 +1318,9 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.BoostPocket;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = BoostPocket;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1316,9 +1337,9 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.BoostPocket;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = BoostPocket;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
