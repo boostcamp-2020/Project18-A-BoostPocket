@@ -52,14 +52,14 @@
 ## 프로젝트 소개
 `부스트포켓`은 여행 경비 관리 앱 [트라비포켓](https://apps.apple.com/kr/app/%ED%8A%B8%EB%9D%BC%EB%B9%84%ED%8F%AC%EC%BC%93-%EC%97%AC%ED%96%89%EA%B0%80%EA%B3%84%EB%B6%80-%EC%97%AC%ED%96%89-%EA%B2%BD%EB%B9%84-%EA%B4%80%EB%A6%AC/id673659438)의 클론 프로젝트입니다. 여행 중 발생한 지출과 추가되는 예산 내역들을 빠르고 간단히 입력하고, 경비 리포트로 지출내역을 확인해보세요!
 
-<img src = "https://user-images.githubusercontent.com/35067611/102311940-19d3bc00-3fb1-11eb-9b1f-8a8c4bbbfe54.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311944-1b9d7f80-3fb1-11eb-937e-c7e7333db28c.png" width ="200" /> 
+<img src = "https://user-images.githubusercontent.com/35067611/102311940-19d3bc00-3fb1-11eb-9b1f-8a8c4bbbfe54.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311944-1b9d7f80-3fb1-11eb-937e-c7e7333db28c.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311948-1cceac80-3fb1-11eb-8e74-90b48921afea.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311950-1d674300-3fb1-11eb-92fb-9a022d880644.png" width ="200" />  
 
-<img src = "https://user-images.githubusercontent.com/35067611/102311946-1c361600-3fb1-11eb-9ab7-1d6ce88fb8ab.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311948-1cceac80-3fb1-11eb-8e74-90b48921afea.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311950-1d674300-3fb1-11eb-92fb-9a022d880644.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311952-1dffd980-3fb1-11eb-8c08-3e09c3c9427d.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311959-1f310680-3fb1-11eb-8ccd-36c9bd686246.png" width ="200" />  
+<img src = "https://user-images.githubusercontent.com/35067611/102311946-1c361600-3fb1-11eb-9ab7-1d6ce88fb8ab.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311952-1dffd980-3fb1-11eb-8c08-3e09c3c9427d.png" width ="200" /> <img src = "https://user-images.githubusercontent.com/35067611/102311959-1f310680-3fb1-11eb-8ccd-36c9bd686246.png" width ="200" />  
 
 <br>
 
 ## 시퀀스 다이어그램
-<img src = "https://user-images.githubusercontent.com/35067611/101982425-2e653b00-3cb7-11eb-9ab4-ca5ab1e233c0.png" width ="650">
+<img src = "https://user-images.githubusercontent.com/35067611/102312478-21479500-3fb2-11eb-83ee-5de0507ba46d.png" width ="650">
 
 <br>
 
