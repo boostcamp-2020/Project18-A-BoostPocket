@@ -224,10 +224,9 @@ extension TravelListViewController: TravelProfileDelegate {
         if let travelListViewModel = travelListViewModel,
             let deletingId = id,
             travelListViewModel.deleteTravel(id: deletingId) {
-
             let feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
             feedbackGenerator.impactOccurred()
-            print("여행을 삭제했습니다.")
+            // print("여행을 삭제했습니다.")
         } else {
             print("여행 삭제에 실패했습니다.")
         }
