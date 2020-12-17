@@ -39,12 +39,14 @@ class CountryListViewController: UIViewController {
     
     private func configureTableView() {
         countryListTableView.delegate = self
+        countryListTableView.sectionIndexColor = UIColor(named: "mainColor")
         countryListTableView.register(UINib.init(nibName: CountryCell.identifier, bundle: .main), forCellReuseIdentifier: CountryCell.identifier)
     }
     
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(doneButtonTapped))
         navigationItem.rightBarButtonItem?.isEnabled = false
+        navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "mainColor")
         title = "여행할 나라를 선택해주세요"
     }
     
