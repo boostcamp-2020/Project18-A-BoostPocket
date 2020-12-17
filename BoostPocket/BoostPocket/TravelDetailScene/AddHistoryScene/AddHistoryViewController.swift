@@ -96,7 +96,8 @@ class AddHistoryViewController: UIViewController {
             self.isCreate = false
         }
         
-        let color = isAddingIncome ? UIColor(named: "incomeBackgroundColor") : UIColor(named: "expenseBackgroundColor")
+        let backgroundColor = isAddingIncome ? UIColor(named: "incomeBackgroundColor") : UIColor(named: "expenseBackgroundColor")
+        let textColor = isAddingIncome ? UIColor(named: "incomeTextColor") : UIColor(named: "expenseTextColor")
         
         segmentedControl.isHidden = isAddingIncome
         imageButton.isHidden = isAddingIncome
@@ -104,7 +105,7 @@ class AddHistoryViewController: UIViewController {
         categoryCollectionView.isHidden = isAddingIncome
         
         // 상단 뷰 색상
-        headerView.backgroundColor = color
+        headerView.backgroundColor = backgroundColor
         
         // 기타 텍스트 색상
         if isAddingIncome {
@@ -196,10 +197,14 @@ class AddHistoryViewController: UIViewController {
             self.memoButton.tintColor = UIColor(named: "basicBlackTextColor") ?? .black
         }
         
+        // 저장버튼 색상
+        saveButton.backgroundColor = backgroundColor
+        saveButton.setTitleColor(textColor, for: .normal)
+        
         // 계산기 버튼 색상
         coloredButtons.forEach { button in
-            button.setTitleColor(color, for: .normal)
-            button.tintColor = color
+            button.setTitleColor(backgroundColor, for: .normal)
+            button.tintColor = backgroundColor
         }
     }
     
