@@ -91,11 +91,11 @@ class TravelListViewController: UIViewController {
         let upcomingTravels = travels.filter { getTravelSectionCase(with: $0) == .upcoming }
         let pastTravels = Array(travels.filter { getTravelSectionCase(with: $0) == .past }.reversed())
         
-        snapShot.appendSections([TravelSection(travelSectionCase: .current, numberOfTravels: travels.count),
+        snapShot.appendSections([TravelSection(travelSectionCase: .current, numberOfTravels: travels.count - upcomingTravels.count),
                                  TravelSection(travelSectionCase: .upcoming, numberOfTravels: upcomingTravels.count),
                                  TravelSection(travelSectionCase: .past, numberOfTravels: pastTravels.count)])
         
-        snapShot.appendItems(currentTravels, toSection: TravelSection(travelSectionCase: .current, numberOfTravels: travels.count))
+        snapShot.appendItems(currentTravels, toSection: TravelSection(travelSectionCase: .current, numberOfTravels: travels.count - upcomingTravels.count))
         snapShot.appendItems(upcomingTravels, toSection: TravelSection(travelSectionCase: .upcoming, numberOfTravels: upcomingTravels.count))
         snapShot.appendItems(pastTravels, toSection: TravelSection(travelSectionCase: .past, numberOfTravels: pastTravels.count))
         
