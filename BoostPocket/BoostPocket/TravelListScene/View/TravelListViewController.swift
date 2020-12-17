@@ -45,6 +45,7 @@ class TravelListViewController: UIViewController {
         flowLayout.minimumLineSpacing = 15
         travelListCollectionView.setCollectionViewLayout(flowLayout, animated: true)
         
+        travelListCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
         travelListCollectionView.dataSource = dataSource
         travelListCollectionView.delegate = self
         travelListCollectionView.register(TravelCell.getNib(), forCellWithReuseIdentifier: TravelCell.identifier)
@@ -91,11 +92,11 @@ class TravelListViewController: UIViewController {
         let upcomingTravels = travels.filter { getTravelSectionCase(with: $0) == .upcoming }
         let pastTravels = Array(travels.filter { getTravelSectionCase(with: $0) == .past }.reversed())
         
-        snapShot.appendSections([TravelSection(travelSectionCase: .current, numberOfTravels: travels.count),
+        snapShot.appendSections([TravelSection(travelSectionCase: .current, numberOfTravels: travels.count - upcomingTravels.count),
                                  TravelSection(travelSectionCase: .upcoming, numberOfTravels: upcomingTravels.count),
                                  TravelSection(travelSectionCase: .past, numberOfTravels: pastTravels.count)])
         
-        snapShot.appendItems(currentTravels, toSection: TravelSection(travelSectionCase: .current, numberOfTravels: travels.count))
+        snapShot.appendItems(currentTravels, toSection: TravelSection(travelSectionCase: .current, numberOfTravels: travels.count - upcomingTravels.count))
         snapShot.appendItems(upcomingTravels, toSection: TravelSection(travelSectionCase: .upcoming, numberOfTravels: upcomingTravels.count))
         snapShot.appendItems(pastTravels, toSection: TravelSection(travelSectionCase: .past, numberOfTravels: pastTravels.count))
         

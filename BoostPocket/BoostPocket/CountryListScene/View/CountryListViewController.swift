@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 class CountryListViewController: UIViewController {
     static let identifier = "CountryListViewController"
@@ -75,6 +76,12 @@ class CountryListViewController: UIViewController {
     }
     
     private func applySnapShot(with countries: [CountryItemViewModel]) {
+        guard !countries.isEmpty else {
+            let alertToast = Toast(text: "네트워크를 연결하고 앱을 재실행하세요", duration: Delay.short)
+            alertToast.show()
+            return
+        }
+        
         var snapshot = SnapShot()
         let sections = self.setupSection(with: countries)
         snapshot.appendSections(sections)
