@@ -310,13 +310,13 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uvo-Ni-ty9" userLabel="Line 0">
-                    <rect key="frame" x="0.0" y="503.5" width="414" height="45"/>
+                    <rect key="frame" x="8" y="503.5" width="398" height="45"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RWq-Ek-2dx">
-                            <rect key="frame" x="0.0" y="0.0" width="283.5" height="45"/>
+                            <rect key="frame" x="0.0" y="0.0" width="267.5" height="45"/>
                             <subviews>
                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="FBN-Xp-w8g">
-                                    <rect key="frame" x="10" y="0.0" width="263.5" height="45"/>
+                                    <rect key="frame" x="10" y="0.0" width="247.5" height="45"/>
                                     <color key="tintColor" name="basicDarkGrayTextColor"/>
                                     <locale key="locale" localeIdentifier="ko"/>
                                 </datePicker>
@@ -330,7 +330,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5UH-g4-mMe" userLabel="Picture">
-                            <rect key="frame" x="283.5" y="0.0" width="29" height="45"/>
+                            <rect key="frame" x="267.5" y="0.0" width="29" height="45"/>
                             <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" image="photo" catalog="system"/>
                             <connections>
@@ -338,7 +338,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14w-LZ-14y" userLabel="Memo">
-                            <rect key="frame" x="312.5" y="0.0" width="29" height="45"/>
+                            <rect key="frame" x="296.5" y="0.0" width="29" height="45"/>
                             <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" image="list.dash" catalog="system"/>
                             <connections>
@@ -346,7 +346,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIf-oJ-N8p">
-                            <rect key="frame" x="341.5" y="0.0" width="72.5" height="45"/>
+                            <rect key="frame" x="325.5" y="0.0" width="72.5" height="45"/>
                             <state key="normal" title="저장">
                                 <color key="titleColor" name="basicBlackTextColor"/>
                             </state>
@@ -444,14 +444,14 @@
                 <constraint firstItem="Uvo-Ni-ty9" firstAttribute="top" secondItem="RY6-19-kNJ" secondAttribute="bottom" constant="15" id="LX4-ke-6CR"/>
                 <constraint firstItem="QIf-oJ-N8p" firstAttribute="width" secondItem="Yad-QF-DSb" secondAttribute="width" multiplier="0.7" id="MVa-4c-HBQ"/>
                 <constraint firstItem="0kX-Kl-MDd" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.35" id="NK5-JK-lX7"/>
-                <constraint firstItem="Uvo-Ni-ty9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Q7Q-qd-fTQ"/>
+                <constraint firstItem="Uvo-Ni-ty9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="Q7Q-qd-fTQ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RY6-19-kNJ" secondAttribute="trailing" id="SSf-MM-xZK"/>
                 <constraint firstItem="lci-Ei-eGZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="25" id="VTe-Qf-Lyv"/>
                 <constraint firstItem="RY6-19-kNJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="VW7-0O-CiC"/>
                 <constraint firstItem="Uvo-Ni-ty9" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="aew-P5-zSc"/>
                 <constraint firstItem="fLx-PJ-SRJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="dht-aF-fyi"/>
                 <constraint firstItem="lci-Ei-eGZ" firstAttribute="top" secondItem="dVq-x1-ZQ1" secondAttribute="bottom" constant="10" id="ecX-iU-aXS"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Uvo-Ni-ty9" secondAttribute="trailing" id="fGA-53-mMW"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Uvo-Ni-ty9" secondAttribute="trailing" constant="8" id="fGA-53-mMW"/>
                 <constraint firstItem="dVq-x1-ZQ1" firstAttribute="top" secondItem="fLx-PJ-SRJ" secondAttribute="bottom" constant="10" id="gsu-2D-70p"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="0kX-Kl-MDd" secondAttribute="bottom" id="hvk-1c-ZWd"/>
                 <constraint firstItem="0kX-Kl-MDd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="m7l-qn-khK"/>
@@ -471,7 +471,7 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <namedColor name="basicDarkGrayTextColor">
-            <color red="0.55699998140335083" green="0.55699998140335083" blue="0.57599997520446777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.32800000905990601" green="0.32800000905990601" blue="0.34000000357627869" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="basicGrayTextColor">
             <color red="0.68199998140335083" green="0.68199998140335083" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
