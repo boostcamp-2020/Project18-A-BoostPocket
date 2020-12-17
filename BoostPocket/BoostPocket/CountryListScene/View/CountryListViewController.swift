@@ -110,11 +110,21 @@ class CountryListViewController: UIViewController {
 
 extension CountryListViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if let selectedIndexPath = tableView.indexPathForSelectedRow, selectedIndexPath == indexPath {
+          navigationItem.rightBarButtonItem?.isEnabled = false
+          tableView.deselectRow(at: indexPath, animated: true)
+          let cell = tableView.cellForRow(at: indexPath)
+          cell?.accessoryType = .none
+          return nil
+        }
+        
         navigationItem.rightBarButtonItem?.isEnabled = true
         let cell = tableView.cellForRow(at: indexPath)
         cell?.accessoryType = .checkmark
-    }
+        
+        return indexPath
+      }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
