@@ -228,7 +228,7 @@ extension TravelListViewController: TravelProfileDelegate {
             let feedbackGenerator = UINotificationFeedbackGenerator()
             feedbackGenerator.notificationOccurred(.success)
         } else {
-            print("여행 삭제에 실패했습니다.")
+//            print("여행 삭제에 실패했습니다.")
         }
     }
     
@@ -244,15 +244,15 @@ extension TravelListViewController: TravelProfileDelegate {
             
             travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo, startDate: newStartDate, endDate: newEndDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) { result in
                 if result {
-                    print("여행 정보 업데이트 성공")
+//                    print("여행 정보 업데이트 성공")
                     completion(true)
                 } else {
-                    print("여행 정보 업데이트 실패")
+//                    print("여행 정보 업데이트 실패")
                     completion(false)
                 }
             }
         } else {
-            print("여행 업데이트를 위한 정보 불러오기 실패")
+//            print("여행 업데이트를 위한 정보 불러오기 실패")
             completion(false)
         }
     }
