@@ -156,7 +156,7 @@ class TravelListVCTests: XCTestCase {
     
     func test_travelListVC_updateTravelPass() {
         // create countries
-        wait(for: [countriesExpectation], timeout: 2)
+        wait(for: [countriesExpectation], timeout: 5)
         
         let sut = makeSUT()
         sut.travelListViewModel = travelListViewModel
@@ -176,7 +176,7 @@ class TravelListVCTests: XCTestCase {
             travelExpectation.fulfill()
         }
 
-        wait(for: [travelExpectation], timeout: 3)
+        wait(for: [travelExpectation], timeout: 5)
         
         // update travel
         let updateTravelExpectation = XCTestExpectation(description: "Successfully Updated Travel")

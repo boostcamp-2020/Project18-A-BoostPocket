@@ -80,16 +80,30 @@ class HistoryListVCTests: XCTestCase {
     
     func test_historyListVC_closeFloatingActions() {
         let sut = makeSUT()
-        sut.closeFloatingActions()
+        let closeExpectation = XCTestExpectation(description: "Successfully Closed Floating Buttons")
         
+        sut.closeFloatingActions { done in
+            if done {
+                closeExpectation.fulfill()
+            }
+        }
+        
+        wait(for: [closeExpectation], timeout: 1)
         XCTAssertTrue(presenter.onCloseFloatingActionsCalled)
         XCTAssertFalse(sut.isFloatingButtonOpened)
     }
     
     func test_historyListVC_openFloatingActions() {
         let sut = makeSUT()
-        sut.openFloatingActions()
+        let openExpectation = XCTestExpectation(description: "Successfully Opened Floating Buttons")
         
+        sut.openFloatingActions { done in
+            if done {
+                openExpectation.fulfill()
+            }
+        }
+        
+        wait(for: [openExpectation], timeout: 1)
         XCTAssertTrue(presenter.onOpenFloatingActionsCalled)
         XCTAssertTrue(sut.isFloatingButtonOpened)
     }
