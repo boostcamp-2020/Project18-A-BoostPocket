@@ -33,6 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             if result {
                 print("앱 초기세팅 성공")
             } else {
+                // 네트워크를 연결하라고 유저에게 알려주기
                 print("앱 초기세팅 실패")
             }
         }

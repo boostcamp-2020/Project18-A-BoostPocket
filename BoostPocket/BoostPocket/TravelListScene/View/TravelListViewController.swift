@@ -45,6 +45,7 @@ class TravelListViewController: UIViewController {
         flowLayout.minimumLineSpacing = 15
         travelListCollectionView.setCollectionViewLayout(flowLayout, animated: true)
         
+        travelListCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
         travelListCollectionView.dataSource = dataSource
         travelListCollectionView.delegate = self
         travelListCollectionView.register(TravelCell.getNib(), forCellWithReuseIdentifier: TravelCell.identifier)
