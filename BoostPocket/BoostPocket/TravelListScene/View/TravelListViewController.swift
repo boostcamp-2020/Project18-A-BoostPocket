@@ -8,20 +8,16 @@
 
 import UIKit
 
-enum Layout {
-    case defaultLayout
-    case squareLayout
-    case rectangleLayout
-    case hamburgerLayout
-}
-
 class TravelListViewController: UIViewController {
+    static let identifier = "TravelListViewController"
+    
     typealias DataSource = UICollectionViewDiffableDataSource<TravelSection, TravelItemViewModel>
     typealias SnapShot = NSDiffableDataSourceSnapshot<TravelSection, TravelItemViewModel>
     
-    var layout: Layout = .defaultLayout
-    lazy var dataSource: DataSource = configureDataSource()
+    private(set) var layout: Layout = .defaultLayout
+    private lazy var dataSource: DataSource = configureDataSource()
     var travelListViewModel: TravelListPresentable?
+    weak var presenter: TravelListVCPresenter?
     
     @IBOutlet weak var travelListCollectionView: UICollectionView!
     @IBOutlet var layoutButtons: [UIButton]!
@@ -29,6 +25,8 @@ class TravelListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.onViewDidLoad()
+        presentLoadingView()
         configureCollectionView()
         travelListViewModel?.didFetch = { [weak self] fetchedTravels in
             self?.applySnapShot(with: fetchedTravels)
@@ -47,6 +45,7 @@ class TravelListViewController: UIViewController {
         flowLayout.minimumLineSpacing = 15
         travelListCollectionView.setCollectionViewLayout(flowLayout, animated: true)
         
+        travelListCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
         travelListCollectionView.dataSource = dataSource
         travelListCollectionView.delegate = self
         travelListCollectionView.register(TravelCell.getNib(), forCellWithReuseIdentifier: TravelCell.identifier)
@@ -80,40 +79,28 @@ class TravelListViewController: UIViewController {
         }
     }
     
-    func applySnapShot(with travels: [TravelItemViewModel]) {
-        var snapShot = SnapShot()
-
-        let sectionCaseCounts = getTravelSectionNumbers()
-        
-        snapShot.appendSections([TravelSection(travelSectionCase: .current, numberOfTravels: sectionCaseCounts[.current] ?? 0),
-                                 TravelSection(travelSectionCase: .past, numberOfTravels: sectionCaseCounts[.past] ?? 0),
-                                 TravelSection(travelSectionCase: .upcoming, numberOfTravels: sectionCaseCounts[.upcoming] ?? 0)])
-        
-        travels.forEach { travel in
-            let section = getTravelSectionCase(with: travel)
-            snapShot.appendItems([travel], toSection: TravelSection(travelSectionCase: section, numberOfTravels: sectionCaseCounts[section] ?? 0))
-        }
-        
-        dataSource.apply(snapShot, animatingDifferences: true)
+    private func presentLoadingView() {
+        let curveView = LoadingView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        curveView.center = self.view.center
+        self.navigationController?.view.addSubview(curveView)
     }
     
-    private func getTravelSectionNumbers() -> [TravelSectionCase: Int] {
-        guard let travels = travelListViewModel?.travels else { return [:] }
+    func applySnapShot(with travels: [TravelItemViewModel]) {
+        var snapShot = SnapShot()
         
-        var counts: [TravelSectionCase: Int] = [ .current: 0,
-                                                 .past: 0,
-                                                 .upcoming: 0]
+        let currentTravels = Array(travels.filter { getTravelSectionCase(with: $0) == .current }.reversed())
+        let upcomingTravels = travels.filter { getTravelSectionCase(with: $0) == .upcoming }
+        let pastTravels = Array(travels.filter { getTravelSectionCase(with: $0) == .past }.reversed())
         
-        travels.forEach { travel in
-            let travelSectionCase = getTravelSectionCase(with: travel)
-            counts[travelSectionCase] = (counts[travelSectionCase] ?? 0) + 1
-        }
+        snapShot.appendSections([TravelSection(travelSectionCase: .current, numberOfTravels: travels.count - upcomingTravels.count),
+                                 TravelSection(travelSectionCase: .upcoming, numberOfTravels: upcomingTravels.count),
+                                 TravelSection(travelSectionCase: .past, numberOfTravels: pastTravels.count)])
         
-        if let past = counts[.past], let upcoming = counts[.upcoming] {
-            counts[.current] = (counts[.current] ?? 0) + past + upcoming
-        }
+        snapShot.appendItems(currentTravels, toSection: TravelSection(travelSectionCase: .current, numberOfTravels: travels.count - upcomingTravels.count))
+        snapShot.appendItems(upcomingTravels, toSection: TravelSection(travelSectionCase: .upcoming, numberOfTravels: upcomingTravels.count))
+        snapShot.appendItems(pastTravels, toSection: TravelSection(travelSectionCase: .past, numberOfTravels: pastTravels.count))
         
-        return counts
+        dataSource.apply(snapShot, animatingDifferences: true)
     }
     
     private func getTravelSectionCase(with travel: TravelItemViewModel) -> TravelSectionCase {
@@ -133,6 +120,8 @@ class TravelListViewController: UIViewController {
     }
     
     @IBAction func layoutButtonTapped(_ sender: UIButton) {
+        presenter?.onLayoutButtonTapped()
+        
         resetAlphaOfLayoutButtons()
         sender.alpha = 1
         
@@ -140,12 +129,15 @@ class TravelListViewController: UIViewController {
         switch index {
         case 0:
             layout = .defaultLayout
+            presenter?.onDefaultLayoutButtonTapped()
         case 1:
             layout = .squareLayout
+            presenter?.onSquareLayoutButtonTapped()
         case 2:
             layout = .rectangleLayout
+            presenter?.onRectangleLayoutButtonTapped()
         default:
-            layout = .hamburgerLayout
+            break
         }
         applySnapShot(with: travelListViewModel?.travels ?? [])
     }
@@ -157,11 +149,11 @@ class TravelListViewController: UIViewController {
         
         countryListVC.countryListViewModel = countryListViewModel
         countryListVC.doneButtonHandler = { (selectedCountry) in
-            self.travelListViewModel?.createTravel(countryName: selectedCountry.name) { (travelItemViewModel) in
+            self.travelListViewModel?.createTravel(countryName: selectedCountry.name) { travelItemViewModel in
                 DispatchQueue.main.async {
                     guard let createdTravelItemViewModel = travelItemViewModel,
                         let tabBarVC = TravelDetailTabbarController.createTabbarVC(),
-                    let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
+                        let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
                         else { return }
                     
                     tabBarVC.setupChildViewControllers(with: createdTravelItemViewModel)
@@ -208,7 +200,7 @@ extension TravelListViewController: UICollectionViewDelegate {
         guard let selectedTravelViewModel = dataSource.itemIdentifier(for: indexPath),
             let tabBarVC = TravelDetailTabbarController.createTabbarVC(),
             let profileVC = tabBarVC.viewControllers?[0] as? TravelProfileViewController
-        else { return }
+            else { return }
         
         tabBarVC.setupChildViewControllers(with: selectedTravelViewModel)
         profileVC.profileDelegate = self
@@ -233,24 +225,35 @@ extension TravelListViewController: TravelProfileDelegate {
         if let travelListViewModel = travelListViewModel,
             let deletingId = id,
             travelListViewModel.deleteTravel(id: deletingId) {
-            print("여행을 삭제했습니다.")
+            let feedbackGenerator = UINotificationFeedbackGenerator()
+            feedbackGenerator.notificationOccurred(.success)
         } else {
             print("여행 삭제에 실패했습니다.")
         }
     }
     
-    func updateTravel(id: UUID? = nil, newTitle: String? = nil, newMemo: String?, newStartDate: Date? = nil, newEndDate: Date? = nil, newCoverImage: Data? = nil, newBudget: Double? = nil, newExchangeRate: Double? = nil) {
+    func updateTravel(id: UUID? = nil, newTitle: String? = nil, newMemo: String? = nil, newStartDate: Date? = nil, newEndDate: Date? = nil, newCoverImage: Data? = nil, newBudget: Double? = nil, newExchangeRate: Double? = nil, completion: @escaping (Bool) -> Void) {
+        presenter?.onUpdateTravel()
+        
         if let travelListViewModel = travelListViewModel,
             let updatingId = id,
             let updatingTravel = travelListViewModel.travels.filter({ $0.id == updatingId }).first,
             let countryName = updatingTravel.countryName,
             let title = updatingTravel.title,
-            let coverImage = updatingTravel.coverImage,
+            let coverImage = updatingTravel.coverImage {
             
-            travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo, startDate: newStartDate, endDate: newEndDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) {
-            print("여행 정보 업데이트 성공")
+            travelListViewModel.updateTravel(countryName: countryName, id: updatingId, title: newTitle ?? title, memo: newMemo, startDate: newStartDate, endDate: newEndDate, coverImage: newCoverImage ?? coverImage, budget: newBudget ?? updatingTravel.budget, exchangeRate: newExchangeRate ?? updatingTravel.exchangeRate) { result in
+                if result {
+                    print("여행 정보 업데이트 성공")
+                    completion(true)
+                } else {
+                    print("여행 정보 업데이트 실패")
+                    completion(false)
+                }
+            }
         } else {
-            print("여행 정보 업데이트 실패")
+            print("여행 업데이트를 위한 정보 불러오기 실패")
+            completion(false)
         }
     }
 }

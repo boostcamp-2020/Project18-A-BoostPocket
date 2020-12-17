@@ -348,14 +348,14 @@ class TravelViewModelTests: XCTestCase {
     func test_travelListViewModel_numberOfItem() {
         wait(for: [countriesExpectation], timeout: 5.0)
         
-        let expectation = XCTestExpectation(description: "Successfully Created TravelItemViewModel")
+        let createTravelItemViewModelExpectation = XCTestExpectation(description: "Successfully Created TravelItemViewModel")
         
         travelListViewModel.createTravel(countryName: countryName) { (travelItemViewModel) in
             XCTAssertNotNil(travelItemViewModel)
-            expectation.fulfill()
+            createTravelItemViewModelExpectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 5.0)
+        wait(for: [createTravelItemViewModelExpectation], timeout: 5.0)
                 
         XCTAssertEqual(travelListViewModel.numberOfItem(), 1)
     }
@@ -392,7 +392,16 @@ class TravelViewModelTests: XCTestCase {
         
         wait(for: [expectation], timeout: 5.0)
 
-        XCTAssertTrue(travelListViewModel.updateTravel(countryName: countryName, id: createdItemViewModel?.id ?? UUID(), title: countryName, memo: createdItemViewModel?.memo ?? "", startDate: createdItemViewModel?.startDate ?? Date(), endDate: createdItemViewModel?.startDate ?? Date(), coverImage: createdItemViewModel?.coverImage ?? Data(), budget: createdItemViewModel?.budget ?? Double(), exchangeRate: createdItemViewModel?.exchangeRate ?? Double()))
+        let updateTravelExpectation = XCTestExpectation(description: "Successfully Updated Travel")
+        var updatedTravelResult: Bool = false
+        
+        travelListViewModel.updateTravel(countryName: countryName, id: createdItemViewModel?.id ?? UUID(), title: countryName, memo: createdItemViewModel?.memo ?? "", startDate: createdItemViewModel?.startDate ?? Date(), endDate: createdItemViewModel?.startDate ?? Date(), coverImage: createdItemViewModel?.coverImage ?? Data(), budget: createdItemViewModel?.budget ?? Double(), exchangeRate: createdItemViewModel?.exchangeRate ?? Double()) { result in
+            updatedTravelResult = result
+            updateTravelExpectation.fulfill()
+        }
+        
+        wait(for: [updateTravelExpectation], timeout: 5.0)
+        XCTAssertTrue(updatedTravelResult)
     }
     
     private func createTravelItemViewModelForTests() -> TravelItemViewModel? {

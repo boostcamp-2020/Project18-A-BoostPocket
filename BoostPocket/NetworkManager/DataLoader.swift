@@ -38,8 +38,10 @@ public class DataLoader: DataLoadable {
             do {
                 let jsonDecoder = JSONDecoder()
                 let exchangeRates = try jsonDecoder.decode(ExchangeRate.self, from: data)
+                print("환율 정보 요청 성공")
                 completion(.success(exchangeRates))
             } catch {
+                print("환율 정보 요청 실패")
                 completion(.failure(.decodingError(error)))
             }
         }.resume()

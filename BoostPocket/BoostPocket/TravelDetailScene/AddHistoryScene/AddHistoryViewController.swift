@@ -78,6 +78,8 @@ class AddHistoryViewController: UIViewController {
     @IBOutlet weak var memoButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
+    @IBOutlet weak var incomeInfoView: UIView!
+    @IBOutlet weak var currencyInfoLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +96,8 @@ class AddHistoryViewController: UIViewController {
             self.isCreate = false
         }
         
-        let color = isAddingIncome ? UIColor(named: "incomeBackgroundColor") : UIColor(named: "expenseBackgroundColor")
+        let backgroundColor = isAddingIncome ? UIColor(named: "incomeBackgroundColor") : UIColor(named: "expenseBackgroundColor")
+        let textColor = isAddingIncome ? UIColor(named: "incomeTextColor") : UIColor(named: "expenseTextColor")
         
         segmentedControl.isHidden = isAddingIncome
         imageButton.isHidden = isAddingIncome
@@ -102,7 +105,7 @@ class AddHistoryViewController: UIViewController {
         categoryCollectionView.isHidden = isAddingIncome
         
         // 상단 뷰 색상
-        headerView.backgroundColor = color
+        headerView.backgroundColor = backgroundColor
         
         // 기타 텍스트 색상
         if isAddingIncome {
@@ -129,8 +132,8 @@ class AddHistoryViewController: UIViewController {
         calculatedAmountLabel.textColor = .white
         if let previousAmount = baseHistoryViewModel.amount {
             self.amount = previousAmount
-            calculatorExpressionLabel.text = "\(previousAmount)"
-            calculatedAmountLabel.text = "\(previousAmount)"
+            calculatorExpressionLabel.text = previousAmount.convertToString()
+            calculatedAmountLabel.text = previousAmount.convertToString()
             currencyConvertedAmountLabel.text = "KRW \((previousAmount / baseHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: baseHistoryViewModel.countryIdentifier ?? ""))"
         } else {
             calculatorExpressionLabel.text = "0"
@@ -145,8 +148,23 @@ class AddHistoryViewController: UIViewController {
             segmentedControl.selectedSegmentIndex = 0
         }
         
+        // 수입/지출 infromation view
+        if isAddingIncome {
+            categoryCollectionView.isHidden = true
+            let currencyCode = baseHistoryViewModel.currencyCode
+            var convertedString = (1 / baseHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: "ko_KR")
+            
+            if let index = convertedString.range(of: ".")?.lowerBound {
+                let substring = convertedString[..<index]
+                convertedString = String(substring)
+            }
+            
+            currencyInfoLabel.text = "\(currencyCode) 1.00 = KRW \(convertedString)"
+        }
+        
         // 카테고리 CollectionView
         if !isAddingIncome {
+            incomeInfoView.isHidden = true
             categoryCollectionView.delegate = self
             categoryCollectionView.dataSource = self
             categoryCollectionView.register(UINib(nibName: CategoryCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
@@ -170,19 +188,23 @@ class AddHistoryViewController: UIViewController {
         // 이미지
         if let previousImage = baseHistoryViewModel.image {
             self.image = previousImage
-            self.imageButton.tintColor = .black
+            self.imageButton.tintColor = UIColor(named: "basicBlackTextColor") ?? .black
         }
         
         // 메모
         if let previousMemo = baseHistoryViewModel.memo {
             self.memo = previousMemo
-            self.memoButton.tintColor = .black
+            self.memoButton.tintColor = UIColor(named: "basicBlackTextColor") ?? .black
         }
+        
+        // 저장버튼 색상
+        saveButton.backgroundColor = backgroundColor
+        saveButton.setTitleColor(textColor, for: .normal)
         
         // 계산기 버튼 색상
         coloredButtons.forEach { button in
-            button.setTitleColor(color, for: .normal)
-            button.tintColor = color
+            button.setTitleColor(backgroundColor, for: .normal)
+            button.tintColor = backgroundColor
         }
     }
     
@@ -227,7 +249,7 @@ class AddHistoryViewController: UIViewController {
                 self.historyTitleLabel.text = newTitle.isEmpty ? HistoryCategory.etc.name : newTitle
             }
             
-            self.historyTitleLabel.textColor = self.historyTitleLabel.text == self.historyTitlePlaceholder ? .systemGray2 : .black
+            self.historyTitleLabel.textColor = self.historyTitleLabel.text == self.historyTitlePlaceholder ? .systemGray2 : UIColor(named: "basicBlackTextColor") ?? .black
         }
     }
     
@@ -236,8 +258,9 @@ class AddHistoryViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        guard amount > 0 else {
-            let alert = UIAlertController(title: "금액을 입력해주세요!", message: "", preferredStyle: UIAlertController.Style.alert)
+        guard amount > 0, !amount.isNaN, !amount.isInfinite else {
+            let title = amount.isNaN || amount.isInfinite ? "입력할 수 없는 금액입니다!" : "금액을 입력해주세요!"
+            let alert = UIAlertController(title: title, message: "", preferredStyle: UIAlertController.Style.alert)
             let okAction = UIAlertAction(title: "확인", style: .default)
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
@@ -303,7 +326,7 @@ class AddHistoryViewController: UIViewController {
                 self?.memoButton.tintColor = .lightGray
             } else {
                 self?.memo = newMemo
-                self?.memoButton.tintColor = .black
+                self?.memoButton.tintColor = UIColor(named: "basicBlackTextColor")
             }
         }
     }
@@ -319,7 +342,7 @@ extension AddHistoryViewController: UIImagePickerControllerDelegate, UINavigatio
             imageToast.show()
             
             self.image = newImage.pngData()
-            self.imageButton.tintColor = .black
+            self.imageButton.tintColor = UIColor(named: "basicBlackTextColor")
         }
         
         dismiss(animated: true)
@@ -352,13 +375,13 @@ extension AddHistoryViewController {
     }
     
     @IBAction func btnOperator(sender: UIButton) {
-        let buttonText = sender.titleLabel?.text
-        
         if let lastCharacter = calculatorExpressionLabel.text?.last, lastCharacter.isOperation() {
             calculatorExpressionLabel.text?.removeLast()
         }
         
-        calculatorExpressionLabel.text! += buttonText!
+        guard let labelText = calculatorExpressionLabel.text,
+              let buttonText = sender.titleLabel?.text else { return }
+        calculatorExpressionLabel.text = labelText + buttonText
     }
     
     @IBAction func backTapped(_ sender: Any) {

@@ -87,7 +87,7 @@ class HistoryDetailViewController: UIViewController {
         historyDateLabel.text = history.currentDate.convertToString(format: .fullKoreanDated)
         if let category = history.category, let title = history.title, let amount = history.amount, let identifier = history.countryIdentifier {
             amountLabel.text = "\(identifier.currencySymbol) \(amount.getCurrencyFormat(identifier: identifier))"
-            exchangedMoneyLabel.text = "KRW \((amount / history.exchangeRate).getCurrencyFormat(identifier: identifier))"
+            exchangedMoneyLabel.text = "KRW \((amount / history.exchangeRate).getCurrencyFormat(identifier: "ko_KR"))"
             categoryImageView.image = UIImage(named: category.imageName)
             titleLabel.text = title.isEmpty ? category.name : title
         }
@@ -102,6 +102,7 @@ class HistoryDetailViewController: UIViewController {
                 incomeMemoLabel.text = previousMemo
             } else {
                 incomeMemoLabel.text = EditMemoType.incomeMemo.rawValue
+                incomeMemoLabel.textColor = UIColor(named: "basicGrayTextColor")
             }
         } else {
             // 지출
@@ -114,6 +115,7 @@ class HistoryDetailViewController: UIViewController {
                 expenseMemoLabel.text = previousMemo
             } else {
                 expenseMemoLabel.text = EditMemoType.expenseMemo.rawValue
+                expenseMemoLabel.textColor = UIColor(named: "basicGrayTextColor")
             }
             
             if let isPrepare = history.isPrepare {
@@ -155,7 +157,7 @@ class HistoryDetailViewController: UIViewController {
             // currency converted amount
             self.exchangedMoneyLabel.text = "KRW \((historyItemViewModel.amount / baseHistoryViewModel.exchangeRate).getCurrencyFormat(identifier: countryIdentifier))"
             
-            // category도 해줘야 함
+            // category
             self.baseHistoryViewModel?.category = historyItemViewModel.category
             self.categoryImageView.image = UIImage(named: historyItemViewModel.category.imageName)
             
@@ -219,8 +221,10 @@ class HistoryDetailViewController: UIViewController {
             self.baseHistoryViewModel?.memo = newMemo.isEmpty ? nil : newMemo
             if history.isIncome {
                 self.incomeMemoLabel.text = newMemo.isEmpty ? memoType.rawValue : newMemo
+                self.incomeMemoLabel.textColor = newMemo.isEmpty ? UIColor(named: "basicGrayTextColor") : UIColor(named: "basicBlackTextColor")
             } else {
                 self.expenseMemoLabel.text = newMemo.isEmpty ? memoType.rawValue : newMemo
+                self.expenseMemoLabel.textColor = newMemo.isEmpty ? UIColor(named: "basicGrayTextColor") : UIColor(named: "basicBlackTextColor")
             }
             
             self.updateHistory()

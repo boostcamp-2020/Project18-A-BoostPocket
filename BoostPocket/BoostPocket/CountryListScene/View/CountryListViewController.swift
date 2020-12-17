@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 class CountryListViewController: UIViewController {
     static let identifier = "CountryListViewController"
@@ -39,11 +40,14 @@ class CountryListViewController: UIViewController {
     
     private func configureTableView() {
         countryListTableView.delegate = self
+        countryListTableView.sectionIndexColor = UIColor(named: "mainColor")
         countryListTableView.register(UINib.init(nibName: CountryCell.identifier, bundle: .main), forCellReuseIdentifier: CountryCell.identifier)
     }
     
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(doneButtonTapped))
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "mainColor")
         title = "여행할 나라를 선택해주세요"
     }
     
@@ -61,14 +65,10 @@ class CountryListViewController: UIViewController {
     }
     
     @objc func doneButtonTapped() {
-        guard let selectedIndexPath = countryListTableView.indexPathForSelectedRow else {
-            dismiss(animated: true, completion: nil)
-            return
-        }
+        guard let selectedIndexPath = countryListTableView.indexPathForSelectedRow else { return }
         
         dismiss(animated: true) { [weak self] in
             guard let selectedCountryItemViewModel = self?.dataSource.itemIdentifier(for: selectedIndexPath) else {
-                // TODO: - 에러처리
                 return
             }
             self?.doneButtonHandler?(selectedCountryItemViewModel)
@@ -76,6 +76,12 @@ class CountryListViewController: UIViewController {
     }
     
     private func applySnapShot(with countries: [CountryItemViewModel]) {
+        guard !countries.isEmpty else {
+            let alertToast = Toast(text: "네트워크를 연결하고 앱을 재실행하세요", duration: Delay.short)
+            alertToast.show()
+            return
+        }
+        
         var snapshot = SnapShot()
         let sections = self.setupSection(with: countries)
         snapshot.appendSections(sections)
@@ -113,16 +119,27 @@ class CountryListViewController: UIViewController {
 
 extension CountryListViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if let selectedIndexPath = tableView.indexPathForSelectedRow, selectedIndexPath == indexPath {
+          navigationItem.rightBarButtonItem?.isEnabled = false
+          tableView.deselectRow(at: indexPath, animated: true)
+          let cell = tableView.cellForRow(at: indexPath)
+          cell?.accessoryType = .none
+          return nil
+        }
+        
+        navigationItem.rightBarButtonItem?.isEnabled = true
         let cell = tableView.cellForRow(at: indexPath)
+        cell?.tintColor = UIColor(named: "mainColor")
         cell?.accessoryType = .checkmark
-    }
+        
+        return indexPath
+      }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.accessoryType = .none
     }
-    
 }
 
 extension CountryListViewController: UISearchBarDelegate {
