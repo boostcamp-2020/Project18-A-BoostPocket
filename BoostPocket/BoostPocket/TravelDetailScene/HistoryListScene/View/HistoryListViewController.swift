@@ -176,44 +176,76 @@ class HistoryListViewController: UIViewController {
         switch isFloatingButtonOpened {
         case true:
             presenter?.onCloseFloatingActions()
-            closeFloatingActions()
+            closeFloatingActions { _ in }
         case false:
             presenter?.onOpenFloatingActions()
-            openFloatingActions()
+            openFloatingActions { _ in }
         }
     }
     
-    func closeFloatingActions() {
+    func closeFloatingActions(completion: @escaping (Bool) -> Void) {
+        let group = DispatchGroup()
+        isFloatingButtonOpened = false
+        
         DispatchQueue.main.async { [weak self] in
+            self?.rotateFloatingActionButton()
+            
             self?.buttons.reversed().forEach { button in
-                UIView.animate(withDuration: 0.3) {
+                group.enter()
+                UIView.animate(withDuration: 0.3, animations: {
                     button?.isHidden = true
                     self?.view.layoutIfNeeded()
-                }
+                }, completion: { done in
+                    if done {
+                        group.leave()
+                    }
+                })
             }
-            self?.rotateFloatingActionButton()
         }
         
-        isFloatingButtonOpened = false
-        presenter?.onCloseFloatingActions()
+        let result = group.wait(timeout: DispatchTime(uptimeNanoseconds: 1))
+        
+        switch result {
+        case .success:
+            presenter?.onCloseFloatingActions()
+            completion(true)
+        case .timedOut:
+            completion(false)
+        }
     }
     
-    func openFloatingActions() {
+    func openFloatingActions(completion: @escaping (Bool) -> Void) {
+        let group = DispatchGroup()
+        isFloatingButtonOpened = true
+        
         DispatchQueue.main.async { [weak self] in
+            self?.rotateFloatingActionButton()
+            
             self?.buttons.forEach { button in
+                group.enter()
                 button?.isHidden = false
                 button?.alpha = 0
                 
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: 0.3, animations: {
                     button?.alpha = 1
                     self?.view.layoutIfNeeded()
-                }
+                }, completion: { done in
+                    if done {
+                        group.leave()
+                    }
+                })
             }
-            self?.rotateFloatingActionButton()
         }
         
-        isFloatingButtonOpened = true
-        presenter?.onOpenFloatingActions()
+        let result = group.wait(timeout: DispatchTime(uptimeNanoseconds: 1))
+        
+        switch result {
+        case .success:
+            presenter?.onOpenFloatingActions()
+            completion(true)
+        case .timedOut:
+            completion(false)
+        }
     }
     
     func rotateFloatingActionButton() {
@@ -242,7 +274,7 @@ class HistoryListViewController: UIViewController {
                                                        exchangeRate: self.travelItemViewModel?.exchangeRate ?? 0)
         
         let onPresent: (() -> Void)  = { [weak self] in
-            self?.closeFloatingActions()
+            self?.closeFloatingActions { _ in }
         }
         
         AddHistoryViewController.present(at: self,
@@ -413,7 +445,7 @@ extension HistoryListViewController: UITableViewDelegate {
                                                             isPrepare: currentHistoryItemViewModel.isPrepare)
             
             let onPresent: (() -> Void)  = {
-                self.closeFloatingActions()
+                self.closeFloatingActions { _ in}
             }
             
             AddHistoryViewController.present(at: self,
