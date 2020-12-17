@@ -176,17 +176,10 @@ class HistoryListViewController: UIViewController {
         switch isFloatingButtonOpened {
         case true:
             presenter?.onCloseFloatingActions()
-            closeFloatingActions { [weak self] done in
-                if done {
-                    self?.presenter?.onCloseFloatingActions()
-                }
-            }
+            closeFloatingActions { _ in }
         case false:
-            openFloatingActions { [weak self] done in
-                if done {
-                    self?.presenter?.onOpenFloatingActions()
-                }
-            }
+            presenter?.onOpenFloatingActions()
+            openFloatingActions { _ in }
         }
     }
     

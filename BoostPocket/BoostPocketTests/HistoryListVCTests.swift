@@ -71,11 +71,13 @@ class HistoryListVCTests: XCTestCase {
         sut.floatingActionButtonTapped(UIButton())
 
         XCTAssertTrue(presenter.onFloatingActionButtonTappedCalled)
+        
         if currentStatus {
             XCTAssertTrue(presenter.onCloseFloatingActionsCalled)
         } else {
             XCTAssertTrue(presenter.onOpenFloatingActionsCalled)
         }
+        
     }
     
     func test_historyListVC_closeFloatingActions() {
