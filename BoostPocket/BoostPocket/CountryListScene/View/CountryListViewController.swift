@@ -123,6 +123,7 @@ extension CountryListViewController: UITableViewDelegate {
         
         navigationItem.rightBarButtonItem?.isEnabled = true
         let cell = tableView.cellForRow(at: indexPath)
+        cell?.tintColor = UIColor(named: "mainColor")
         cell?.accessoryType = .checkmark
         
         return indexPath
