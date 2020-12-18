@@ -40,7 +40,7 @@ class TravelProviderTests: XCTestCase {
     }
 
     func test_travelProvider_createTravel() {
-        wait(for: [countriesExpectation], timeout: 5.0)
+        wait(for: [countriesExpectation], timeout: 2)
         
         let expectation = XCTestExpectation(description: "Successfully Created Travel")
         var createdTravel: Travel?
@@ -51,14 +51,14 @@ class TravelProviderTests: XCTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 5.0)
+        wait(for: [expectation], timeout: 3)
         
         XCTAssertEqual(createdTravel?.title, countryName)
         XCTAssertEqual(createdTravel?.country?.name, countryName)
     }
 
     func test_travelProvider_fetchTravels() {
-        wait(for: [countriesExpectation], timeout: 5.0)
+        wait(for: [countriesExpectation], timeout: 2)
         
         let expectation = XCTestExpectation(description: "Successfully Created Travel")
         var createdTravel: Travel?
@@ -69,7 +69,7 @@ class TravelProviderTests: XCTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 5.0)
+        wait(for: [expectation], timeout: 3)
         
         let fetchedTravels = travelProvider.fetchTravels()
         let firstTravel = travelProvider.fetchTravels().first
@@ -80,7 +80,7 @@ class TravelProviderTests: XCTestCase {
     }
 
     func test_travelPrpvider_updateTravel() {
-        wait(for: [countriesExpectation], timeout: 5.0)
+        wait(for: [countriesExpectation], timeout: 2)
         
         let expectation = XCTestExpectation(description: "Successfully Created Travel")
         var createdTravel: Travel?
@@ -91,19 +91,28 @@ class TravelProviderTests: XCTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 5.0)
+        wait(for: [expectation], timeout: 3)
         
         let travelInfo = TravelInfo(countryName: countryName, id: createdTravel?.id ?? UUID(), title: "updated title", memo: createdTravel?.memo ?? "", startDate: createdTravel?.startDate ?? Date(), endDate: createdTravel?.endDate ?? Date(), coverImage: createdTravel?.coverImage ?? Data(), budget: createdTravel?.budget ?? Double(), exchangeRate: createdTravel?.exchangeRate ?? Double())
-        let updatedTravel = travelProvider.updateTravel(updatedTravelInfo: travelInfo)
         
-        XCTAssertNotNil(updatedTravel)
+        let updateTravelExpectation = XCTestExpectation(description: "Successfully Updated Travel")
+        var updatedTravel: Travel?
+        
+        travelProvider.updateTravel(updatedTravelInfo: travelInfo) { travel in
+            updatedTravel = travel
+            XCTAssertNotNil(updatedTravel)
+            updateTravelExpectation.fulfill()
+        }
+        
+        wait(for: [updateTravelExpectation], timeout: 4)
+        
         XCTAssertEqual(updatedTravel?.title, "updated title")
         XCTAssertEqual(createdTravel, updatedTravel)
         XCTAssertEqual(travelProvider.fetchTravels().first, createdTravel)
     }
     
     func test_travelProvider_deleteTravel() {
-        wait(for: [countriesExpectation], timeout: 5.0)
+        wait(for: [countriesExpectation], timeout: 2)
         
         XCTAssertEqual(travelProvider.fetchTravels(), [])
         
@@ -116,7 +125,7 @@ class TravelProviderTests: XCTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 5.0)
+        wait(for: [expectation], timeout: 3)
 
         let isDeleted = travelProvider.deleteTravel(id: createdTravel?.id ?? UUID())
         XCTAssertTrue(isDeleted)

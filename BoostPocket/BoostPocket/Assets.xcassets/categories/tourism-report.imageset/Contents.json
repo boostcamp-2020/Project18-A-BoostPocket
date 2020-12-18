@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "tourism-report.png",
+      "filename" : "tourism-report-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "tourism-report.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "tourism-report-3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

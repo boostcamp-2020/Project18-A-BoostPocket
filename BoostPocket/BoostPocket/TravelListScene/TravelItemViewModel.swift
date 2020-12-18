@@ -146,7 +146,7 @@ protocol HistoryListPresentable: TravelItemPresentable {
     func createHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double,
                        category: HistoryCategory, isPrepare: Bool, isCard: Bool, completion: @escaping (HistoryItemViewModel?) -> Void)
     func needFetchItems()
-    func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool?, isCard: Bool?) -> Bool
+    func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool?, isCard: Bool?, completion: @escaping (Bool) -> Void)
     func deleteHistory(id: UUID) -> Bool
     func numberOfItem() -> Int
 }
@@ -171,39 +171,45 @@ extension TravelItemViewModel: HistoryListPresentable {
     func needFetchItems() {
         guard let fetchedHistories = historyProvider?.fetchHistories() else { return }
         
-        histories.removeAll()
         var newHistoryItemViewModels: [HistoryItemViewModel] = []
         fetchedHistories.forEach { history in
             if history.travel?.id == self.id {
                 newHistoryItemViewModels.append(HistoryItemViewModel(history: history))
             }
         }
+        
         histories = newHistoryItemViewModels
     }
     
-    func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool?, isCard: Bool?) -> Bool {
+    func updateHistory(id: UUID, isIncome: Bool, title: String, memo: String?, date: Date?, image: Data?, amount: Double, category: HistoryCategory, isPrepare: Bool?, isCard: Bool?, completion: @escaping (Bool) -> Void) {
         
         let historyInfo = HistoryInfo(travelId: self.id ?? UUID(), id: id, isIncome: isIncome, title: title, memo: memo, date: date ?? Date(), category: category, amount: amount, image: image, isPrepare: isPrepare, isCard: isCard)
         
-        guard let updatedHistory = historyProvider?.updateHistory(updatedHistoryInfo: historyInfo),
-            let indexToUpdate = histories.indices.filter({ histories[$0].id == updatedHistory.id }).first
-            else { return false }
-        
-        histories[indexToUpdate].amount = updatedHistory.amount
-        histories[indexToUpdate].category = updatedHistory.categoryState
-        histories[indexToUpdate].date = updatedHistory.date ?? Date()
-        histories[indexToUpdate].image = updatedHistory.image
-        histories[indexToUpdate].isCard = updatedHistory.isCard
-        histories[indexToUpdate].isPrepare = updatedHistory.isPrepare
-        histories[indexToUpdate].memo = updatedHistory.memo
-        histories[indexToUpdate].title = updatedHistory.title ?? updatedHistory.categoryState.name
-        
-        // update 함수는 willSet이 안불리기 때문에 따로 didFetch 처리
-        DispatchQueue.main.async { [weak self] in
-            self?.didFetch?(self?.histories ?? [])
+        historyProvider?.updateHistory(updatedHistoryInfo: historyInfo) { [weak self] updatedHistory in
+            guard let self = self,
+            let updatedHistory = updatedHistory,
+                let indexToUpdate = self.histories.indices.filter({ self.histories[$0].id == updatedHistory.id }).first
+                else {
+                    completion(false)
+                    return
+            }
+            
+            self.histories[indexToUpdate].amount = updatedHistory.amount
+            self.histories[indexToUpdate].category = updatedHistory.categoryState
+            self.histories[indexToUpdate].date = updatedHistory.date ?? Date()
+            self.histories[indexToUpdate].image = updatedHistory.image
+            self.histories[indexToUpdate].isCard = updatedHistory.isCard
+            self.histories[indexToUpdate].isPrepare = updatedHistory.isPrepare
+            self.histories[indexToUpdate].memo = updatedHistory.memo
+            self.histories[indexToUpdate].title = updatedHistory.title ?? updatedHistory.categoryState.name
+            
+            // update 함수는 willSet이 안불리기 때문에 따로 didFetch 처리
+            DispatchQueue.main.async {
+                self.didFetch?(self.histories)
+            }
+            
+            completion(true)
         }
-        
-        return true
     }
     
     func deleteHistory(id: UUID) -> Bool {

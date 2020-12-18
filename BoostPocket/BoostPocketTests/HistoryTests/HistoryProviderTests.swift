@@ -118,9 +118,17 @@ class HistoryProviderTests: XCTestCase {
         
         let updatingHistoryInfo = HistoryInfo(travelId: historyInfo.travelId, id: historyInfo.id, isIncome: true, title: "변경한 제목", memo: nil, date: "2019-11-30".convertToDate(), category: .income, amount: 13.4, image: nil, isPrepare: false, isCard: true)
         
-        let updatedHistory = historyProvider.updateHistory(updatedHistoryInfo: updatingHistoryInfo)
+        let updateHistoryExpectation = XCTestExpectation(description: "Successfully Updated History")
+        var updatedHistory: History?
         
-        XCTAssertNotNil(updatedHistory)
+        historyProvider.updateHistory(updatedHistoryInfo: updatingHistoryInfo) { history in
+            XCTAssertNotNil(history)
+            updatedHistory = history
+            updateHistoryExpectation.fulfill()
+        }
+        
+        wait(for: [updateHistoryExpectation], timeout: 5.0)
+        
         XCTAssertEqual(updatedHistory, createdHistory)
         XCTAssertEqual(updatedHistory?.travel?.id, historyInfo.travelId)
         XCTAssertEqual(updatedHistory?.id, historyInfo.id)

@@ -31,9 +31,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         persistenceManager.createCountriesWithAPIRequest { (result) in
             if result {
-                print("국가 생성 성공")
+//                print("앱 초기세팅 성공")
             } else {
-                print("국가 생성 실패")
+//                print("앱 초기세팅 실패")
             }
         }
         

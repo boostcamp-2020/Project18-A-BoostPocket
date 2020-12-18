@@ -50,6 +50,57 @@ class PersistenceManagerTests: XCTestCase {
         historyInfo = nil
     }
     
+    func test_persistenceManager_createCountriesWithAPIRequest_with_no_countries() {
+        let createCountriesExpectation = XCTestExpectation(description: "Successfully Created Countries")
+        
+        var createCountriesResult: Bool = false
+        persistenceManagerStub.createCountriesWithAPIRequest { result in
+            createCountriesResult = result
+            createCountriesExpectation.fulfill()
+        }
+        
+        wait(for: [createCountriesExpectation], timeout: 1)
+        XCTAssertTrue(createCountriesResult)
+    }
+    
+    func test_persistenceManager_createCountriesWithAPIRequest_with_countries() {
+        var createdCountry: Country?
+        persistenceManagerStub.createObject(newObjectInfo: countryInfo) { country in
+            createdCountry = country as? Country
+        }
+        
+        XCTAssertNotNil(createdCountry)
+        
+        var createCountriesResult: Bool = false
+        persistenceManagerStub.createCountriesWithAPIRequest { result in
+            createCountriesResult = result
+        }
+        
+        XCTAssertTrue(createCountriesResult)
+    }
+    
+    func test_persistenceManager_setupCountries() {
+        let requestExchangeRateExpectation = XCTestExpectation(description: "Successfully Reqested ExchangeRate")
+        
+        let url: String = "https://api.exchangeratesapi.io/latest?base=KRW"
+        var exchangeRateData: ExchangeRate?
+        dataLoader?.requestExchangeRate(url: url, completion: { result in
+            switch result {
+            case .success(let data):
+                exchangeRateData = data
+                XCTAssertNotNil(exchangeRateData)
+                requestExchangeRateExpectation.fulfill()
+            case .failure:
+                break
+            }
+        })
+        
+        wait(for: [requestExchangeRateExpectation], timeout: 1)
+        persistenceManagerStub.setupCountries(with: exchangeRateData!)
+        
+        XCTAssertTrue(persistenceManagerStub.count(request: Country.fetchRequest()) ?? 0 > 0)
+    }
+    
     func test_persistenceManager_filterCountries() {
         let identifiers = ["ko_KR", "ja_JP"]
         let rates = ["KRW": 1.0, "JPY": 0.0941570188]
@@ -140,21 +191,21 @@ class PersistenceManagerTests: XCTestCase {
         XCTAssertNotEqual(persistenceManagerStub.fetchAll(request: Travel.fetchRequest()), [])
     }
     
-    func test_persistenceManager_fetch() {
-        var createdCountry: Country?
-        
-        persistenceManagerStub.createObject(newObjectInfo: countryInfo) { (createdObject) in
-            createdCountry = createdObject as? Country
-            XCTAssertNotNil(createdCountry)
-        }
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Country.entityName)
-        fetchRequest.predicate = NSPredicate(format: "name == %@", countryInfo.name)
-        
-        let fetchedCountry = persistenceManagerStub.fetch(fetchRequest) as? [Country]
-        XCTAssertNotNil(fetchedCountry)
-        XCTAssertEqual(fetchedCountry?.first, createdCountry)
-    }
+//    func test_persistenceManager_fetch() {
+//        var createdCountry: Country?
+//
+//        persistenceManagerStub.createObject(newObjectInfo: countryInfo) { (createdObject) in
+//            createdCountry = createdObject as? Country
+//            XCTAssertNotNil(createdCountry)
+//        }
+//
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Country.entityName)
+//        fetchRequest.predicate = NSPredicate(format: "name == %@", countryInfo.name)
+//
+//        let fetchedCountry = persistenceManagerStub.fetch(fetchRequest) as? [Country]
+//        XCTAssertNotNil(fetchedCountry)
+//        XCTAssertEqual(fetchedCountry?.first, createdCountry)
+//    }
     
     func test_persistenceManager_updateObject() {
         let countryExpectation = XCTestExpectation(description: "Successfully Created Country")
@@ -183,14 +234,28 @@ class PersistenceManagerTests: XCTestCase {
         
         travelInfo = TravelInfo(countryName: countryName, id: id, title: countryName, memo: "updated memo", startDate: startDate, endDate: endDate, coverImage: coverImage, budget: budget, exchangeRate: exchangeRate)
         
-        let updatedCountry = persistenceManagerStub.updateObject(updatedObjectInfo: countryInfo) as? Country
-        let updatedTravel = persistenceManagerStub.updateObject(updatedObjectInfo: travelInfo) as? Travel
+        let updateCountryExpectation = XCTestExpectation(description: "Successfully Updated Country")
+        let updateTravelExpectation = XCTestExpectation(description: "Successfully Updated Travel")
         
-        XCTAssertNotNil(updatedCountry)
+        var updatedCountry: Country?
+        persistenceManagerStub.updateObject(updatedObjectInfo: countryInfo) { dataModelProtocol in
+            updatedCountry = dataModelProtocol as? Country
+            XCTAssertNotNil(updatedCountry)
+            updateCountryExpectation.fulfill()
+        }
+        
+        var updatedTravel: Travel?
+        persistenceManagerStub.updateObject(updatedObjectInfo: travelInfo) { dataModelProtocol in
+            updatedTravel = dataModelProtocol as? Travel
+            XCTAssertNotNil(updatedTravel)
+            updateTravelExpectation.fulfill()
+        }
+        
+        wait(for: [updateCountryExpectation, updateTravelExpectation], timeout: 5.0)
+        
         XCTAssertEqual(createdCountry?.lastUpdated, newLastUpdated)
         XCTAssertEqual(createdCountry?.exchangeRate, newExchagneRate)
         
-        XCTAssertNotNil(updatedTravel)
         XCTAssertEqual(createdTravel?.memo, "updated memo")
     }
     

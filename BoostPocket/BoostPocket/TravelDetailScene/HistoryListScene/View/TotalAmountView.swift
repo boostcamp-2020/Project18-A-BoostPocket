@@ -20,8 +20,9 @@ class TotalAmountView: UIView {
     @IBOutlet weak var expenseLabelHalfWidth: NSLayoutConstraint!
     @IBOutlet weak var expenseLabelFullWidth: NSLayoutConstraint!
     
-    func configure(withExpense expense: Double, remain: Double, identifier: String?) {
-        if remain + expense == 0 {
+    func configure(withExpense expense: Double, income: Double, identifier: String?) {
+        let remain = income - expense
+        if income == 0 {
             hideRemainLabels()
         } else {
             showRemainLabels()
@@ -29,7 +30,7 @@ class TotalAmountView: UIView {
             remainLabel.textColor = remain < 0 ? UIColor(named: "deleteTextColor") : UIColor(named: "detailIncomeColor")
         }
         expenseLabel.text = setLabel(with: identifier, amount: expense)
-        expenseLabel.textColor = .black
+//        expenseLabel.textColor = .black
 
     }
     
@@ -48,6 +49,7 @@ class TotalAmountView: UIView {
 
         expenseTitleLabelHalfCenterX.priority = UILayoutPriority(750)
         expenseTitleLabelCenterX.priority = UILayoutPriority(1000)
+        
         expenseLabelHalfWidth.priority = UILayoutPriority(750)
         expenseLabelFullWidth.priority = UILayoutPriority(1000)
     }
@@ -59,6 +61,7 @@ class TotalAmountView: UIView {
         
         expenseTitleLabelCenterX.priority = UILayoutPriority(750)
         expenseTitleLabelHalfCenterX.priority = UILayoutPriority(1000)
+        
         expenseLabelFullWidth.priority = UILayoutPriority(750)
         expenseLabelHalfWidth.priority = UILayoutPriority(1000)
     }

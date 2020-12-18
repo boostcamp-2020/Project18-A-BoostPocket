@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3725D4AFE6D2AE5B6A21D483 /* Pods_BoostPocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B97464333E742D61CD6648 /* Pods_BoostPocket.framework */; };
 		470EEBDB802C6552ECB4E189 /* Pods_BoostPocketTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */; };
+		5C0324D4258768D100213B75 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0324D3258768D100213B75 /* LoadingView.swift */; };
 		5C15AB3E2577C32000244C6C /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C15AB3C2577C32000244C6C /* HistoryCell.swift */; };
 		5C15AB3F2577C32000244C6C /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C15AB3D2577C32000244C6C /* HistoryCell.xib */; };
 		5C15AB442577C96E00244C6C /* HistoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C15AB432577C96E00244C6C /* HistoryListViewController.swift */; };
@@ -43,6 +44,7 @@
 		5CE798BB257F7C3100AC6C43 /* ReportPieChartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE798BA257F7C3100AC6C43 /* ReportPieChartView.xib */; };
 		5CE798C0257F7CDB00AC6C43 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE798BF257F7CDB00AC6C43 /* ReportViewController.swift */; };
 		5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF409472575239200351F4B /* MemoEditViewController.swift */; };
+		950743B12583CEA700B2A992 /* TravelListVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950743B02583CEA700B2A992 /* TravelListVCTests.swift */; };
 		950BE471257F793200ACC0CA /* String+IsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950BE470257F793200ACC0CA /* String+IsCategory.swift */; };
 		950BE473257F7C7B00ACC0CA /* String+IsPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950BE472257F7C7B00ACC0CA /* String+IsPlaceholder.swift */; };
 		954D2CDD257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954D2CDB257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift */; };
@@ -78,7 +80,12 @@
 		95A42E8625664DC40007810C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8525664DC40007810C /* Assets.xcassets */; };
 		95A42E8925664DC40007810C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A42E8725664DC40007810C /* LaunchScreen.storyboard */; };
 		95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A42E9325664DC40007810C /* BoostPocketTests.swift */; };
+		95AC159C2585D0770079F042 /* HistoryListVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AC159B2585D0770079F042 /* HistoryListVCTests.swift */; };
+		95AC159E2585ED5D0079F042 /* HistoryListSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AC159D2585ED5D0079F042 /* HistoryListSupport.swift */; };
+		95AC15A02585EDE30079F042 /* TravelListSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AC159F2585EDE30079F042 /* TravelListSupport.swift */; };
+		95AC15A22585F2C20079F042 /* TravelProfileVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AC15A12585F2C20079F042 /* TravelProfileVCTests.swift */; };
 		95C8F4BE258301E500B8D91E /* Date+isValidInRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8F4BD258301E500B8D91E /* Date+isValidInRange.swift */; };
+		95D7505F2589EF18006BCB98 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95D750612589EF18006BCB98 /* InfoPlist.strings */; };
 		95F8A29C2580C9B800A33D3E /* ExpenseElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */; };
 		95F8A29E2580C9CE00A33D3E /* ExpenseElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */; };
 		95F8A2A02580D5AE00A33D3E /* Double+getPercentage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F8A29F2580D5AE00A33D3E /* Double+getPercentage.swift */; };
@@ -152,6 +159,7 @@
 		05B97464333E742D61CD6648 /* Pods_BoostPocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		460E2B0DBA1F49A0D275F156 /* Pods-BoostPocketTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocketTests.release.xcconfig"; path = "Target Support Files/Pods-BoostPocketTests/Pods-BoostPocketTests.release.xcconfig"; sourceTree = "<group>"; };
 		57F756558017352589C6CED3 /* Pods-BoostPocket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.release.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.release.xcconfig"; sourceTree = "<group>"; };
+		5C0324D3258768D100213B75 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		5C15AB3C2577C32000244C6C /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		5C15AB3D2577C32000244C6C /* HistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryCell.xib; sourceTree = "<group>"; };
 		5C15AB432577C96E00244C6C /* HistoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +194,7 @@
 		5CF409472575239200351F4B /* MemoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoEditViewController.swift; sourceTree = "<group>"; };
 		81FEEDDEA3FA0D3B4F97EE2F /* Pods_BoostPocketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoostPocketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoostPocket.debug.xcconfig"; path = "Target Support Files/Pods-BoostPocket/Pods-BoostPocket.debug.xcconfig"; sourceTree = "<group>"; };
+		950743B02583CEA700B2A992 /* TravelListVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListVCTests.swift; sourceTree = "<group>"; };
 		950BE470257F793200ACC0CA /* String+IsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsCategory.swift"; sourceTree = "<group>"; };
 		950BE472257F7C7B00ACC0CA /* String+IsPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsPlaceholder.swift"; sourceTree = "<group>"; };
 		954D2CDB257E2F4800ECE9D9 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -226,7 +235,15 @@
 		95A42E8F25664DC40007810C /* BoostPocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoostPocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A42E9325664DC40007810C /* BoostPocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostPocketTests.swift; sourceTree = "<group>"; };
 		95A42E9525664DC40007810C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95AC159B2585D0770079F042 /* HistoryListVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListVCTests.swift; sourceTree = "<group>"; };
+		95AC159D2585ED5D0079F042 /* HistoryListSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListSupport.swift; sourceTree = "<group>"; };
+		95AC159F2585EDE30079F042 /* TravelListSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListSupport.swift; sourceTree = "<group>"; };
+		95AC15A12585F2C20079F042 /* TravelProfileVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelProfileVCTests.swift; sourceTree = "<group>"; };
 		95C8F4BD258301E500B8D91E /* Date+isValidInRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+isValidInRange.swift"; sourceTree = "<group>"; };
+		95D7505B2589EE7C006BCB98 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		95D7505C2589EE7F006BCB98 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		95D750602589EF18006BCB98 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		95D750622589EF76006BCB98 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		95F8A29B2580C9B800A33D3E /* ExpenseElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseElementView.swift; sourceTree = "<group>"; };
 		95F8A29D2580C9CE00A33D3E /* ExpenseElementView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpenseElementView.xib; sourceTree = "<group>"; };
 		95F8A29F2580D5AE00A33D3E /* Double+getPercentage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+getPercentage.swift"; sourceTree = "<group>"; };
@@ -334,6 +351,7 @@
 			children = (
 				A980ADC6257095E60001F5DC /* View */,
 				A9BF7A4F256E293F00496CD8 /* TravelProvider.swift */,
+				95AC159F2585EDE30079F042 /* TravelListSupport.swift */,
 				954F7018256D1C4B00B2E48B /* TravelListViewModel.swift */,
 				5C8C9195256E8436008C3919 /* TravelItemViewModel.swift */,
 			);
@@ -419,6 +437,8 @@
 				95A42E8725664DC40007810C /* LaunchScreen.storyboard */,
 				95A42E8A25664DC40007810C /* Info.plist */,
 				95A42E8225664DBE0007810C /* BoostPocket.xcdatamodeld */,
+				5C0324D3258768D100213B75 /* LoadingView.swift */,
+				95D750612589EF18006BCB98 /* InfoPlist.strings */,
 			);
 			path = BoostPocket;
 			sourceTree = "<group>";
@@ -432,6 +452,9 @@
 				95B907A5256D606F009C2B27 /* TravelTests */,
 				95B907A4256D6060009C2B27 /* CountryTests */,
 				95A42E9525664DC40007810C /* Info.plist */,
+				950743B02583CEA700B2A992 /* TravelListVCTests.swift */,
+				95AC159B2585D0770079F042 /* HistoryListVCTests.swift */,
+				95AC15A12585F2C20079F042 /* TravelProfileVCTests.swift */,
 			);
 			path = BoostPocketTests;
 			sourceTree = "<group>";
@@ -543,6 +566,7 @@
 			children = (
 				A99E06A8258062710014C29F /* View */,
 				A99E0638257763B90014C29F /* HistoryProvider.swift */,
+				95AC159D2585ED5D0079F042 /* HistoryListSupport.swift */,
 				A99E0645257766F50014C29F /* HistoryItemViewModel.swift */,
 				5C7F8372257902A000A58112 /* HistoryListSectionHeader.swift */,
 				5CD9A894257DCA2300A7AEFF /* HistoryFilter.swift */,
@@ -761,6 +785,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 95A42E6D25664DBE0007810C;
 			productRefGroup = 95A42E7725664DBE0007810C /* Products */;
@@ -795,6 +820,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C15AB4E2577DEE900244C6C /* HistoryHeaderCell.xib in Resources */,
+				95D7505F2589EF18006BCB98 /* InfoPlist.strings in Resources */,
 				5C15AB3F2577C32000244C6C /* HistoryCell.xib in Resources */,
 				5C3DAF3625665F0200178EA0 /* CountryCell.xib in Resources */,
 				9574ACD12578B4C10072C578 /* AddHistoryViewController.xib in Resources */,
@@ -951,6 +977,7 @@
 				A9BF7AA5256F9B8800496CD8 /* Date+ConvertToString.swift in Sources */,
 				5C3DAF3525665F0200178EA0 /* CountryCell.swift in Sources */,
 				A99E0646257766F50014C29F /* HistoryItemViewModel.swift in Sources */,
+				5C0324D4258768D100213B75 /* LoadingView.swift in Sources */,
 				5C4E1B0C256BD7CD006760EF /* CountryItemViewModel.swift in Sources */,
 				A9BF7A37256D496C00496CD8 /* String+firstConsonant.swift in Sources */,
 				95747A69256FCEEA0065C419 /* Data+ImageData.swift in Sources */,
@@ -963,11 +990,13 @@
 				A99E062F257762520014C29F /* History+CoreDataClass.swift in Sources */,
 				5C7F8373257902A100A58112 /* HistoryListSectionHeader.swift in Sources */,
 				950BE471257F793200ACC0CA /* String+IsCategory.swift in Sources */,
+				95AC15A02585EDE30079F042 /* TravelListSupport.swift in Sources */,
 				5C15AB492577DED700244C6C /* HistoryHeaderCell.swift in Sources */,
 				9572F9AE256B9524003049CB /* CountryProvider.swift in Sources */,
 				5CD76EBF256C938D00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
 				950BE473257F7C7B00ACC0CA /* String+IsPlaceholder.swift in Sources */,
 				95A42E7A25664DBE0007810C /* AppDelegate.swift in Sources */,
+				95AC159E2585ED5D0079F042 /* HistoryListSupport.swift in Sources */,
 				5C15AB3E2577C32000244C6C /* HistoryCell.swift in Sources */,
 				5CE798C0257F7CDB00AC6C43 /* ReportViewController.swift in Sources */,
 				5CF409482575239200351F4B /* MemoEditViewController.swift in Sources */,
@@ -989,16 +1018,19 @@
 			files = (
 				9581C709256E34AC006ABA8E /* PersistenceManagerTests.swift in Sources */,
 				5CD76E9F256C24DC00BD6CE3 /* BoostPocket.xcdatamodeld in Sources */,
+				950743B12583CEA700B2A992 /* TravelListVCTests.swift in Sources */,
 				956BBC58256B9CCC007803B1 /* CountryStub.swift in Sources */,
 				A9BF7A77256E306100496CD8 /* TravelProviderTests.swift in Sources */,
 				5CD9A89A257DCD6C00A7AEFF /* HistoryFilterTests.swift in Sources */,
 				5C96E8E2256BDA4200246590 /* CountryViewModelTests.swift in Sources */,
 				5C8C91AD256E8F0F008C3919 /* TravelViewModelTests.swift in Sources */,
 				9572F9B3256B974C003049CB /* PersistenceManagerStub.swift in Sources */,
+				95AC15A22585F2C20079F042 /* TravelProfileVCTests.swift in Sources */,
 				A99E065425778B130014C29F /* HistoryViewModelTests.swift in Sources */,
 				5C89619E256E917300575677 /* TravelStub.swift in Sources */,
 				A99E064C257773430014C29F /* HistoryProviderTests.swift in Sources */,
 				95A42E9425664DC40007810C /* BoostPocketTests.swift in Sources */,
+				95AC159C2585D0770079F042 /* HistoryListVCTests.swift in Sources */,
 				5CCB1265257DFF1D00C6788E /* HistoryItemViewModelStub.swift in Sources */,
 				9572F9B0256B9703003049CB /* CountryProviderTests.swift in Sources */,
 			);
@@ -1034,6 +1066,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				95A42E8025664DBE0007810C /* Base */,
+				95D7505B2589EE7C006BCB98 /* ko */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1042,8 +1075,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				95A42E8825664DC40007810C /* Base */,
+				95D7505C2589EE7F006BCB98 /* ko */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		95D750612589EF18006BCB98 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				95D750602589EF18006BCB98 /* ko */,
+				95D750622589EF76006BCB98 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1150,6 +1193,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1210,6 +1254,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1265,7 +1310,8 @@
 			baseConfigurationReference = 9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				INFOPLIST_FILE = BoostPocket/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1273,9 +1319,10 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.BoostPocket;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = BoostPocket;
+				PROVISIONING_PROFILE_SPECIFIER = "BoostPocket Profile";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1284,7 +1331,8 @@
 			baseConfigurationReference = 57F756558017352589C6CED3 /* Pods-BoostPocket.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				INFOPLIST_FILE = BoostPocket/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1292,9 +1340,10 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.BoostPocket;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = BoostPocket;
+				PROVISIONING_PROFILE_SPECIFIER = "BoostPocket Profile";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

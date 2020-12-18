@@ -53,12 +53,12 @@ class MemoEditViewController: UIViewController {
     }
     
     private func setInitialTextviewPlaceholder() {
+        memoTextView.becomeFirstResponder()
         if let previousMemo = memo, !previousMemo.isEmpty {
             // 기존의 메모가 nil이 아니고 빈 문자열이 아닐 때
             memoTextView.text = previousMemo
             memoTextView.textColor = UIColor(named: "basicBlackTextColor")
         } else {
-            // 기존의 메모가 없을 때 (Nil)
             memoTextView.text = memoType?.rawValue
             memoTextView.textColor = UIColor(named: "basicGrayTextColor")
         }

@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "accommodation-report.png",
+      "filename" : "hotel-report-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "accommodation-report.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "hotel-report-3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

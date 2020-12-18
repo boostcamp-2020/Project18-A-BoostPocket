@@ -18,4 +18,12 @@ extension Double {
         guard let formattedNumber = numberFormatter.string(from: NSNumber(value: self)) else { return String(self) }
         return formattedNumber
     }
+    
+    func convertToString() -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        guard let formattedNumber = numberFormatter.string(from: NSNumber(value: self)) else { return String(self) }
+        
+        return formattedNumber.replacingOccurrences(of: ",", with: "")
+    }
 }
