@@ -68,6 +68,6 @@
 |-|-|-|
 |[@sihyungyou](https://github.com/sihyungyou)|[@devilzcough](https://github.com/devilzcough)|[@songjucho](https://github.com/songjucho)|
 
-### [4주차 데모 영상](https://youtu.be/gzoJWoKQhDs)  
+### [5주차 데모 영상](https://www.youtube.com/watch?v=mFzMmd6iTsQ&t=1s)  
 
-### [배포링크](https://kr.object.ncloudstorage.com/boostpocket/Download.html)를 통해 등록된 아이폰 디바이스에 다운로드 받을 수 있습니다👏  
+### [배포링크](https://kr.object.ncloudstorage.com/boostpocket-week5/Download.html)를 통해 등록된 아이폰 디바이스에 다운로드 받을 수 있습니다👏  
