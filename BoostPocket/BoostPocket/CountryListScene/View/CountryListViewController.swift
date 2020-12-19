@@ -38,6 +38,20 @@ class CountryListViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkPreviousData()
+    }
+    
+    private func checkPreviousData() {
+        guard let countries = countryListViewModel?.countries else { return }
+        
+        if countries.isEmpty {
+            let alertToast = Toast(text: "네트워크를 연결하고 앱을 재실행하세요", duration: Delay.short)
+            alertToast.show()
+        }
+    }
+    
     private func configureTableView() {
         countryListTableView.delegate = self
         countryListTableView.sectionIndexColor = UIColor(named: "mainColor")
@@ -76,12 +90,6 @@ class CountryListViewController: UIViewController {
     }
     
     private func applySnapShot(with countries: [CountryItemViewModel]) {
-        guard !countries.isEmpty else {
-            let alertToast = Toast(text: "네트워크를 연결하고 앱을 재실행하세요", duration: Delay.short)
-            alertToast.show()
-            return
-        }
-        
         var snapshot = SnapShot()
         let sections = self.setupSection(with: countries)
         snapshot.appendSections(sections)
