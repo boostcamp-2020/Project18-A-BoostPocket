@@ -491,9 +491,9 @@ extension HistoryListViewController: AddHistoryDelegate {
         guard let travelItemViewModel = travelItemViewModel else { return }
         travelItemViewModel.updateHistory(id: historyId ?? UUID(), isIncome: newHistoryData.isIncome, title: newHistoryData.title, memo: newHistoryData.memo, date: newHistoryData.date, image: newHistoryData.image, amount: newHistoryData.amount, category: newHistoryData.category, isPrepare: newHistoryData.isPrepare, isCard: newHistoryData.isCard ?? false) { result in
             if result {
-                print("지출/예산 업데이트 성공")
+//                print("지출/예산 업데이트 성공")
             } else {
-                print("지출/예산 업데이트 실패")
+//                print("지출/예산 업데이트 실패")
             }
         }
     }
@@ -505,9 +505,9 @@ extension HistoryListViewController: HistoryDetailDelegate {
         if let travelItemViewModel = travelItemViewModel,
             let deletingId = id,
             travelItemViewModel.deleteHistory(id: deletingId) {
-            print("기록을 삭제했습니다.")
+//            print("기록을 삭제했습니다.")
         } else {
-            print("기록 삭제에 실패했습니다.")
+//            print("기록 삭제에 실패했습니다.")
         }
     }
     
@@ -515,9 +515,9 @@ extension HistoryListViewController: HistoryDetailDelegate {
         guard let travelItemViewModel = travelItemViewModel else { return }
         travelItemViewModel.updateHistory(id: historyId ?? UUID(), isIncome: updatedHistoryData.isIncome, title: updatedHistoryData.title, memo: updatedHistoryData.memo, date: updatedHistoryData.date, image: updatedHistoryData.image, amount: updatedHistoryData.amount, category: updatedHistoryData.category, isPrepare: updatedHistoryData.isPrepare, isCard: updatedHistoryData.isCard ?? false) { result in
             if result {
-                print("지출/예산 업데이트 성공")
+//                print("지출/예산 업데이트 성공")
             } else {
-                print("지출/예산 업데이트 실패")
+//                print("지출/예산 업데이트 실패")
             }
         }
     }

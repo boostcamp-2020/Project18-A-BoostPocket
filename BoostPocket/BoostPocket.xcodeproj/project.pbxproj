@@ -1310,7 +1310,8 @@
 			baseConfigurationReference = 9381276269F50AEF5C02E72C /* Pods-BoostPocket.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				INFOPLIST_FILE = BoostPocket/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1319,6 +1320,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.BoostPocket;
 				PRODUCT_NAME = BoostPocket;
+				PROVISIONING_PROFILE_SPECIFIER = "BoostPocket Profile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1329,7 +1331,8 @@
 			baseConfigurationReference = 57F756558017352589C6CED3 /* Pods-BoostPocket.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				INFOPLIST_FILE = BoostPocket/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1338,6 +1341,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.BoostPocket;
 				PRODUCT_NAME = BoostPocket;
+				PROVISIONING_PROFILE_SPECIFIER = "BoostPocket Profile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

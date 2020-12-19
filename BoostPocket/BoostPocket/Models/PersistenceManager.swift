@@ -66,12 +66,12 @@ class PersistenceManager: PersistenceManagable {
                 switch result {
                 case .success(let data):
                     self?.setupCountries(with: data)
-                    print("국가 생성 성공")
+//                    print("국가 생성 성공")
                     completion(true)
                     
                 case .failure(let error):
-                    print("Network Error")
-                    print(error.localizedDescription)
+//                    print("Network Error")
+//                    print(error.localizedDescription)
                     completion(false)
                 }
             }
@@ -129,7 +129,7 @@ extension PersistenceManager {
                 try context.save()
                 return true
             } catch let saveError {
-                print("saveContext 실패: \(saveError)")
+//                print("saveContext 실패: \(saveError)")
                 return false
             }
         }
@@ -214,7 +214,7 @@ extension PersistenceManager {
 
     func setupTravelInfo(travelInfo: TravelInfo, completion: @escaping (Travel?) -> Void) {
         guard let entity = NSEntityDescription.entity(forEntityName: Travel.entityName, in: self.context) else {
-            print("setupTravelInfo - Travel Entity 불러오기 실패")
+//            print("setupTravelInfo - Travel Entity 불러오기 실패")
             completion(nil)
             return
         }
@@ -225,7 +225,7 @@ extension PersistenceManager {
         fetchRequest.predicate = NSPredicate(format: "name == %@", travelInfo.countryName)
         
         guard let countries = fetch(fetchRequest) as? [Country], let fetchedCountry = countries.first else {
-            print("setupTravelInfo - 국가 \(travelInfo.countryName)을 찾지 못했습니다")
+//            print("setupTravelInfo - 국가 \(travelInfo.countryName)을 찾지 못했습니다")
             completion(nil)
             return
         }
@@ -245,7 +245,7 @@ extension PersistenceManager {
                 
                 switch result {
                 case .success(let data):
-                    print("setupTravelInfo - 새로운 환율정보 네트워크 응답 성공")
+//                    print("setupTravelInfo - 새로운 환율정보 네트워크 응답 성공")
                     let newExchangeRate = data.rates[currencyCode] ?? fetchedCountry.exchangeRate
                     let newLastUpdated = data.date.convertToDate()
                     
@@ -254,24 +254,24 @@ extension PersistenceManager {
                     if let countryName = fetchedCountry.name, let flagImage = fetchedCountry.flagImage, let currencyCode = fetchedCountry.currencyCode, let identifier = fetchedCountry.identifier {
                         self?.updateObject(updatedObjectInfo: CountryInfo(name: countryName, lastUpdated: newLastUpdated, flagImage: flagImage, exchangeRate: newExchangeRate, currencyCode: currencyCode, identifier: identifier)) { result in
                             if let _ = result {
-                                print("setupTravelInfo - 새로운 환율정보 업데이트 성공")
+//                                print("setupTravelInfo - 새로운 환율정보 업데이트 성공")
                                 completion(newTravel)
                             } else {
-                                print("setupTravelInfo - 새로운 환율정보 업데이트 실패")
+//                                print("setupTravelInfo - 새로운 환율정보 업데이트 실패")
                                 completion(newTravel)
                             }
                         }
                     }
                     
                 case .failure(let error):
-                    print("setupTravelInfo - 새로운 환율정보 네트워크 응답 실패")
+//                    print("setupTravelInfo - 새로운 환율정보 네트워크 응답 실패")
                     print(error.localizedDescription)
                     newTravel.exchangeRate = fetchedCountry.exchangeRate
                     completion(newTravel)
                 }
             }
         } else {
-            print("setupTravelInfo - 환율 정보가 최신입니다")
+//            print("setupTravelInfo - 환율 정보가 최신입니다")
             newTravel.exchangeRate = fetchedCountry.exchangeRate
             completion(newTravel)
         }
@@ -302,7 +302,7 @@ extension PersistenceManager {
             // print("fetchAll 성공")
             return fetchedResult
         } catch let fetchAllError {
-            print("fetchAll 실패: \(fetchAllError)")
+//            print("fetchAll 실패: \(fetchAllError)")
             return []
         }
     }
@@ -310,10 +310,10 @@ extension PersistenceManager {
     func fetch(_ request: NSFetchRequest<NSFetchRequestResult>) -> [Any]? {
         do {
             let fetchResult = try self.context.fetch(request)
-            print("fetch 성공")
+//            print("fetch 성공")
             return fetchResult
         } catch let fetchError {
-            print("fetch 실패: \(fetchError)")
+//            print("fetch 실패: \(fetchError)")
             return nil
         }
     }
@@ -327,7 +327,7 @@ extension PersistenceManager {
             let travels = try context.fetch(fetchRequest)
             return travels.first
         } catch let fetchError {
-            print("fetchTravel 실패: \(fetchError)")
+//            print("fetchTravel 실패: \(fetchError)")
         }
         
         return nil
@@ -342,7 +342,7 @@ extension PersistenceManager {
             let histories = try context.fetch(fetchRequest)
             return histories.first
         } catch let fetchError {
-            print("fetchHistory 실패: \(fetchError)")
+//            print("fetchHistory 실패: \(fetchError)")
         }
         
         return nil
@@ -357,7 +357,7 @@ extension PersistenceManager {
             let countries = try context.fetch(fetchRequest)
             return countries.first
         } catch let fetchError {
-            print("fetchCountry 실패: \(fetchError)")
+//            print("fetchCountry 실패: \(fetchError)")
         }
         
         return nil
@@ -464,7 +464,7 @@ extension PersistenceManager {
             let count = try self.context.count(for: request)
             return count
         } catch {
-            print(error.localizedDescription)
+//            print(error.localizedDescription)
             return nil
         }
     }
