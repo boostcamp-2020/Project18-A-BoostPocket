@@ -3,7 +3,7 @@
 
 <p align="middle">
   <a>
-    <img src="https://user-images.githubusercontent.com/65107199/99750469-cdb56900-2b23-11eb-8e9e-b34742c87cb4.png" />
+    <img src="https://user-images.githubusercontent.com/35067611/102715576-c13a5100-4319-11eb-9e60-f91bb4a8a306.png" />
   </a>
 </p>
 
@@ -34,7 +34,10 @@
 
 <br>
 
+### App Store [부스트포켓](https://apps.apple.com/us/app/부스트포켓/id1544070685)에서 최신 버전을 다운받을 수 있습니다.
 ### [위키🏠](https://github.com/boostcamp-2020/Project18-A-BoostPocket/wiki)에 오시면 더 많은 자료를 확인하실 수 있습니다.
+
+<br>
 
 ## 프로젝트 소개
 `부스트포켓`은 여행 경비 관리 앱 [트라비포켓](https://apps.apple.com/kr/app/%ED%8A%B8%EB%9D%BC%EB%B9%84%ED%8F%AC%EC%BC%93-%EC%97%AC%ED%96%89%EA%B0%80%EA%B3%84%EB%B6%80-%EC%97%AC%ED%96%89-%EA%B2%BD%EB%B9%84-%EA%B4%80%EB%A6%AC/id673659438)의 클론 프로젝트입니다. 여행 중 발생한 지출과 추가되는 예산 내역들을 빠르고 간단히 입력하고, 경비 리포트로 지출내역을 확인해보세요!
@@ -68,6 +71,9 @@
 |-|-|-|
 |[@sihyungyou](https://github.com/sihyungyou)|[@devilzcough](https://github.com/devilzcough)|[@songjucho](https://github.com/songjucho)|
 
-### [5주차 데모 영상](https://www.youtube.com/watch?v=mFzMmd6iTsQ&t=1s)  
+## 데모 영상  
+[2주차](https://youtu.be/v7ZPTcQ3dMI)  
+[3주차](https://youtu.be/s0C9SuHFOJs)  
+[4주차](https://youtu.be/gzoJWoKQhDs)  
+[5주차](https://youtu.be/SzomtpZxSHE)  
 
-### [배포링크](https://kr.object.ncloudstorage.com/boostpocket-week5/Download.html)를 통해 등록된 아이폰 디바이스에 다운로드 받을 수 있습니다👏  
