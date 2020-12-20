@@ -3,7 +3,7 @@
 
 <p align="middle">
   <a>
-    <img src="https://user-images.githubusercontent.com/65107199/99750469-cdb56900-2b23-11eb-8e9e-b34742c87cb4.png" />
+    <img src="https://user-images.githubusercontent.com/35067611/102715576-c13a5100-4319-11eb-9e60-f91bb4a8a306.png" />
   </a>
 </p>
 
@@ -71,6 +71,4 @@
 |-|-|-|
 |[@sihyungyou](https://github.com/sihyungyou)|[@devilzcough](https://github.com/devilzcough)|[@songjucho](https://github.com/songjucho)|
 
-### [5주차 데모 영상](https://www.youtube.com/watch?v=mFzMmd6iTsQ&t=1s)  
-
-### [배포링크](https://kr.object.ncloudstorage.com/boostpocket-week5/Download.html)를 통해 등록된 아이폰 디바이스에 다운로드 받을 수 있습니다👏  
+### [데모 영상](https://www.youtube.com/watch?v=mFzMmd6iTsQ&t=1s)  
